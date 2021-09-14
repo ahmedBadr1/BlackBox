@@ -1,0 +1,120 @@
+@media screen and (min-width: 320px) and (max-width: 720px) {
+    .fb-side-d {
+        display: block;
+        overflow: hidden;
+        width: 25vw;
+        z-index: 2;
+        opacity: 1;
+        pointer-events: all;
+        height: 100%;
+    }
+    .fb-side-d.shrink {
+        background-color: transparent;
+    }
+    .fb-side-d.shrink>*:not(#menu) {
+        width: 0;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .fb-side-d.shrink #menu {
+        opacity: 1;
+        pointer-events: all;
+        z-index: 3;
+        position: fixed;
+        top: 2%;
+        left: 2%;
+        transform: rotate(90deg);
+        background-color: var(--main-color);
+        border-radius: 50%;
+        line-height: 3rem;
+        text-align: center;
+        transition: var(--transition);
+    }
+    .fb-container {
+        grid-template-columns: 1fr;
+        background-color: yellow;
+    }
+    .fb-side-d .profile-inf img {
+        display: none;
+    }
+    .fb-side-d~main,
+    .fb-side-d~footer {
+        transition: var(--transition);
+        width: calc(100vw - 27vw);
+        margin-left: auto;
+    }
+    .fb-side-d.shrink~main,
+    .fb-side-d.shrink~footer {
+        width: calc(100vw - 0vw);
+    }
+    .fb-side-d.shrink .profile-inf img {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .fb-side-d {
+        display: block;
+        overflow: hidden;
+        width: 45vw;
+        z-index: 2;
+        opacity: 1;
+        pointer-events: all;
+    }
+    .fb-container {
+        grid-template-columns: 1fr;
+        background-color: yellow;
+    }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1140px) {
+    .fb-side-d {
+        display: block;
+        overflow: hidden;
+        width: 25vw;
+        z-index: 2;
+        opacity: 1;
+        pointer-events: all;
+    }
+    .fb-side-d.shrink {
+        width: 9vw;
+    }
+    .fb-container {
+        grid-template-columns: 1fr 1fr;
+        background-color: yellow;
+    }
+    .fb-side-d~main,
+    .fb-side-d~footer {
+        transition: var(--transition);
+        width: calc(100vw - 26vw);
+        margin-left: auto;
+    }
+    .fb-side-d.shrink~main,
+    .fb-side-d.shrink~footer {
+        width: calc(100vw - 10vw);
+    }
+}
+
+@media screen and (min-width: 1141px) and (max-width: 1440px) {
+    .fb-side-d {
+        width: 18vw;
+    }
+    .fb-side-d.shrink {
+        width: 6vw;
+    }
+    .fb-container {
+        grid-template-columns: 1fr 1fr 1fr;
+        background-color: yellow;
+    }
+    .fb-side-d~main,
+    .fb-side-d~footer {
+        transition: var(--transition);
+        width: calc(100vw - 19vw);
+        margin-left: auto;
+    }
+    .fb-side-d.shrink~main,
+    .fb-side-d.shrink~footer {
+        width: calc(100vw - 7vw);
+    }
+}

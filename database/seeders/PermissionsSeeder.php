@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class PermissionsSeeder extends Seeder
 {
@@ -34,10 +35,10 @@ class PermissionsSeeder extends Seeder
             'user-edit',
             'user-create',
             'user-delete',
-            'device-show',
-            'device-edit',
-            'device-create',
-            'device-delete',
+            'area-show',
+            'area-edit',
+            'area-create',
+            'area-delete',
         ];
         foreach ($this->permissions as $permission){
             Permission::findOrCreate($permission);
@@ -50,26 +51,21 @@ class PermissionsSeeder extends Seeder
         $role1 = Role::findOrCreate('editor');
         $role1->givePermissionTo('role-show');
         $role1->givePermissionTo('user-show');
+        $role1->givePermissionTo('area-show');
         $role1->givePermissionTo('dashboard');
 
         $role2 = Role::findOrCreate('admin');
-        $role3->givePermissionTo('role-show');
-        $role3->givePermissionTo('role-edit');
+        $role2->givePermissionTo('role-show');
+        $role2->givePermissionTo('role-edit');
+        $role2->givePermissionTo('area-show');
+        $role2->givePermissionTo('area-create');
         $role2->givePermissionTo('user-create');
         $role2->givePermissionTo('user-show');
         $role2->givePermissionTo('dashboard');
 
         $role3 = Role::findOrCreate('Feedback');
         // gets all permissions via Gate::before rule; see AuthServiceProvider
-        $role3->givePermissionTo('role-show');
-        $role3->givePermissionTo('role-edit');
-        $role3->givePermissionTo('role-create');
-        $role3->givePermissionTo('role-delete');
-        $role3->givePermissionTo('user-create');
-        $role3->givePermissionTo('user-show');
-        $role3->givePermissionTo('user-edit');
-        $role3->givePermissionTo('user-delete');
-        $role3->givePermissionTo('dashboard');
+
 
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
@@ -77,19 +73,21 @@ class PermissionsSeeder extends Seeder
 
         $password = Hash::make('client@bagyexpress.com');
         $user = \App\Models\User::factory()->create([
-            'name' => 'editor',
+            'name' => 'client',
             'email' => 'client@bagyexpress.com',
             'phone' => '01100068386',
+            'hearAboutUs' => 'system',
             'password'=>$password,
-            'role' => $role1
+            'role' => $role0
         ]);
-        $user->assignRole($role1);
+        $user->assignRole($role0);
 
         $password = Hash::make('editor@bagyexpress.com');
         $user = \App\Models\User::factory()->create([
             'name' => 'editor',
             'email' => 'editor@easy.com',
             'phone' => '01100068386',
+            'hearAboutUs' => 'system',
             'password'=>$password,
             'role' => $role1
         ]);
@@ -100,6 +98,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'kimo',
             'email' => 'kimo@bagyexpress.com',
             'phone' => '01090007769',
+            'hearAboutUs' => 'system',
             'password'=>$password,
             'role' => $role2
         ]);
@@ -110,6 +109,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@bagyexpress.com',
             'phone' => '01098281638',
+            'hearAboutUs' => 'system',
             'password'=>$password,
             'role' => $role3
         ]);

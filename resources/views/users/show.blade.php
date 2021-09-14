@@ -18,6 +18,10 @@
                 <p><b>{{$user->email}}</b></p> <hr>
                 <label>User Phone</label>
                 <p><b>{{$user->phone}}</b></p> <hr>
+                <label>User State</label>
+                <p><b>{{$user->state}}</b></p> <hr>
+                <label>User Area</label>
+                <p><b>{{$user->area}}</b></p> <hr>
                 <label>User Role</label>
                 <p><b>@if (isset($roles))
                         @foreach($roles as $role)
@@ -27,8 +31,6 @@
                           {{$user->role  }}
                         @endif
                     </b></p> <hr>
-                <label>Count Of Devices Created By {{$user->name}}</label>
-                <p><b>{{$user->devices()->count()}}</b></p> <hr>
                 <div class="d-flex ">
                     @can('user-edit')
                     <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info o">edit</a>
@@ -41,7 +43,6 @@
                     </form>
                         @endcan
                 </div>
-
 
             </div>
         </div>

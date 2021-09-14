@@ -40,6 +40,51 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('names.phone') }}</label>
+                            <div class="col-md-6">
+                                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone">
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="state" class="col-md-4 col-form-label text-md-right">{{__('state')}}</label>
+                            <div class="col-md-6">
+                                <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
+                                    <option value="" selected>{{__('names.select state')}}</option>
+                                    @foreach(\App\Models\Area::$states as $state)
+                                        <option value="{{$state}}">{{$state}}</option>
+                                    @endforeach
+                                </select>
+                                @error('state')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="hearedAboutUs" class="col-md-4 col-form-label text-md-right">{{ __('names.hearedAboutUs') }}</label>
+                            <div class="col-md-6">
+                                <select name="hearedAboutUs" id="hearedAboutUs" class="form-control @error('hearedAboutUs') is-invalid @enderror">
+                                    @foreach(\App\Models\User::$hearedAboutUs as $way)
+                                        <option value="{{$way}}">{{$way}}</option>
+                                    @endforeach
+                                </select>
+                                @error('hearedAboutUs')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

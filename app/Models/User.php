@@ -21,6 +21,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'state',
+        'area',
+        'hearAboutUs',
         'password',
     ];
 
@@ -42,4 +46,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public static array $hearedAboutUs = ['google','facebook','event','from a friend'];
 }

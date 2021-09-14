@@ -25,6 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // Implicitly grant "feedback" role all permission checks using can()
+        Gate::before(function ($user, $ability) {
+            if ($user->hasRole('Feedback')) {
+                return true;
+            }
+        });
+
         //
     }
 }

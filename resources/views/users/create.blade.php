@@ -57,6 +57,23 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('state')}}</label>
+                        <div class="col-md-6">
+                            <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
+                                @foreach($states as $state)
+                                    <option value="{{$state}}">{{$state}}</option>
+                                @endforeach
+                            </select>
+                            @error('state')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
 

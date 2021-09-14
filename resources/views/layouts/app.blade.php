@@ -10,7 +10,7 @@
 
 
 <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -35,9 +35,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="/about" class="nav-link">about</a></li>
-                    <li class="nav-item "><a href="/work" class="nav-link">Our Work</a></li>
-                    <li class="nav-item "><a href="/contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item "><a href="/track" class="nav-link">Track Order</a></li>
+
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -57,9 +56,9 @@
                             </li>
                         @endif
                     @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('devices.all')}}">Devices</a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link" href="{{route('devices.all')}}">Devices</a>--}}
+{{--                        </li>--}}
                         @can('dashboard')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
@@ -105,5 +104,6 @@
 </div>
 
 @yield('script')
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
