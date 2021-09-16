@@ -47,7 +47,7 @@ class UserController extends Controller
     {
         //
         $states = Area::$states;
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::whereNotIn('name', ['client'])->pluck('name');
         return view('users.create',compact('roles','states'));
     }
 

@@ -25,6 +25,8 @@ return [
     'dashboard' => 'Dashboard',
     'role' => 'Role',
     'roles' => 'Roles',
+    'permission' => 'Permission',
+    'permissions' => 'Permissions',
     'client' => 'Client',
     'clients' => 'Clients',
     'count' => 'count',
@@ -35,13 +37,16 @@ return [
     'status' => 'Status',
 
     'branch' => 'Branch',
-    'branches' => 'Branchs',
+    'branches' => 'Branches',
     'invocie' => 'invocie',
     'invocies' => 'invocies',
     'accounting' => 'Accounting',
     'jop' => 'Jop',
     'jops' => 'Jops',
     'salary' => 'Salary',
+
+    'new' => 'New',
+    'all' => 'All',
 
 
 

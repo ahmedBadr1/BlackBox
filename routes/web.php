@@ -40,7 +40,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::post('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissionsCreate']);
         Route::delete('permission/delete/{id}',[\App\Http\Controllers\RolesController::class,'permissionsDelete'])->name('permission.delete');
 
-         Route::post('areas/add-zone',[\App\Http\Controllers\AreaController::class,'addzone'])->name('areas.add-zone');
+        Route::post('areas/add-zone',[\App\Http\Controllers\AreaController::class,'addzone'])->name('areas.add-zone');
+        Route::get('branches/assign/{id}',[\App\Http\Controllers\BranchController::class,'assign'])->name('branches.assign');
+        Route::post('branches/assign/{id}',[\App\Http\Controllers\BranchController::class,'assignGo'])->name('branches.assign');
 
         Route::resource('users',\App\Http\Controllers\UserController::class);
         Route::resource('roles',\App\Http\Controllers\RolesController::class);

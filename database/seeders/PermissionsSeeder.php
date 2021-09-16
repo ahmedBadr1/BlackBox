@@ -39,6 +39,11 @@ class PermissionsSeeder extends Seeder
             'area-edit',
             'area-create',
             'area-delete',
+            'branch-show',
+            'branch-edit',
+            'branch-create',
+            'branch-delete',
+            'branch-assign',
         ];
         foreach ($this->permissions as $permission){
             Permission::findOrCreate($permission);
@@ -54,7 +59,7 @@ class PermissionsSeeder extends Seeder
         $role1->givePermissionTo('area-show');
         $role1->givePermissionTo('dashboard');
 
-        $role2 = Role::findOrCreate('admin');
+        $role2 = Role::findOrCreate('manager');
         $role2->givePermissionTo('role-show');
         $role2->givePermissionTo('role-edit');
         $role2->givePermissionTo('area-show');

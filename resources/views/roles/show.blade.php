@@ -4,18 +4,18 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('roles.index')}}">Manage Roles</a>
-                <h1 class="text-center">Show Role {{$role->name}}</h1>
+                <a href="{{route('roles.index')}}">{{__("names.manage")}} {{__("names.roles")}}</a>
+                <h1 class="text-center"> {{__("names.role")}} {{$role->name}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
-                <label>Role ID</label>
+                <label>{{__("names.role")}} {{__("auth.id")}}</label>
                 <p><b>{{$role->id}}</b></p> <hr>
-                <label>Role Name</label>
+                <label>{{__("names.role")}} {{__("auth.name")}}</label>
                 <p><b>{{$role->name}}</b></p> <hr>
-                <label>Role Permissions</label>
+                <label>{{__("names.role")}} {{__("names.permissions")}}</label>
                 <p>@foreach($rolePermissions as $permission)
                         <span class="badge badge-success">{{$permission->name}}</span>
 
@@ -26,13 +26,13 @@
 
                 <div class="d-flex ">
                     @can('role-edit')
-                    <a href="{{ route('roles.edit',$role->id) }}" class="btn btn-info o">edit</a>
+                    <a href="{{ route('roles.edit',$role->id) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
                     @endcan
                         @can('role-delete')
                     <form class="ml-5" action="{{route('roles.destroy',$role->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <input type="submit" class="btn btn-danger" value="delete">
+                        <input type="submit" class="btn btn-danger" value="{{__("auth.delete")}}">
                     </form>
                         @endcan
                 </div>

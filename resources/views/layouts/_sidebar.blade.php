@@ -96,7 +96,7 @@
                 <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a class="collapse-item " href="/charts.html"><span>{{__('names.branches')}}</span></a>
+                <a class="collapse-item " href="{{route('branches.index')}}"><i class="fa fa-map-marked-alt"></i><span>{{__('names.branches')}}</span></a>
                 <a class="collapse-item " href="/charts.html"><span>{{__('names.jops')}}</span></a>
             </div>
         </li>

@@ -4,9 +4,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h2 class="text-center">All Permissions</h2>
+                <h2 class="text-center">{{__('names.all')}} {{__('names.permissions')}}</h2>
 
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#permissionModal">Create Field</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#permissionModal">{{__('auth.create')}} {{__('names.permission')}}</button>
                 @foreach($permissions as $permission)
                     <div class="d-flex w-25">
                         <p class="">{{$permission->name}}</p>
@@ -30,7 +30,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create new Permissions</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">{{__('auth.create')}} {{__('names.new')}} {{__('names.permissions')}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,7 +40,7 @@
                         @csrf
 
                         <div class="form-group" >
-                            <label for="name">Permission Name</label>
+                            <label for="name">{{__('names.permission')}} {{__('auth.name')}}</label>
                             <input type="text" name="name" class="form-control" id="fieldName">
                             <small id="formFieldName"></small>
                         </div>
