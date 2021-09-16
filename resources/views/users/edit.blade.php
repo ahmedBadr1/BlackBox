@@ -56,14 +56,35 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
+
+                        <div class="col-md-6">
+                            <select name="state" class="form-select" aria-label="Default select example" >
+                                @foreach($states as $state)
+                                    <option value="{{$state}}" @if($state=== $user->state)
+                                        {{ __('selected') }}
+                                        @endif>{{$state}}</option>
+                                @endforeach
+
+                            </select>
+                            @error('state')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="form-group row">
-                        <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
+                        <label for="role" class="col-md-4 col-form-label text-md-right">{{__('names.role')}} {{ $userRole  }}</label>
 
                         <div class="col-md-6">
                             <select name="role" class="form-select" aria-label="Default select example" >
                             @foreach($roles as $role)
-                                <option value="{{$role}}" @if(isset($userRole[0])&&$role === $userRole[0]){{ __('selected') }}@elseif($role=== $user->role){{ __('selected') }} @endif>{{$role}}</option>
+                                <option value="{{$role}}" @if($role=== $userRole  )
+                                    {{ __('selected') }}
+                                    @endif>{{$role}}</option>
                              @endforeach
                             </select>
                             @error('role')

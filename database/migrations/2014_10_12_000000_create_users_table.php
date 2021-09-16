@@ -19,9 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->string('state')->nullable();
-            $table->string('area')->nullable();
-            $table->string('hearAboutUs');
-            $table->tinyInteger('role')->default(1);
+            $table->string('hearAboutUs')->default('none');
+            //$table->foreignIdFor(\Spatie\Permission\Models\Role::class)->default(1);
+           // $table->tinyInteger('role')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

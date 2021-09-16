@@ -12,14 +12,14 @@
                     </div>
                 @endif
             <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#zoneModal">Create Zone</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#zoneModal">{{__('auth.create')}} Zone</button>
                 <form method="POST" action="{{ route('areas.store') }}">
                     @csrf
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">Area Name</label>
 
                         <div class="col-md-6">
-                            <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
+                            <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" >
 
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -33,7 +33,7 @@
                         <label for="price" class="col-md-4 col-form-label text-md-right">Area price</label>
 
                         <div class="col-md-6">
-                            <input  type="number" class="form-control @error('name') is-invalid @enderror" name="price" value="{{ old('price') }}"  autocomplete="price" autofocus>
+                            <input  type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}"  >
 
                             @error('price')
                             <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
                         <label for="state" class="col-md-4 col-form-label text-md-right">{{__('state')}}</label>
                         <div class="col-md-6">
                             <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
-                                <option value="" selected>{{__('names.select-state')}}</option>
+                                <option value="" selected>{{__('auth.select state')}}</option>
                                 @foreach(\App\Models\Area::$states as $state)
                                     <option value="{{$state}}">{{$state}}</option>
                                 @endforeach
@@ -139,23 +139,26 @@
 @section('script')
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{--    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
     <script>
-        $('.js-example-basic-multiple').select2();
+      //  $('.js-example-basic-multiple').select2();
         $("#zoneForm").submit(function (e){
-            e.preventDefault();
+            console.log('heloo');
+            event.preventDefault();
             let _token = $('input[name=_token]').val();
             let name = $('#zoneName').val();
-            let type = $('#zoneState').val();
+            let state = $('#zoneState').val();
+            console.log(name);
             $.ajax({
                 url: "{{route('areas.add-zone')}}",
                 type:'POST',
                 data: {
                     _token: _token,
                     name: name,
-                    type: type
+                    state: state
                 },
                 success:function (response){
+                    console.log(response);
                     if(response){
                         $("#zonesSelect").append(`<option  value="${response.name}">${response.name}</option>`);
                         $("#zoneModal").modal('hide');

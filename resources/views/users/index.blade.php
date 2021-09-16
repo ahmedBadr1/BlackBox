@@ -38,7 +38,7 @@
 
                             <td>{{$user->email}} </td>
                             <td>{{$user->phone}} </td>
-                            <td><a href="{{ route('roles.show',$user->role) }}">{{ $user->getRoleNames() !== '[]' ? trim($user->getRoleNames(),'[""]') : "customer" }}</a></td>
+                            <td><a href="{{ route('roles.show',  $user->roles[0]->id) }}">{{$user->getRoleNames()[0]}}</a></td>
                             <td>{{$user->created_at}}</td>
                             @can('user-edit')
                                 <td><a href="{{ route('users.edit',$user->id) }}" class="btn btn-info">edit</a></td>

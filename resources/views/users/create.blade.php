@@ -17,7 +17,7 @@
                     @csrf
 
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('auth.name') }}</label>
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('auth.email') }}</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="phone" class="col-md-4 col-form-label text-md-right">phone number</label>
+                        <label for="phone" class="col-md-4 col-form-label text-md-right">{{__('auth.phone')}}</label>
 
                         <div class="col-md-6">
                             <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone">
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('state')}}</label>
+                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
                         <div class="col-md-6">
                             <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
                                 @foreach($states as $state)

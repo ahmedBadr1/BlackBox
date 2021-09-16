@@ -114,8 +114,9 @@ class RolesController extends Controller
         $role->name =$request->input('name');
         $role->save();
         $role->syncPermissions($request->input('permissions'));
-
-        return redirect()->route('roles.index')->with('success','Role Updated Successfully');
+      //  session()->flash('success','Role Updated Successfully');
+        notify()->success($role->name .'Role Updated Successfully','Role Updated');
+        return redirect()->route('roles.index');
     }
 
     /**

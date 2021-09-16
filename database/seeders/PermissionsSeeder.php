@@ -76,20 +76,22 @@ class PermissionsSeeder extends Seeder
             'name' => 'client',
             'email' => 'client@bagyexpress.com',
             'phone' => '01100068386',
+            'state' => 'القاهرة',
             'hearAboutUs' => 'system',
             'password'=>$password,
-            'role' => $role0
+
         ]);
         $user->assignRole($role0);
 
         $password = Hash::make('editor@bagyexpress.com');
         $user = \App\Models\User::factory()->create([
             'name' => 'editor',
-            'email' => 'editor@easy.com',
+            'email' => 'editor@bagyexpress.com',
             'phone' => '01100068386',
+            'state' => 'القاهرة',
             'hearAboutUs' => 'system',
             'password'=>$password,
-            'role' => $role1
+
         ]);
         $user->assignRole($role1);
 
@@ -98,9 +100,10 @@ class PermissionsSeeder extends Seeder
             'name' => 'kimo',
             'email' => 'kimo@bagyexpress.com',
             'phone' => '01090007769',
+            'state' => 'القاهرة',
             'hearAboutUs' => 'system',
             'password'=>$password,
-            'role' => $role2
+
         ]);
         $user->assignRole($role2);
         $password = Hash::make('feedback');
@@ -109,9 +112,10 @@ class PermissionsSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@bagyexpress.com',
             'phone' => '01098281638',
+            'state' => 'القاهرة',
             'hearAboutUs' => 'system',
             'password'=>$password,
-            'role' => $role3
+
         ]);
         $user->assignRole($role3);
 

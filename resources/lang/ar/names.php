@@ -12,9 +12,37 @@ return [
     | you want to customize your views to better match your application.
     |
     */
+    'ar'=> 'العربية',
+    'en'=>'English',
+    'track' => 'تتبع شحنتك',
+    'user'=> 'المستخدم',
+    'users'=> 'المستخدمين',
+    'profile'=>'الملف الشخصي',
+    'order' => 'طلب',
+    'orders' => 'طلبات',
+    'area' => 'منطقة',
+    'areas' => 'مناطق',
+    'dashboard' => 'الرئيسية',
+    'role' => 'صلاحية',
+    'roles' => 'الصلاحيات',
+    'client' => 'العميل',
+    'clients' => 'العملاء',
+    'count' => 'عدد',
+    'manage' => 'إدارة',
+    'task'=> 'مهمة',
+    'tasks' => 'المهمات',
+    'search' => 'إبحث',
+    'status' => 'حالة',
 
-    'hearedAboutUs' => 'وصلت لينا إزاي',
-    'phone' => 'رقم الموبايل',
-    'select state' => 'إختار محافظة',
+    'branch' => 'فرع',
+    'branches' => 'الفروع',
+    'invocie' => 'فاتورة',
+    'invocies' => 'فواتير',
+    'accounting' => 'الحسابات',
+    'jop' => 'وظيفة',
+    'jops' => 'الوظائف',
+    'salary' => 'المرتب',
+    'salaries' => 'المرتبات',
+
 
 ];

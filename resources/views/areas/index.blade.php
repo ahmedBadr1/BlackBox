@@ -24,14 +24,14 @@
         <tbody>
         @foreach($areas as $area)
             <tr>
-                <td>{{$role->id}} </td>
+                <td>{{$area->id}} </td>
                 <td> <a href="{{ route('areas.show',$area->id) }}"> {{$area->name}} </a></td>
                 <td>{{$area->price}}</td>
                 <td>{{$area->zone}}</td>
                 <td>{{$area->state}}</td>
 
                 @can('area-edit')
-                    <td><a href="{{ route('roles.edit',$area->id) }}" class="btn btn-info">edit</a></td>
+                    <td><a href="{{ route('areas.edit',$area->id) }}" class="btn btn-info">edit</a></td>
                 @endcan
                 @can('area-delete')
                     <td>

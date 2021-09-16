@@ -20,8 +20,6 @@
                 <p><b>{{$user->phone}}</b></p> <hr>
                 <label>User State</label>
                 <p><b>{{$user->state}}</b></p> <hr>
-                <label>User Area</label>
-                <p><b>{{$user->area}}</b></p> <hr>
                 <label>User Role</label>
                 <p><b>@if (isset($roles))
                         @foreach($roles as $role)

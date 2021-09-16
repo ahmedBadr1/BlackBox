@@ -29,5 +29,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+        'client_id' => '828170244563-bji5f1n1ivrrp64ur9karocp3crau77t.apps.googleusercontent.com',
+        'client_secret' => 'LErIoY0BWYvGuWSpwRORebFB',
+        'redirect' => 'http://www.bagyexpress.com',
+    ],
 
 ];

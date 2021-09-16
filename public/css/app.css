@@ -16301,7 +16301,6 @@ body {
 .fb-side-d {
   position: fixed;
   top: 0;
-  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16339,6 +16338,10 @@ body {
   line-height: 50px;
   transform: translateX(-50%);
   cursor: pointer;
+  display: none;
+}
+.fb-side-d[dir=rtl] #menu {
+  right: 70%;
 }
 .fb-side-d.shrink #menu {
   left: 50%;
@@ -16520,6 +16523,14 @@ body {
   cursor: pointer;
   transition: all 0.5s ease;
 }
+.fb-side-d[dir=rtl] #logout {
+  right: 95%;
+  transform: scaleX(-1);
+}
+.fb-side-d[dir=rtl] #logout {
+  right: 95%;
+  transform: scaleX(-1);
+}
 .fb-side-d.shrink .profile-inf #logout {
   position: absolute;
   left: 20%;
@@ -16531,6 +16542,26 @@ body {
   transition: all 0.5s ease;
   width: calc(100vw - 13vw);
   margin-left: auto;
+}
+.fb-side-d[dir=rtl] {
+  right: 0;
+}
+.fb-side-d[dir=rtl] ~ main, .fb-side-d[dir=rtl] ~ footer {
+  transition: all 0.5s ease;
+  width: calc(100vw - 13vw);
+  margin: 0px auto 0px 0px;
+}
+.fb-side-d[dir=rtl] .fa-search {
+  left: 0;
+}
+.fb-side-d[dir=rtl] .right-icon {
+  margin: 0px auto 0px 0px;
+}
+.fb-side-d[dir=rtl] ul li > input {
+  padding: 0px 25px 0px 0px;
+}
+.fb-side-d[dir=ltr] {
+  left: 0;
 }
 
 /***************** finish side bar */
@@ -16560,6 +16591,71 @@ body {
 }
 .sidebar-link[aria-expanded=true] .right-icon .fa-chevron-down {
   transform: rotate(-180deg);
+}
+
+.fb-lang {
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+  margin: auto;
+}
+
+.fb-lang .selected {
+  display: flex;
+  justify-content: space-between;
+  line-height: 2;
+  cursor: pointer;
+}
+
+.fb-lang .selected::before {
+  content: "";
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.fb-lang .selected.en::before {
+  background-image: url(https://www.countryflags.io/us/flat/32.png);
+}
+
+.fb-lang .selected.ar::before {
+  background-image: url(https://www.countryflags.io/ae/flat/32.png);
+}
+
+.fb-lang ul {
+  margin: 0;
+  padding: 0;
+  display: none;
+  background-color: #fff;
+  border: 1px solid #f8f8f8;
+  position: absolute;
+  top: 45px;
+  right: 0px;
+  width: 125px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.fb-lang ul li {
+  list-style: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fb-lang ul li:hover {
+  background-color: #f2f2f2;
+}
+
+.fb-lang .en:before {
+  background-image: url(https://www.countryflags.io/us/flat/32.png);
+}
+
+.fb-lang .ar:before {
+  background-image: url(https://www.countryflags.io/eg/flat/32.png);
 }
 
 @media screen and (min-width: 320px) and (max-width: 720px) {
@@ -16626,7 +16722,7 @@ body {
 }
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .fb-side-d {
-    display: block;
+    display: none;
     overflow: hidden;
     width: 45vw;
     z-index: 2;
@@ -16635,8 +16731,7 @@ body {
   }
 
   .fb-container {
-    grid-template-columns: 1fr;
-    background-color: yellow;
+    background-color: gray;
   }
 }
 @media screen and (min-width: 721px) and (max-width: 1140px) {
@@ -16654,7 +16749,6 @@ body {
   }
 
   .fb-container {
-    grid-template-columns: 1fr 1fr;
     background-color: yellow;
   }
 

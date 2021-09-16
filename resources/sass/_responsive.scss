@@ -55,7 +55,7 @@
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
     .fb-side-d {
-        display: block;
+        display: none;
         overflow: hidden;
         width: 45vw;
         z-index: 2;
@@ -63,8 +63,7 @@
         pointer-events: all;
     }
     .fb-container {
-        grid-template-columns: 1fr;
-        background-color: yellow;
+        background-color: gray;
     }
 }
 
@@ -81,8 +80,8 @@
         width: 9vw;
     }
     .fb-container {
-        grid-template-columns: 1fr 1fr;
         background-color: yellow;
+
     }
     .fb-side-d~main,
     .fb-side-d~footer {

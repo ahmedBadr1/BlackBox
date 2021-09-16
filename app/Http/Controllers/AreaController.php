@@ -14,9 +14,10 @@ class AreaController extends Controller
         $this->middleware('permission:area-show');
     }
 
-    public function addfield(Request $request)
+    public function addzone(Request $request)
     {
         //
+        dd($request);
         $this->validate($request,[
             'name'=>'required|unique:zones,name',
             'state'=>'required'
@@ -61,22 +62,35 @@ class AreaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return
      */
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'name'=>'required|unique:areas,name',
+            'price'=>'required',
+            'zone' => '',
+            'state' => 'required'
+        ]);
+        $input = $request->all();
+
+        Area::create($input);
+
+        return redirect()->route('areas.index')->with('success','Area Created Successfully');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return
      */
     public function show($id)
     {
         //
+        $area = Area::findOrFail($id);
+        return view('areas.show',compact('area'));
     }
 
     /**
@@ -88,6 +102,9 @@ class AreaController extends Controller
     public function edit($id)
     {
         //
+        $zones = [];
+        $area = Area::findOrFail($id);
+        return view('areas.edit',compact('area','zones'));
     }
 
     /**
@@ -100,6 +117,17 @@ class AreaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+            'name'=>'required',
+            'price'=>'required',
+            'zone' => '',
+            'state' => 'required'
+        ]);
+        $input = $request->all();
+        $area = Area::find($id);
+        $area->update($input);
+
+        return redirect()->route('areas.index')->with('success','Area Updated Successfully');
     }
 
     /**
@@ -111,5 +139,9 @@ class AreaController extends Controller
     public function destroy($id)
     {
         //
+        $area = Area::find($id);
+        $area->delete();
+        notify()->success('Area Deleted Successfully','Area Deleted');
+        return redirect()->route('areas.index');
     }
 }

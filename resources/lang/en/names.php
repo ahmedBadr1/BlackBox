@@ -12,8 +12,37 @@ return [
     | you want to customize your views to better match your application.
     |
     */
+    'ar'=> 'العربية',
+    'en'=>'English',
+    'track' => 'Track Order',
+    'user'=> 'User',
+    'users'=> 'Users',
+    'profile'=>'Profile',
+    'order' => 'Order',
+    'orders' => 'Orders',
+    'area' => 'Area',
+    'areas' => 'Areas',
+    'dashboard' => 'Dashboard',
+    'role' => 'Role',
+    'roles' => 'Roles',
+    'client' => 'Client',
+    'clients' => 'Clients',
+    'count' => 'count',
+    'manage' => 'manage',
+    'task'=> 'Task',
+    'tasks' => 'Tasks',
+    'search' => 'Search',
+    'status' => 'Status',
 
-    'hearedAboutUs' => 'How did you hear about us?',
-    'phone' => 'Phone Number',
-    'select state' => 'Select Your State',
+    'branch' => 'Branch',
+    'branches' => 'Branchs',
+    'invocie' => 'invocie',
+    'invocies' => 'invocies',
+    'accounting' => 'Accounting',
+    'jop' => 'Jop',
+    'jops' => 'Jops',
+    'salary' => 'Salary',
+
+
+
 ];

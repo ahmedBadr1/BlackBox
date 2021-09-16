@@ -67,10 +67,12 @@ class UserController extends Controller
             'password'=> 'required',
 
         ]);
+
         $input = $request->all();
+       // dd($input['role']);
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $user->assignRole($request->input('role'));
+        $user->assignRole($input['role']);
         return redirect()->route('users.index')->with('success','User Created Successfully');
     }
 
@@ -103,11 +105,15 @@ class UserController extends Controller
     public function edit(int $id)
     {
         //
-        $user = User::findOrFail($id);
-        $roles =Role::pluck('name')->all();
-        $userRole = $user->roles->pluck('name')->all();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        $states = Area::$states;
+        $user = User::findOrFail($id);
+        //dd($user->roles);
+        $roles = Role::whereNotIn('name', ['client'])->pluck('name')->all();
+
+        $userRole = $user->roles[0]->name;
+
+        return view('users.edit',compact('user','roles','userRole','states'));
     }
 
     /**
@@ -124,14 +130,21 @@ class UserController extends Controller
             'email'=> 'required|email',
             'role'=>'required'
         ]);
+
         $input = $request->all();
+        //dd($input);
         $user =  User::findOrFail($id);
+        $role =$user->roles[0];
+        $user->removeRole($role);
+        $user->assignRole($input['role']);
         $user->update($input);
 
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-        $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
+//        DB::table('model_has_roles')->where('model_id',$id)->delete();
+//        $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
+//
+//        DB::table('users')->where('id',$id)->update(['role'=>$roleId]);
 
-        DB::table('users')->where('id',$id)->update(['role'=>$roleId]);
+
         $user->assignRole($request->input('role'));
         return redirect()->route('users.index')->with('success','User Updated Successfully');
     }

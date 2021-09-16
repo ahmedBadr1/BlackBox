@@ -8,7 +8,7 @@ body {
 .fb-side-d {
     position: fixed;
     top: 0;
-    left: 0;
+    //left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,6 +49,11 @@ body {
         line-height: 50px;
         transform: translateX(-50%);
         cursor: pointer;
+
+        display: none;
+    }
+    &[dir="rtl"]  #menu{
+        right:  70%;
     }
 
     &.shrink #menu {
@@ -95,7 +100,6 @@ body {
                 z-index: 1;
                 cursor: pointer;
             }
-
             a {
                 color: $light;
                 margin-right: auto;
@@ -109,6 +113,7 @@ body {
             padding-left: 10px;
             }
         }
+
         .nav-search{
             height: 50px;
         }
@@ -251,7 +256,7 @@ body {
             }
         }
 
-        #logout {
+        #logout{
             position: absolute;
             left: 80%;
             color: $mid-light;
@@ -261,8 +266,16 @@ body {
             cursor: pointer;
             transition: $transition;
         }
-    }
 
+    }
+    &[dir=rtl] #logout{
+        right: 95%;
+        transform: scaleX(-1);
+    }
+    &[dir=rtl] #logout{
+        right: 95%;
+        transform: scaleX(-1);
+    }
     &.shrink {
         .profile-inf #logout {
             position: absolute;
@@ -283,7 +296,33 @@ body {
             margin-left: auto;
         }
     }
+    &[dir=rtl]{
+        ~ {
+            main, footer {
+                transition: $transition;
+                width: calc(100vw - 13vw);
+                margin: 0px auto 0px 0px;
+            }
+        }
+        .fa-search{
+            left: 0;
+        }
+        .right-icon {
+            margin: 0px auto 0px 0px;
+        }
+        ul li >input {
+            padding:0px 25px 0px 0px;
+        }
+            right: 0;
+    }
+    &[dir=ltr] {
+        left: 0;
+    }
+
+
 }
+
+
 
 /***************** finish side bar */
 
@@ -311,8 +350,78 @@ body {
             transition: $transition;
         }
     }
+
     &[aria-expanded="true"] .right-icon .fa-chevron-down{
         transform: rotate(-180deg);
     }
 }
+
+///////////////////////////
+
+.fb-lang {
+    width: 100px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    margin: auto;
+}
+
+.fb-lang .selected {
+    display: flex;
+    justify-content: space-between;
+    line-height: 2;
+    cursor: pointer;
+}
+
+.fb-lang .selected::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.fb-lang .selected.en::before {
+    background-image: url(https://www.countryflags.io/us/flat/32.png);
+}
+
+.fb-lang .selected.ar::before {
+    background-image: url(https://www.countryflags.io/ae/flat/32.png);
+}
+
+.fb-lang ul {
+    margin: 0;
+    padding: 0;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #f8f8f8;
+    position: absolute;
+    top: 45px;
+    right: 0px;
+    width: 125px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.fb-lang ul li {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fb-lang ul li:hover {
+    background-color: #f2f2f2;
+}
+
+.fb-lang .en:before {
+    background-image: url(https://www.countryflags.io/us/flat/32.png);
+}
+
+.fb-lang .ar:before {
+    background-image: url(https://www.countryflags.io/eg/flat/32.png);
+}
+
+
 

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'welcome' => 'welcome to all clients',
+    'welcome' => 'welcome',
     'start' => 'start with Bagy now',
 
 ];

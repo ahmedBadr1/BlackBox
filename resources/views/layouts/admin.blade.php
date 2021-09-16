@@ -1,5 +1,9 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ app()->getLocale()}}"
+@if(app()->getLocale() == "ar")
+    dir="rtl"
+    @endif
+>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +15,7 @@
 
 <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    @notifyCss
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -22,11 +26,20 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
 <body style="min-height:100vh;">
-<div id="app" class="container-fluid">
+<div id="app" class="">
 
 
     @include('layouts._sidebar')
     <main class="fb-container">
+        <ul>
+            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                <li>
+                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        {{ $properties['native'] }}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -39,9 +52,11 @@
 </div>
 
 </div>
+
 <footer class=" fb-footer">
     <p >copyright &#169 Feedback 2021 <small>powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}</small></p>
 </footer>
+@include('partials._messages')
 <script>
     let menu = document.getElementById('menu');
     let logout = document.getElementById('logout');
@@ -63,5 +78,7 @@
     logout.addEventListener('click', () => { toggle() });
 </script>
 @yield('script')
+<x:notify-messages />
+@notifyJs
 </body>
 </html>
