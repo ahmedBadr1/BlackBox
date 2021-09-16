@@ -44,6 +44,8 @@ class PermissionsSeeder extends Seeder
             'branch-create',
             'branch-delete',
             'branch-assign',
+            'order-show',
+            'order-track',
         ];
         foreach ($this->permissions as $permission){
             Permission::findOrCreate($permission);
@@ -84,6 +86,7 @@ class PermissionsSeeder extends Seeder
             'state' => 'القاهرة',
             'hearAboutUs' => 'system',
             'password'=>$password,
+            'is_client' => true,
 
         ]);
         $user->assignRole($role0);
@@ -114,7 +117,7 @@ class PermissionsSeeder extends Seeder
         $password = Hash::make('feedback');
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'admin',
+            'name' => 'feedback',
             'email' => 'admin@bagyexpress.com',
             'phone' => '01098281638',
             'state' => 'القاهرة',

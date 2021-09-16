@@ -28,8 +28,12 @@
 <body style="min-height:100vh;">
 <div id="app" class="">
 
+        @if ( auth()->user()->hasRole('client'))
+        @include('layouts._sidebar')
+        @else
+                @include('layouts.admin._sidebar')
+        @endif
 
-    @include('layouts._sidebar')
     <main class="fb-container">
         <ul>
             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)

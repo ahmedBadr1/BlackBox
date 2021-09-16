@@ -1,4 +1,4 @@
-<aside class="fb-side-d navbar-fixed-top "
+<aside class="fb-side-d navbar-fixed-top text-light bg-dark bg-gradient"
        @if(app()->getLocale() == "ar")
        dir="rtl"
        @else
@@ -24,99 +24,30 @@
             </a>
         </li>
 
-        <!-- Heading -->
-        <div class=" text-muted">
-            Controls
-        </div>
-    @canany(['user-show','role-show'])
-        <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item ">
-                <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#Roles" aria-expanded="false"
-                   aria-controls="collapseTwo">
-                    <i class="fas fa-users"></i>
-                    <span>{{__("names.users")}}</span>
 
-                    <span class="icon-name">{{__("names.users")}}</span>
-                    <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-                </a>
-
-                <div id="Roles" class="collapse" data-parent="#accordionSidebar">
-
-                    <div class="py-2 collapse-inner rounded">
-                        @can('user-show')
-                            <a class="collapse-item " href="{{route('users.index')}}">{{__("names.manage")}} {{__("names.users")}}</a>
-                        @endcan
-                        @can('role-show')
-                            <a class="collapse-item " href="{{route('roles.index')}}">{{__("names.manage")}} {{__("names.roles")}}</a>
-                        @endcan
-                        <a class="" href="{{route('clients')}}">
-                            <i class="fas fa-user-tie"></i>
-                            <span>{{__("names.clients")}}</span>
-                            <span class="icon-name">{{__("names.clients")}}</span>
-                        </a>
-                    </div>
-                </div>
-            </li>
-    @endcanany
-    @can('area-show')
-        <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="false" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder-open"></i>
-                    <span>{{__("names.tasks")}}</span>
-                    <span class="icon-name">{{__("names.tasks")}}</span>
-                    <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class=" py-2 collapse-inner rounded">
-                        <a href="{{ route('areas.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.tasks")}}</a>
-                        <a href="{{ route('areas.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.areas")}}</a>
-                        <a href="{{ route('areas.index') }}" class="collapse-item ">Contact</a>
-                    </div>
-                </div>
-            </li>
-    @endcan
     <!-- Heading -->
         <div class="text-muted">
             Interface
         </div>
         <!-- Nav Item - Pages Collapse Menu -->
 
-
-
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="sidebar-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnalysis"
                aria-expanded="false" aria-controls="collapseExample">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>{{__('names.branches')}}</span>
-                <span class="icon-name">{{__('names.branches')}}</span>
+                <span>{{__('names.orders')}}</span>
+                <span class="icon-name">{{__('names.orders')}}</span>
                 <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a class="collapse-item " href="{{route('branches.index')}}"><i class="fa fa-map-marked-alt"></i><span>{{__('names.branches')}}</span></a>
-                <a class="collapse-item " href="/charts.html"><span>{{__('names.jops')}}</span></a>
+                <a href="{{ route('orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
             </div>
         </li>
 
 
         <li class="nav-item">
-            <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#collapseStyles"
-               aria-expanded="false" aria-controls="collapseStyles">
-                <i class="fas fa-palette"></i>
-                <span>{{__('names.accounting')}}</span>
-                <span class="icon-name">{{__('names.accounting')}}</span>
-                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-            </a>
-            <div id="collapseStyles" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#"><i class="fas fa-swatchbook"></i><span>{{__('names.invoice')}}</span></a>
-                    <a class="collapse-item" href="#"><i class="fas fa-images"></i><span>{{__('names.salary')}}</span></a>
-                </div>
-            </div>
+            <a class="-" href="#"><i class="fas fa-swatchbook"></i><span>{{__('names.mybalance')}}</span></a>
         </li>
 
         <!-- Nav Item - Tables -->

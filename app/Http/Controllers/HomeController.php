@@ -23,6 +23,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('dashboard');
+    }
+    public function track(Request $request ){
+       // dd($request);
+        $order_id ='';
+        if ($request->query('order_id') !== null){
+            $order_id = $request->query('order_id');
+        }
+        $user =  \auth()->user();
+        return view('orders.track',compact('user','order_id'));
     }
 }

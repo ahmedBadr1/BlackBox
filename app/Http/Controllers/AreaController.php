@@ -11,7 +11,11 @@ class AreaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:area-show');
+        $this->middleware('permission:area-show|area-create|area-edit|area-delete',['only'=>['index','show']]);
+        $this->middleware('permission:area-create',['only'=>['create','store']]);
+        $this->middleware('permission:area-edit',['only'=>['update','edit']]);
+        $this->middleware('permission:area-delete',['only'=>['destroy']]);
+
     }
 
     public function addzone(Request $request)
