@@ -30,12 +30,10 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="price" class="col-md-4 col-form-label text-md-right">Area price</label>
-
+                        <label for="delivery_cost" class="col-md-4 col-form-label text-md-right">Area delivery_cost</label>
                         <div class="col-md-6">
-                            <input  type="number" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}"  >
-
-                            @error('price')
+                            <input  type="number" class="form-control @error('delivery_cost') is-invalid @enderror" name="delivery_cost" value="{{ old('delivery_cost') }}"  >
+                            @error('delivery_cost')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -44,14 +42,64 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="tags" class="col-md-4 col-form-label text-md-right">Zones</label>
+                        <label for="return_cost" class="col-md-4 col-form-label text-md-right">Area return_cost</label>
                         <div class="col-md-6">
-                            <select class="js-example-basic-multiple form-control" name="tags" id="zonesSelect">
+                            <input  type="number" class="form-control @error('return_cost') is-invalid @enderror" name="return_cost" value="{{ old('return_cost') }}"  >
+                            @error('return_cost')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="replacement_cost" class="col-md-4 col-form-label text-md-right">Area replacement_cost</label>
+                        <div class="col-md-6">
+                            <input  type="number" class="form-control @error('replacement_cost') is-invalid @enderror" name="replacement_cost" value="{{ old('replacement_cost') }}"  >
+                            @error('replacement_cost')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="over_weight_cost" class="col-md-4 col-form-label text-md-right">Area over_weight_cost</label>
+                        <div class="col-md-6">
+                            <input  type="number" class="form-control @error('over_weight_cost') is-invalid @enderror" name="over_weight_cost" value="{{ old('over_weight_cost') }}"  >
+                            @error('over_weight_cost')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="time_delivery" class="col-md-4 col-form-label text-md-right">Area time_delivery</label>
+                        <div class="col-md-6">
+                            <input  type="number" class="form-control @error('time_delivery') is-invalid @enderror" name="time_delivery" value="{{ old('time_delivery') }}"  >
+                            @error('time_delivery')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="zone_id" class="col-md-4 col-form-label text-md-right">Zones</label>
+                        <div class="col-md-6">
+                            <select class="js-example-basic-multiple form-control" name="zone_id" id="zonesSelect">
+                                <option value="" selected>{{__('auth.select zone')}}</option>
                                 @foreach($zones as $zone)
-                                    <option  value="{{$zone->name}}">{{$zone->name}}</option>
+                                    <option  value="{{$zone->id}}">{{$zone->name}}</option>
                                 @endforeach
                             </select>
-                            @error('zone')
+                            @error('zone_id')
                             <strong>{{ $message }}</strong>
                             @enderror
                         </div>

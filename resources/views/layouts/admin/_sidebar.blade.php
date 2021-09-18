@@ -49,10 +49,10 @@
                         @can('role-show')
                             <a class="collapse-item " href="{{route('roles.index')}}">{{__("names.manage")}} {{__("names.roles")}}</a>
                         @endcan
-                        <a class="" href="{{route('clients')}}">
+                        <a class="" href="{{route('sellers')}}">
                             <i class="fas fa-user-tie"></i>
-                            <span>{{__("names.clients")}}</span>
-                            <span class="icon-name">{{__("names.clients")}}</span>
+                            <span>{{__("names.seller")}}</span>
+                            <span class="icon-name">{{__("names.seller")}}</span>
                         </a>
                     </div>
                 </div>
@@ -112,9 +112,23 @@
             <div id="collapseStyles" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#"><i class="fas fa-swatchbook"></i><span>{{__('names.invoice')}}</span></a>
+                    <a class="collapse-item" href="{{route('receipts.index')}}"><i class="fas fa-money-check "></i><span>{{__('names.receipts')}}</span></a>
                     <a class="collapse-item" href="#"><i class="fas fa-images"></i><span>{{__('names.salary')}}</span></a>
                 </div>
+            </div>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="sidebar-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOreder"
+               aria-expanded="false" aria-controls="collapseExample">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>{{__('names.orders')}}</span>
+                <span class="icon-name">{{__('names.orders')}}</span>
+                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
+            </a>
+            <div id="collapseOreder" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <a href="{{ route('orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
             </div>
         </li>
 

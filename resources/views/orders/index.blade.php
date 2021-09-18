@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @role('client')
+                @role('seller|Feedback')
                     <a href="{{route('orders.create')}}" class="btn btn-success">{{__("auth.create")}} {{__("names.order")}}</a>
                 @endrole
 
@@ -20,8 +20,10 @@
                     <thead>
 
                     <th>{{__("auth.id")}} {{__("names.order")}}</th>
-                    <th>{{__("auth.name")}}</th>
-                    <th>{{__("auth.phone")}}</th>
+                    <th>{{__("auth.product_name")}}</th>
+
+                    <th>{{__("auth.cust_name")}}</th>
+                    <th>{{__("auth.cust_num")}}</th>
                     <th>{{__("auth.address")}}</th>
                     <th>{{__("names.value")}}</th>
                     <th>{{__("names.count")}}</th>
@@ -35,29 +37,27 @@
                     <tbody>
 
                     @foreach($orders as $order)
-                    @php
-                        $area = \App\Models\Area::find($order->area);
-                    @endphp
+
                         <tr>
 
-                            <td> <a href="{{ route('orders.show',$order->id) }}"> {{$order->id}} </a></td>
-
+                            <td> <a href="{{ route('orders.show',$order->id) }}">@php echo DNS1D::getBarcodeHTML($order->id,'C39'); @endphp</a></td>
+                            <td>{{$order->product_name}} </td>
                             <td>{{$order->cust_name}} </td>
                             <td>{{$order->cust_num}} </td>
-                            <td>{{$order->address}}, <a href="{{route('areas.show',$area->id)}}">{{ $area->name}}</a>, {{$order->state}}</td>
+                            <td>{{$order->address}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state}}</td>
                             <td>{{$order->value}} </td>
                             <td>{{$order->quantity}} </td>
                             <td>{{$order->notes ?? 'no notes'}} </td>
                             <td>{{$order->status}} </td>
 
                             <td><a href="{{route('users.show',$order->user_id)}}">{{ \App\Models\User::find($order->user_id)->name }}</a> </td>
-                            @role('client|Feedback')
+                            @role('seller|Feedback')
                                 <td><a href="{{route('track',['order_id' => $order->id])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
                             @endrole
-                            @role('client')
+                            @role('seller')
                             <td><a href="{{ route('orders.edit',$order->id) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>
                             @endrole
-                            @role('client')
+                            @role('seller')
                             <td>
                                 <form action="{{route('orders.destroy',$order->id) }}" method="POST">
                                     @csrf
@@ -74,8 +74,13 @@
                     </tbody>
 
                 </table>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-warning" disabled><small>{{__('names.download')}}</small></button>
+                    <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('names.excel')}}</a>
+                </div>
                     {{ $orders->links() }}
             </div>
+
         </div>
     </div>
 @endsection

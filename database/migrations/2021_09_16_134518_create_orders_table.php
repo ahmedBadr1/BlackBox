@@ -16,17 +16,19 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id')->start_from(60000);
-            $table->string('value');
+            $table->increments('id')->startingValue(65000);
+            $table->string('product_name')->nullable();
+            $table->string('value')->nullable();
             $table->string('cust_name');
             $table->string('cust_num');
             $table->string('address');
-            $table->string('quantity');
+            $table->string('quantity')->default(1);
             $table->string('state');
-            $table->string('area');
-            $table->string('notes')->nullable();
+            $table->foreignIdFor(\App\Models\Area::class);
+            $table->string('notes')->default('no notes')->nullable();
             $table->string('status');
             $table->foreignIdFor(User::class);
+            $table->foreignIdFor(\App\Models\Receipt::class)->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

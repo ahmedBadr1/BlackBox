@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('state')->nullable();
             $table->string('hearAboutUs')->default('none');
-            $table->boolean('is_client')->default(false);
+            $table->boolean('is_seller')->default(false);
             $table->foreignIdFor(\App\Models\Branch::class)->default(0);
            // $table->tinyInteger('role')->default(1);
             $table->timestamp('email_verified_at')->nullable();

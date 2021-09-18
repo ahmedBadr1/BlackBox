@@ -1,6 +1,6 @@
 @media screen and (min-width: 320px) and (max-width: 720px) {
     .fb-side-d {
-        display: block;
+        display: none;
         overflow: hidden;
         width: 25vw;
         z-index: 2;
@@ -69,7 +69,7 @@
 
 @media screen and (min-width: 721px) and (max-width: 1140px) {
     .fb-side-d {
-        display: block;
+        display: none;
         overflow: hidden;
         width: 25vw;
         z-index: 2;

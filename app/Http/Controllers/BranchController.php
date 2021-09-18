@@ -141,7 +141,7 @@ class BranchController extends Controller
     }
     public function assign($id){
         $branch = Branch::findOrFail($id);
-        $users = User::whereHas("roles", function($q){ $q->whereNotIn("name" ,["client"]); })->get();
+        $users = User::whereHas("roles", function($q){ $q->whereNotIn("name" ,["seller"]); })->get();
 
         return view('branches.assign',compact('branch','users'));
     }

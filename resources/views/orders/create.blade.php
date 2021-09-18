@@ -15,9 +15,21 @@
                     @csrf
 
                     <div class="form-group row">
+                        <label for="product_name" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.product_name")}}</label>
+                        <div class="col-md-6">
+                            <input  type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}"  autocomplete="name" autofocus>
+                            @error('product_name')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="cust_name" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.cust_name")}}</label>
                         <div class="col-md-6">
-                            <input  type="text" class="form-control @error('cust_name') is-invalid @enderror" name="cust_name" value="{{ old('cust_name') }}"  autocomplete="name" autofocus>
+                            <input  type="text" class="form-control @error('cust_name') is-invalid @enderror" name="cust_name" value="{{ old('cust_name') }}"  >
                             @error('cust_name')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -70,7 +82,7 @@
                     <div class="form-group row">
                         <label for="area" class="col-md-4 col-form-label text-md-right">{{__('auth.area')}}</label>
                         <div class="col-md-6">
-                            <select name="area" id="area" class="form-control @error('area') is-invalid @enderror">
+                            <select name="area_id" id="area" class="form-control @error('area') is-invalid @enderror">
                                 <option value="">select Area</option>
                                 @foreach($areas as $area)
                                     <option value="{{$area->id}}">{{$area->name}}</option>

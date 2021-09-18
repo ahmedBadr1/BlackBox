@@ -77,7 +77,7 @@ class RegisterController extends Controller
             'hearedAboutUs' => $data['hearedAboutUs'],
             'password' => Hash::make($data['password']),
         ]);
-        $user->assignRole('client');
+        $user->assignRole('seller');
         return$user;
     }
 }

@@ -28,14 +28,13 @@
                 <label>{{__("names.order")}} {{__("auth.status")}}</label>
                 <p><b>{{$order->status}}</b></p> <hr>
 
-
                 <div class="d-flex ">
-                        <a href="{{ route('orders.edit',$order->id) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
-                        <form class="ml-5" action="{{route('orders.destroy',$order->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="{{__("auth.delete")}}">
-                        </form>
+                    <a href="{{ route('orders.edit',$order->id) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
+                    <form class="ml-5" action="{{route('orders.destroy',$order->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" class="btn btn-danger" value="{{__("auth.delete")}}">
+                    </form>
                 </div>
 
 

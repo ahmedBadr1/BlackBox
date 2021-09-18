@@ -15,10 +15,18 @@
                 <p><b>{{$area->id}}</b></p> <hr>
                 <label>Area Name</label>
                 <p><b>{{$area->name}}</b></p> <hr>
-                <label>Area Price</label>
-                <p><b>{{$area->price}}</b></p> <hr>
+                <label>Area delivery_cost</label>
+                <p><b>{{$area->delivery_cost}}</b></p> <hr>
+                <label>Area return_cost</label>
+                <p><b>{{$area->return_cost}}</b></p> <hr>
+                <label>Area replacement_cost</label>
+                <p><b>{{$area->replacement_cost}}</b></p> <hr>
+                <label>Area over_weight_cost</label>
+                <p><b>{{$area->over_weight_cost}}</b></p> <hr>
+                <label>Area time_delivery</label>
+                <p><b>{{$area->time_delivery}}</b></p> <hr>
                 <label>Area Zone</label>
-                <p><b>{{$area->zone}}</b></p> <hr>
+                <p><b>{{$area->zone->name}}</b></p> <hr>
                 <label>Area State</label>
                 <p><b>{{$area->state}}</b></p> <hr>
 

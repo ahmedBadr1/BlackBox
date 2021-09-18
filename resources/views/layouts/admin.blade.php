@@ -28,7 +28,7 @@
 <body style="min-height:100vh;">
 <div id="app" class="">
 
-        @if ( auth()->user()->hasRole('client'))
+        @if ( auth()->user()->hasRole('seller'))
         @include('layouts._sidebar')
         @else
                 @include('layouts.admin._sidebar')

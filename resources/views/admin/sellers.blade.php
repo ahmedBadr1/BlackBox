@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center">All Clients</h1>
+                <h1 class="text-center">All sellers</h1>
                 <p>{{ __('messages.welcome') }}</p>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -15,7 +15,7 @@
 
                     <thead>
                     <th>ID</th>
-                    <th>Client Name</th>
+                    <th>seller Name</th>
 
                     <th>Email</th>
                     <th>Phone</th>
@@ -27,7 +27,7 @@
 
                     <tbody>
 
-                    @foreach($clients as $user)
+                    @foreach($sellers as $user)
 
                         <tr>
                             <td>{{$user->id}} </td>
@@ -39,7 +39,7 @@
                             <td>{{$user->created_at}}</td>
                             @can('user-show')
                                 <td>
-                                    <form action="{{route('emailto',['e' => $user->email])}}" method="POST">
+                                    <form action="" method="POST">
                                         @csrf
                                         <input type="submit" class="btn btn-secondary"  value="Email">
                                     </form>

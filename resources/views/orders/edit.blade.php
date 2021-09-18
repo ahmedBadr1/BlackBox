@@ -11,6 +11,17 @@
                     @csrf
                     @method('PUT')
 
+                    <div class="form-group row">
+                        <label for="product_name" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.product_name")}}</label>
+                        <div class="col-md-6">
+                            <input  type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ $order->product_name }}"  autocomplete="name" autofocus>
+                            @error('product_name')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label for="cust_name" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.cust_name")}}</label>

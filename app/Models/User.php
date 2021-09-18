@@ -61,6 +61,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+    public function receipts()
+    {
+        return $this->hasMany(Receipt::class);
+    }
     public function latestOrder()
     {
         return $this->hasOne(Order::class)->latestOfMany();
@@ -73,6 +77,10 @@ class User extends Authenticatable
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+    public function zone()
+    {
+        return  $this->belongsToMany(Zone::class);
     }
 
 }

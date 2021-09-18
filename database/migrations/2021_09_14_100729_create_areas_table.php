@@ -16,9 +16,13 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('price');
-            $table->string('zone')->nullable();
+            $table->unsignedBigInteger('delivery_cost');
+            $table->unsignedBigInteger('return_cost');
+            $table->unsignedBigInteger('replacement_cost');
+            $table->unsignedBigInteger('over_weight_cost');
+            $table->unsignedBigInteger('time_delivery');
             $table->string('state');
+            $table->foreignIdFor(\App\Models\Zone::class)->nullable();
             $table->timestamps();
         });
     }

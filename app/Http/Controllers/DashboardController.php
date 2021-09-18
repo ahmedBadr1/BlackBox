@@ -111,11 +111,11 @@ class DashboardController extends Controller
         return redirect()->route('profile');
     }
 
-    public function clients()
+    public function sellers()
     {
-        $clients =Role::where('name', 'client')->first()->users()->get();
+        $sellers =Role::where('name', 'seller')->first()->users()->get();
 
-        return view('admin.clients', compact('clients'));
+        return view('admin.sellers', compact('sellers'));
     }
 
 }

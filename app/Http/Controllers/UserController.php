@@ -31,10 +31,12 @@ class UserController extends Controller
     {
         //
 
-        $users = User::orderBy('id','DESC')->paginate(5);
+        $users  = User::whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })->orderBy('id','DESC')->paginate(10);;
+   //   dd($users);
+       // $users = User::orderBy('id','DESC')->paginate(5);
         // $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
 
-        return view('users.index',compact('users'))->with('i',($request->input('page',1)-1)*5);
+        return view('users.index',compact('users'))->with('i',($request->input('page',1)-1)*10);
 
     }
 
@@ -47,7 +49,7 @@ class UserController extends Controller
     {
         //
         $states = Area::$states;
-        $roles = Role::whereNotIn('name', ['client'])->pluck('name');
+        $roles = Role::whereNotIn('name', ['seller'])->pluck('name');
         return view('users.create',compact('roles','states'));
     }
 
@@ -88,7 +90,7 @@ class UserController extends Controller
         $userRole = DB::table('roles')->where('id',$user->role)->get();
 
         if(! $user->hasAnyRole(Role::all())) {
-            $user->assignRole('customer');
+            $user->assignRole('seller');
         }
         $roles = $user->getRoleNames();
         return view('users.show',compact('user','roles','userRole'));
@@ -108,8 +110,11 @@ class UserController extends Controller
 
         $states = Area::$states;
         $user = User::findOrFail($id);
+        if($user->hasRole('seller')){
+            abort(403);
+        }
         //dd($user->roles);
-        $roles = Role::whereNotIn('name', ['client'])->pluck('name')->all();
+        $roles = Role::whereNotIn('name', ['seller'])->pluck('name')->all();
 
         $userRole = $user->roles[0]->name;
 

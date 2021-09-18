@@ -29,6 +29,8 @@ return [
     'permissions' => 'Permissions',
     'client' => 'Client',
     'clients' => 'Clients',
+    'seller' => 'Seller',
+    'sellers' => 'Sellers',
     'count' => 'count',
     'manage' => 'manage',
     'task'=> 'Task',

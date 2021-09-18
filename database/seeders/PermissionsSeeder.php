@@ -52,12 +52,12 @@ class PermissionsSeeder extends Seeder
         }
 
         // create roles and assign existing permissions
-        $role0 = Role::findOrCreate('client');
+        $role0 = Role::findOrCreate('seller');
         $role0->givePermissionTo('dashboard');
 
-        $role1 = Role::findOrCreate('editor');
-        $role1->givePermissionTo('role-show');
-        $role1->givePermissionTo('user-show');
+        $role1 = Role::findOrCreate('delivery');
+        $role1->givePermissionTo('order-show');
+        $role1->givePermissionTo('order-status');
         $role1->givePermissionTo('area-show');
         $role1->givePermissionTo('dashboard');
 
@@ -78,23 +78,23 @@ class PermissionsSeeder extends Seeder
 
         // create demo users
 
-        $password = Hash::make('client@bagyexpress.com');
+        $password = Hash::make('seller@bagyexpress.com');
         $user = \App\Models\User::factory()->create([
-            'name' => 'client',
-            'email' => 'client@bagyexpress.com',
+            'name' => 'seller',
+            'email' => 'seller@bagyexpress.com',
             'phone' => '01100068386',
             'state' => 'القاهرة',
             'hearAboutUs' => 'system',
             'password'=>$password,
-            'is_client' => true,
+            'is_seller' => true,
 
         ]);
         $user->assignRole($role0);
 
-        $password = Hash::make('editor@bagyexpress.com');
+        $password = Hash::make('delivery@bagyexpress.com');
         $user = \App\Models\User::factory()->create([
-            'name' => 'editor',
-            'email' => 'editor@bagyexpress.com',
+            'name' => 'delivery',
+            'email' => 'delivery@bagyexpress.com',
             'phone' => '01100068386',
             'state' => 'القاهرة',
             'hearAboutUs' => 'system',

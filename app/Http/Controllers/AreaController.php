@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,19 +22,18 @@ class AreaController extends Controller
     public function addzone(Request $request)
     {
         //
-        dd($request);
         $this->validate($request,[
             'name'=>'required|unique:zones,name',
-            'state'=>'required'
+            'order'=>''
         ]);
+        $input = $request->all();
+        $zone = Zone::create($input);
+//        $zone->name = $request->post('name');
+//        $zone->state = $request->post('state');
+//
+//        //    dd($field);
+//        $zone->save();
 
-
-        $zone =  new Field();
-        $zone->name = $request->post('name');
-        $zone->state = $request->post('state');
-
-        //    dd($field);
-        $zone->save();
         return response()->json($zone);
     }
     /**
@@ -44,9 +44,10 @@ class AreaController extends Controller
     public function index()
     {
         //
+        $zones = Zone::orderBy('order')->get();
 
         $areas = Area::orderBy('id','DESC')->paginate(5);
-        return view('areas.index',compact('areas'));
+        return view('areas.index',compact('areas','zones'));
     }
 
     /**
@@ -57,7 +58,7 @@ class AreaController extends Controller
     public function create()
     {
         //
-        $zones = [];
+        $zones = Zone::orderBy('order')->get();
         $states= Area::$states;
         return view('areas.create',compact('states','zones'));
     }
@@ -71,15 +72,23 @@ class AreaController extends Controller
     public function store(Request $request)
     {
         //
+
         $this->validate($request,[
             'name'=>'required|unique:areas,name',
-            'price'=>'required',
-            'zone' => '',
+            'delivery_cost'=>'required|numeric',
+            'return_cost'=>'required|numeric',
+            'replacement_cost'=>'required|numeric',
+            'over_weight_cost'=>'required|numeric',
+            'time_delivery'=>'required|numeric',
+            'zone_id' => 'required|numeric',
             'state' => 'required'
         ]);
         $input = $request->all();
+      //  dd($input['zone_id']);
+    //    $zone = Zone::find($input['zone_id']);
 
-        Area::create($input);
+            $area = Area::create($input);
+     //   $zone->areas->attach($area->id);
 
         return redirect()->route('areas.index')->with('success','Area Created Successfully');
     }
@@ -106,7 +115,7 @@ class AreaController extends Controller
     public function edit($id)
     {
         //
-        $zones = [];
+        $zones = Zone::orderBy('order')->get();
         $area = Area::findOrFail($id);
         return view('areas.edit',compact('area','zones'));
     }
@@ -122,9 +131,13 @@ class AreaController extends Controller
     {
         //
         $this->validate($request,[
-            'name'=>'required',
-            'price'=>'required',
-            'zone' => '',
+            'name'=>'required|unique:areas,name',
+            'delivery_cost'=>'required|numeric',
+            'return_cost'=>'required|numeric',
+            'replacement_cost'=>'required|numeric',
+            'over_weight_cost'=>'required|numeric',
+            'time_delivery'=>'required|numeric',
+            'zone_id' => 'required',
             'state' => 'required'
         ]);
         $input = $request->all();
@@ -142,7 +155,6 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
-        //
         $area = Area::find($id);
         $area->delete();
         notify()->success('Area Deleted Successfully','Area Deleted');

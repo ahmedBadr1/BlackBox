@@ -27,8 +27,8 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        $roles = Role::whereNotIn('name', ['client'])->orderBy('id','DESC')->paginate(5);
+
+        $roles = Role::whereNotIn('name', ['seller'])->orderBy('id','DESC')->paginate(5);
 
         return view('roles.index',compact('roles'))->with('i',($request->input('page',1)-1)*5);
 
@@ -88,7 +88,11 @@ class RolesController extends Controller
     public function edit($id)
     {
         //
+
         $role = Role::findById($id);
+        if($role->name === 'seller'){
+            abort(403);
+        }
         $permissions = Permission::get();
         $rolePermissions =Db::table("role_has_permissions")->where('role_has_permissions.role_id',$id)->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')->all();
         return view('roles.edit',compact('role','permissions','rolePermissions'));
@@ -128,6 +132,9 @@ class RolesController extends Controller
     public function destroy($id)
     {
         //
+        if($role->name === 'seller'){
+            abort(403);
+        }
         DB::table('roles')->where('id',$id)->delete();
         return redirect()->route('roles.index')->with('success','Role Deleted Successfully');
     }

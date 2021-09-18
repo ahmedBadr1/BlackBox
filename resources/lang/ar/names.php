@@ -29,6 +29,9 @@ return [
     'permissions' => 'الصلاحيات',
     'client' => 'العميل',
     'clients' => 'العملاء',
+    'seller' => 'التاجر',
+    'sellers' => 'التجار',
+
     'count' => 'عدد',
     'manage' => 'إدارة',
     'task'=> 'مهمة',

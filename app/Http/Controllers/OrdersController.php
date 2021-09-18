@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExportEn;
 use App\Models\Area;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Console\Input\Input;
 
 class OrdersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:client|Feedback');
+        $this->middleware('role:seller|Feedback');
     }
 
     /**
@@ -24,8 +26,8 @@ class OrdersController extends Controller
     {
         $orders = auth()->user()->orders()->orderBy('updated_at','DESC')->paginate(10);
 
-
-       // dd($orders);
+//        $avOrders = auth()->user()->zone[0]->areas;
+//        dd($avOrders);
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
         return view('orders.index',compact('orders'));
     }
@@ -54,28 +56,32 @@ class OrdersController extends Controller
         //
      //   dd($request->all());
         $this->validate($request,[
+            'product_name' =>'required',
             'value'=>'required|numeric',
             'cust_name'=>'required',
             'cust_num'=>'required|numeric',
             'address'=>'required',
             'state'=>'required',
-            'area'=>'required',
-            'quantity'=>'required',
+            'area_id'=>'required|numeric',
+            'quantity'=>'required|numeric',
             'notes'=>'',
         ]);
         $input = $request->all();
-        Order::create([
-            'value' => $input['value'],
-            'cust_name' => $input['cust_name'],
-            'cust_num' => $input['cust_num'],
-            'address' => $input['address'],
-            'state' => $input['state'],
-            'area' => $input['area'],
-            'quantity' => $input['quantity'],
-            'notes' => $input['notes'],
-            'status' => Order::$status[0],
-            'user_id' => auth()->id(),
-        ]);
+        $input['status'] = Order::$status[0];
+        $input['user_id'] =auth()->id();
+        Order::create($input);
+//        Order::create([
+//            'value' => $input['value'],
+//            'cust_name' => $input['cust_name'],
+//            'cust_num' => $input['cust_num'],
+//            'address' => $input['address'],
+//            'state' => $input['state'],
+//            'area_id' => $input['area'],
+//            'quantity' => $input['quantity'],
+//            'notes' => $input['notes'],
+//            'status' => Order::$status[0],
+//            'user_id' => auth()->id(),
+//        ]);
 
 //        $order = new Order();
 //       $order->value = $input['value'];
@@ -143,6 +149,7 @@ class OrdersController extends Controller
     {
 
         $this->validate($request,[
+            'product_name' =>'required',
             'value'=>'required|numeric',
             'cust_name'=>'required',
             'cust_num'=>'required|numeric',
@@ -165,7 +172,7 @@ class OrdersController extends Controller
 //            'status' => Order::$status[0],
 //            'user_id' => auth()->id(),
 //        ]);
-
+        $order->product_name = $input['product_name'];
        $order->value = $input['value'];
         $order->cust_name = $input['cust_name'];
         $order->cust_num = $input['cust_num'];

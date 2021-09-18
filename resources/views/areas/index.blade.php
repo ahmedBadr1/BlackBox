@@ -17,7 +17,7 @@
         <thead>
         <th>Area ID</th>
         <th>Area</th>
-        <th>Price</th>
+        <th>Cost</th>
         <th>Zone</th>
         <th>State</th>
         </thead>
@@ -26,8 +26,8 @@
             <tr>
                 <td>{{$area->id}} </td>
                 <td> <a href="{{ route('areas.show',$area->id) }}"> {{$area->name}} </a></td>
-                <td>{{$area->price}}</td>
-                <td>{{$area->zone}}</td>
+                <td>{{$area->cost}}</td>
+                <td>{{$area->zone->name}}</td>
                 <td>{{$area->state}}</td>
 
                 @can('area-edit')
