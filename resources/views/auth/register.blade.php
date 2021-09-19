@@ -54,13 +54,13 @@
                         <div class="form-group row">
                             <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
                             <div class="col-md-6">
-                                <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
+                                <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">
                                     <option value="" selected>{{__('auth.select state')}}</option>
-                                    @foreach(\App\Models\Area::$states as $state)
-                                        <option value="{{$state}}">{{$state}}</option>
+                                    @foreach(\App\Models\State::all() as $state)
+                                        <option value="{{$state->id}}">{{$state->name}}</option>
                                     @endforeach
                                 </select>
-                                @error('state')
+                                @error('state_id')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

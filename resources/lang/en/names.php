@@ -50,6 +50,9 @@ return [
     'new' => 'New',
     'all' => 'All',
 
+    'notes'=>'Notes',
+    'mybalance'=>'My Balance',
+
 
 
 ];

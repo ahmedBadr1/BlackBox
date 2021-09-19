@@ -42,12 +42,13 @@
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <a href="{{ route('orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
+                <a href="{{ route('orders.create') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.add")}} {{__("names.order")}}</a>
             </div>
         </li>
 
 
         <li class="nav-item">
-            <a class="-" href="#"><i class="fas fa-swatchbook"></i><span>{{__('names.mybalance')}}</span></a>
+            <a class="-" href="{{route('mybalance')}}"><i class="fas fa-swatchbook"></i><span>{{__('names.mybalance')}}</span></a>
         </li>
 
         <!-- Nav Item - Tables -->

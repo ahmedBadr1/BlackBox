@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Area extends Model
 {
     use HasFactory;
+    use \Znck\Eloquent\Traits\BelongsToThrough;
     /**
      * The attributes that are mass assignable.
      *
@@ -31,6 +32,13 @@ class Area extends Model
     {
         return  $this->hasMany(Order::class);
     }
+
+    public function state()
+    {
+        return $this->belongsToThrough('App\Models\State', 'App\Models\Zone');
+    }
+
+
 //    public function availableOrders()
 //    {
 //        return  $this->hasMany(Order::class,function($q) {
@@ -38,8 +46,7 @@ class Area extends Model
 //        });
 //    }
 
-    public static array $states = ['الجيزة','الإسكندرية','القاهرة','الإسماعيليّة','أسوان','أسيوط','الأقصر','البحر الأحمر','بني سويف','البحيرة','بورسعيد','جنوب سيناء','الدقهلية','دمياط','سوهاج','السويس','الشرقيّة','شمال سيناء','الغربيّة','قنا','كفر الشيخ','مرسى مطروح','المنوفيّة','المنيا','الوادي الجديد'];
-    //public static array $states = ['cairo','giza','alex'];
+
 
 
 }

@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->string('state')->nullable();
+            $table->foreignIdFor(\App\Models\State::class)->nullable();
             $table->string('hearAboutUs')->default('none');
             $table->boolean('is_seller')->default(false);
             $table->foreignIdFor(\App\Models\Branch::class)->default(0);

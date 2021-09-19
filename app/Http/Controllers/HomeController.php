@@ -32,6 +32,7 @@ class HomeController extends Controller
             $order_id = $request->query('order_id');
         }
         $user =  \auth()->user();
-        return view('orders.track',compact('user','order_id'));
+        $status= null;
+        return view('orders.track',compact('user','order_id','status'));
     }
 }

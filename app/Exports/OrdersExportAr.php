@@ -23,10 +23,10 @@ class OrdersExportAr implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
          $order->cust_name,
          $order->cust_num,
          $order->address,
-         $order->state,
+         $order->state->name,
          $order->quantity,
          $order->notes,
-         $order->status,
+         \App\Models\Status::find($order->status_id)->name,
         $order->created_at,
      ];
  }

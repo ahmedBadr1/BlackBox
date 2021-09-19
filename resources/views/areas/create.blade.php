@@ -12,7 +12,8 @@
                     </div>
                 @endif
             <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#zoneModal">{{__('auth.create')}} Zone</button>
+                <a href="{{route('zones.create')}}">{{__('auth.create')}} {{__('names.zone')}}</a>
+{{--                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#zoneModal">{{__('auth.create')}} Zone</button>--}}
                 <form method="POST" action="{{ route('areas.store') }}">
                     @csrf
                     <div class="form-group row">
@@ -105,22 +106,22 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('state')}}</label>
-                        <div class="col-md-6">
-                            <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
-                                <option value="" selected>{{__('auth.select state')}}</option>
-                                @foreach(\App\Models\Area::$states as $state)
-                                    <option value="{{$state}}">{{$state}}</option>
-                                @endforeach
-                            </select>
-                            @error('state')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
+{{--                    <div class="form-group row">--}}
+{{--                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('state')}}</label>--}}
+{{--                        <div class="col-md-6">--}}
+{{--                            <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">--}}
+{{--                                <option value="" selected>{{__('auth.select state')}}</option>--}}
+{{--                                @foreach($states as $state)--}}
+{{--                                    <option value="{{$state->id}}">{{$state->name}}</option>--}}
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                            @error('state_id')--}}
+{{--                            <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{ $message }}</strong>--}}
+{{--                                    </span>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
 
 
@@ -150,32 +151,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="zoneForm" method="POST">
-                        @csrf
-                        @method('POST')
-                        <div class="form-group" >
-                            <label for="name">Zone Name</label>
-                            <input type="text" name="name" class="form-control" id="zoneName">
-                            <small id="formZoneName"></small>
-                        </div>
 
-                        <div class="form-group">
-                            <select name="state" id="zoneState" class="form-control">
-                                @foreach($states as $state)
-                                    <option value="{{$state}}">{{$state}}</option>
-                                @endforeach
-                            </select>
-
-                            <small id="formZoneState"></small>
-                        </div>
-                        <div class="form-group row  ">
-                            <div class="col-md-6  ">
-                                <button type="submit" class="btn btn-success">
-                                    {{ __('Create') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -190,42 +166,42 @@
 {{--    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
     <script>
       //  $('.js-example-basic-multiple').select2();
-        $("#zoneForm").submit(function (e){
-            console.log('heloo');
-            event.preventDefault();
-            let _token = $('input[name=_token]').val();
-            let name = $('#zoneName').val();
-            let state = $('#zoneState').val();
-            console.log(name);
-            $.ajax({
-                url: "{{route('areas.add-zone')}}",
-                type:'POST',
-                data: {
-                    _token: _token,
-                    name: name,
-                    state: state
-                },
-                success:function (response){
-                    console.log(response);
-                    if(response){
-                        $("#zonesSelect").append(`<option  value="${response.name}">${response.name}</option>`);
-                        $("#zoneModal").modal('hide');
-                    }
-                },
-                error:function (error){
-                    console.log(error);
-                    if(error.responseJSON.errors){
-                        $("#formZoneName").text(error.responseJSON.errors.name);
-                        $("#formZoneState").text(error.responseJSON.errors.type);
-                    }else {
-                        $("#formZoneName").text('');
-                        $("#formZoneState").text('');
-                    }
+      {{--  $("#zoneForm").submit(function (e){--}}
+      {{--      console.log('heloo');--}}
+      {{--      event.preventDefault();--}}
+      {{--      let _token = $('input[name=_token]').val();--}}
+      {{--      let name = $('#zoneName').val();--}}
+      {{--      let state = $('#zoneState').val();--}}
+      {{--      console.log(name);--}}
+      {{--      $.ajax({--}}
+      {{--          url: "{{route('areas.add-zone')}}",--}}
+      {{--          type:'POST',--}}
+      {{--          data: {--}}
+      {{--              _token: _token,--}}
+      {{--              name: name,--}}
+      {{--              state: state--}}
+      {{--          },--}}
+      {{--          success:function (response){--}}
+      {{--              console.log(response);--}}
+      {{--              if(response){--}}
+      {{--                  $("#zonesSelect").append(`<option  value="${response.name}">${response.name}</option>`);--}}
+      {{--                  $("#zoneModal").modal('hide');--}}
+      {{--              }--}}
+      {{--          },--}}
+      {{--          error:function (error){--}}
+      {{--              console.log(error);--}}
+      {{--              if(error.responseJSON.errors){--}}
+      {{--                  $("#formZoneName").text(error.responseJSON.errors.name);--}}
+      {{--                  $("#formZoneState").text(error.responseJSON.errors.type);--}}
+      {{--              }else {--}}
+      {{--                  $("#formZoneName").text('');--}}
+      {{--                  $("#formZoneState").text('');--}}
+      {{--              }--}}
 
-                }
+      {{--          }--}}
 
-            })
-        });
+      {{--      })--}}
+      {{--  });--}}
 
     </script>
 @endsection

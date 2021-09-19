@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Area;
+use App\Models\State;
 use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +24,9 @@ class ZoneFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->name(),
+            'name' => $this->faker->unique()->city(),
+            'rank' => rand(1,4),
+            'state_id' => State::all()->random()->id,
         ];
     }
 }

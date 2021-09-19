@@ -22,6 +22,7 @@
                     <th>{{__("names.branch")}}</th>
                     <th>{{__("auth.phone")}}</th>
                     <th>{{__("auth.location")}}</th>
+                    <th>{{__("auth.state")}}</th>
                     <th>{{__("auth.manager")}}</th>
 
                     </thead>
@@ -36,7 +37,9 @@
 
                             <td>{{$branch->phone}} </td>
                             <td>{{$branch->location}} </td>
-                            <td>{{$branch->manager}} </td>
+                            <td>{{$branch->state->name }} </td>
+
+                            <td>{{\App\Models\User::find($branch->user_id)->name }} </td>
                             @can('branch-assign')
                                 <td><a href="{{route('branches.assign',$branch->id)}}" class="btn btn-outline-success">{{__('names.assign')}}</a></td>
                             @endcan

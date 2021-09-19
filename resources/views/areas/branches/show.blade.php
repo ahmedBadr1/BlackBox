@@ -17,8 +17,10 @@
                 <p><b>{{$branch->phone}}</b></p> <hr>
                 <label>{{__("names.branch")}} {{__("auth.location")}}</label>
                 <p><b>{{$branch->location}}</b></p> <hr>
+                <label>{{__("names.branch")}} {{__("auth.state")}}</label>
+                <p><b>{{$branch->state->name }}</b></p> <hr>
                 <label>{{__("names.branch")}} {{__("auth.manager")}}</label>
-                <p><b>{{$branch->manager}}</b></p> <hr>
+                <p><b>{{\App\Models\User::find($branch->user_id)->name }}</b></p> <hr>
 
                 <label>{{__("names.branch")}} {{__("names.users")}}</label>
                 <p>

@@ -6,6 +6,9 @@
     @can('area-create')
         <a href="{{route('areas.create')}}" class="btn btn-success">Create Area</a>
     @endcan
+    @can('states')
+        <a href="{{route('states')}}" class="btn btn-dark">States</a>
+    @endcan
     @if (session('status'))
         <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -26,9 +29,9 @@
             <tr>
                 <td>{{$area->id}} </td>
                 <td> <a href="{{ route('areas.show',$area->id) }}"> {{$area->name}} </a></td>
-                <td>{{$area->cost}}</td>
-                <td>{{$area->zone->name}}</td>
-                <td>{{$area->state}}</td>
+                <td>{{$area->delivery_cost}}</td>
+                <td><a href="{{route('zones.show',$area->zone->id)}}">{{$area->zone->name}}</a></td>
+                <td>{{$area->state->name}}</td>
 
                 @can('area-edit')
                     <td><a href="{{ route('areas.edit',$area->id) }}" class="btn btn-info">edit</a></td>

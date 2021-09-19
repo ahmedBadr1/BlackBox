@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Branch;
+use App\Models\Order;
+use App\Models\State;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -38,10 +42,14 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $this->middleware('permission:dashboard');
-        $users = User::all();
-        $areas = Area::all();
+        $users = User::all()->count();
+        $states = State::all()->count();
+        $branches = Branch::all()->count();
+        $zones = Zone::all()->count();
+        $areas = Area::all()->count();
+        $orders = Order::all()->count();
 
-        return view('dashboard', compact('users','areas'));
+        return view('dashboard', compact('users','states','branches','zones','areas','orders'));
     }
 
     public function profile()
@@ -53,7 +61,7 @@ class DashboardController extends Controller
     public function profileEdit()
     {
         $user = Auth::user();
-        $states = Area::$states;
+        $states= State::where('active',true)->get();
         $areas = Area::pluck('name')->all();
         return view('profile.edit', compact('user','states','areas'));
     }

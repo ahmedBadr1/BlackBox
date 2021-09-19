@@ -12,7 +12,7 @@
                     </div>
                 @endif
                 <label>{{__("names.order")}} {{__("auth.id")}}</label>
-                <p><b>{{$order->id}}</b></p> <hr>
+                <p><b>   {{$order->id}}@php echo DNS1D::getBarcodeHTML($order->id,'C39'); @endphp</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.product_name")}}</label>
                 <p><b>{{$order->product_name}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.name")}}</label>
@@ -20,14 +20,15 @@
                 <label>{{__("names.order")}} {{__("auth.phone")}}</label>
                 <p><b>{{$order->cust_num}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.location")}}</label>
-                <p><b> {{$order->address}}, <a href="{{route('areas.show',$order->area->id )}}">{{ $order->area->name }}</a>, {{$order->state}}</b></p> <hr>
+                <p><b> {{$order->address}}, <a href="{{route('areas.show',$order->area->id )}}">{{ $order->area->name }}</a>, {{$order->state->name}}</b></p> <hr>
+                <label>{{__("names.order")}} {{__("auth.value")}}</label>
+                <p><b>{{$order->value}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.count")}}</label>
                 <p><b>{{$order->quantity}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.notes")}}</label>
                 <p><b>{{$order->notes ?? 'no notes'}} </b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.status")}}</label>
-                <p><b>{{$order->status}}</b></p> <hr>
-
+                <p><b>{{\App\Models\Status::find($order->status_id)->name}}</b></p> <hr>
 
                 <div class="d-flex ">
                         <a href="{{ route('orders.edit',$order->id) }}" class="btn btn-info o">{{__("auth.edit")}}</a>

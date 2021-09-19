@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        $states = Area::$states;
+        $states= State::where('active',true)->get();
         $roles = Role::whereNotIn('name', ['seller'])->pluck('name');
         return view('users.create',compact('roles','states'));
     }
@@ -107,12 +108,12 @@ class UserController extends Controller
     public function edit(int $id)
     {
         //
-
-        $states = Area::$states;
         $user = User::findOrFail($id);
         if($user->hasRole('seller')){
             abort(403);
         }
+        $states= State::where('active',true)->get();
+
         //dd($user->roles);
         $roles = Role::whereNotIn('name', ['seller'])->pluck('name')->all();
 

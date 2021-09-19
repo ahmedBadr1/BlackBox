@@ -26,9 +26,9 @@
                 <label>Area time_delivery</label>
                 <p><b>{{$area->time_delivery}}</b></p> <hr>
                 <label>Area Zone</label>
-                <p><b>{{$area->zone->name}}</b></p> <hr>
+                <p><b><a href="{{route('zones.show',$area->zone->id)}}">{{$area->zone->name}}</a></b></p> <hr>
                 <label>Area State</label>
-                <p><b>{{$area->state}}</b></p> <hr>
+                <p><b>{{$area->state->name}}</b></p> <hr>
 
                 <div class="d-flex ">
                     @can('role-edit')

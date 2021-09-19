@@ -19,7 +19,7 @@
                 <label>User Phone</label>
                 <p><b>{{$user->phone}}</b></p> <hr>
                 <label>User State</label>
-                <p><b>{{$user->state}}</b></p> <hr>
+                <p><b>{{$user->state->name}}</b></p> <hr>
                 <label>User Role</label>
                 <p><b>@if (isset($roles))
                         @foreach($roles as $role)

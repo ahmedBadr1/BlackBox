@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Exports\OrdersExportEn;
 use App\Models\Area;
 use App\Models\Order;
+use App\Models\State;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,7 +18,29 @@ class OrdersController extends Controller
     {
         $this->middleware('role:seller|Feedback');
     }
+    public function  track(Request $request)
+    {
+      //  dd($request['order_id']);
+       $order_id =  $request['order_id'];
 
+       $order =Order::findOrFail($request['order_id']);
+        if (auth()->user()->id !== $order->user->id){
+            abort(404);
+        }
+      // dd($order->user->id);
+        $status =  Status::find($order->status_id);
+     return view('orders.track',compact('status','order_id'));
+    }
+    public function mybalance (){
+      //   $total = auth()->user()->orders->sum('value');
+        $avilableOrders = auth()->user()->orders->where('status_id','>',4)->sortBy('status_id');
+        $total = $avilableOrders->sum('value');
+       // dd($avilableOrders);
+        $ordersCount = auth()->user()->orders->count();
+
+    //    dd($total);
+         return view('orders.receipts.balance',compact('total','ordersCount','avilableOrders'));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,9 +64,9 @@ class OrdersController extends Controller
     public function create()
     {
         //
-        $states= Area::$states;
+     //   $states= State::where('active',true)->get();
         $areas = Area::all();
-        return view('orders.create',compact('areas','states'));
+        return view('orders.create',compact('areas'));
     }
 
     /**
@@ -54,20 +78,19 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         //
-     //   dd($request->all());
+       // dd($request->all());
         $this->validate($request,[
             'product_name' =>'required',
             'value'=>'required|numeric',
             'cust_name'=>'required',
             'cust_num'=>'required|numeric',
             'address'=>'required',
-            'state'=>'required',
             'area_id'=>'required|numeric',
             'quantity'=>'required|numeric',
             'notes'=>'',
         ]);
         $input = $request->all();
-        $input['status'] = Order::$status[0];
+        $input['status_id'] = Status::all()->first()->id;
         $input['user_id'] =auth()->id();
         Order::create($input);
 //        Order::create([
@@ -111,8 +134,6 @@ class OrdersController extends Controller
        if (auth()->id() !== $order->user_id){
         abort(404);
           }
-
-
         return view('orders.show',compact('order'));
     }
 
@@ -133,9 +154,9 @@ class OrdersController extends Controller
             return redirect()->route('orders.index');
         }
 
-        $states= Area::$states;
+       // $states= State::where('active',true)->get();
         $areas = Area::all();
-        return view('orders.edit',compact('order','areas','states'));
+        return view('orders.edit',compact('order','areas'));
     }
 
     /**
@@ -154,7 +175,6 @@ class OrdersController extends Controller
             'cust_name'=>'required',
             'cust_num'=>'required|numeric',
             'address'=>'required',
-            'state'=>'required',
             'area'=>'required',
             'quantity'=>'required',
             'notes'=>'',
@@ -177,7 +197,6 @@ class OrdersController extends Controller
         $order->cust_name = $input['cust_name'];
         $order->cust_num = $input['cust_num'];
         $order->address = $input['address'];
-        $order->state = $input['state'];
         $order->area = $input['area'];
         $order->quantity = $input['quantity'];
         $order->notes = $input['notes'];

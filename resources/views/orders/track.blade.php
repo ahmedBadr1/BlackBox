@@ -11,7 +11,8 @@
                     </div>
                 @endif
 
-                <form action="">
+                <form action="{{route('track')}}" method="POST">
+                    @csrf
                     @if($order_id !== '')
                         <div class="form-group">
                             <label for="">Enter Order Track Id</label>
@@ -36,7 +37,11 @@
                 </form>
 
 
-
+        @if($status)
+            <div class="badge badge-primary">
+                {{$status->name}}
+            </div>
+            @endif
             </div>
         </div>
     </div>

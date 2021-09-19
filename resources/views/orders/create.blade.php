@@ -62,33 +62,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
-                        <div class="col-md-6">
-                            <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
-                                <option value="">select state</option>
-                                @foreach($states as $state)
-                                    <option value="{{$state}}">{{$state}}</option>
-                                @endforeach
-                            </select>
-                            @error('state')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div class="form-group row">
-                        <label for="area" class="col-md-4 col-form-label text-md-right">{{__('auth.area')}}</label>
+                        <label for="area_id" class="col-md-4 col-form-label text-md-right">{{__('auth.area')}}</label>
                         <div class="col-md-6">
-                            <select name="area_id" id="area" class="form-control @error('area') is-invalid @enderror">
+                            <select name="area_id" id="area_id" class="form-control @error('area_id') is-invalid @enderror">
                                 <option value="">select Area</option>
                                 @foreach($areas as $area)
                                     <option value="{{$area->id}}">{{$area->name}}</option>
                                 @endforeach
                             </select>
-                            @error('area')
+                            @error('area_id')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -111,7 +95,7 @@
                     <div class="form-group row">
                         <label for="quantity" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("names.count")}}</label>
                         <div class="col-md-6">
-                            <input  type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') }}" >
+                            <input  type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') ?? 1 }}" >
                             @error('quantity')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

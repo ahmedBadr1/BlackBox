@@ -13,11 +13,21 @@ class Branch extends Model
         'name',
         'phone',
         'location',
-        'manager',
+        'state_id',
+        'user_id',
     ];
 
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
+    public function manager()
+    {
+        $mangers = User::role(['manager'])->get();
+        return $this->hasOne($mangers,'user_id');
     }
 }

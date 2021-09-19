@@ -20,7 +20,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
     Route::get('/', function (){
         return view('home');
     })->name('home');
-    Route::get('/track', [App\Http\Controllers\HomeController::class, 'track'])->name('track');
+    Route::get('/track', [App\Http\Controllers\HomeController::class, 'track']);
+    Route::post('/track', [App\Http\Controllers\OrdersController::class, 'track'])->name('track');
 
     Route::get('/auth/redirect', function () {
          return Socialite::driver('google')
@@ -39,14 +40,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('/sellers', [App\Http\Controllers\DashboardController::class, 'sellers'])->name('sellers');
 
 
+        Route::get('/mybalance', [App\Http\Controllers\OrdersController::class, 'mybalance'])->name('mybalance');
+        Route::get('/states', [App\Http\Controllers\AreaController::class, 'states'])->name('states');
+        Route::post('/states/toggle/{id}', [\App\Http\Controllers\AreaController::class,'toggle']);
         Route::get('/export/orders/en', [App\Http\Controllers\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
-    Route::get('/export/orders/ar', [App\Http\Controllers\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
+        Route::get('/export/orders/ar', [App\Http\Controllers\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
 
         Route::get('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissions'])->name('roles.permissions');
         Route::post('roles/permissions',[\App\Http\Controllers\RolesController::class,'permissionsCreate']);
         Route::delete('permission/delete/{id}',[\App\Http\Controllers\RolesController::class,'permissionsDelete'])->name('permission.delete');
 
-        Route::post('areas/add-zone',[\App\Http\Controllers\AreaController::class,'addzone'])->name('areas.add-zone');
         Route::get('branches/assign/{id}',[\App\Http\Controllers\BranchController::class,'assign'])->name('branches.assign');
         Route::post('branches/assign/{id}',[\App\Http\Controllers\BranchController::class,'assignGo'])->name('branches.assign');
 
@@ -55,13 +58,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::resource('roles',\App\Http\Controllers\RolesController::class);
         Route::resource('branches',\App\Http\Controllers\BranchController::class);
         Route::resource('areas',\App\Http\Controllers\AreaController::class);
+        Route::resource('zones',\App\Http\Controllers\ZoneController::class);
         Route::resource('orders',\App\Http\Controllers\OrdersController::class);
         Route::resource('receipts', App\Http\Controllers\ReceiptController::class);
 
-//        Route::get('/e', [App\Http\Controllers\MailController::class, 'index'])->name('email');
-//        Route::post('/e/s', [App\Http\Controllers\MailController::class, 'send'])->name('email.send');
-//        Route::post('/e', [App\Http\Controllers\MailController::class, 'index'])->name('emailto');
-//        Route::get('/welcome-email', [App\Http\Controllers\MailController::class, 'welcomeMail'])->name('welcome.email');
+        Route::get('/e', [App\Http\Controllers\MailController::class, 'index'])->name('email');
+        Route::post('/e/s', [App\Http\Controllers\MailController::class, 'send'])->name('email.send');
+        Route::post('/e', [App\Http\Controllers\MailController::class, 'index'])->name('emailto');
+        Route::get('/welcome-email', [App\Http\Controllers\MailController::class, 'welcomeMail'])->name('welcome.email');
 
     });
 

@@ -23,10 +23,9 @@ class CreateOrdersTable extends Migration
             $table->string('cust_num');
             $table->string('address');
             $table->string('quantity')->default(1);
-            $table->string('state');
             $table->foreignIdFor(\App\Models\Area::class);
             $table->string('notes')->default('no notes')->nullable();
-            $table->string('status');
+            $table->foreignIdFor(\App\Models\Status::class);
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(\App\Models\Receipt::class)->default(0);
             $table->softDeletes();

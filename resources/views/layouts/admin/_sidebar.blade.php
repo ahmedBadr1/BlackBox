@@ -64,14 +64,16 @@
                 <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="false" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder-open"></i>
-                    <span>{{__("names.tasks")}}</span>
-                    <span class="icon-name">{{__("names.tasks")}}</span>
+                    <span>{{__("names.areas")}}</span>
+                    <span class="icon-name">{{__("names.areas")}}</span>
                     <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class=" py-2 collapse-inner rounded">
-                        <a href="{{ route('areas.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.tasks")}}</a>
                         <a href="{{ route('areas.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.areas")}}</a>
+                        <a class="collapse-item " href="{{route('branches.index')}}">{{__("names.manage")}} {{__('names.branches')}}</a>
+
+                        <a href="{{ route('zones.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.zones")}}</a>
                     </div>
                 </div>
             </li>
@@ -90,12 +92,12 @@
             <a class="sidebar-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnalysis"
                aria-expanded="false" aria-controls="collapseExample">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>{{__('names.branches')}}</span>
-                <span class="icon-name">{{__('names.branches')}}</span>
+                <span>{{__('names.tasks')}}</span>
+                <span class="icon-name">{{__('names.tasks')}}</span>
                 <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a class="collapse-item " href="{{route('branches.index')}}"><i class="fa fa-map-marked-alt"></i><span>{{__('names.branches')}}</span></a>
+                <a href="{{ route('areas.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.tasks")}}</a>
                 <a class="collapse-item " href="/charts.html"><span>{{__('names.jops')}}</span></a>
             </div>
         </li>
@@ -113,6 +115,7 @@
                  data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('receipts.index')}}"><i class="fas fa-money-check "></i><span>{{__('names.receipts')}}</span></a>
+                    <a class="collapse-item" href="{{route('mybalance')}}"><i class="fas fa-images"></i><span>{{__('names.mybalance')}}</span></a>
                     <a class="collapse-item" href="#"><i class="fas fa-images"></i><span>{{__('names.salary')}}</span></a>
                 </div>
             </div>

@@ -10,6 +10,9 @@ class Zone extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'rank',
+
+        'state_id'
     ];
 
 
@@ -21,5 +24,9 @@ class Zone extends Model
     public function user()
     {
         return  $this->belongsToMany(User::class);
+    }
+    public function state()
+    {
+        return $this->belongsTo(State::class);
     }
 }

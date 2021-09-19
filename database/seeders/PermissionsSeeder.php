@@ -46,6 +46,8 @@ class PermissionsSeeder extends Seeder
             'branch-assign',
             'order-show',
             'order-track',
+            'order-status',
+            'states'
         ];
         foreach ($this->permissions as $permission){
             Permission::findOrCreate($permission);
@@ -83,7 +85,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'seller',
             'email' => 'seller@bagyexpress.com',
             'phone' => '01100068386',
-            'state' => 'القاهرة',
+            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
             'is_seller' => true,
@@ -96,7 +98,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'delivery',
             'email' => 'delivery@bagyexpress.com',
             'phone' => '01100068386',
-            'state' => 'القاهرة',
+            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
 
@@ -108,7 +110,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'kimo',
             'email' => 'kimo@bagyexpress.com',
             'phone' => '01090007769',
-            'state' => 'القاهرة',
+            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
 
@@ -120,7 +122,7 @@ class PermissionsSeeder extends Seeder
             'name' => 'feedback',
             'email' => 'admin@bagyexpress.com',
             'phone' => '01098281638',
-            'state' => 'القاهرة',
+            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
 

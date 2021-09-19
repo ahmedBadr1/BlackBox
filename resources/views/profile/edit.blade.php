@@ -82,7 +82,7 @@
                         <div class="col-md-6">
                             <select id="area" class="form-select form-control @error('area') is-invalid @enderror" name="area"  aria-label="Default select example" >
                                 @foreach($areas as $area)
-                                    <option value="{{$area}}" @if($area=== $user->profile->area)
+                                    <option value="{{$area}}" @if($area === $user->profile->area)
                                         {{ __('selected') }}
                                         @endif>{{$area}}</option>
                                 @endforeach
@@ -103,9 +103,9 @@
                         <div class="col-md-6">
                             <select name="state" class="form-select form-control"  aria-label="Default select example" >
                                 @foreach($states as $state)
-                                    <option value="{{$state}}" @if($state=== $user->state)
+                                    <option value="{{$state->id}}" @if($state=== $user->state->name)
                                         {{ __('selected') }}
-                                        @endif>{{$state}}</option>
+                                        @endif>{{$state->name}}</option>
                                 @endforeach
 
                             </select>

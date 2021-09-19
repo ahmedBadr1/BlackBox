@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
-        'state',
+        'state_id',
         'hearAboutUs',
         'password',
     ];
@@ -77,6 +77,10 @@ class User extends Authenticatable
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+    public function state()
+    {
+        return $this->belongsTo(State::class);
     }
     public function zone()
     {

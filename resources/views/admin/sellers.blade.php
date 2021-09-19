@@ -39,7 +39,7 @@
                             <td>{{$user->created_at}}</td>
                             @can('user-show')
                                 <td>
-                                    <form action="" method="POST">
+                                    <form action="{{route('emailto',['e' => $user->email])}}" method="POST">
                                         @csrf
                                         <input type="submit" class="btn btn-secondary"  value="Email">
                                     </form>

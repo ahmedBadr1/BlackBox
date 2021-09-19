@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\State;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -18,23 +19,22 @@ class AreaController extends Controller
         $this->middleware('permission:area-delete',['only'=>['destroy']]);
 
     }
-
-    public function addzone(Request $request)
+    public function toggle(Request $request,$id)
+    {
+        //dd($id);
+        //$this->middleware('permission:states');
+        $state = State::findOrFail($id);
+        //return $device->name;
+        $state->active = !$state->active;
+        return response()->json($state->active) ;
+    }
+    public function states()
     {
         //
-        $this->validate($request,[
-            'name'=>'required|unique:zones,name',
-            'order'=>''
-        ]);
-        $input = $request->all();
-        $zone = Zone::create($input);
-//        $zone->name = $request->post('name');
-//        $zone->state = $request->post('state');
-//
-//        //    dd($field);
-//        $zone->save();
+       // $this->middleware('permission:states');
+        $states= State::where('active',true)->get();
 
-        return response()->json($zone);
+        return view('areas.states',compact('states'));
     }
     /**
      * Display a listing of the resource.
@@ -44,9 +44,9 @@ class AreaController extends Controller
     public function index()
     {
         //
-        $zones = Zone::orderBy('order')->get();
+        $zones = Zone::orderBy('rank')->get();
 
-        $areas = Area::orderBy('id','DESC')->paginate(5);
+        $areas = Area::orderBy('id','DESC')->paginate(10);
         return view('areas.index',compact('areas','zones'));
     }
 
@@ -58,9 +58,10 @@ class AreaController extends Controller
     public function create()
     {
         //
-        $zones = Zone::orderBy('order')->get();
-        $states= Area::$states;
-        return view('areas.create',compact('states','zones'));
+        $zones = Zone::orderBy('rank')->get();
+    //    $states= State::where('active',true)->get();
+
+        return view('areas.create',compact('zones'));
     }
 
     /**
@@ -81,7 +82,6 @@ class AreaController extends Controller
             'over_weight_cost'=>'required|numeric',
             'time_delivery'=>'required|numeric',
             'zone_id' => 'required|numeric',
-            'state' => 'required'
         ]);
         $input = $request->all();
       //  dd($input['zone_id']);
@@ -115,8 +115,9 @@ class AreaController extends Controller
     public function edit($id)
     {
         //
-        $zones = Zone::orderBy('order')->get();
+        $zones = Zone::orderBy('rank')->get();
         $area = Area::findOrFail($id);
+       // $states= State::where('active',true)->get();
         return view('areas.edit',compact('area','zones'));
     }
 
@@ -130,17 +131,18 @@ class AreaController extends Controller
     public function update(Request $request, $id)
     {
         //
+      //   dd($request->all());
         $this->validate($request,[
-            'name'=>'required|unique:areas,name',
+            'name'=>'required',
             'delivery_cost'=>'required|numeric',
             'return_cost'=>'required|numeric',
             'replacement_cost'=>'required|numeric',
             'over_weight_cost'=>'required|numeric',
             'time_delivery'=>'required|numeric',
             'zone_id' => 'required',
-            'state' => 'required'
         ]);
         $input = $request->all();
+
         $area = Area::find($id);
         $area->update($input);
 

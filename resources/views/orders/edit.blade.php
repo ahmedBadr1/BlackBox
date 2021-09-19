@@ -60,24 +60,6 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
-                        <div class="col-md-6">
-                            <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
-                                <option value="">select state</option>
-                                @foreach($states as $state)
-
-                                    <option value="{{$state}}" @if($state === $order->state) {{__("selected")}} @endif>{{$state}}</option>
-                                @endforeach
-                            </select>
-                            @error('state')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <label for="area" class="col-md-4 col-form-label text-md-right">{{__('auth.area')}}</label>
                         <div class="col-md-6">
                             <select name="area" id="area" class="form-control @error('area') is-invalid @enderror">

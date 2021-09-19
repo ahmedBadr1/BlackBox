@@ -62,9 +62,9 @@
                         <div class="col-md-6">
                             <select name="state" class="form-select" aria-label="Default select example" >
                                 @foreach($states as $state)
-                                    <option value="{{$state}}" @if($state=== $user->state)
+                                    <option value="{{$state->id}}" @if($state->name=== $user->state)
                                         {{ __('selected') }}
-                                        @endif>{{$state}}</option>
+                                        @endif>{{$state->name}}</option>
                                 @endforeach
 
                             </select>
