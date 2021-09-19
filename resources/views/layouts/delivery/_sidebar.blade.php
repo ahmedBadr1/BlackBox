@@ -25,7 +25,7 @@
         </li>
 
 
-    <!-- Heading -->
+        <!-- Heading -->
         <div class="text-muted">
             Interface
         </div>
@@ -41,47 +41,31 @@
                 <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a href="{{ route('orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
-                <a href="{{ route('orders.create') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.add")}} {{__("names.order")}}</a>
+                <a href="{{ route('myorders') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i> {{__("names.my-orders")}}</a>
             </div>
         </li>
 
-        <li class="nav-item">
-            <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#collapseStyles"
-               aria-expanded="false" aria-controls="collapseStyles">
-                <i class="fas fa-palette"></i>
-                <span>{{__('names.accounting')}}</span>
-                <span class="icon-name">{{__('names.accounting')}}</span>
-                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-            </a>
-            <div id="collapseStyles" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('receipts.index')}}"><i class="fas fa-money-check "></i><span>{{__('names.receipts')}}</span></a>
-                    <a class="collapse-item" href="{{route('mybalance')}}"><i class="fas fa-images"></i><span>{{__('names.mybalance')}}</span></a>
-                </div>
-            </div>
-        </li>
+
 
         <!-- Nav Item - Tables -->
-{{--        @can('inbox')--}}
-{{--            <li class="nav-item">--}}
-{{--                <a class="" href="{{route('inbox')}}">--}}
-{{--                    <i class="fas fa-inbox  "></i>--}}
-{{--                    <span>Inbox</span>--}}
-{{--                    <span class="icon-name">Inbox</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--        @endcan--}}
-{{--        --}}{{--        @can('email')--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="" href="{{route('email')}}">--}}
-{{--                <i class="fas fa-envelope"></i>--}}
-{{--                <span>Email</span>--}}
-{{--                <span class="icon-name">Email</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
-{{--    --}}{{--        @endcan--}}
+    {{--        @can('inbox')--}}
+    {{--            <li class="nav-item">--}}
+    {{--                <a class="" href="{{route('inbox')}}">--}}
+    {{--                    <i class="fas fa-inbox  "></i>--}}
+    {{--                    <span>Inbox</span>--}}
+    {{--                    <span class="icon-name">Inbox</span>--}}
+    {{--                </a>--}}
+    {{--            </li>--}}
+    {{--        @endcan--}}
+    {{--        --}}{{--        @can('email')--}}
+    {{--        <li class="nav-item">--}}
+    {{--            <a class="" href="{{route('email')}}">--}}
+    {{--                <i class="fas fa-envelope"></i>--}}
+    {{--                <span>Email</span>--}}
+    {{--                <span class="icon-name">Email</span>--}}
+    {{--            </a>--}}
+    {{--        </li>--}}
+    {{--    --}}{{--        @endcan--}}
 
 
     <!-- Divider -->

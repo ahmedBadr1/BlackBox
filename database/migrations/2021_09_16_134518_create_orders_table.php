@@ -27,6 +27,9 @@ class CreateOrdersTable extends Migration
             $table->string('notes')->default('no notes')->nullable();
             $table->foreignIdFor(\App\Models\Status::class);
             $table->foreignIdFor(User::class);
+            $table->unsignedBigInteger('delivery_id')->nullable();
+            $table->dateTime('received_at')->nullable();
+            $table->dateTime('expire_at')->nullable();
             $table->foreignIdFor(\App\Models\Receipt::class)->default(0);
             $table->softDeletes();
             $table->timestamps();

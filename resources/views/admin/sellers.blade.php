@@ -54,9 +54,7 @@
 
                 </table>
 
-
                 {{--            <a href="{{route('welcome.email')}}" class="btn btn-success">send</a>--}}
-
 
             </div>
         </div>

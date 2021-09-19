@@ -53,6 +53,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('branches/assign/{id}',[\App\Http\Controllers\BranchController::class,'assign'])->name('branches.assign');
         Route::post('branches/assign/{id}',[\App\Http\Controllers\BranchController::class,'assignGo'])->name('branches.assign');
 
+        Route::get('orders/assign',[\App\Http\Controllers\OrdersController::class,'assign'])->name('orders.assign');
+        Route::post('orders/assign',[\App\Http\Controllers\OrdersController::class,'assignGo'])->name('orders.assign');
+
+    Route::get('my-orders',[\App\Http\Controllers\DeliveryController::class,'myorders'])->name('myorders');
+    Route::get('orders/status/{id}',[\App\Http\Controllers\DeliveryController::class,'status'])->name('orders.status');
+    Route::post('orders/status/{id}/change',[\App\Http\Controllers\DeliveryController::class,'changeStatus'])->name('orders.changeStatus');
 
         Route::resource('users',\App\Http\Controllers\UserController::class);
         Route::resource('roles',\App\Http\Controllers\RolesController::class);

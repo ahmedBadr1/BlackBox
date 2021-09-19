@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Milon\Barcode\DNS1D;
 
 class ReceiptController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -29,8 +32,10 @@ class ReceiptController extends Controller
      */
     public function create()
     {
-        //
-
+        //auth()->user()->orders->where('status_id','>',4)->sortBy('status_id');
+        $pendingOrders = auth()->user()->orders->where('status_id','=',1)->sortByDesc('id');
+dd($pendingOrders);
+        return view('orders.receipts.generate',compact('pendingOrders'));
     }
 
     /**
@@ -42,7 +47,7 @@ class ReceiptController extends Controller
     public function store(Request $request)
     {
         //
-
+        dd($request->all());
     }
 
     /**

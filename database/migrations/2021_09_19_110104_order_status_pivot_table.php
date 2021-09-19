@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UserZonePivotTable extends Migration
+class OrderStatusPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +14,10 @@ class UserZonePivotTable extends Migration
     public function up()
     {
         //
-        Schema::create('user_zone', function (Blueprint $table) {
+        Schema::create('order_status', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(\App\Models\Zone::class);
+            $table->foreignIdFor(\App\Models\Order::class);
+            $table->foreignIdFor(\App\Models\Status::class);
             $table->timestamps();
         });
     }
@@ -30,7 +29,6 @@ class UserZonePivotTable extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('user_zone');
+        Schema::dropIfExists('order_status');
     }
 }

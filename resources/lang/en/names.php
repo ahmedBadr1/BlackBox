@@ -52,6 +52,10 @@ return [
 
     'notes'=>'Notes',
     'mybalance'=>'My Balance',
+    'state'=>'State',
+    'states'=>'States',
+    'zone'=>'Zone',
+    'zones'=>'Zones',
 
 
 

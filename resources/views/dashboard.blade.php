@@ -8,7 +8,7 @@
 
 
                 @can('user-show')
-                    <div class="card text-white bg-primary mb-3 col-md-4"  style="max-width: 18rem;">
+                    <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
                         <div class="card-header">{{__("names.count")}} {{__("names.users")}} </div>
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{route('users.index')}}">{{$users}} {{__("names.users")}}</a></h5>
@@ -16,7 +16,7 @@
                     </div>
                 @endcan
                 @can('state-show')
-                    <div class="card text-white bg-success mb-3 col-md-4"  style="max-width: 18rem;">
+                    <div class="card text-white bg-success m-3 col-md-4"  style="max-width: 18rem;">
                         <div class="card-header">{{__("names.count")}} {{__("names.states")}} </div>
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{route('states')}}">{{$states}} {{__("names.states")}}</a></h5>
@@ -24,7 +24,7 @@
                     </div>
                 @endcan
                 @can('branch-show')
-                    <div class="card text-white bg-primary mb-3 col-md-4"  style="max-width: 18rem;">
+                    <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
                         <div class="card-header">{{__("names.count")}} {{__("names.branches")}} </div>
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{route('branches.index')}}">{{$branches}} {{__("names.branches")}}</a></h5>
@@ -37,7 +37,7 @@
         <div class="row ">
 
                 @can('zone-show')
-                    <div class="card text-white bg-success mb-3 col-md-4"  style="max-width: 18rem;">
+                    <div class="card text-white bg-success m-3 col-md-4"  style="max-width: 18rem;">
                         <div class="card-header">{{__("names.count")}} {{__("names.zones")}} </div>
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{route('zones.index')}}">{{$zones}} {{__("names.zones")}}</a></h5>
@@ -45,7 +45,7 @@
                     </div>
                 @endcan
                 @can('area-show')
-                    <div class="card text-white bg-primary mb-3 col-md-4" style="max-width: 18rem;">
+                    <div class="card text-white bg-primary m-3 col-md-4" style="max-width: 18rem;">
                         <div class="card-header">{{__("names.count")}} {{__("names.areas")}}</div>
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{route('areas.index')}}">{{$areas}} {{__("names.areas")}}</a></h5>
@@ -53,7 +53,7 @@
                     </div>
                 @endcan
                 @can('order-show')
-                    <div class="card text-white bg-success mb-3 col-md-4" style="max-width: 18rem;">
+                    <div class="card text-white bg-success m-3 col-md-4" style="max-width: 18rem;">
                         <div class="card-header">{{__("names.count")}} {{__("names.orders")}}</div>
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{route('orders.index')}}">{{$orders}} {{__("names.orders")}}</a></h5>

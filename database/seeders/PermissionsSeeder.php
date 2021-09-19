@@ -47,7 +47,9 @@ class PermissionsSeeder extends Seeder
             'order-show',
             'order-track',
             'order-status',
-            'states'
+            'order-assign',
+            'states',
+
         ];
         foreach ($this->permissions as $permission){
             Permission::findOrCreate($permission);
@@ -93,14 +95,14 @@ class PermissionsSeeder extends Seeder
         ]);
         $user->assignRole($role0);
 
-        $password = Hash::make('delivery@bagyexpress.com');
+
         $user = \App\Models\User::factory()->create([
             'name' => 'delivery',
             'email' => 'delivery@bagyexpress.com',
             'phone' => '01100068386',
             'state_id' => '1',
             'hearAboutUs' => 'system',
-            'password'=>$password,
+            'password'=>bcrypt('delivery@bagyexpress.com'),
 
         ]);
         $user->assignRole($role1);

@@ -23,6 +23,7 @@ class UserFactory extends Factory
      * @return array
      */
     public function definition()
+
     {
         return [
             'name' => $this->faker->name(),
@@ -36,6 +37,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
         ];
     }
+
 
     /**
      * Indicate that the model's email address should be unverified.

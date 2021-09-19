@@ -25,13 +25,15 @@
 </head>
 <body >
 <div id="app" class="">
-
+    @auth()
         @if ( auth()->user()->hasRole('seller'))
         @include('layouts._sidebar')
+        @elseif(auth()->user()->hasRole('delivery'))
+                @include('layouts.delivery._sidebar')
         @else
-                @include('layouts.admin._sidebar')
+            @include('layouts.admin._sidebar')
         @endif
-
+    @endauth
     <main class="fb-container">
         <ul>
             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
@@ -52,11 +54,11 @@
         @yield('content')
     </main>
 
+
+</div>
 <footer class=" fb-footer">
     <p >copyright &#169 Feedback 2021 <small>powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}</small></p>
 </footer>
-</div>
-
 <script>
     let menu = document.getElementById('menu');
     let search = document.querySelector('.fa-search');

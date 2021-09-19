@@ -5,9 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 @role('client|Feedback')
-                <a href="{{route('receipts.create')}}" class="btn btn-success">{{__("auth.create")}} {{__("names.receipt")}}</a>
+                <a href="{{route('receipts.create')}}" class="btn btn-success">{{__("auth.generate")}} {{__("names.receipt")}}</a>
                 @endrole
-
 
                 <h1 class="text-center">{{__("names.all")}} {{__("names.receipts")}}</h1>
                 @if (session('status'))
@@ -20,7 +19,7 @@
                     <thead>
 
                     <th>{{__("auth.id")}} {{__("names.receipt")}}</th>
-                    <th>{{__("auth.order_id")}}</th>
+                    <th>{{__("auth.order_ids")}}</th>
                     <th>{{__("auth.orders_count")}}</th>
                     <th>{{__("auth.sub_total")}}</th>
                     <th>{{__("names.discount")}}</th>

@@ -7,8 +7,10 @@ use App\Models\Area;
 use App\Models\Order;
 use App\Models\State;
 use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Console\Input\Input;
 
@@ -131,9 +133,12 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-       if (auth()->id() !== $order->user_id){
-        abort(404);
-          }
+        if (!auth()->user()->role('Feedback')){
+            if (auth()->id() !== $order->user_id){
+                abort(404);
+            }
+        }
+
         return view('orders.show',compact('order'));
     }
 
@@ -145,8 +150,10 @@ class OrdersController extends Controller
      */
     public function edit(Order $order)
     {
-        if (auth()->id() !== $order->user_id){
-            abort(404);
+        if (!auth()->user()->role('Feedback')){
+            if (auth()->id() !== $order->user_id){
+                abort(404);
+            }
         }
 
         if ($order->status !== 'pending'){
@@ -219,6 +226,44 @@ class OrdersController extends Controller
         //
         $order->delete();
         notify()->success('Order Deleted Successfully');
+        return redirect()->route('orders.index');
+    }
+
+
+    public function assign(){
+        $orders = Order::whereHas("status", function($q){ $q->whereIn("id" ,[2]); })->get();
+       // dd($orders);
+        $deliveries = User::whereHas("roles", function($q){ $q->whereIn("name" ,["delivery"]); })->get();
+
+        $uniqueId = Str::random(8);
+//            while(Order::where('id', $uniqueStr)->exists()) {
+//
+//            }
+        dd($uniqueId);
+        return view('orders.assign',compact('deliveries','orders'));
+    }
+
+    public function assignGo(Request $request){
+
+        $this->validate($request,[
+            'delivery' => 'required',
+            'orders' => 'required|array'
+        ]);
+        $input = $request->all();
+        $delivery = User::findOrFail($input['delivery']);
+   //     dd($delivery->name);
+        foreach ($input['orders'] as $id){
+            $order = Order::findOrFail($id);
+          //  dd($order);
+            $order->delivery_id = $delivery->id;
+            $order->received_at = now() ;
+            $order->expire_at = now()->addHours(24);
+            $order->status_id = 5 ;
+            $order->update();
+           // $branch->users()->save($user); $order->area->time_delivery
+        }
+
+        notify()->success( ' Orders Assigned Successfully To '.$delivery->name . ' Delivery','Orders Assigned');
         return redirect()->route('orders.index');
     }
 }

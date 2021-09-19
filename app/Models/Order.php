@@ -76,6 +76,10 @@ class Order extends Model
     {
         return  $this->belongsTo(Receipt::class);
     }
+    public function status()
+    {
+        return  $this->belongsTo(Status::class);
+    }
 
 
 }
