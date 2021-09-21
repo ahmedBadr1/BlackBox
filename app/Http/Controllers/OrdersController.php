@@ -8,11 +8,14 @@ use App\Models\Order;
 use App\Models\State;
 use App\Models\Status;
 use App\Models\User;
+use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\Console\Input\Input;
+
+
 
 class OrdersController extends Controller
 {
@@ -20,19 +23,8 @@ class OrdersController extends Controller
     {
         $this->middleware('role:seller|Feedback');
     }
-    public function  track(Request $request)
-    {
-      //  dd($request['order_id']);
-       $order_id =  $request['order_id'];
 
-       $order =Order::findOrFail($request['order_id']);
-        if (auth()->user()->id !== $order->user->id){
-            abort(404);
-        }
-      // dd($order->user->id);
-        $status =  Status::find($order->status_id);
-     return view('orders.track',compact('status','order_id'));
-    }
+
     public function mybalance (){
       //   $total = auth()->user()->orders->sum('value');
         $avilableOrders = auth()->user()->orders->where('status_id','>',4)->sortBy('status_id');
@@ -138,7 +130,6 @@ class OrdersController extends Controller
                 abort(404);
             }
         }
-
         return view('orders.show',compact('order'));
     }
 
@@ -156,7 +147,7 @@ class OrdersController extends Controller
             }
         }
 
-        if ($order->status !== 'pending'){
+        if (!in_array($order->status->id,[1,2])){
             notify()->warning("Order Can't be changed after reaching to Bagy");
             return redirect()->route('orders.index');
         }
@@ -223,7 +214,6 @@ class OrdersController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
         $order->delete();
         notify()->success('Order Deleted Successfully');
         return redirect()->route('orders.index');
@@ -239,7 +229,10 @@ class OrdersController extends Controller
 //            while(Order::where('id', $uniqueStr)->exists()) {
 //
 //            }
-        dd($uniqueId);
+
+       $id = Hashids::connection(Order::class)->encode('65050');
+      dd($id);
+
         return view('orders.assign',compact('deliveries','orders'));
     }
 

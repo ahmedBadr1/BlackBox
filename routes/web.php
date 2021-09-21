@@ -21,7 +21,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         return view('home');
     })->name('home');
     Route::get('/track', [App\Http\Controllers\HomeController::class, 'track']);
-    Route::post('/track', [App\Http\Controllers\OrdersController::class, 'track'])->name('track');
+    Route::post('/track', [App\Http\Controllers\HomeController::class, 'trackgo'])->name('track');
 
     Route::get('/auth/redirect', function () {
          return Socialite::driver('google')

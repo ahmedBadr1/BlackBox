@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Status;
 use Illuminate\Http\Request;
+use Vinkla\Hashids\Facades\Hashids;
 
 class HomeController extends Controller
 {
@@ -13,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+     //   $this->middleware('auth');
     }
 
     /**
@@ -27,12 +30,33 @@ class HomeController extends Controller
     }
     public function track(Request $request ){
        // dd($request);
-        $order_id ='';
+        $order_hashid ='';
         if ($request->query('order_id') !== null){
-            $order_id = $request->query('order_id');
+            $order_hashid = $request->query('order_id');
         }
         $user =  \auth()->user();
         $status= null;
-        return view('orders.track',compact('user','order_id','status'));
+        return view('orders.track',compact('user','order_hashid','status'));
+    }
+
+    public function  trackgo(Request $request)
+    {
+        //  dd($request['order_id']);
+        $order_hashid =  $request['order_id'];
+        $id =    Hashids::Connection(Order::class)->decode($order_hashid);
+
+        if($id){
+            $order =Order::findOrFail($id[0]);
+            $status =  Status::find($order->status_id)->name;
+        }else{
+            $status =  null;
+        }
+
+//        if (auth()->user()->id !== $order->user->id){
+//            abort(404);
+//        }
+
+
+        return view('orders.track',compact('status','order_hashid'));
     }
 }

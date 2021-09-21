@@ -36,7 +36,7 @@
 
                         <tr>
 
-                            <td> <a href="{{ route('orders.status',$order->id) }}"> {{$order->id}}@php echo DNS1D::getBarcodeHTML($order->id,'C39'); @endphp</a></td>
+                            <td> <a href="{{ route('orders.status',$order->hashid) }}"> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
                             <td>{{$order->product_name}} </td>
                             <td>{{$order->cust_name}} </td>
                             <td>{{$order->cust_num}} </td>

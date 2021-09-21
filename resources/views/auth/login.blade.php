@@ -1,5 +1,7 @@
 @extends('layouts.app')
+@section('meta')
 
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -64,10 +66,13 @@
                                 @endif
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 @endsection

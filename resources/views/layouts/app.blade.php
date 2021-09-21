@@ -100,7 +100,7 @@
         </div>
     </nav>
 
-    <main class="py-4 container">
+    <main class="py-4 container-fluid">
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>

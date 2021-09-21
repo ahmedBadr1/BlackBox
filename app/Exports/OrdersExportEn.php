@@ -17,7 +17,7 @@ class OrdersExportEn implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
  {
      // TODO: Implement map() method.
      return [
-         $order->id,
+         $order->hashid,
          $order->product_name,
          $order->value,
          $order->cust_name,
@@ -35,7 +35,7 @@ class OrdersExportEn implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
     {
 
         return [
-            '#',
+            'Track ID',
             'product_name',
             'Value',
             'Customer_name',

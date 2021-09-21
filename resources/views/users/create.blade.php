@@ -63,7 +63,7 @@
                         <div class="col-md-6">
                             <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
                                 @foreach($states as $state)
-                                    <option value="{{$state}}">{{$state}}</option>
+                                    <option value="{{$state->id}}">{{$state->name}}</option>
                                 @endforeach
                             </select>
                             @error('state')

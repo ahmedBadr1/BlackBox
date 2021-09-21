@@ -12,7 +12,7 @@
                     </div>
                 @endif
                 <label>{{__("names.order")}} {{__("auth.id")}}</label>
-                <p><b>   {{$order->id}}@php echo DNS1D::getBarcodeHTML($order->id,'C39'); @endphp</b></p> <hr>
+                <p><b>   {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.product_name")}}</label>
                 <p><b>{{$order->product_name}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.name")}}</label>
@@ -31,8 +31,8 @@
                 <p><b>{{$order->status->name}}</b></p> <hr>
 
                 <div class="d-flex ">
-                        <a href="{{ route('orders.edit',$order->id) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
-                        <form class="ml-5" action="{{route('orders.destroy',$order->id) }}" method="POST">
+                        <a href="{{ route('orders.edit',$order->hashid) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
+                        <form class="ml-5" action="{{route('orders.destroy',$order->hashid) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger" value="{{__("auth.delete")}}">

@@ -22,7 +22,7 @@
                 <table class="table table-hover">
 
                     <thead>
-
+                    <th>#</th>
                     <th>{{__("auth.id")}} {{__("names.order")}}</th>
                     <th>{{__("auth.product_name")}}</th>
 
@@ -40,11 +40,11 @@
 
                     <tbody>
 
-                    @foreach($orders as $order)
+                    @forelse($orders as $key => $order)
 
                         <tr>
-
-                            <td> <a href="{{ route('orders.show',$order->id) }}"> {{$order->id}}@php echo DNS1D::getBarcodeHTML($order->id,'C39'); @endphp</a></td>
+                                <td>{{++$key}}</td>
+                            <td> <a href="{{ route('orders.show',$order->hashid) }}"> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
                             <td>{{$order->product_name}} </td>
                             <td>{{$order->cust_name}} </td>
                             <td>{{$order->cust_num}} </td>
@@ -59,12 +59,12 @@
                             @role('seller|Feedback')
                                 <td><a href="{{route('track',['order_id' => $order->id])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
                             @endrole
-                            @role('seller')
-                            <td><a href="{{ route('orders.edit',$order->id) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>
+                            @role('seller|Feedback')
+                            <td><a href="{{ route('orders.edit',$order->hashid) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>
                             @endrole
-                            @role('seller')
+                            @role('seller|Feedback')
                             <td>
-                                <form action="{{route('orders.destroy',$order->id) }}" method="POST">
+                                <form action="{{route('orders.destroy',$order->hashid) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
@@ -74,8 +74,11 @@
                             @endauth
                         </tr>
 
-                    @endforeach
-
+                    @empty
+                        <tr>
+                            <td colspan="3">No Orders Found</td>
+                        </tr>
+                    @endforelse
                     </tbody>
 
                 </table>

@@ -13,15 +13,15 @@
 
                 <form action="{{route('track')}}" method="POST">
                     @csrf
-                    @if($order_id !== '')
+                    @if($order_hashid !== '')
                         <div class="form-group">
                             <label for="">Enter Order Track Id</label>
-                            <input type="number" name="order_id" class="form-control" value="{{$order_id}}">
+                            <input type="text" name="order_id" class="form-control" value="{{$order_hashid}}">
                         </div>
                     @else
                         <div class="form-group">
                             <label for="">Enter Order Track Id</label>
-                            <input type="number" name="order_id" class="form-control" value="">
+                            <input type="text" name="order_id" class="form-control" value="">
                         </div>
                     @endif
 
@@ -39,8 +39,10 @@
 
         @if($status)
             <div class="badge badge-primary">
-                {{$status->name}}
+                {{$status}}
             </div>
+                @else
+            <div class="">{{__("message.order-nor-found")}}</div>
             @endif
             </div>
         </div>
