@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Area::factory(25)->create();
 
-        \App\Models\Order::factory(100)->create();
+        \App\Models\Order::factory(50)->create();
+
 
          \App\Models\User::factory(20)->create();
          for ($i=5 ; $i <= 14; $i++ ){
@@ -37,5 +38,6 @@ class DatabaseSeeder extends Seeder
              $role = Role::all()->random();
              $user->assignRole($role);
          }
+        \App\Models\Task::factory(10)->create();
     }
 }

@@ -97,7 +97,7 @@
                 <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a href="{{ route('areas.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.tasks")}}</a>
+                <a href="{{ route('tasks.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.tasks")}}</a>
                 <a class="collapse-item " href="/charts.html"><span>{{__('names.jops')}}</span></a>
             </div>
         </li>
@@ -132,6 +132,7 @@
             </a>
             <div id="collapseOreder" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <a href="{{ route('orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
+                <a href="{{ route('orders.inventory') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.inventory")}}</a>
             </div>
         </li>
 

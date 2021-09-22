@@ -7,7 +7,7 @@
                 <a href="{{route('orders.index')}}">{{__("names.manage")}} {{__("auth.orders")}}</a>
                 <h1 class="text-center">{{__("auth.edit")}} {{__("auth.branch")}}</h1>
 
-                <form method="POST" action="{{ route('orders.update',$order->id) }}">
+                <form method="POST" action="{{ route('orders.update',$order->hashid) }}">
                     @csrf
                     @method('PUT')
 
@@ -62,13 +62,13 @@
                     <div class="form-group row">
                         <label for="area" class="col-md-4 col-form-label text-md-right">{{__('auth.area')}}</label>
                         <div class="col-md-6">
-                            <select name="area" id="area" class="form-control @error('area') is-invalid @enderror">
+                            <select name="area_id" id="area" class="form-control @error('area_id') is-invalid @enderror">
 
                                 @foreach($areas as $area)
                                     <option value="{{$area->id}}"@if($area->id === $order->area) {{ ("selected")}} @endif>{{$area->name}} </option>
                                 @endforeach
                             </select>
-                            @error('area')
+                            @error('area_id')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -79,7 +79,7 @@
                     <div class="form-group row">
                         <label for="value" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.value")}}</label>
                         <div class="col-md-6">
-                            <input  type="number" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ $order->value }}"  autocomplete="name" autofocus>
+                            <input  type="number" step="00.01" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ $order->value }}"  autocomplete="name" autofocus>
                             @error('value')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

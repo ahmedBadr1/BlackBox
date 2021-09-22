@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\State;
 use App\Models\Zone;
@@ -46,7 +47,7 @@ class AreaController extends Controller
         //
         $zones = Zone::orderBy('rank')->get();
 
-        $areas = Area::orderBy('id','DESC')->paginate(10);
+        $areas = Area::with('zone','state')->orderBy('id','DESC')->paginate(10);
         return view('areas.index',compact('areas','zones'));
     }
 
@@ -80,7 +81,7 @@ class AreaController extends Controller
             'return_cost'=>'required|numeric',
             'replacement_cost'=>'required|numeric',
             'over_weight_cost'=>'required|numeric',
-            'time_delivery'=>'required|numeric',
+            'delivery_time'=>'required|numeric',
             'zone_id' => 'required|numeric',
         ]);
         $input = $request->all();
@@ -138,7 +139,7 @@ class AreaController extends Controller
             'return_cost'=>'required|numeric',
             'replacement_cost'=>'required|numeric',
             'over_weight_cost'=>'required|numeric',
-            'time_delivery'=>'required|numeric',
+            'delivery_time'=>'required|numeric',
             'zone_id' => 'required',
         ]);
         $input = $request->all();

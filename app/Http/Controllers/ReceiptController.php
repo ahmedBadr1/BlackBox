@@ -18,8 +18,7 @@ class ReceiptController extends Controller
     public function index()
     {
         //
-
-        $receipts = auth()->user()->receipts;
+        $receipts = auth()->user()->receipts->where('ready',0);
 
        // dd($receipts);
         return view('orders.receipts.index',compact('receipts'));

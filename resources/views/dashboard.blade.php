@@ -6,7 +6,17 @@
         <div class="row d-flex align-items-md-center">
 
 
-
+{{--            <div class="col-md-4">--}}
+{{--                <div class="info-box">--}}
+{{--                    <span class="info-box-icon bg-red">--}}
+{{--                        <i class="fa fa-chart-line"></i>--}}
+{{--                    </span>--}}
+{{--                    <div class="info-boc-content">--}}
+{{--                        <span class="info-box-text">Users</span>--}}
+{{--                        <span class="info-box-number">{{$users}}</span>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
                 @can('user-show')
                     <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
                         <div class="card-header">{{__("names.count")}} {{__("names.users")}} </div>

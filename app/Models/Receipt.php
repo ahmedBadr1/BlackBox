@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Http\Traits\Hashidable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Vinkla\Hashids\Facades\Hashids;
 
 class Receipt extends Model
 {
-    use HasFactory;
+    use HasFactory ,SoftDeletes , Hashidable;
 
     protected $fillable = [
-        'order_ids',
+        'orders_ids',
         'orders_count',
         'sub_total',
         'discount',
@@ -33,8 +36,10 @@ class Receipt extends Model
      * @var array
      */
     protected $casts = [
-        'order_ids' => 'array',
+        'orders_ids' => 'array',
     ];
+
+    protected $appends = ['hashid'];
 
     public function orders()
     {
@@ -43,5 +48,11 @@ class Receipt extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function getHashidAttribute($value)
+    {
+        return Hashids::connection(get_called_class())->encode($this->attributes['id']);
+        // return Hashids::encode($this->attributes['id']);
     }
 }

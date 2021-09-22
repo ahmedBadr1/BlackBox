@@ -83,7 +83,7 @@
                     <div class="form-group row">
                         <label for="value" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.value")}}</label>
                         <div class="col-md-6">
-                            <input  type="number" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}"  autocomplete="name" autofocus>
+                            <input  type="number" step="00.01" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}"  autocomplete="name" autofocus>
                             @error('value')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

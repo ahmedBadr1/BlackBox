@@ -21,20 +21,9 @@ class OrdersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:seller|Feedback');
+     //   $this->middleware('role:seller|Feedback');
     }
 
-
-    public function mybalance (){
-      //   $total = auth()->user()->orders->sum('value');
-        $avilableOrders = auth()->user()->orders->where('status_id','>',4)->sortBy('status_id');
-        $total = $avilableOrders->sum('value');
-       // dd($avilableOrders);
-        $ordersCount = auth()->user()->orders->count();
-
-    //    dd($total);
-         return view('orders.receipts.balance',compact('total','ordersCount','avilableOrders'));
-    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +31,20 @@ class OrdersController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = auth()->user()->orders()->orderBy('updated_at','DESC')->paginate(10);
+
+        if(auth()->user()->hasRole('seller')){
+           // dd('seller');
+            return redirect()->action([SellerController::class, 'myorders']);
+        }elseif (auth()->user()->hasRole('delivery')){
+         //   dd('delivery');
+            return redirect()->action([DeliveryController::class, 'myorders']);
+        }else{
+         //   dd('else');
+        //    $orders = auth()->user()->orders()->orderBy('updated_at','DESC')->paginate(10);
+            $orders = Order::with('user','area','status','state')->orderBy('updated_at','DESC')->paginate(10);
+        }
+
+
 
 //        $avOrders = auth()->user()->zone[0]->areas;
 //        dd($avOrders);
@@ -82,37 +84,14 @@ class OrdersController extends Controller
             'area_id'=>'required|numeric',
             'quantity'=>'required|numeric',
             'notes'=>'',
+
         ]);
         $input = $request->all();
         $input['status_id'] = Status::all()->first()->id;
         $input['user_id'] =auth()->id();
+        $input['total'] = $input['value'] * $input['quantity'] ?? 0;
         Order::create($input);
-//        Order::create([
-//            'value' => $input['value'],
-//            'cust_name' => $input['cust_name'],
-//            'cust_num' => $input['cust_num'],
-//            'address' => $input['address'],
-//            'state' => $input['state'],
-//            'area_id' => $input['area'],
-//            'quantity' => $input['quantity'],
-//            'notes' => $input['notes'],
-//            'status' => Order::$status[0],
-//            'user_id' => auth()->id(),
-//        ]);
 
-//        $order = new Order();
-//       $order->value = $input['value'];
-//        $order->cust_name = $input['cust_name'];
-//        $order->cust_num = $input['cust_num'];
-//        $order->address = $input['address'];
-//        $order->state = $input['state'];
-//        $order->area = $input['area'];
-//        $order->quantity = $input['quantity'];
-//        $order->notes = $input['notes'];
-//        $order->status = '';
-//        $order->user_id =  Auth::user()->id;
-//        //dd(Auth::user()->id);
-//        $order->save();
         notify()->success('Order Created Successfully');
         return redirect()->route('orders.index');
     }
@@ -125,7 +104,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-        if (!auth()->user()->role('Feedback')){
+        if (!auth()->user()->hasRole('Feedback')){
             if (auth()->id() !== $order->user_id){
                 abort(404);
             }
@@ -141,7 +120,7 @@ class OrdersController extends Controller
      */
     public function edit(Order $order)
     {
-        if (!auth()->user()->role('Feedback')){
+        if (!auth()->user()->hasRole('Feedback')){
             if (auth()->id() !== $order->user_id){
                 abort(404);
             }
@@ -173,38 +152,16 @@ class OrdersController extends Controller
             'cust_name'=>'required',
             'cust_num'=>'required|numeric',
             'address'=>'required',
-            'area'=>'required',
-            'quantity'=>'required',
+            'area_id'=>'required|numeric',
+            'quantity'=>'required|numeric',
             'notes'=>'',
         ]);
         $input = $request->all();
-//        Order::update([
-//            'value' => $input['value'],
-//            'cust_name' => $input['cust_name'],
-//            'cust_num' => $input['cust_num'],
-//            'address' => $input['address'],
-//            'state' => $input['state'],
-//            'area' => $input['area'],
-//            'quantity' => $input['quantity'],
-//            'notes' => $input['notes'],
-//            'status' => Order::$status[0],
-//            'user_id' => auth()->id(),
-//        ]);
-        $order->product_name = $input['product_name'];
-       $order->value = $input['value'];
-        $order->cust_name = $input['cust_name'];
-        $order->cust_num = $input['cust_num'];
-        $order->address = $input['address'];
-        $order->area = $input['area'];
-        $order->quantity = $input['quantity'];
-        $order->notes = $input['notes'];
-       // $order->status = '';
-        //$order->user_id =  Auth::user()->id;
-        //dd(Auth::user()->id);
-        $order->update();
+        $order->update($input);
         notify()->success('Order Updated Successfully');
         return redirect()->route('orders.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -219,44 +176,4 @@ class OrdersController extends Controller
         return redirect()->route('orders.index');
     }
 
-
-    public function assign(){
-        $orders = Order::whereHas("status", function($q){ $q->whereIn("id" ,[2]); })->get();
-       // dd($orders);
-        $deliveries = User::whereHas("roles", function($q){ $q->whereIn("name" ,["delivery"]); })->get();
-
-        $uniqueId = Str::random(8);
-//            while(Order::where('id', $uniqueStr)->exists()) {
-//
-//            }
-
-       $id = Hashids::connection(Order::class)->encode('65050');
-      dd($id);
-
-        return view('orders.assign',compact('deliveries','orders'));
-    }
-
-    public function assignGo(Request $request){
-
-        $this->validate($request,[
-            'delivery' => 'required',
-            'orders' => 'required|array'
-        ]);
-        $input = $request->all();
-        $delivery = User::findOrFail($input['delivery']);
-   //     dd($delivery->name);
-        foreach ($input['orders'] as $id){
-            $order = Order::findOrFail($id);
-          //  dd($order);
-            $order->delivery_id = $delivery->id;
-            $order->received_at = now() ;
-            $order->expire_at = now()->addHours(24);
-            $order->status_id = 5 ;
-            $order->update();
-           // $branch->users()->save($user); $order->area->time_delivery
-        }
-
-        notify()->success( ' Orders Assigned Successfully To '.$delivery->name . ' Delivery','Orders Assigned');
-        return redirect()->route('orders.index');
-    }
 }

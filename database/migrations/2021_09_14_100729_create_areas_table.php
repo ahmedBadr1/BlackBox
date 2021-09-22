@@ -20,7 +20,7 @@ class CreateAreasTable extends Migration
             $table->unsignedBigInteger('return_cost');
             $table->unsignedBigInteger('replacement_cost');
             $table->unsignedBigInteger('over_weight_cost');
-            $table->unsignedBigInteger('time_delivery');
+            $table->unsignedBigInteger('delivery_time');
             $table->foreignIdFor(\App\Models\Zone::class)->nullable();
             $table->timestamps();
         });

@@ -49,6 +49,11 @@ class PermissionsSeeder extends Seeder
             'order-status',
             'order-assign',
             'states',
+            'task-show',
+            'task-edit',
+            'task-create',
+            'task-delete',
+            'task-assign',
 
         ];
         foreach ($this->permissions as $permission){

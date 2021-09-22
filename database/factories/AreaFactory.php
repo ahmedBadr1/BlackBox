@@ -30,7 +30,7 @@ class AreaFactory extends Factory
             'return_cost' => rand(10,70),
             'replacement_cost' => rand(10,70),
             'over_weight_cost' => rand(10,70),
-            'time_delivery' => rand(10,70),
+            'delivery_time' => rand(10,70),
             'zone_id' =>  Zone::all()->random()->id,
 
         ];

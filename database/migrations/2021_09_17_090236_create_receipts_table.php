@@ -15,14 +15,16 @@ class CreateReceiptsTable extends Migration
     public function up()
     {
         Schema::create('receipts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\Order::class)->default(0);
+            $table->increments('id')->startingValue(65000);
+            $table->string('orders_ids');
             $table->unsignedBigInteger('orders_count');
             $table->unsignedBigInteger('sub_total')->nullable();
             $table->unsignedBigInteger('discount')->nullable();
             $table->unsignedBigInteger('tax')->nullable();
             $table->unsignedBigInteger('total');
+            $table->boolean('ready')->default(0);
             $table->foreignIdFor(User::class);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

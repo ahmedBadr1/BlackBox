@@ -49,7 +49,7 @@
                             <td><a href="{{route('users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
                             @auth
                                 @role('delivery|Feedback')
-                                <td><a href="{{ route('orders.status',$order->id) }}" class="collapse-item ">{{__("names.order")}} {{__("names.status")}}</a></td>
+                                <td><a href="{{ route('orders.status',$order->hashid) }}" class="collapse-item ">{{__("names.order")}} {{__("names.status")}}</a></td>
                                 @endrole
                             @endauth
                         </tr>

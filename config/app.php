@@ -171,6 +171,8 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         \Vinkla\Hashids\HashidsServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -238,6 +240,8 @@ return [
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Hashids'=>\Vinkla\Hashids\Facades\Hashids::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
 
     ],
 

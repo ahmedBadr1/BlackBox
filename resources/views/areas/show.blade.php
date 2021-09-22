@@ -23,8 +23,8 @@
                 <p><b>{{$area->replacement_cost}}</b></p> <hr>
                 <label>Area over_weight_cost</label>
                 <p><b>{{$area->over_weight_cost}}</b></p> <hr>
-                <label>Area time_delivery</label>
-                <p><b>{{$area->time_delivery}}</b></p> <hr>
+                <label>Area delivery_time</label>
+                <p><b>{{$area->delivery_time}}</b></p> <hr>
                 <label>Area Zone</label>
                 <p><b><a href="{{route('zones.show',$area->zone->id)}}">{{$area->zone->name}}</a></b></p> <hr>
                 <label>Area State</label>

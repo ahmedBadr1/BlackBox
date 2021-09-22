@@ -25,6 +25,25 @@
 </head>
 <body >
 <div id="app" class="">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="nav-logo"></div>
+            <ul class="d-flex">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <li>
+                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                            {{ $properties['native'] }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
     @auth()
         @if ( auth()->user()->hasRole('seller'))
         @include('layouts._sidebar')
@@ -34,16 +53,14 @@
             @include('layouts.admin._sidebar')
         @endif
     @endauth
+
     <main class="fb-container">
-        <ul>
-            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <li>
-                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                        {{ $properties['native'] }}
-                    </a>
-                </li>
-            @endforeach
-        </ul>
+
+
+        <!-- As a heading -->
+
+
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>

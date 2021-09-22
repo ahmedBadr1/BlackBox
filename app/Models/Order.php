@@ -32,7 +32,8 @@ class Order extends Model
         'notes',
         'status_id',
         'receipt_id',
-        'user_id'
+        'user_id',
+        'total'
     ];
     /**
      * The attributes that should be hidden for serialization.

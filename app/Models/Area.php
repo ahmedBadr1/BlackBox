@@ -20,7 +20,7 @@ class Area extends Model
         'return_cost',
         'replacement_cost',
         'over_weight_cost',
-        'time_delivery',
+        'delivery_time',
         'zone_id',
         'state'
     ];
@@ -42,7 +42,7 @@ class Area extends Model
 //    public function availableOrders()
 //    {
 //        return  $this->hasMany(Order::class,function($q) {
-//            $q->where('status', 'in-way');
+//            $q->whereIn('status_id', [3,6,7,8]);
 //        });
 //    }
 

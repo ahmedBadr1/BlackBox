@@ -41,6 +41,11 @@ return [
             'length' => 8,
             'alphabet' => 'abcdefghijklmnopqrstuvwxyz1234567890'
         ],
+        \App\Models\Receipt::class => [
+            'salt' =>   \App\Models\Receipt::class.'7623e9b0009feff8e024a689d6ef59ce',
+            'length' => 8,
+            'alphabet' => 'abcdefghijklmnopqrstuvwxyz1234567890'
+        ],
 
 //        'main' => [
 //            'salt' => 'your-salt-string',

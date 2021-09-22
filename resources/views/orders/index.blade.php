@@ -57,10 +57,10 @@
                             <td><a href="{{route('users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
                             @auth
                             @role('seller|Feedback')
-                                <td><a href="{{route('track',['order_id' => $order->id])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
+                                <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
                             @endrole
                             @role('seller|Feedback')
-                            <td><a href="{{ route('orders.edit',$order->hashid) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>
+                            <td><a href="{{ route('orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">{{__('auth.edit')}}</a></td>
                             @endrole
                             @role('seller|Feedback')
                             <td>

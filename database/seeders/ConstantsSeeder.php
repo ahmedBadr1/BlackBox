@@ -23,7 +23,7 @@ class ConstantsSeeder extends Seeder
                 'name' => $state,
             ]);
         }
-       $statuses = ['pending','in-way','cancelled','returned','delivering','delivered','rescheduled','refused','returning'];
+       $statuses = ['pending','ready','inline','out for delivery','rescheduled','delivered','cancelled','refused','returning','returned'];
 
         foreach ($statuses as $status){
             Status::factory()->create([

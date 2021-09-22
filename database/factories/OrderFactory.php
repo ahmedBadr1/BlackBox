@@ -37,6 +37,7 @@ class OrderFactory extends Factory
             'status_id' => Status::all()->random()->id,
             'receipt_id' => $this->faker->numerify(),
             'user_id'  =>  User::all()->random()->id,
+            'total'  =>  $this->faker->numerify(),
         ];
     }
 }
