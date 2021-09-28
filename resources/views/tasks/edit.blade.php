@@ -7,7 +7,7 @@
 
 
                 <a href="{{route('tasks.index')}}">Manage tasks</a>
-                <h1 class="text-center">Edit User {{$task->name}}</h1>
+                <h1 class="text-center">Edit Task {{$task->type}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -16,62 +16,19 @@
                 <form method="POST" action="{{route('tasks.update',$task->id)}}">
                     @csrf
                     @method('PUT')
-
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <label for="role" class="col-md-4 col-form-label text-md-right">Type</label>
 
                         <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}"  autocomplete="name" autofocus>
+                            <select name="type" class="form-select" aria-label="Default select example" >
 
-                            @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}"  autocomplete="email">
-
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="phone" class="col-md-4 col-form-label text-md-right">phone number</label>
-
-                        <div class="col-md-6">
-                            <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone  }}"  autocomplete="phone">
-
-                            @error('phone')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
-
-                        <div class="col-md-6">
-                            <select name="state" class="form-select" aria-label="Default select example" >
-                                @foreach($states as $state)
-                                    <option value="{{$state->id}}" @if($state->name=== $user->state)
+                                @foreach($types as $type)
+                                    <option value="{{$type}}" @if($type=== $task->type)
                                         {{ __('selected') }}
-                                        @endif>{{$state->name}}</option>
+                                        @endif>{{$type}}</option>
                                 @endforeach
-
                             </select>
-                            @error('state')
+                            @error('type')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -80,21 +37,29 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="role" class="col-md-4 col-form-label text-md-right">{{__('names.role')}} {{ $userRole  }}</label>
+                        <label for="role" class="col-md-4 col-form-label text-md-right">Delivery</label>
 
                         <div class="col-md-6">
-                            <select name="role" class="form-select" aria-label="Default select example" >
-                            @foreach($roles as $role)
-                                <option value="{{$role}}" @if($role=== $userRole  )
-                                    {{ __('selected') }}
-                                    @endif>{{$role}}</option>
-                             @endforeach
+                            <select name="delivery_id" class="form-select" aria-label="Default select example" >
+
+                                @foreach($deliveries as $delivery)
+                                    <option value="{{$delivery->id}}"  @if($delivery->id=== $task->deliver_id)
+                                        {{ __('selected') }}
+                                        @endif>{{$delivery->name}}</option>
+                                @endforeach
                             </select>
-                            @error('role')
+                            @error('delivery_id')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <label for="exampleFormControlTextarea1" class="form-label">{{__("names.notes")}}</label>
+                            <textarea name="notes" class="form-control" rows="3">{{$task->notes}}</textarea>
                         </div>
                     </div>
 

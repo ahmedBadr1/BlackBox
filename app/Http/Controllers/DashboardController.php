@@ -6,8 +6,10 @@ use App\Models\Area;
 use App\Models\Branch;
 use App\Models\Order;
 use App\Models\State;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -139,13 +141,14 @@ class DashboardController extends Controller
 
     public function sellers()
     {
-        $sellers =Role::where('name', 'seller')->first()->users()->get();
-
+        $sellers = User::with('roles')->whereHas("roles", function($q){ $q->where("name" ,'seller'); })->get();
+      //  $sellers = User::whereIn('role', 'seller')->get();
+//dd($sellers);
         return view('admin.sellers', compact('sellers'));
     }
 
     public function assign(){
-        $orders = Order::whereHas("status", function($q){ $q->where("id" ,2); })->get();
+        $orders = Order::with('area')->whereHas("status", function($q){ $q->where("id" ,2); })->get();
         // dd($orders);
         $deliveries = User::whereHas("roles", function($q){ $q->whereIn("name" ,["delivery"]); })->get();
 
@@ -182,6 +185,15 @@ class DashboardController extends Controller
 
         notify()->success( ' Orders Assigned Successfully To '.$delivery->name . ' Delivery','Orders Assigned');
         return redirect()->route('orders.index');
+    }
+    public function trash(){
+
+        $deletedOrders = Order::onlyTrashed()->count();
+        $deletedTasks = Task::onlyTrashed()->count();
+      //  dd($deletedTasks);
+
+
+        return view('admin.trash',compact('deletedOrders','deletedTasks'));
     }
 
 }

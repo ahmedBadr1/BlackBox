@@ -37,7 +37,7 @@
 
 
                     <div class="form-group container-fluid col-md-12 mb-0">
-                        <h3>Deliveries</h3>
+                        <h3>Ready Orders</h3>
                         <div class="row offset-md-2 ">
                             @foreach($orders as $order)
                                 <div class="m-2">

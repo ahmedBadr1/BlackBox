@@ -44,6 +44,13 @@
                 <a href="{{ route('myorders') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i> {{__("names.my-orders")}}</a>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="" href="{{route('my-tasks')}}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>{{__("names.tasks")}}</span>
+                <span class="icon-name">{{__("names.tasks")}}</span>
+            </a>
+        </li>
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\State;
+use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -31,10 +32,11 @@ class AreaController extends Controller
     }
     public function states()
     {
-        //
        // $this->middleware('permission:states');
-        $states= State::where('active',true)->get();
-
+        $states= State::where('active',true)->with(array('users'=>function ($query){  $query->select('id','name');},'branches','areas','zones'))->get();
+//        foreach ($states as $state){
+//            dd($state->users);
+//        }
         return view('areas.states',compact('states'));
     }
     /**
@@ -81,8 +83,8 @@ class AreaController extends Controller
             'return_cost'=>'required|numeric',
             'replacement_cost'=>'required|numeric',
             'over_weight_cost'=>'required|numeric',
-            'delivery_time'=>'required|numeric',
-            'zone_id' => 'required|numeric',
+            'delivery_time'=>'required|numeric|min:12',
+            'zone_id' => 'required|numeric|min:1',
         ]);
         $input = $request->all();
       //  dd($input['zone_id']);

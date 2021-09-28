@@ -17,17 +17,19 @@ class Branch extends Model
         'user_id',
     ];
 
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
+
     public function state()
     {
         return $this->belongsTo(State::class);
     }
     public function manager()
     {
-        $mangers = User::role(['manager'])->get();
-        return $this->hasOne($mangers,'user_id');
+    //    $mangers = User::role(['manager'])->get();
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
     }
 }

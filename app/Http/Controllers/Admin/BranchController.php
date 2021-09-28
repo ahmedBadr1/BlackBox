@@ -28,7 +28,11 @@ class BranchController extends Controller
     public function index(Request $request)
     {
         //
-        $branches = Branch::orderBy('id','DESC')->paginate(10);
+        $branches = Branch::with(array('manager'=> function($query) {
+        $query->select('id','name');
+            },'state'))
+            ->orderBy('id','DESC')
+            ->paginate(10);
 
         return view('areas.branches.index',compact('branches'))->with('i',($request->input('page',1)-1)*10);
 
@@ -88,8 +92,13 @@ class BranchController extends Controller
     public function show($id)
     {
 
-        $branch = Branch::findOrFail($id);
-   //   dd($branch->manager);
+        $branch = Branch::with(['users','manager'=>function($q){
+            $q->select('id','name');
+        }])
+        ->findOrFail($id);
+
+     //   dd($branch);
+     // dd($branch->users);
         return view('areas.branches.show',compact('branch'));
     }
 
@@ -145,9 +154,9 @@ class BranchController extends Controller
     public function destroy($id)
     {
       $branch =  Branch::findOrFail($id);
-        notify()->success($branch->name .' Branch Deleted Successfully','Branch Deleted');
-        $branch->delete();
 
+        $branch->delete();
+        notify()->success($branch->name .' Branch Deleted Successfully','Branch Deleted');
         return redirect()->route('branches.index');
     }
     public function assign($id){

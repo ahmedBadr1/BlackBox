@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 
 class UserController extends Controller
@@ -31,12 +33,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //
-
-        $users  = User::whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })->orderBy('id','DESC')->paginate(10);;
-   //   dd($users);
-       // $users = User::orderBy('id','DESC')->paginate(5);
-        // $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
+        $users = QueryBuilder::for(User::class)
+            ->with('roles','state','branch')
+            ->whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })
+            ->allowedFilters(['name','email',AllowedFilter::exact('id')])
+            ->orderBy('id','DESC')
+            ->paginate(10);
 
         return view('users.index',compact('users'))->with('i',($request->input('page',1)-1)*10);
 
@@ -65,8 +67,8 @@ class UserController extends Controller
     {
         //
         $this->validate($request,[
-            'name'=>'required',
-            'email'=> 'required|email|unique:users,email',
+            'name'=>'required|string|unique:users,name',
+            'email'=> 'required',
             'role'=>'required',
             'password'=> 'required',
 
@@ -88,14 +90,13 @@ class UserController extends Controller
      */
     public function show(int $id)
     {
-        $user = User::findOrFail($id);
-        $userRole = DB::table('roles')->where('id',$user->role)->get();
-
-        if(! $user->hasAnyRole(Role::all())) {
-            $user->assignRole('seller');
-        }
-        $roles = $user->getRoleNames();
-        return view('users.show',compact('user','roles','userRole'));
+      //  $user = User::findOrFail($id);
+      //  $userRole = DB::table('roles')->where('id',$user->role)->get();
+       // $user = User::with('roles')->findOrFail($id);
+        $user =  User::where('id',$id)->with(array('roles'=> function ($query) { $query->select('id','name');}))->first();
+//  dd($user->roles);
+        // $roles = $user->getRoleNames();
+        return view('users.show',compact('user'));
 
 
     }

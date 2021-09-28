@@ -11,7 +11,15 @@
                 @can('order-assign')
                 <a href="{{route('orders.assign')}}" class="btn btn-secondary">{{__("auth.assign")}} {{__("names.order")}}</a>
                 @endcan
+                <form action="{{route('import.orders')}}" enctype="multipart/form-data" method="post">
+                    @csrf
+                    <input type="file" name="import_file">
+                    <button type="submit"  class="btn btn-primary">Import</button>
+                </form>
+                @can('order-import')
 
+
+                @endcan
 
                 <h1 class="text-center">{{__("names.all")}} {{__("names.orders")}}</h1>
                 @if (session('status'))
@@ -48,7 +56,9 @@
                             <td>{{$order->product_name}} </td>
                             <td>{{$order->cust_name}} </td>
                             <td>{{$order->cust_num}} </td>
-                            <td>{{$order->address}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state->name}}</td>
+                            <td>{{$order->address}}, <a href="{{route('areas.show',$order->area_id)}}">
+{{--                                    {{ $order->area->name}}</a>, {{$order->state->name}}--}}
+                            </td>
                             <td>{{$order->value}} </td>
                             <td>{{$order->quantity}} </td>
                             <td>{{$order->notes ?? 'no notes'}} </td>

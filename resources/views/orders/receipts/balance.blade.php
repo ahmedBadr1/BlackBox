@@ -31,7 +31,7 @@
 
                 @foreach($avilableOrders as $order)
                     <div class="">
-                        <a href="{{route('orders.show',$order->id)}}">{{$order->id}}</a>  = {{ \App\Models\Status::find($order->status_id)->name}} : {{$order->total}} :: {{ $order->total - $order->area->delivery_cost}}
+                        <a href="{{route('orders.show',$order->id)}}">{{$order->id}}</a>  = {{$order->status->name}} : {{$order->total}} :: {{ $order->total - $order->area->delivery_cost}}
                     </div>
                 @endforeach
 

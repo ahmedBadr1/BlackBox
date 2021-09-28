@@ -175,5 +175,9 @@ class OrdersController extends Controller
         notify()->success('Order Deleted Successfully');
         return redirect()->route('orders.index');
     }
+    public function trash(){
+        $orders = Order::onlyTrashed()->paginate(25);
+        return view('orders.trash',compact('orders'));
+    }
 
 }

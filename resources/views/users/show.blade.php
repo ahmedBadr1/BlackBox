@@ -21,25 +21,22 @@
                 <label>User State</label>
                 <p><b>{{$user->state->name}}</b></p> <hr>
                 <label>User Role</label>
-                <p><b>@if (isset($roles))
-                        @foreach($roles as $role)
-                        {{$role }}
-                        @endforeach
-                        @else
-                          {{$user->role  }}
-                        @endif
+                <p><b>
+                            @foreach($user->roles as $role)
+                                <a href="{{route('roles.show',$role->id)}}">{{$role->name }}</a>
+                            @endforeach
                     </b></p> <hr>
                 <div class="d-flex ">
                     @can('user-edit')
-                    <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info o">edit</a>
+                        <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info o">edit</a>
                     @endcan
-                        @can('user-delete')
-                    <form class="ml-5" action="{{route('users.destroy',$user->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" class="btn btn-danger" value="delete">
-                    </form>
-                        @endcan
+                    @can('user-delete')
+                        <form class="ml-5" action="{{route('users.destroy',$user->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger" value="delete">
+                        </form>
+                    @endcan
                 </div>
 
             </div>

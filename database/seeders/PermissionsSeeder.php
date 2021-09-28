@@ -95,7 +95,7 @@ class PermissionsSeeder extends Seeder
             'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
-            'is_seller' => true,
+
 
         ]);
         $user->assignRole($role0);

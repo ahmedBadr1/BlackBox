@@ -8,6 +8,9 @@
                 @can('task-create')
                     <a href="{{route('tasks.create')}}" class="btn btn-success">Create Task</a>
                 @endcan
+                @can('task-archive')
+                    <a href="{{route('tasks.archive')}}" class="btn btn-dark">Archive</a>
+                @endcan
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -33,10 +36,14 @@
 
                         <tr>
                             <td>{{$task->id}} </td>
-                            <td> <a href="{{ route('users.show',$task->user_id) }}"> {{$task->user_id}} </a></td>
+                            <td> <a href="{{ route('users.show',$task->user->id) }}"> {{$task->user->name}} </a></td>
 
                             <td>{{$task->type}} </td>
-                            <td><a href="{{ route('users.show',$task->assign_to) }}"> {{$task->assign_to}} </a> </td>
+                            @if($task->delivery_id)
+                            <td><a href="{{ route('users.show',$task->delivery->id) }}"> {{$task->delivery->name}} </a> </td>
+                            @else
+                                <td><a href="{{route('tasks.assign')}}" class="btn btn-primary">assign</a></td>
+                                @endif
                             <td>{{$task->created_at}} </td>
 
                             @can('task-edit')
@@ -50,6 +57,21 @@
                                 <input type="submit" class="btn btn-danger" name="delete" value="delete">
                                </form>
                             </td>
+                            @endcan
+                            @can('task-done')
+                                <td>
+                                    @if(!$task->done_at)
+                                    <form action="{{route('tasks.done',$task->id) }}" method="POST">
+                                        @csrf
+                                        <input type="submit" class="btn btn-secondary"  value="done">
+                                    </form>
+                                    @else
+                                        <form action="{{route('tasks.undone',$task->id) }}" method="POST">
+                                            @csrf
+                                            <input type="submit" class="btn btn-secondary"  value="undone">
+                                        </form>
+                                    @endif
+                                </td>
                             @endcan
                         </tr>
                     @endforeach

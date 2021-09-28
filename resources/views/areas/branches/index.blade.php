@@ -39,7 +39,7 @@
                             <td>{{$branch->location}} </td>
                             <td>{{$branch->state->name }} </td>
 
-                            <td>{{\App\Models\User::find($branch->user_id)->name }} </td>
+                            <td><a href="{{route('users.show',$branch->manager->id)}}">{{$branch->manager->name}}</a></td>
                             @can('branch-assign')
                                 <td><a href="{{route('branches.assign',$branch->id)}}" class="btn btn-outline-success">{{__('names.assign')}}</a></td>
                             @endcan

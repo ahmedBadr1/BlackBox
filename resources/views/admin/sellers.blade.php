@@ -35,7 +35,7 @@
 
                             <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
                             <td>{{$user->phone}} </td>
-{{--                            <td><a href="{{ route('roles.show',$user->role) }}">{{ $user->getRoleNames() !== '[]' ? trim($user->getRoleNames(),'[""]') : "customer" }}</a></td>--}}
+                            <td>{{$user->roles[0]->name}}</td>
                             <td>{{$user->created_at}}</td>
                             @can('user-show')
                                 <td>

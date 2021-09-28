@@ -62,7 +62,7 @@
                             <td>{{$receipt->tax}} </td>
                             <td>{{$receipt->total }} </td>
                             <td>@php echo DNS1D::getBarcodeHTML($receipt->order_id,'C39'); @endphp</td>
-                            <td><a href="{{route('users.show',$receipt->user_id)}}">{{ \App\Models\User::find($receipt->user_id)->name }}</a> </td>
+                            <td><a href="{{route('users.show',$receipt->user_id)}}">{{ $receipt->user->name }}</a> </td>
                             @role('client|Feedback')
                             <td><a href="{{route('track',['order_id' => $receipt->order_id])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
                             @endrole

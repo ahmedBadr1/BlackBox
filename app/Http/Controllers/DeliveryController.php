@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Status;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class DeliveryController extends Controller
@@ -25,6 +26,17 @@ class DeliveryController extends Controller
      //  dd($orders);
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
         return view('layouts.delivery.orders',compact('orders'));
+    }
+    public function mytasks()
+    {
+        //$user = auth()->user()->orders()->orderBy('updated_at','DESC')->paginate(10);
+        $tasks =  Task::where('delivery_id','=',auth()->user()->id)->with(array('user'=> function ($query) { $query->select('id','name');}))->get();
+
+//  dd($tasks);
+//        $avOrders = auth()->user()->zone[0]->areas;
+        //  dd($orders);
+//        $orders = Order::orderBy('created_at','DESC')->paginate(20);
+        return view('layouts.delivery.tasks',compact('tasks'));
     }
     public function Status($id)
     {

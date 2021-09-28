@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -23,16 +24,19 @@ class TaskController extends Controller
     public function index()
     {
         //
-        $tasks = Task::where('done_at','=',null)->orderBy('updated_at','DESC')->paginate(10);
+        $tasks = Task::where('done_at','=',null)->with(array('user'=> function ($query) { $query->select('id','name');},'delivery'=> function ($query) { $query->select('id','name');}))->orderBy('updated_at','DESC')->paginate(10);
 //        $avOrders = auth()->user()->zone[0]->areas;
 //        dd($avOrders);
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
+
+
         return view('tasks.index',compact('tasks'));
     }
     public function archive()
     {
         //
-        $tasks = Task::where('done_at','!=',null)->orderBy('updated_at','DESC')->paginate(10);
+        $tasks = Task::where('done_at','!=',null)->with(array('user'=> function ($query) { $query->select('id','name');},'delivery'=> function ($query) { $query->select('id','name');}))->orderBy('updated_at','DESC')->paginate(10);
+
 //        $avOrders = auth()->user()->zone[0]->areas;
 //        dd($avOrders);
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
@@ -47,6 +51,10 @@ class TaskController extends Controller
     public function create()
     {
         //
+        $types = Task::$types;
+        $deliveries = User::role('delivery')->select('id','name')->get();
+      //  dd($deliveries);
+        return  view('tasks.create',compact('deliveries','types'));
     }
 
     /**
@@ -58,6 +66,17 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request->all());
+        $this->validate($request,[
+           'type' => 'required',
+           'delivery_id' => 'required',
+            'notes' => ''
+        ]);
+        $input= $request->all();
+        $input['user_id'] =  auth()->user()->id;
+        Task::create($input);
+        notify()->success('Task created Successfully','Task created');
+      return  redirect()->route('tasks.index');
     }
 
     /**
@@ -69,6 +88,9 @@ class TaskController extends Controller
     public function show($id)
     {
         //
+        $task =  Task::where('id',$id)->with(array('user'=> function ($query) { $query->select('id','name');},'delivery'=> function ($query) { $query->select('id','name');}))->first();;
+       // dd($task->delivery);
+        return view('tasks.show',compact('task'));
     }
 
     /**
@@ -80,6 +102,11 @@ class TaskController extends Controller
     public function edit($id)
     {
         //
+        $task = Task::findOrFail($id);
+        $types = Task::$types;
+        $deliveries = User::role('delivery')->select('id','name')->get();
+
+        return view('tasks.edit',compact('task','deliveries','types'));
     }
 
     /**
@@ -92,6 +119,16 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+            'type' => 'required',
+            'delivery_id' => 'required',
+            'notes' => ''
+        ]);
+        $input= $request->all();
+        $task =  Task::findOrFail($id);
+        $task->update($input);
+        notify()->success('Task Updated Successfully','Task Updated');
+        return  redirect()->route('tasks.index');
     }
 
     /**
@@ -103,5 +140,62 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function trash(){
+        $tasks = Task::onlyTrashed()->paginate(25);
+        return view('tasks.trash',compact('tasks'));
+    }
+    public function done($id){
+       $task =  Task::findOrFail($id);
+    //   dd($task);
+       $task->done_at = now();
+       $task->update();
+    return redirect()->back();
+    }
+    public function undone($id){
+        $task =  Task::findOrFail($id);
+        //   dd($task);
+        $task->done_at = null;
+        $task->update();
+        return redirect()->back();
+    }
+
+    public function assign(){
+        $tasks = Task::where('delivery_id',null)->get();
+      //   dd($tasks);
+        $deliveries = User::whereHas("roles", function($q){ $q->whereIn("name" ,["delivery"]); })->get();
+
+        //   $uniqueId = Str::random(8);
+//            while(Order::where('id', $uniqueStr)->exists()) {
+//
+//            }
+
+//       $id = Hashids::connection(Order::class)->encode('65050');
+//      dd($id);
+
+        return view('tasks.assign',compact('deliveries','tasks'));
+    }
+
+    public function assignGo(Request $request){
+
+        $this->validate($request,[
+            'delivery' => 'required',
+            'tasks' => 'required|array'
+        ]);
+        $input = $request->all();
+      //  dd($input);
+        $delivery = User::findOrFail($input['delivery']);
+        //     dd($delivery->name);
+        foreach ($input['tasks'] as $id){
+            $task = Task::findOrFail($id);
+            //  dd($order);
+            $task->delivery_id = $delivery->id;
+            $task->update();
+            // $branch->users()->save($user); $order->area->time_delivery
+        }
+
+        notify()->success( 'Task Assigned Successfully To '.$delivery->name ,'Task Assigned');
+        return redirect()->route('orders.index');
     }
 }

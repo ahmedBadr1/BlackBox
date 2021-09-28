@@ -16,7 +16,7 @@
                 <label>{{__("names.role")}} {{__("auth.name")}}</label>
                 <p><b>{{$role->name}}</b></p> <hr>
                 <label>{{__("names.role")}} {{__("names.permissions")}}</label>
-                <p>@foreach($rolePermissions as $permission)
+                <p>@foreach($role->permissions as $permission)
                         <span class="badge badge-success">{{$permission->name}}</span>
 
                     @endforeach

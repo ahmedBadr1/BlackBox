@@ -41,7 +41,7 @@
                             <td>{{$user->phone}} </td>
                             <td><a href="{{ route('roles.show',  $user->roles[0]->id) }}">{{$user->getRoleNames()[0]}}</a></td>
                             <td>@if ($user->branch_id)
-                                    {{ \App\Models\Branch::find($user->branch_id)->name  }}
+                                    {{ $user->branch->name  }}
                                 @else
                                     @can('user-edit')
                                         <a href="{{route('branches.index')}}" class="btn btn-outline-success">{{__('names.assign')}}</a>

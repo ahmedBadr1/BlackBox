@@ -81,7 +81,7 @@
                     <div class="form-group row">
                         <label for="delivery_time" class="col-md-4 col-form-label text-md-right">Area delivery_time</label>
                         <div class="col-md-6">
-                            <input  type="number" class="form-control @error('delivery_time') is-invalid @enderror" name="time_delivery" value="{{ old('delivery_time') }}"  >
+                            <input  type="number" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time" value="{{ old('delivery_time') }}"  >
                             @error('delivery_time')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

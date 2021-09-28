@@ -25,7 +25,7 @@
 </head>
 <body >
 <div id="app" class="">
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-light ">
         <div class="container-fluid">
             <div class="nav-logo"></div>
             <ul class="d-flex">
@@ -37,10 +37,9 @@
                     </li>
                 @endforeach
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-envelope "></i><span class="counter counter-lg">29</span>
         </div>
     </nav>
 

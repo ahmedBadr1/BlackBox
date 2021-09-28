@@ -20,13 +20,13 @@
                 <label>{{__("names.branch")}} {{__("auth.state")}}</label>
                 <p><b>{{$branch->state->name }}</b></p> <hr>
                 <label>{{__("names.branch")}} {{__("auth.manager")}}</label>
-                <p><b>{{\App\Models\User::find($branch->user_id)->name }}</b></p> <hr>
+                <p><b><a href="{{route('users.show',$branch->manager->id)}}">{{$branch->manager->name }}</a></b></p> <hr>
 
                 <label>{{__("names.branch")}} {{__("names.users")}}</label>
                 <p>
                     @foreach($branch->users as $user)
                         <b class="m-2">
-                            {{ $user->name }}
+                            <a href="{{route('users.show',$user->id)}}">  {{ $user->name }}</a>
                         </b>
                     @endforeach
                 </p> <hr>

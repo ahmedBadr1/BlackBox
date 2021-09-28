@@ -23,10 +23,10 @@ class OrdersExportEn implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
          $order->cust_name,
          $order->cust_num,
          $order->address,
-         $order->state->name,
+         $order->area->name,
          $order->quantity,
          $order->notes,
-         \App\Models\Status::find($order->status_id)->name,
+         $order->status->name,
         $order->created_at,
      ];
  }
@@ -41,7 +41,7 @@ class OrdersExportEn implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
             'Customer_name',
             'Customer_number',
             'Address',
-            'State',
+            'Area',
             'Quantity',
             'Notes',
             'Status',

@@ -5,41 +5,36 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('users.index')}}">Manage Users</a>
-                <h1 class="text-center">Show User {{$user->name}}</h1>
+                <a href="{{route('tasks.index')}}">Manage Tasks</a>
+                <h1 class="text-center">Show Task {{$task->type}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
-                <label>User Name</label>
-                <p><b>{{$user->name}}</b></p> <hr>
-                <label>User Email</label>
-                <p><b>{{$user->email}}</b></p> <hr>
-                <label>User Phone</label>
-                <p><b>{{$user->phone}}</b></p> <hr>
-                <label>User State</label>
-                <p><b>{{$user->state->name}}</b></p> <hr>
-                <label>User Role</label>
-                <p><b>@if (isset($roles))
-                        @foreach($roles as $role)
-                        {{$role }}
-                        @endforeach
+                <label>Belong TO</label>
+                <p><b> <a href="{{route('tasks.show',$task->user->id)}}">{{$task->user->name}}</a></b></p> <hr>
+                <label>Task Type</label>
+                <p><b>{{$task->type}}</b></p> <hr>
+                <label>Assign To</label>
+                <p><b>@if($task->delivery)
+                        <a href="{{route('tasks.show',$task->delivery->id)}}">{{$task->delivery->name}}</a>
                         @else
-                          {{$user->role  }}
+                            <a href="{{route('tasks.assign')}}" class="btn btn-primary">assign</a>
                         @endif
                     </b></p> <hr>
+
                 <div class="d-flex ">
-                    @can('user-edit')
-                    <a href="{{ route('users.edit',$user->id) }}" class="btn btn-info o">edit</a>
+                    @can('task-edit')
+                        <a href="{{ route('tasks.edit',$task->id) }}" class="btn btn-info o">edit</a>
                     @endcan
-                        @can('user-delete')
-                    <form class="ml-5" action="{{route('users.destroy',$user->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" class="btn btn-danger" value="delete">
-                    </form>
-                        @endcan
+                    @can('task-delete')
+                        <form class="ml-5" action="{{route('tasks.destroy',$task->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="submit" class="btn btn-danger" value="delete">
+                        </form>
+                    @endcan
                 </div>
 
             </div>

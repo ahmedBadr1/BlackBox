@@ -13,60 +13,21 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('tasks.index') }}">
+                <form method="POST" action="{{ route('tasks.store') }}">
                     @csrf
 
-                    <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('auth.name') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
-
-                            @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('auth.email') }}</label>
+                        <label for="role" class="col-md-4 col-form-label text-md-right">Type</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
-
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="phone" class="col-md-4 col-form-label text-md-right">{{__('auth.phone')}}</label>
-
-                        <div class="col-md-6">
-                            <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone">
-
-                            @error('phone')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
-                        <div class="col-md-6">
-                            <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
-                                @foreach($states as $state)
-                                    <option value="{{$state->id}}">{{$state->name}}</option>
+                            <select name="type" class="form-select" aria-label="Default select example" >
+                                <option value="">Select a type</option>
+                                @foreach($types as $type)
+                                    <option value="{{$type}}">{{$type}}</option>
                                 @endforeach
                             </select>
-                            @error('state')
+                            @error('type')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -75,15 +36,16 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
+                        <label for="role" class="col-md-4 col-form-label text-md-right">Delivery</label>
 
                         <div class="col-md-6">
-                            <select name="role" class="form-select" aria-label="Default select example" >
-                                @foreach($roles as $role)
-                                    <option value="{{$role}}">{{$role}}</option>
+                            <select name="delivery_id" class="form-select" aria-label="Default select example" >
+                                <option value="">Select a Delivery</option>
+                                @foreach($deliveries as $delivery)
+                                    <option value="{{$delivery->id}}">{{$delivery->name}}</option>
                                 @endforeach
                             </select>
-                            @error('role')
+                            @error('delivery_id')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -91,25 +53,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                        <div class="col-md-6">
-                            <input  type="password" class="form-control @error('password') is-invalid @enderror" name="password"  >
-
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                        <div class="col-md-6">
-                            <input  type="password" class="form-control" name="password_confirmation"  >
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <label for="exampleFormControlTextarea1" class="form-label">{{__("names.notes")}}</label>
+                            <textarea name="notes" class="form-control" rows="3"></textarea>
                         </div>
                     </div>
 

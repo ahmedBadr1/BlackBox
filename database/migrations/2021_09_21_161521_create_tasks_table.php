@@ -17,15 +17,17 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->enum('type', \App\Models\Task::$types);
-            $table->foreign('delivery_id')->references('id')
+            $table->foreignId('delivery_id')
                 ->on('users')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->foreign('seller_id')->references('id')
-                ->on('users')
+                ->onUpdate('cascade')
+                ->nullable();
+            $table->foreignIdFor(User::class)
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->text('notes')->nullable();
             $table->dateTime('done_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -37,6 +39,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        //Schema::dropIfExists('tasks');
+        Schema::dropIfExists('tasks');
     }
 }

@@ -61,12 +61,12 @@
                     <div class="form-group row">
                         <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
                         <div class="col-md-6">
-                            <select name="state" id="state" class="form-control @error('state') is-invalid @enderror">
+                            <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">
                                 @foreach($states as $state)
                                     <option value="{{$state->id}}">{{$state->name}}</option>
                                 @endforeach
                             </select>
-                            @error('state')
+                            @error('state_id')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
