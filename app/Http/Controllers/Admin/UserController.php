@@ -40,7 +40,7 @@ class UserController extends Controller
             ->orderBy('id','DESC')
             ->paginate(10);
 
-        return view('users.index',compact('users'))->with('i',($request->input('page',1)-1)*10);
+        return view('admin.users.index',compact('users'))->with('i',($request->input('page',1)-1)*10);
 
     }
 
@@ -54,7 +54,7 @@ class UserController extends Controller
         //
         $states= State::where('active',true)->get();
         $roles = Role::whereNotIn('name', ['seller'])->pluck('name');
-        return view('users.create',compact('roles','states'));
+        return view('admin.users.create',compact('roles','states'));
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $user->assignRole($input['role']);
-        return redirect()->route('users.index')->with('success','User Created Successfully');
+        return redirect()->route('admin.users.index')->with('success','User Created Successfully');
     }
 
     /**
@@ -93,10 +93,11 @@ class UserController extends Controller
       //  $user = User::findOrFail($id);
       //  $userRole = DB::table('roles')->where('id',$user->role)->get();
        // $user = User::with('roles')->findOrFail($id);
-        $user =  User::where('id',$id)->with(array('roles'=> function ($query) { $query->select('id','name');}))->first();
+        $user =  User::where('id',$id)->with(array('roles'=> function ($query) { $query->select('id','name');},'plan'=> function ($query) { $query->select('id','name');}))->first();
+        dd($user->plan->features);
 //  dd($user->roles);
         // $roles = $user->getRoleNames();
-        return view('users.show',compact('user'));
+        return view('admin.users.show',compact('user'));
 
 
     }
@@ -121,7 +122,7 @@ class UserController extends Controller
 
         $userRole = $user->roles[0]->name;
 
-        return view('users.edit',compact('user','roles','userRole','states'));
+        return view('admin.users.edit',compact('user','roles','userRole','states'));
     }
 
     /**
@@ -154,7 +155,7 @@ class UserController extends Controller
 
 
         $user->assignRole($request->input('role'));
-        return redirect()->route('users.index')->with('success','User Updated Successfully');
+        return redirect()->route('admin.users.index')->with('success','User Updated Successfully');
     }
 
     /**
@@ -166,6 +167,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::findOrFail($id)->delete();
-        return redirect()->route('users.index')->with('success','User Deleted Successfully');
+        return redirect()->route('admin.users.index')->with('success','User Deleted Successfully');
     }
 }

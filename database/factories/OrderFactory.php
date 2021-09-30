@@ -32,10 +32,9 @@ class OrderFactory extends Factory
             'cust_num' => $this->faker->phoneNumber(),
             'address' => $this->faker->streetAddress(),
             'area_id' => Area::all()->random()->id,
-            'quantity' => $this->faker->numberBetween(1,50),
+            'quantity' => $this->faker->numberBetween(1,10),
             'notes' => $this->faker->sentence(),
             'status_id' => Status::all()->random()->id,
-            'receipt_id' => $this->faker->numerify(),
             'user_id'  =>  User::all()->random()->id,
             'total'  =>  $this->faker->numerify(),
         ];

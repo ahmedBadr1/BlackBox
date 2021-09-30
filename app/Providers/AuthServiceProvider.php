@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Feature;
+use App\Models\Plan;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -30,6 +33,10 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->hasRole('Feedback')) {
                 return true;
             }
+        });
+        Gate::define('feature', function (User $user,  $feature) {
+            $feat =Feature::where('name',$feature)->first();
+            return $user->plan->features->contains($feat->id?? 0);
         });
 
         //

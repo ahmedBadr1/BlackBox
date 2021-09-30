@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('content')
     <div class="container">
@@ -19,7 +19,7 @@
 
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Role</th>
+                    <th>Plan</th>
 
                     <th>Created at</th>
 
@@ -31,15 +31,15 @@
 
                         <tr>
                             <td>{{$user->id}} </td>
-                            <td> <a href="{{ route('users.show',$user->id) }}"> {{$user->name}} </a></td>
+                            <td> <a href="{{ route('admin.users.show',$user->id) }}"> {{$user->name}} </a></td>
 
                             <td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
                             <td>{{$user->phone}} </td>
-                            <td>{{$user->roles[0]->name}}</td>
+                            <td><a href="{{route('admin.plans.show',$user->plan->id)}}">{{$user->plan->name}}</a></td>
                             <td>{{$user->created_at}}</td>
                             @can('user-show')
                                 <td>
-                                    <form action="{{route('emailto',['e' => $user->email])}}" method="POST">
+                                    <form action="{{route('admin.emailto',['e' => $user->email])}}" method="POST">
                                         @csrf
                                         <input type="submit" class="btn btn-secondary"  value="Email">
                                     </form>

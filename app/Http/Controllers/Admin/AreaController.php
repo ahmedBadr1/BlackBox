@@ -37,7 +37,7 @@ class AreaController extends Controller
 //        foreach ($states as $state){
 //            dd($state->users);
 //        }
-        return view('areas.states',compact('states'));
+        return view('admin.areas.states',compact('states'));
     }
     /**
      * Display a listing of the resource.
@@ -50,7 +50,7 @@ class AreaController extends Controller
         $zones = Zone::orderBy('rank')->get();
 
         $areas = Area::with('zone','state')->orderBy('id','DESC')->paginate(10);
-        return view('areas.index',compact('areas','zones'));
+        return view('admin.areas.index',compact('areas','zones'));
     }
 
     /**
@@ -64,7 +64,7 @@ class AreaController extends Controller
         $zones = Zone::orderBy('rank')->get();
     //    $states= State::where('active',true)->get();
 
-        return view('areas.create',compact('zones'));
+        return view('admin.areas.create',compact('zones'));
     }
 
     /**
@@ -93,7 +93,7 @@ class AreaController extends Controller
             $area = Area::create($input);
      //   $zone->areas->attach($area->id);
 
-        return redirect()->route('areas.index')->with('success','Area Created Successfully');
+        return redirect()->route('admin.areas.index')->with('success','Area Created Successfully');
     }
 
     /**
@@ -106,7 +106,7 @@ class AreaController extends Controller
     {
         //
         $area = Area::findOrFail($id);
-        return view('areas.show',compact('area'));
+        return view('admin.areas.show',compact('area'));
     }
 
     /**
@@ -121,7 +121,7 @@ class AreaController extends Controller
         $zones = Zone::orderBy('rank')->get();
         $area = Area::findOrFail($id);
        // $states= State::where('active',true)->get();
-        return view('areas.edit',compact('area','zones'));
+        return view('admin.areas.edit',compact('area','zones'));
     }
 
     /**
@@ -149,7 +149,7 @@ class AreaController extends Controller
         $area = Area::find($id);
         $area->update($input);
 
-        return redirect()->route('areas.index')->with('success','Area Updated Successfully');
+        return redirect()->route('admin.areas.index')->with('success','Area Updated Successfully');
     }
 
     /**
@@ -163,6 +163,6 @@ class AreaController extends Controller
         $area = Area::find($id);
         $area->delete();
         notify()->success('Area Deleted Successfully','Area Deleted');
-        return redirect()->route('areas.index');
+        return redirect()->route('admin.areas.index');
     }
 }
