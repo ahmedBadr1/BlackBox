@@ -15,13 +15,11 @@ class Zone extends Model
         'state_id'
     ];
 
-
-
     public function areas()
     {
         return $this->hasMany(Area::class);
     }
-    public function user()
+    public function users()
     {
         return  $this->belongsToMany(User::class);
     }

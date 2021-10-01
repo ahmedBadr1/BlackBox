@@ -1,0 +1,1 @@
+@include('main.layouts.app')

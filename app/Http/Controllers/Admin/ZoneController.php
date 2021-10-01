@@ -27,8 +27,9 @@ class ZoneController extends Controller
     public function index()
     {
 
-        $zones = Zone::orderBy('id','DESC')->paginate(10);
-        return view('areas.zones.index',compact('zones'));
+        $zones = Zone::with(['areas','state'=> fn($q) => $q->select('id','name')])->orderBy('id','DESC')->paginate(10);
+
+        return view('admin.areas.zones.index',compact('zones'));
     }
 
     /**
@@ -41,7 +42,7 @@ class ZoneController extends Controller
         //
         $areas = Area::orderBy('id','DESC')->get();
         $states= State::where('active',true)->get();
-        return view('areas.zones.create',compact('states','areas'));
+        return view('admin.areas.zones.create',compact('states','areas'));
     }
 
     /**
@@ -68,7 +69,7 @@ class ZoneController extends Controller
         }
 
         notify()->success($zone->name.' Zone Created Successfully',$zone->name.' Created');
-        return redirect()->route('zones.index');
+        return redirect()->route('admin.zones.index');
     }
 
     /**
@@ -79,7 +80,7 @@ class ZoneController extends Controller
      */
     public function show(Zone $zone)
     {
-        return view('areas.zones.show',compact('zone'));;
+        return view('admin.areas.zones.show',compact('zone'));;
     }
 
     /**
@@ -92,7 +93,7 @@ class ZoneController extends Controller
     {
         $areas = Area::orderBy('id','DESC')->get();
         $states= State::where('active',true)->get();
-        return view('areas.zones.edit',compact('zone','states','areas'));
+        return view('admin.areas.zones.edit',compact('zone','states','areas'));
     }
 
     /**
@@ -120,7 +121,7 @@ class ZoneController extends Controller
         }
 
         notify()->success($zone->name.' Zone Updated Successfully',$zone->name.' Updated');
-        return redirect()->route('zones.index');
+        return redirect()->route('admin.zones.index');
     }
 
     /**
@@ -134,6 +135,6 @@ class ZoneController extends Controller
         //
         $zone->delete();
         notify()->success($zone->name.' Zone Deleted Successfully',$zone->name.' Deleted');
-        return redirect()->route('zones.index');
+        return redirect()->route('admin.zones.index');
     }
 }
