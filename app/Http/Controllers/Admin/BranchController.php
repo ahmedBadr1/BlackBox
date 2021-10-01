@@ -34,7 +34,7 @@ class BranchController extends Controller
             ->orderBy('id','DESC')
             ->paginate(10);
 
-        return view('areas.branches.index',compact('branches'))->with('i',($request->input('page',1)-1)*10);
+        return view('admin.areas.branches.index',compact('branches'))->with('i',($request->input('page',1)-1)*10);
 
     }
 
@@ -50,7 +50,7 @@ class BranchController extends Controller
        // $managers = User::role(['manager'])->pluck('id')[0];
         $states= State::where('active',true)->get();
       // dd($managers);
-        return view('areas.branches.create',compact('managers','states'));
+        return view('admin.areas.branches.create',compact('managers','states'));
     }
 
     /**
@@ -80,7 +80,7 @@ class BranchController extends Controller
         notify()->success($branch->name .' Branch Created Successfully',$branch->name.' Created');
 
        // notify('Branch '.$branch->name.' Created Successfully');
-        return redirect()->route('branches.index');
+        return redirect()->route('admin.branches.index');
     }
 
     /**
@@ -99,7 +99,7 @@ class BranchController extends Controller
 
      //   dd($branch);
      // dd($branch->users);
-        return view('areas.branches.show',compact('branch'));
+        return view('admin.areas.branches.show',compact('branch'));
     }
 
     /**
@@ -114,7 +114,7 @@ class BranchController extends Controller
         $branch = Branch::findOrFail($id);
         $managers =User::role(['manager'])->get();
         $states= State::where('active',true)->get();
-       return view('areas.branches.edit',compact('branch','managers','states'));
+       return view('admin.areas.branches.edit',compact('branch','managers','states'));
 
     }
 
@@ -142,7 +142,7 @@ class BranchController extends Controller
         $branch->users()->save($user);
 
         notify()->success($branch->name .' Branch Updated Successfully','Branch Updated');
-        return redirect()->route('branches.index');
+        return redirect()->route('admin.branches.index');
     }
 
     /**
@@ -157,7 +157,7 @@ class BranchController extends Controller
 
         $branch->delete();
         notify()->success($branch->name .' Branch Deleted Successfully','Branch Deleted');
-        return redirect()->route('branches.index');
+        return redirect()->route('admin.branches.index');
     }
     public function assign($id){
         $branch = Branch::findOrFail($id);
@@ -178,6 +178,6 @@ class BranchController extends Controller
         }
 
         notify()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
-        return redirect()->route('branches.index');
+        return redirect()->route('admin.branches.index');
     }
 }

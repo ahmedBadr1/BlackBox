@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Vinkla\Hashids\Facades\Hashids;
 
 
 class Order extends Model
 {
-    use HasFactory , SoftDeletes , Hashidable;
+    use HasFactory , SoftDeletes , Hashidable ,LogsActivity;
     use \Znck\Eloquent\Traits\BelongsToThrough;
 
 
@@ -27,6 +29,7 @@ class Order extends Model
         'cust_name',
         'cust_num',
         'address',
+        'cod',
         'package_type',
         'deliver_before',
         'package_weight',
@@ -56,7 +59,16 @@ class Order extends Model
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'cod' => 'boolean',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['id', 'user.name'])
+            ->useLogName('Order');
+        // Chain fluent methods for configuration options
+    }
     public function state()
     {
         return  $this->belongsToThrough('App\Models\State',['App\Models\Zone', 'App\Models\Area']);
@@ -64,6 +76,10 @@ class Order extends Model
     public function user()
     {
         return  $this->belongsTo(User::class);
+    }
+    public function delivery()
+    {
+        return  $this->belongsTo(User::class,'delivery_id');
     }
     public function area()
     {

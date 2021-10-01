@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
 @section('content')
     <div class="container">
@@ -12,7 +12,7 @@
                 @endif
             </div>
             <div class="col-12">
-                <form method="post" action="{{route('email.send')}}">
+                <form method="post" action="{{route('admin.email.send')}}">
                     @csrf
                     @method('POST')
                     <div class="row">

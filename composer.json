@@ -17,6 +17,7 @@
         "mcamara/laravel-localization": "^1.6",
         "mckenziearts/laravel-notify": "^2.2",
         "milon/barcode": "^8.0",
+        "spatie/laravel-activitylog": "^4.1",
         "spatie/laravel-backup": "^7.6",
         "spatie/laravel-permission": "^5.1",
         "spatie/laravel-query-builder": "^3.6",
@@ -38,7 +39,12 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+
+            "app/helpers/helper.php"
+
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -24,7 +24,9 @@ class CreateUsersTable extends Migration
             $table->foreignIdFor(\App\Models\Branch::class)->default(0);
            // $table->tinyInteger('role')->default(1);
             $table->timestamp('email_verified_at')->nullable();
+            $table->foreignIdFor(\App\Models\Plan::class)->default(1);
             $table->string('password');
+            $table->boolean('active')->default(1);
             $table->dateTime('last_action_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
