@@ -74,7 +74,7 @@
 {{--                        </li>--}}
                         @can('dashboard')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('seller.dashboard')}}">Dashboard</a>
+                                <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
                             </li>
                         @endcan
                         <li class="nav-item dropdown">

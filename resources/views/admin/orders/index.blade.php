@@ -37,7 +37,7 @@
                     <th>{{__("auth.cust_name")}}</th>
                     <th>{{__("auth.cust_num")}}</th>
                     <th>{{__("auth.address")}}</th>
-                    <th>{{__("names.value")}}</th>
+                    <th>{{__("names.total")}}</th>
                     <th>{{__("names.count")}}</th>
                     <th>{{__("names.notes")}}</th>
                     <th>{{__("names.status")}}</th>
@@ -52,14 +52,14 @@
 
                         <tr>
                                 <td>{{++$key}}</td>
-                            <td> <a href="{{ route('orders.show',$order->hashid) }}"> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
+                            <td> <a href="{{ route('admin.orders.show',$order->hashid) }}"> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
                             <td>{{$order->product_name}} </td>
                             <td>{{$order->cust_name}} </td>
                             <td>{{$order->cust_num}} </td>
                             <td>{{$order->address}}, <a href="{{route('admin.areas.show',$order->area_id)}}">
 {{--                                    {{ $order->area->name}}</a>, {{$order->state->name}}--}}
                             </td>
-                            <td>{{$order->value}} </td>
+                            <td>{{$order->total}} </td>
                             <td>{{$order->quantity}} </td>
                             <td>{{$order->notes ?? 'no notes'}} </td>
                             <td>{{$order->status->name}} </td>

@@ -94,7 +94,7 @@ class UserController extends Controller
       //  $userRole = DB::table('roles')->where('id',$user->role)->get();
        // $user = User::with('roles')->findOrFail($id);
         $user =  User::where('id',$id)->with(array('roles'=> function ($query) { $query->select('id','name');},'plan'=> function ($query) { $query->select('id','name');}))->first();
-        dd($user->plan->features);
+
 //  dd($user->roles);
         // $roles = $user->getRoleNames();
         return view('admin.users.show',compact('user'));

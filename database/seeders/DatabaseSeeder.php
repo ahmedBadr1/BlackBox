@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Area::factory(25)->create();
 
-        \App\Models\Order::factory(50)->create();
+  //      \App\Models\Order::factory(50)->create();
 
 
          \App\Models\User::factory(20)->create();

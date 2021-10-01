@@ -20,8 +20,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
     Route::get('/', function (){
         return view('main.home');
     })->name('home');
-    Route::get('/track', [App\Http\Controllers\Main\HomeController::class, 'track']);
-    Route::post('/track', [App\Http\Controllers\Main\HomeController::class, 'trackgo'])->name('track');
+    Route::get('/track', [\App\Http\Controllers\Main\HomeController::class, 'track']);
+    Route::post('/track', [\App\Http\Controllers\Main\HomeController::class, 'trackgo'])->name('track');
 
     Route::get('/auth/redirect', function () {
          return Socialite::driver('google')
@@ -38,11 +38,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             if (auth()->user()->hasRole('seller')){
                 return redirect()->route('seller.dashboard');
             }elseif(auth()->user()->hasRole('delivery')){
-                return redirect('/delivery/dashboard');
+                return redirect()->route('delivery.dashboard');
             }else{
-                return redirect('/admin/dashboard');
+                return redirect()->route('admin.dashboard');
             }
-        });
+        })->name('dashboard');
         Route::group([
             'middleware' => ['role:seller']
         ], function () {
@@ -80,7 +80,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::put('profile/', [App\Http\Controllers\Admin\DashboardController::class, 'profileUpdate'])->name('profile.update');
                 Route::get('sellers', [App\Http\Controllers\Admin\DashboardController::class, 'sellers'])->name('sellers');
                 Route::get('trash', [App\Http\Controllers\Admin\DashboardController::class, 'trash'])->name('trash');
-
+                Route::get('financials', [App\Http\Controllers\Admin\FinancialController::class, 'index'])->name('financials');
 
 
                 Route::get('/states', [App\Http\Controllers\Admin\AreaController::class, 'states'])->name('states');
@@ -139,9 +139,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             'as' => 'delivery.',
             'middleware' => ['role:delivery']
         ], function () {
-            Route::get('dashboard',[\App\Http\Controllers\Delivery\DashboardController::class,'index'])->name('delivery.dashboard');
-            Route::get('profile', [App\Http\Controllers\Delivery\DashboardController::class, 'profile'])->name('profile');
-            Route::get('profile/edit', [App\Http\Controllers\Delivery\DashboardController::class, 'profileEdit'])->name('profile.edit');
+            Route::get('dashboard',[\App\Http\Controllers\Delivery\DashboardController::class,'index'])->name('dashboard');
+            Route::get('profile', [\App\Http\Controllers\Delivery\DashboardController::class, 'profile'])->name('profile');
+            Route::get('profile/edit', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileEdit'])->name('profile.edit');
             Route::get('my-orders',[\App\Http\Controllers\Delivery\OrdersController::class,'myorders'])->name('myorders');
             Route::get('my-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'mytasks'])->name('my-tasks');
 

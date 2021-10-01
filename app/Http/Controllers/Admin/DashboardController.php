@@ -15,6 +15,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
@@ -194,17 +195,22 @@ class DashboardController extends Controller
     public function saveSetting(Request $request)
     {
         $this->validate($request,[
-           'app_name'=>'',
-           'title'=>'',
-           'slogan'=>'',
-           'footer'=>'',
-            'owner'=>'',
-            'email'=>'',
-            'theme'=>'',
-            'auto_send'=>'',
+           'app_name'=>'nullable',
+           'title'=>'nullable',
+           'slogan'=>'nullable',
+           'footer'=>'nullable',
+            'owner'=>'nullable',
+            'email'=>'nullable|email',
+            'theme'=>'nullable',
+            'auto_send'=>'nullable|boolean',
+            'reschedule_limit' => 'required',
+            'package_weight_limit' => 'required',
 
         ]);
+
        $input = $request->all();
+
+     //  dd($input);
        if(!isset($input['auto_send'])){
            $input['auto_send'] = false;
        }else{
@@ -218,6 +224,7 @@ class DashboardController extends Controller
        }else{
            Setting::create($input);
        }
+        Cache::forget('setting');
 
         notify()->success('setting saved successfully');
         return \view('system.setting',compact('setting'));

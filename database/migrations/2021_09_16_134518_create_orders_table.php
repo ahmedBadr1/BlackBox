@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('cust_name');
             $table->string('cust_num');
             $table->string('address');
+            $table->boolean('cod')->default(1);
             $table->string('package_type')->nullable();
             $table->dateTime('deliver_before')->nullable();
             $table->smallInteger('package_weight')->nullable();

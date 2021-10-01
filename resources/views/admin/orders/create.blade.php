@@ -81,9 +81,26 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="value" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.value")}}</label>
+                        <label for="area_id" class="col-md-4 col-form-label text-md-right">{{__('auth.package_type')}}</label>
                         <div class="col-md-6">
-                            <input  type="number" step="00.01" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}"  autocomplete="name" autofocus>
+                            <select name="package_type" id="package_type" class="form-control @error('package_type') is-invalid @enderror">
+                                <option value="">select Type</option>
+                                @foreach($types as $type)
+                                    <option value="{{$type}}" @if(old('package_type') === $type ) selected @endif>{{$type}}</option>
+                                @endforeach
+                            </select>
+                            @error('package_type')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="value" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.value-per-one")}}</label>
+                        <div class="col-md-6">
+                            <input  type="number" step="00.25" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}"  autocomplete="name" autofocus>
                             @error('value')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -103,6 +120,55 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="package_weight" class="col-md-4 col-form-label text-md-right">{{__("names.package_weight-kg")}}</label>
+                        <div class="col-md-6">
+                            <input  type="number" class="form-control @error('package_weight') is-invalid @enderror" name="package_weight" value="{{ old('package_weight')  }}" >
+                            <span><sup>kg</sup></span>
+                            @error('package_weight')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="deliver_before" class="col-md-4 col-form-label text-md-right">{{__("names.deliver_before")}}</label>
+                        <div class="col-md-6">
+                            <input  type="datetime-local" class="form-control @error('deliver_before') is-invalid @enderror" name="deliver_before" value="{{ old('deliver_before')  }}" >
+                            @error('deliver_before')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="deliver_before" class="col-md-4 col-form-label text-md-right">{{__("names.cod")}}</label>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="cod" value="1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    delivery on Consignee
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="cod" value="0">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    delivery on me
+                                </label>
+                            </div>
+                            @error('cod')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+
 
 
                     <div class="form-group row mb-0">

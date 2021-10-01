@@ -19,7 +19,7 @@ class System
     {
 
         if(Setting::first() === null){
-            return redirect('setting');
+            return redirect()->route('admin.setting');
         }
         return $next($request);
     }

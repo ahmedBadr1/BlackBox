@@ -21,6 +21,8 @@ class CreateSettingsTable extends Migration
             $table->string('footer')->nullable();
             $table->string('owner')->nullable();
             $table->string('email')->nullable();
+            $table->smallInteger('reschedule_limit')->nullable()->default(3);
+            $table->smallInteger('package_weight_limit')->nullable()->default(2);
             $table->string('theme')->nullable();
             $table->boolean('auto_send')->nullable();
             $table->timestamps();

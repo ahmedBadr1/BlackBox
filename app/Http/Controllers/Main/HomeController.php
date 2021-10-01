@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main;
 
+use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Status;
 use Illuminate\Http\Request;
@@ -22,12 +23,9 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return
      */
-    public function index()
-    {
-        return view('dashboard');
-    }
+
     public function track(Request $request ){
        // dd($request);
         $order_hashid ='';
@@ -36,7 +34,7 @@ class HomeController extends Controller
         }
         $user =  \auth()->user();
         $status= null;
-        return view('orders.track',compact('user','order_hashid','status'));
+        return view('main.track',compact('user','order_hashid','status'));
     }
 
     public function  trackgo(Request $request)
@@ -57,6 +55,6 @@ class HomeController extends Controller
 //        }
 
 
-        return view('orders.track',compact('status','order_hashid'));
+        return view('main.track',compact('status','order_hashid'));
     }
 }

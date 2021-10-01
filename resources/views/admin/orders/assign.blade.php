@@ -42,7 +42,7 @@
                             @foreach($orders as $order)
                                 <div class="m-2">
                                 <input type="checkbox"  name="orders[]" value="{{$order->id}}" @if($delivery->id === $order->delivery_id) {{__("checked")}} @endif>
-                                <label for="{{$order->id}}">{{$order->id}} => <a href="{{route('areas.show',$order->area->id)}}">{{$order->area->name}}</a> </label><br>
+                                <label for="{{$order->id}}">{{$order->id}} => <a href="{{route('admin.areas.show',$order->area->id)}}">{{$order->area->name}}</a> </label><br>
                                 </div>
                             @endforeach
 

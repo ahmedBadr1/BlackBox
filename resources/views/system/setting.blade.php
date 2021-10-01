@@ -14,6 +14,29 @@
 
                 <form action="{{route('admin.setting')}}" method="Post">
                     @csrf
+
+                    <div class="form-group">
+                        <label for="theme" class="label">@lang('auth.reschedule_limit')</label>
+                        <input type="number" name="reschedule_limit" class="form-control" value="{{$setting->reschedule_limit ?? '' }}">
+                        @error('theme')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="package_weight_limit" class="label">@lang('auth.package_weight_limit')</label>
+                        <input type="number" name="package_weight_limit" class="form-control" value="{{$setting->package_weight_limit ?? '' }}">
+                        @error('package_weight_limit')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+
+
+
                     <div class="form-group">
                         <label for="app_name" class="label">@lang('auth.app_name')</label>
                         <input type="text" name="app_name" class="form-control" value="{{$setting->app_name ?? ''}}">

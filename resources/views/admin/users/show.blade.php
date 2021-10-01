@@ -20,6 +20,8 @@
                 <p><b>{{$user->phone}}</b></p> <hr>
                 <label>User State</label>
                 <p><b>{{$user->state->name}}</b></p> <hr>
+                <label>User Plan</label>
+                <p><b><a href="{{route('admin.plans.show',$user->plan->id)}}">{{$user->plan->name}}</a></b></p> <hr>
                 <label>User Role</label>
                 <p><b>
                             @foreach($user->roles as $role)
@@ -28,6 +30,7 @@
                     </b></p> <hr>
                 <div class="d-flex ">
                     @can('user-edit')
+
                         <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info o">edit</a>
                     @endcan
                     @can('user-delete')

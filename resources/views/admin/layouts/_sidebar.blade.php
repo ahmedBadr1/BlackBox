@@ -115,7 +115,7 @@
                 <div class="py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('admin.receipts.index')}}"><i class="fas fa-money-check "></i><span>{{__('names.receipts')}}</span></a>
 
-                    <a class="collapse-item" href="#"><i class="fas fa-images"></i><span>{{__('names.salary')}}</span></a>
+                    <a class="collapse-item" href="{{route('admin.financials')}}"><i class="fas fa-images"></i><span>{{__('names.financials')}}</span></a>
                 </div>
             </div>
         </li>

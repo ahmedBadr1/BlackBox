@@ -6,6 +6,7 @@ use App\Exports\OrdersExportEn;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Order;
+use App\Models\Setting;
 use App\Models\State;
 use App\Models\Status;
 use App\Models\User;
@@ -78,8 +79,11 @@ class OrdersController extends Controller
     {
         //
      //   $states= State::where('active',true)->get();
-        $areas = Area::all();
-        return view('admin.orders.create',compact('areas'));
+        $types = ['cosmetics','clothes','document','furniture','machines','other'];
+        $areas = Area::select('id','name')->orderBy('id','desc')->get();
+
+      //  dd($areas);
+        return view('admin.orders.create',compact('areas','types'));
     }
 
     /**
@@ -90,26 +94,55 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
        // dd($request->all());
         $this->validate($request,[
             'product_name' =>'required',
-            'value'=>'required|numeric',
+            'value'=>'nullable|numeric',
             'cust_name'=>'required',
-            'cust_num'=>'required|numeric',
+            'cust_num'=>'required',
             'address'=>'required',
             'area_id'=>'required|numeric',
-            'quantity'=>'required|numeric',
-            'notes'=>'',
+            'package_type' => 'nullable',
+            'package_weight'=>'nullable|numeric',
+            'deliver_before' =>'nullable|date|after:today',
+            'quantity'=>'nullable|numeric',
+            'cod'=> 'required|boolean',
+            'notes'=>'nullable',
 
         ]);
         $input = $request->all();
-        $input['status_id'] = Status::all()->first()->id;
-        $input['user_id'] =auth()->id();
-        $input['total'] = $input['value'] * $input['quantity'] ?? 0;
+        if ($input['value']){
+
+            $orderArea = Area::where('id',$input['area_id'])->select('delivery_cost','over_weight_cost')->first();
+            //   dd($orderArea->delivery_cost);
+            $input['status_id'] = Status::all()->first()->id;
+            $input['user_id'] =auth()->id();
+            $input['total'] = $input['value'] * $input['quantity'] ;
+            //       dd(setting('package_weight_limit'));
+
+            if(!$input['cod']){
+                $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
+                if($input['package_weight'] > setting('package_weight_limit')){
+                    $input['total'] = ($input['value'] -
+                            ( $orderArea->delivery_cost + (
+                                    ($input['package_weight'] - setting('package_weight_limit')
+                                    ) * $orderArea->over_weight_cost )
+                            )
+                        ) * $input['quantity']  ?? 0;
+                }
+            }elseif($input['package_weight'] > setting('package_weight_limit')){
+                $input['total'] = ($input['value'] -  ( ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ) ) * $input['quantity']  ?? 0;
+            }else{
+                $input['total'] = $input['value'] * $input['quantity'] ;
+            }
+           // dd($input['total']);
+        }
+
+
         Order::create($input);
 
         notify()->success('Order Created Successfully');
+
         return redirect()->route('admin.orders.index');
     }
 
@@ -121,8 +154,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-
-        return view('orders.show',compact('order'));
+        return view('admin.orders.show',compact('order'));
     }
 
     /**

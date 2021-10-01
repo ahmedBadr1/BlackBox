@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Delivery;
 
+use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Status;
 use App\Models\Task;

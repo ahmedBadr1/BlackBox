@@ -26,11 +26,11 @@ class AreaFactory extends Factory
 
         return [
             'name' => $this->faker->unique()->city(),
-            'delivery_cost' => rand(10,70),
-            'return_cost' => rand(10,70),
-            'replacement_cost' => rand(10,70),
-            'over_weight_cost' => rand(10,70),
-            'delivery_time' => rand(10,70),
+            'delivery_cost' => rand(10,60),
+            'return_cost' => rand(5,40),
+            'replacement_cost' => rand(15,50),
+            'over_weight_cost' => rand(1,10),
+            'delivery_time' => rand(12,96),
             'zone_id' =>  Zone::all()->random()->id,
 
         ];
