@@ -40,7 +40,7 @@ class TaskController extends Controller
 //        $avOrders = auth()->user()->zone[0]->areas;
 //        dd($avOrders);
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
-        return view('admin.tasks.index',compact('tasks'));
+        return view('admin.tasks.archive',compact('tasks'));
     }
 
     /**

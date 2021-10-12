@@ -4,14 +4,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('users.index')}}">{{__('names.manage')}} {{__('names.users')}}</a>
                 <h1 class="text-center">{{__('auth.edit')}} {{__('names.user')}} {{$user->name}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
-                <form method="POST" action="{{route('profile.update')}}" enctype="multipart/form-data">
+                <form method="POST" action="{{route('delivery.profile.update')}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

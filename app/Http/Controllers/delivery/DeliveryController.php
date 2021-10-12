@@ -20,7 +20,8 @@ class DeliveryController extends Controller
     public function myorders()
     {
         //$user = auth()->user()->orders()->orderBy('updated_at','DESC')->paginate(10);
-        $orders =  Order::where('delivery_id','=',auth()->user()->id)->get();
+
+      //  $orders =  Order::where('delivery_id','=',auth()->user()->id)->get();
 
 
 //        $avOrders = auth()->user()->zone[0]->areas;

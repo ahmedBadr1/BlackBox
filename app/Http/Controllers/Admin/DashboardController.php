@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Branch;
+use App\Models\Feature;
+use App\Models\Location;
 use App\Models\Order;
+use App\Models\Packing;
+use App\Models\Plan;
+use App\Models\Receipt;
 use App\Models\Setting;
 use App\Models\State;
+use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
@@ -16,11 +22,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
-use Spatie\Permission\Models\Role;
-use function GuzzleHttp\Promise\all;
+
 
 class DashboardController extends Controller
 {
@@ -38,7 +44,7 @@ class DashboardController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return View
+     * @return
      */
 
     public function index()
@@ -58,23 +64,58 @@ class DashboardController extends Controller
 //        $areas = DB::table('areas')->count();
 //        $orders = DB::table('orders')->count();
 
-                $users = User::count();
+        $users = User::count();
+        $deliveries = User::whereHas("roles", function($q){ $q->whereIn("name" ,["delivery"]); })->count();
+        $sellers = User::whereHas("roles", function($q){ $q->whereIn("name" ,["seller"]); })->count();
         $states = State::count();
         $branches = Branch::count();
         $zones = Zone::count();
         $areas = Area::count();
         $orders = Order::count();
+        $statuses = Status::count();
+        $tasks = Task::count();
+        $plans = Plan::count();
+        $features = Feature::count();
+        $receipts = Receipt::count();
+        $packing = Packing::count();
+        $locations = Location::count();
 
-
-
-
-        return view('admin.dashboard', compact('users','states','branches','zones','areas','orders'));
+        return view('admin.dashboard', compact(
+            'users',
+            'deliveries',
+            'sellers',
+            'states',
+            'branches',
+            'zones',
+            'areas',
+            'orders',
+            'statuses',
+            'tasks',
+            'plans',
+            'features',
+            'receipts',
+            'packing',
+            'locations',
+        ));
     }
     public function profile()
     {
         $user = Auth::user();
 
-        return view('admin.profile.index', compact('user'));
+        if ($user->roles->first()->name == 'delivery'){
+            $alltasks = $user->taskson->count();
+            $donetasks = $user->taskson->where('done_at')->count();
+        }else{
+            $allTasks = $user->tasks->count();
+            $doneTasks = $user->tasks->whereNotNull('done_at')->count();
+        }
+  //      dd($donetasks);
+
+        $allOrders = $user->orders->count();
+        $doneOrders = $user->orders->where('status_id','6')->count();
+
+
+        return view('admin.profile.index', compact('user','allTasks','doneTasks','allOrders','doneOrders'));
     }
     public function profileEdit()
     {
@@ -203,9 +244,8 @@ class DashboardController extends Controller
             'email'=>'nullable|email',
             'theme'=>'nullable',
             'auto_send'=>'nullable|boolean',
-            'reschedule_limit' => 'required',
-            'package_weight_limit' => 'required',
-
+            'reschedule_limit' => 'nullable',
+            'package_weight_limit' => 'nullable',
         ]);
 
        $input = $request->all();
@@ -216,8 +256,7 @@ class DashboardController extends Controller
        }else{
            $input['auto_send'] = true;
        }
-
-
+        Config::set(['app.name' => $input['app_name']]);
         $setting = Setting::first();
        if ($setting){
            $setting->update($input);
@@ -227,7 +266,7 @@ class DashboardController extends Controller
         Cache::forget('setting');
 
         notify()->success('setting saved successfully');
-        return \view('system.setting',compact('setting'));
+        return redirect()->route('admin.dashboard');
     }
 
     public function trash()

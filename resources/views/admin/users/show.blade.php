@@ -28,19 +28,26 @@
                                 <a href="{{route('admin.roles.show',$role->id)}}">{{$role->name }}</a>
                             @endforeach
                     </b></p> <hr>
-                <div class="d-flex ">
-                    @can('user-edit')
+                @if($user->roles[0]->id === 1 )
+                    <div class="d-flex ">
 
-                        <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info o">edit</a>
-                    @endcan
-                    @can('user-delete')
-                        <form class="ml-5" action="{{route('admin.users.destroy',$user->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="delete">
-                        </form>
-                    @endcan
-                </div>
+                    </div>
+                @else
+                    <div class="d-flex ">
+                        @can('user-edit')
+
+                            <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info o">edit</a>
+                        @endcan
+                        @can('user-delete')
+                            <form class="ml-5" action="{{route('admin.users.destroy',$user->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger" value="delete">
+                            </form>
+                        @endcan
+                    </div>
+                @endif
+
 
             </div>
         </div>

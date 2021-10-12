@@ -45,7 +45,11 @@
                                     </form>
                                 </td>
                             @endcan
-
+                            @can('user-active')
+                                <td>
+                                    <livewire:user-toggle id="{{$user->id}}" active="{{$user->active}}"  />
+                                </td>
+                            @endcan
 
                         </tr>
                     @endforeach

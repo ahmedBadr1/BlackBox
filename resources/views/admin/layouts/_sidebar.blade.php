@@ -7,7 +7,7 @@
 >
     <!-- Sidebar -->
     <a class="navbar-brand fb-nav-logo font-weight-bold text-uppercase" href="{{ url('/') }}">
-        {{ config('app.name', 'Laravel') }}
+        {{ setting('app_name') ?? config('app.name', 'Laravel') }}
     </a>
     <i class="fas fa-bars" id="menu"></i>
     <ul class="navbar-nav " id="accordionSidebar">
@@ -97,7 +97,7 @@
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <a href="{{ route('admin.tasks.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.tasks")}}</a>
-                <a class="collapse-item " href="/charts.html"><span>{{__('names.jops')}}</span></a>
+                <a class="collapse-item " href="{{ route('admin.locations.index') }}"><i class="fas fa-map-marker-alt"></i><span>{{__('names.locations')}}</span></a>
             </div>
         </li>
 
@@ -116,6 +116,7 @@
                     <a class="collapse-item" href="{{route('admin.receipts.index')}}"><i class="fas fa-money-check "></i><span>{{__('names.receipts')}}</span></a>
 
                     <a class="collapse-item" href="{{route('admin.financials')}}"><i class="fas fa-images"></i><span>{{__('names.financials')}}</span></a>
+                    <a class="collapse-item" href="{{route('admin.statics')}}"><i class="fas fa-chart-line"></i><span>{{__('names.statics')}}</span></a>
                 </div>
             </div>
         </li>
@@ -131,7 +132,7 @@
             </a>
             <div id="collapseOreder" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <a href="{{ route('admin.orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
-
+                <a href="{{route('admin.packing')}}"><i class="fas fa-fw fa-box"></i> {{__("names.manage")}} {{__("names.packing")}}</a>
             </div>
         </li>
 
@@ -145,6 +146,8 @@
         <li class="nav-item">
             <a class="sidebar-link" href="{{route('admin.setting')}}"><i class="fas fa-cogs"></i><span>{{__('names.setting')}}</span></a>
         </li>
+
+
 
         <!-- Nav Item - Tables -->
     {{--        @can('inbox')--}}
@@ -178,11 +181,11 @@
     </ul>
 
     <div class="profile-inf">
-        <img src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture" />
+        <img src="/storage/{{ auth()->user()->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture" />
         <div class="fb-info">
 
             <a href="{{route('admin.profile')}}" class="fb-username">{{ Auth::user()->name }}</a>
-            <div class="fb-bio">Feedbacker</div>
+            <div class="fb-bio">{{ Auth::user()->profile->bio }}</div>
         </div>
 
 

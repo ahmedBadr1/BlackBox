@@ -62,10 +62,15 @@ class Order extends Model
         'cod' => 'boolean',
     ];
 
+
+    protected static $recordEvents = ['updated','deleted'];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['id', 'user.name'])
+            ->setDescriptionForEvent(fn(string $eventName) => "This Order has been {$eventName}")
+            ->logOnly(['product_name', 'cust_name', 'cust_num','address','value','quantity','user.name'])
+            ->logOnlyDirty()
             ->useLogName('Order');
         // Chain fluent methods for configuration options
     }
@@ -100,5 +105,36 @@ class Order extends Model
         return Hashids::connection(get_called_class())->encode($this->attributes['id']);
        // return Hashids::encode($this->attributes['id']);
     }
+    public  function getCreatedAtForHumansAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+    public static function search($search)
+    {
+        $id =    Hashids::Connection(Order::class)->decode(strtolower($search)) ?? 0;
+        return empty($search) ? static::query()
+            : static::query()->where('id', 'like', '%'.$search.'%')
+                ->orWhere('product_name', 'like', '%'.$search.'%')
+                ->orWhere('cust_name', 'like', '%'.$search.'%')
+                ->orWhere('cust_num', 'like', '%'.$search.'%')
+                ->orWhere('id', '=', $id)
+                ->orWhereHas('user', fn($q) => $q->where('name','like', '%'.$search.'%'))
+                ->orWhereHas('area', fn($q) => $q->where('name','like', '%'.$search.'%'));
+    }
+
+    public static function searchSeller($search,$uid)
+    {       $id =    Hashids::Connection(Order::class)->decode(strtolower($search)) ?? 0;
+        return empty($search) ? static::query()
+            : static::query()->where('user_id', $uid)
+                ->where(function ($query) use ($search ,$id) {
+                    $query->orWhere('product_name', 'like', '%'.$search.'%');
+                    $query->orWhere('cust_name', 'like', '%'.$search.'%');
+                    $query->orWhere('cust_num', 'like', '%'.$search.'%');
+                    $query->orWhere('total', 'like', '%'.$search.'%');
+                    $query->orWhere('id', '=', $id);
+                    $query->orWhereHas('area', fn($q) => $q->where('name','like', '%'.$search.'%'));
+                });
+    }
+
 
 }

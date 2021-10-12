@@ -9,8 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @yield('meta')
-
-
+    @stack('styles')
+    @livewireStyles
 <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     @notifyCss
@@ -21,7 +21,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ setting('title') ?? config('app.name', 'Laravel') }}</title>
 </head>
 <body >
 <div id="app" class="">
@@ -62,11 +62,10 @@
 
 
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-
+        @if (Session::has('success'))
+            @php
+                notify()->success(Session::get('success'));
+            @endphp
         @endif
 
         @yield('content')
@@ -75,29 +74,32 @@
 
 </div>
 <footer class=" fb-footer">
-    <p >copyright &#169 Feedback 2021 <small>powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}</small></p>
+    <p > copyright &#169 Feedback 2021 <small> {{ setting('footer') ?? '' }}
+{{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
+        </small></p>
 </footer>
-<script>
-    let menu = document.getElementById('menu');
-    let search = document.querySelector('.fa-search');
-    let sideBar = document.querySelector('aside');
-    let collapses = document.querySelectorAll('.sidebar-link');
-    function toggle() {
-        sideBar.classList.toggle('shrink');
-        if(sideBar.classList.contains('shrink')){
-            collapses.forEach(function (col) {
-                col.ariaExpanded="false";
-                // console.log(col.ariaExpanded);
-            });
-        }
-    }
+{{--<script>--}}
+{{--    let menu = document.getElementById('menu');--}}
+{{--    let search = document.querySelector('.fa-search');--}}
+{{--    let sideBar = document.querySelector('aside');--}}
+{{--    let collapses = document.querySelectorAll('.sidebar-link');--}}
+{{--    function toggle() {--}}
+{{--        sideBar.classList.toggle('shrink');--}}
+{{--        if(sideBar.classList.contains('shrink')){--}}
+{{--            collapses.forEach(function (col) {--}}
+{{--                col.ariaExpanded="false";--}}
+{{--                // console.log(col.ariaExpanded);--}}
+{{--            });--}}
+{{--        }--}}
+{{--    }--}}
 
-    menu.addEventListener('click', () => { toggle() });
-    search.addEventListener('click', () => { toggle() });
-</script>
+{{--    menu.addEventListener('click', () => { toggle() });--}}
+{{--    search.addEventListener('click', () => { toggle() });--}}
+{{--</script>--}}
 
-@yield('script')
 <x:notify-messages />
+@livewireScripts
 @notifyJs
+@yield('script')
 </body>
 </html>

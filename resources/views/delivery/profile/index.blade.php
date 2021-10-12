@@ -17,7 +17,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 align-items-md-center ml-5">
-                                    <a class="btn btn-info w-75" href="{{route('profile.edit')}}">Edit</a>
+                                    <a class="btn btn-info w-75" href="{{route('delivery.profile.edit')}}">Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -81,10 +81,12 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>{{__('names.tasks')}} </h6>
+                                    <h6 class="d-flex align-items-center mb-3">{{__('names.tasks')}} </h6>
                                     <small>{{__('names.task')}} {{__('names.status')}}</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress mb-3" style="height: 12px">
+                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"  style="width: {{($doneTasks / $allTasks) * 100   }}%" aria-valuenow="{{$doneTasks}}" aria-valuemin="0" aria-valuemax="{{$allTasks}}">
+                                            {{$doneTasks}} of  {{$allTasks}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,10 +94,12 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>{{__('names.orders')}}</h6>
-                                    <small>{{__('names.order')}} {{__('names.status')}}</small>
-                                    <div class="progress mb-3" style="height: 5px">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <h6 class="d-flex align-items-center mb-3">{{__('names.orders')}} </h6>
+                                    <small>{{__('names.orders')}} {{__('names.status')}}</small>
+                                    <div class="progress mb-3" style="height: 12px">
+                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"  style="width: {{($doneOrders / $allOrders) * 100   }}%" aria-valuenow="{{$doneOrders}}" aria-valuemin="0" aria-valuemax="{{$allOrders}}">
+                                            {{$doneOrders}} of  {{ $allOrders}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

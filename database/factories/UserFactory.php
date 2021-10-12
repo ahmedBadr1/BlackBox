@@ -34,7 +34,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'hearAboutUs'=> $this->faker->company(),
             'password' => bcrypt('feedback'), // password
-            'remember_token' => Str::random(10),
+
         ];
     }
 

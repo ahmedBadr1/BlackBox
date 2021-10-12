@@ -6,10 +6,12 @@ use App\Models\Area;
 use App\Models\Order;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
 
-class OrdersImport implements ToModel ,WithHeadingRow, SkipsOnError
+class OrdersImport implements ToModel ,WithHeadingRow ,WithBatchInserts ,WithCustomChunkSize, SkipsOnError
 {
     use Importable;
 
@@ -48,5 +50,12 @@ class OrdersImport implements ToModel ,WithHeadingRow, SkipsOnError
     {
         // Handle the exception how you'd like.
     }
-
+    public function chunkSize(): int
+    {
+        return 5000;
+    }
+    public function batchSize(): int
+    {
+        return 1000;
+    }
 }

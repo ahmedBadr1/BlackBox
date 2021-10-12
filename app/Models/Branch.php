@@ -12,7 +12,7 @@ class Branch extends Model
     protected $fillable = [
         'name',
         'phone',
-        'location',
+        'location_id',
         'state_id',
         'user_id',
     ];
@@ -27,7 +27,10 @@ class Branch extends Model
     //    $mangers = User::role(['manager'])->get();
         return $this->belongsTo(User::class,'user_id');
     }
-
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
     public function users()
     {
         return $this->hasMany(User::class);

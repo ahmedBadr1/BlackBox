@@ -21,6 +21,7 @@ class CreateProfilesTable extends Migration
             $table->string('area')->nullable();
             $table->string('profile_photo')->nullable();
             $table->string('url')->nullable();
+            $table->foreignIdFor(\App\Models\Location::class)->nullable();
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });

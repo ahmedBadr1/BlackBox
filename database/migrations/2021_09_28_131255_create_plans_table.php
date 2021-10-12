@@ -18,6 +18,7 @@ class CreatePlansTable extends Migration
             $table->string('name');
             $table->integer('orders_count');
             $table->integer('pickup_cost');
+            $table->json('area');
             $table->timestamps();
         });
     }

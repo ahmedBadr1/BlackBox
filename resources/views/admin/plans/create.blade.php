@@ -1,9 +1,9 @@
 @extends('admin.layouts.admin')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <a href="{{route('admin.plans.index')}}">{{__("names.manage")}} {{__("names.plans")}}</a>
                 <h1 class="text-center">{{__("auth.create")}} {{__("names.plan")}}</h1>
                 @if (session('status'))
@@ -17,7 +17,7 @@
                         <label for="name" class="col-md-4 col-form-label text-md-right">{{__("names.plan")}} {{__("auth.name")}}</label>
 
                         <div class="col-md-6">
-                            <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('role') }}"  autocomplete="name" autofocus>
+                            <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
 
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -61,16 +61,13 @@
                                 <input type="checkbox" id="{{$feature->name}}" name="features[]" value="{{$feature->id}}">
                                 <label for="{{$feature->name}}">{{$feature->name}}</label><br>
                             @endforeach
-                            @error('permissions')
+                            @error('features')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
                         </div>
                     </div>
-
-
-
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-success">
@@ -78,6 +75,25 @@
                             </button>
                         </div>
                     </div>
+            </div>
+            <div class="col-md-8">
+                    <div class="form-group row mb-0">
+
+                    @foreach($areas as $area)
+                            <div class="col-md-6">
+                                <label for="{{$area->name}}">{{$area->name}}</label><br>
+                        <input type="number" id="{{$area->name}}" name="area[{{$area->id}}]" value="{{old('areas['.$area->id.']')}}" class="form-control">
+                            </div>
+                    @endforeach
+                        @error('area')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                        </div>
+                    </div>
+            </div>
+
                 </form>
             </div>
         </div>

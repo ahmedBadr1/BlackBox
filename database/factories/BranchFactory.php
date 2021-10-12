@@ -24,11 +24,11 @@ class BranchFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->citySuffix(),
+            'name' => $this->faker->citySuffix(),
             'phone' => $this->faker->unique()->phoneNumber(),
-            'location' => $this->faker->unique()->address(),
+            'location_id' => $this->faker->numberBetween('1','10'),
             'state_id' =>  State::all()->random()->id,
-            'user_id' => User::role(['manager'])->pluck('id')[0],
+            'user_id' => User::role(['manager'])->pluck('id')->random(),
         ];
     }
 }

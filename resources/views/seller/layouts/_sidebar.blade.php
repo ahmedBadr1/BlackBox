@@ -59,7 +59,7 @@
             <div id="collapseStyles" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('receipts.index')}}"><i class="fas fa-money-check "></i><span>{{__('names.receipts')}}</span></a>
+
                     <a class="collapse-item" href="{{route('mybalance')}}"><i class="fas fa-images"></i><span>{{__('names.mybalance')}}</span></a>
                 </div>
             </div>
@@ -109,8 +109,8 @@
         <img src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture" />
         <div class="fb-info">
 
-            <a href="{{url('/profile')}}" class="fb-username">{{ Auth::user()->name }}</a>
-            <div class="fb-bio">Feedbacker</div>
+            <a href="{{route('profile')}}" class="fb-username">{{ Auth::user()->name }}</a>
+            <div class="fb-bio">{{ Auth::user()->profile->bio }}</div>
         </div>
 
 

@@ -79,6 +79,9 @@ class PermissionsSeeder extends Seeder
         $role2->givePermissionTo('user-show');
         $role2->givePermissionTo('dashboard');
 
+        //$role2 = Role::findOrCreate('owner');
+
+
         $role3 = Role::findOrCreate('Feedback');
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 

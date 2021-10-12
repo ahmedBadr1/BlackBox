@@ -9,6 +9,8 @@ class Setting extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'reschedule_limit',
+        'package_weight_limit',
         'app_name',
         'title',
         'slogan',
@@ -17,8 +19,14 @@ class Setting extends Model
         'email',
         'theme',
         'auto_send',
+        'company_name',
+        'location_id'
     ];
     protected $casts = [
         'auto_send' => 'boolean'
     ];
+    public function location()
+    {
+        return $this->hasOne(Location::class);
+    }
 }

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('orders.index')}}">{{__("names.manage")}} {{__("names.orders")}}</a>
+                <a href="{{route('delivery.my-orders')}}">{{__("names.manage")}} {{__("names.orders")}}</a>
                 <h1 class="text-center"> {{__("names.order")}} {{$order->cust_name}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -12,7 +12,7 @@
                     </div>
                 @endif
                 <label>{{__("names.order")}} {{__("auth.id")}}</label>
-                <p><b>{{$order->id}}</b></p> <hr>
+                <p><b>{{$order->hashid}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.product_name")}}</label>
                 <p><b>{{$order->product_name}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.name")}}</label>
@@ -31,13 +31,13 @@
 
 
                 <div class="d-flex ">
-                    <form class="ml-5" action="{{route('orders.changeStatus',$order->id) }}" method="POST">
+                    <form class="ml-5" action="{{route('delivery.orders.changeStatus',$order->hashid) }}" method="POST">
                         @csrf
 
                         <select name="status_id" id="">
 
                             @foreach($statuses as $status)
-                                <option value="{{$status->id}}" @if($order->status->id === $status->id){{("selected")}} @endif>{{$status->name}}</option>
+                                <option value="{{$status->id}}" @if($order->status->id === $status->id) selected @endif>{{$status->name}}</option>
                             @endforeach
                         </select>
 

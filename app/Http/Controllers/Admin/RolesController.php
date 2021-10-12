@@ -89,7 +89,6 @@ class RolesController extends Controller
     public function edit($id)
     {
         //
-
         $role = Role::findById($id);
         if($role->name === 'seller'){
             abort(403);

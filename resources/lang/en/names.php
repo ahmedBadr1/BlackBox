@@ -57,6 +57,23 @@ return [
     'zone'=>'Zone',
     'zones'=>'Zones',
 
+    'packing'=>'Packing',
+    'plans'=>'Plans',
+    'features'=>'Features',
+    'delivery' => 'Delivery',
+    'deliveries'=>'Deliveries',
+    'locations'=>'Locations',
+    'statuses'=>'Statuses',
+    'receipts'=>'Receipts',
+    'setting'=>'Setting',
+    'help'=>'Help',
+    'financials'=>'Financials',
+    'statics'=>'Statics',
+
+    'help-center' => 'Help Center',
+    'consignee-details' => 'Consignee Details',
+    'order-details' => 'Order Details',
+
 
 
 ];
