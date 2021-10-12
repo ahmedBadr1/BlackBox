@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Feature;
 use App\Models\Plan;
 use Illuminate\Http\Request;
@@ -32,8 +33,10 @@ class PlanController extends Controller
     {
         //
        $features = Feature::all('id','name');
-   //    dd($features);
-        return view('admin.plans.create',compact('features'));
+       $areas = Area::select('id','name')->get();
+
+//       dd($areas);
+        return view('admin.plans.create',compact('features','areas'));
     }
 
     /**
@@ -48,9 +51,11 @@ class PlanController extends Controller
         $this->validate($request,[
             'name'=>'required|unique:plans,name',
             'orders_count'=>'required',
-            'pickup_cost'=> 'required'
+            'pickup_cost'=> 'required',
+             'area'=> 'required|array'
         ]);
         $input = $request->all();
+     //   dd($input);
         $plan = Plan::create($input);
       foreach ($input['features'] as $id){
           $feature = Feature::findOrFail($id);
@@ -85,14 +90,14 @@ class PlanController extends Controller
         $plan = Plan::where('id',$id)->first();
         //$plan = Plan::findOrFail($id);
 
-
+        $areas = Area::select('id','name')->get();
         $features = Feature::all('id','name');
 
         $planFeatures =Db::table("feature_plan")->where('feature_plan.plan_id',$id)->pluck('feature_plan.feature_id','feature_plan.feature_id')->all();
        // dd($planFeatures);
 
 
-        return view('admin.plans.edit',compact('features','plan','planFeatures'));
+        return view('admin.plans.edit',compact('features','plan','planFeatures','areas'));
     }
 
     /**
@@ -112,13 +117,17 @@ class PlanController extends Controller
         $input = $request->all();
 
         $plan = Plan::findOrFail($id);
+        $plan->update($input);
         $plan->features()->detach();
-        foreach ($input['features'] as $fid){
-            $feature = Feature::findOrFail($fid);
-            $feature->plans()->attach($plan->id);
+        if (isset($input['features'])){
+            foreach ($input['features'] as $fid){
+                $feature = Feature::findOrFail($fid);
+                $feature->plans()->attach($plan->id);
+            }
         }
 
-        return redirect()->route('admin.plans.index')->with('success','Plan Created Successfully');
+
+        return redirect()->route('admin.plans.index')->with('success','Plan Updated Successfully');
     }
 
     /**
@@ -130,6 +139,17 @@ class PlanController extends Controller
     public function destroy($id)
     {
         //
+        if ($id == Plan::first()->id){
+            notify()->error('plan cant be deleted');
+
+
+            return redirect()->back();
+        }
+        $plan = Plan::findOrFail($id);
+
+        $plan->delete();
+
+        return redirect()->route('admin.plans.index')->with('success','Plan Deleted Successfully');
     }
 
     public function features()
@@ -142,4 +162,5 @@ class PlanController extends Controller
         $feature = Feature::where('id',$id)->with(array('plans'=> fn($q)=>$q->select('plan_id','name')))->first();
         return view('admin.plans.feature',compact('feature'));
     }
+
 }

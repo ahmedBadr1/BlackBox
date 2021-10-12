@@ -6,10 +6,15 @@ use App\Exports\OrdersExportEn;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Order;
+use App\Models\Packing;
+use App\Models\Plan;
 use App\Models\Setting;
 use App\Models\State;
 use App\Models\Status;
 use App\Models\User;
+use App\Notifications\DoneNotification;
+use Illuminate\Support\Facades\Notification;
+use Spatie\Activitylog\Models\Activity;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,11 +38,12 @@ class OrdersController extends Controller
      */
     public function index(Request $request)
     {
-            $orders = Order::with('user','area','status','state')->orderBy('updated_at','DESC')->paginate(10);
+       // $orders = Order::with('user','area','status','state')->orderBy('updated_at','DESC')->paginate(100);
+
 //        $avOrders = auth()->user()->zone[0]->areas;
 //        dd($avOrders);
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
-        return view('admin.orders.index',compact('orders'));
+        return view('admin.orders.index');
     }
     public function track(Request $request ){
         // dd($request);
@@ -47,28 +53,39 @@ class OrdersController extends Controller
         }
         $user =  \auth()->user();
         $status= null;
-        return view('admin.track',compact('user','order_hashid','status'));
+        $orderLogs=  null;
+        return view('admin.track',compact('user','order_hashid','status','orderLogs'));
     }
 
     public function  trackgo(Request $request)
     {
         //  dd($request['order_id']);
         $order_hashid =  $request['order_id'];
-        $id =    Hashids::Connection(Order::class)->decode($order_hashid);
+        $id =    Hashids::Connection(Order::class)->decode(strtolower($order_hashid)) ?? [0];
 
         if($id){
             $order =Order::findOrFail($id[0]);
             $status =  Status::find($order->status_id)->name;
+            $orderLogs  = Activity::inLog('Order')->where('subject_id',$id)->select('causer_id','description','properties','updated_at')->get();
+          //  dd($orderLogs);
+
         }else{
             $status =  null;
-        }
+            $orderLogs=  null;
 
+        }
+//foreach ($orderLogs as $log){
+//  ///  dd($log->properties['attributes']);
+//    foreach ($log->properties['attributes'] as $prop){
+//        dd($prop);
+//    }
+//}
 //        if (auth()->user()->id !== $order->user->id){
 //            abort(404);
 //        }
 
 
-        return view('admin.track',compact('status','order_hashid'));
+        return view('admin.track',compact('status','order_hashid','orderLogs'));
     }
     /**
      * Show the form for creating a new resource.
@@ -79,11 +96,18 @@ class OrdersController extends Controller
     {
         //
      //   $states= State::where('active',true)->get();
-        $types = ['cosmetics','clothes','document','furniture','machines','other'];
-        $areas = Area::select('id','name')->orderBy('id','desc')->get();
 
+//        $types = ['cosmetics','clothes','document','furniture','machines','other'];
+//        $areas = Area::where('active',1)->whereHas('state',fn($q)=>$q->where('active','1'))->select('id','name')->orderBy('id','desc')->get();
+//        $sellers = User::with('plan')->whereHas("roles", function($q){ $q->where("name" ,'seller'); })->get();
+
+      //  $areas = Area::with('state')->select('id','name')->orderBy('id','desc')->get();
       //  dd($areas);
-        return view('admin.orders.create',compact('areas','types'));
+
+      //  $order = Order::first();
+
+     //   Notification::send( auth()->user(), new DoneNotification($order));
+        return view('admin.orders.create');
     }
 
     /**
@@ -94,34 +118,42 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
+        $user = \auth()->user();
+
        // dd($request->all());
         $this->validate($request,[
             'product_name' =>'required',
-            'value'=>'nullable|numeric',
+            'value'=>'nullable|numeric|gt:0',
             'cust_name'=>'required',
             'cust_num'=>'required',
             'address'=>'required',
             'area_id'=>'required|numeric',
             'package_type' => 'nullable',
             'package_weight'=>'nullable|numeric',
-            'deliver_before' =>'nullable|date|after:today',
+            'deliver_before' =>'nullable|date', //  'deliver_before' =>'nullable|date|after:today',
             'quantity'=>'nullable|numeric',
             'cod'=> 'required|boolean',
             'notes'=>'nullable',
-
+            'user_id' => 'nullable'
         ]);
         $input = $request->all();
-        if ($input['value']){
+       // auth()->user()->plan->name;
+        // dd($input);
 
-            $orderArea = Area::where('id',$input['area_id'])->select('delivery_cost','over_weight_cost')->first();
-            //   dd($orderArea->delivery_cost);
+        if (isset($input['value'])){
+            $orderArea = Area::where('id',$input['area_id'])->select('id','delivery_cost','over_weight_cost')->first();
+            if($user->plan->id !== Plan::first()->id){
+                $orderArea->delivery_cost = $user->plan->area[$input['area_id']] ?? $orderArea->delivery_cost ;
+            }
             $input['status_id'] = Status::all()->first()->id;
-            $input['user_id'] =auth()->id();
-            $input['total'] = $input['value'] * $input['quantity'] ;
+            if (!$input['user_id']){
+                $input['user_id'] = $user->id;
+            }
+    //        $input['total'] = $input['value'] * $input['quantity'] ;
             //       dd(setting('package_weight_limit'));
-
             if(!$input['cod']){
                 $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
+               // dd($input['total']);
                 if($input['package_weight'] > setting('package_weight_limit')){
                     $input['total'] = ($input['value'] -
                             ( $orderArea->delivery_cost + (
@@ -131,14 +163,16 @@ class OrdersController extends Controller
                         ) * $input['quantity']  ?? 0;
                 }
             }elseif($input['package_weight'] > setting('package_weight_limit')){
-                $input['total'] = ($input['value'] -  ( ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ) ) * $input['quantity']  ?? 0;
+
+                $over = ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ;
+                $input['total'] = ($input['value'] -  $over) * $input['quantity']  ?? 0;
             }else{
+
                 $input['total'] = $input['value'] * $input['quantity'] ;
             }
-           // dd($input['total']);
         }
 
-
+     //   dd($input['total']);
         Order::create($input);
 
         notify()->success('Order Created Successfully');
@@ -166,7 +200,8 @@ class OrdersController extends Controller
     public function edit(Order $order)
     {
             if (auth()->id() !== $order->user_id){
-                abort(404);
+               // abort(404);
+                return redirect()->back()->with('You cant change order now');
             }
 
         if (!in_array($order->status->id,[1,2])){
@@ -174,8 +209,9 @@ class OrdersController extends Controller
             return redirect()->route('admin.orders.index');
         }
 
+        $areas = Area::where('active',1)->whereHas('state',fn($q)=>$q->where('active','1'))->select('id','name')->orderBy('id','desc')->get();
        // $states= State::where('active',true)->get();
-        $areas = Area::all();
+
         return view('admin.orders.edit',compact('order','areas'));
     }
 
@@ -191,15 +227,66 @@ class OrdersController extends Controller
 
         $this->validate($request,[
             'product_name' =>'required',
-            'value'=>'required|numeric',
+            'value'=>'nullable|numeric|gt:0',
             'cust_name'=>'required',
-            'cust_num'=>'required|numeric',
+            'cust_num'=>'required',
             'address'=>'required',
             'area_id'=>'required|numeric',
-            'quantity'=>'required|numeric',
-            'notes'=>'',
+            'package_type' => 'nullable',
+            'package_weight'=>'nullable|numeric',
+            'deliver_before' =>'nullable|date', //  'deliver_before' =>'nullable|date|after:today',
+            'quantity'=>'nullable|numeric',
+            'cod'=> 'required|boolean',
+            'notes'=>'nullable',
+            'user_id' => 'nullable'
         ]);
         $input = $request->all();
+
+        if (isset($input['value'])){
+
+            $orderArea = Area::where('id',$input['area_id'])->select('id','delivery_cost','over_weight_cost')->first();
+
+            if($user->plan->id !== Plan::first()->id){
+                $orderArea->delivery_cost = $user->plan->area[$input['area_id']] ?? $orderArea->delivery_cost ;
+
+            }
+
+            //  dd($orderArea->delivery_cost . 'after');
+            $input['status_id'] = Status::all()->first()->id;
+
+            if (!$input['user_id']){
+                $input['user_id'] = $user->id;
+            }
+
+            //        $input['total'] = $input['value'] * $input['quantity'] ;
+            //       dd(setting('package_weight_limit'));
+
+            if(!$input['cod']){
+                $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
+
+                // dd($input['total']);
+                if($input['package_weight'] > setting('package_weight_limit')){
+                    $input['total'] = ($input['value'] -
+                            ( $orderArea->delivery_cost + (
+                                    ($input['package_weight'] - setting('package_weight_limit')
+                                    ) * $orderArea->over_weight_cost )
+                            )
+                        ) * $input['quantity']  ?? 0;
+                }
+            }elseif($input['package_weight'] > setting('package_weight_limit')){
+
+                $over = ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ;
+                $input['total'] = ($input['value'] -  $over) * $input['quantity']  ?? 0;
+            }else{
+
+                $input['total'] = $input['value'] * $input['quantity'] ;
+            }
+
+        }
+
+
+        dd($input['total']);
+
         $order->update($input);
         notify()->success('Order Updated Successfully');
         return redirect()->route('admin.orders.index');
@@ -215,7 +302,8 @@ class OrdersController extends Controller
     public function destroy(Order $order)
     {
         if (auth()->id() !== $order->user_id){
-            abort(404);
+            notify()->warning('You cant Delete this order');
+            return redirect()->back()->with('You cant Delete this order');
         }
         $order->delete();
         notify()->success('Order Deleted Successfully');
@@ -226,4 +314,8 @@ class OrdersController extends Controller
         return view('admin.orders.trash',compact('orders'));
     }
 
+    public function packing(){
+        $packing = Packing::all();
+        return view('admin.orders.packing',compact('packing'));
+    }
 }

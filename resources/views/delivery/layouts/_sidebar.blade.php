@@ -1,4 +1,4 @@
-<aside class="fb-side-d navbar-fixed-top text-light bg-dark bg-gradient"
+<aside class="fb-side-d navbar-fixed-top text-light " style="background-color: #000428"
        @if(app()->getLocale() == "ar")
        dir="rtl"
        @else
@@ -41,11 +41,11 @@
                 <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
             </a>
             <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a href="{{ route('myorders') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i> {{__("names.my-orders")}}</a>
+                <a href="{{ route('delivery.my-orders') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i> {{__("names.my-orders")}}</a>
             </div>
         </li>
         <li class="nav-item">
-            <a class="" href="{{route('my-tasks')}}">
+            <a class="" href="{{route('delivery.my-tasks')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>{{__("names.tasks")}}</span>
                 <span class="icon-name">{{__("names.tasks")}}</span>
@@ -89,8 +89,8 @@
         <img src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture" />
         <div class="fb-info">
 
-            <a href="{{url('/profile')}}" class="fb-username">{{ Auth::user()->name }}</a>
-            <div class="fb-bio">Feedbacker</div>
+            <a href="{{route('delivery.profile')}}" class="fb-username">{{ Auth::user()->name }}</a>
+            <div class="fb-bio">{{ auth()->user()->profile->bio ?? 'new' }}</div>
         </div>
 
 

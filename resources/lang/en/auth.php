@@ -41,5 +41,30 @@ return [
     'photo' => 'Photo',
     'url' => 'Url',
 
+    'product_name' => 'Product Name',
+    'cust_name' => 'Consignee Name',
+    'cust_num' => 'Consignee Phone Number',
+    'total' => 'Total',
+    'assign' => 'Assign',
+    'download' => 'Download',
+    'package_type' => 'Package Type',
+    'value-per-one' => 'value per one',
+    'package_weight-kg-per-one' => 'package weight kg-per-one',
+    'deliver_before' => 'deliver before',
+    'cod' => 'COD',
+    'quantity' => 'Quantity',
+    'value' => 'Value',
+    'delivery-cost' => 'Delivery Cost',
+    'package-weight' => 'Package Weight',
+    'package-over-weight' => 'Package Over Weight',
+    'package-over-weight-cost' => 'Package Over Weight Cost',
+    'tax' => 'Tax',
+    'discount' => 'Discount',
+    'delivery-on-consignee' => 'Delivery on consignee',
+    'delivery-on-me' => 'Delivery on Me'
+
+
+
+
 
 ];

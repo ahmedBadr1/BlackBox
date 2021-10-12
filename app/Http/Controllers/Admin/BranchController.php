@@ -28,12 +28,12 @@ class BranchController extends Controller
     public function index(Request $request)
     {
         //
-        $branches = Branch::with(array('manager'=> function($query) {
+        $branches = Branch::with(['manager'=> function($query) {
         $query->select('id','name');
-            },'state'))
+            },'state'=> fn($q) => $q->select('id','name'),'location'=> fn($q) => $q->select('id','name')])
             ->orderBy('id','DESC')
             ->paginate(10);
-
+//dd($branches);
         return view('admin.areas.branches.index',compact('branches'))->with('i',($request->input('page',1)-1)*10);
 
     }
@@ -112,7 +112,8 @@ class BranchController extends Controller
     {
         //
         $branch = Branch::findOrFail($id);
-        $managers =User::role(['manager'])->get();
+        $managers =User::role(['manager'])->select('id','name')->get();
+      //  dd($managers);
         $states= State::where('active',true)->get();
        return view('admin.areas.branches.edit',compact('branch','managers','states'));
 
@@ -129,7 +130,7 @@ class BranchController extends Controller
     {
         $this->validate($request,[
             'name'=>'required',
-            'phone'=>'required|numeric',
+            'phone'=>'required',
             'location'=>'required',
             'state_id'=>'required|numeric',
             'user_id'=>'required|numeric',
@@ -153,8 +154,13 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-      $branch =  Branch::findOrFail($id);
+      $branch =  Branch::where('id',$id)->withCount('users')->first();
 
+
+        if ($branch->users_count > 0){
+            notify()->warning('Delete them first','Branch Still Has Employee');
+            return  redirect()->back();
+        }
         $branch->delete();
         notify()->success($branch->name .' Branch Deleted Successfully','Branch Deleted');
         return redirect()->route('admin.branches.index');
@@ -163,7 +169,8 @@ class BranchController extends Controller
         $branch = Branch::findOrFail($id);
         $users = User::whereHas("roles", function($q){ $q->whereNotIn("name" ,["seller"]); })->get();
 
-        return view('areas.branches.assign',compact('branch','users'));
+
+        return view('admin.areas.branches.assign',compact('branch','users'));
     }
 
     public function assignGo(Request $request,$id){
@@ -173,11 +180,21 @@ class BranchController extends Controller
         $input = $request->all();
         $branch = Branch::findOrFail($id);
         foreach ($input['users'] as $id){
-            $user = User::findOrFail($id);
+            $user = User::where('id',$id)->with(['branch'=>fn($q)=> $q->withCount('users')])->first();
+            if($user->branch->users_count === 1){
+
+                continue;
+            }
             $branch->users()->save($user);
         }
-
-        notify()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
+        notify()->warning( 'Last man standing at '.$user->branch->name . ' Branch','brnach is falling');
+        //notify()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
         return redirect()->route('admin.branches.index');
+    }
+    public function close(){
+
+    }
+    public function open(){
+
     }
 }

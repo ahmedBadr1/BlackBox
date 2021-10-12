@@ -22,22 +22,22 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ConstantsSeeder::class);
         $this->call(PermissionsSeeder::class);
-
+//
         \App\Models\Branch::factory(10)->create();
 
         \App\Models\Zone::factory(10)->create();
 
         \App\Models\Area::factory(25)->create();
 
-  //      \App\Models\Order::factory(50)->create();
+        \App\Models\Location::factory(25)->create();
 
+        \App\Models\User::factory(20)->create()->each(function($user) {
+            $role = Role::whereNotIn('name', ['feedback'])->inRandomOrder()->first();
+            $user->assignRole($role);
+        });
 
-         \App\Models\User::factory(20)->create();
-         for ($i=5 ; $i <= 14; $i++ ){
-             $user = \App\Models\User::find($i) ;
-             $role = Role::all()->random();
-             $user->assignRole($role);
-         }
-        \App\Models\Task::factory(10)->create();
+        \App\Models\Order::factory(200)->create();
+
+        \App\Models\Task::factory(50)->create();
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Feature;
+use App\Models\Packing;
 use App\Models\Plan;
 use App\Models\State;
 use App\Models\Status;
@@ -33,13 +34,14 @@ class ConstantsSeeder extends Seeder
                 'name' => $status,
             ]);
         }
-        $plans= ['basic','gold','silver','platinum'];
+        $plans= ['basic'];
 
         foreach ($plans as $plan) {
             Plan::factory()->create([
                 'name' => $plan,
                 'orders_count' => rand(10,500),
                   'pickup_cost' => rand(0,20),
+                'area' => []
             ]);
         }
             $features = ['clients','products','trash'];
@@ -50,6 +52,25 @@ class ConstantsSeeder extends Seeder
 
                 ]);
         }
+
+
+       $types = [
+        'Poly Bags',
+        'Paperboard Boxes',
+        'Paper Bag',
+        'Bottle & Cap Packaging',
+        'Corrugated Boxes',
+        'Plastic Boxes',
+        'Side Gusset Bags',
+        'Rigid',
+    ];
+            foreach($types as $type){
+                Packing::factory()->create([
+                    'type' => $type,
+                    'price' => rand(.25,20),
+                    'size' => rand(10,100),
+                ]);
+            }
 
     }
 }

@@ -42,5 +42,26 @@ return [
     'photo' => 'صورة',
     'url' => 'رابط',
 
+    'product_name' => 'إسم المنتج',
+    'cust_name' => 'إسم المستلم',
+    'cust_num' => 'رقم المستلم',
+    'total' => 'الإجمالي',
+    'assign' => 'تعيين',
+    'download' => 'تحميل',
+    'package_type' => 'نوع الشحنة',
+    'value-per-one' => 'قيمة الشحنة',
+    'package_weight-kg-per-one' => 'وزن الشحنة الواحدة',
+    'deliver_before' => 'توصيل قبل يوم',
+    'cod' => 'التحصيل',
+    'quantity' => 'العدد',
+    'value' => 'القيمة',
+    'delivery-cost' => 'تكلفة الشحن',
+    'package-weight' => 'وزن الشحنة',
+    'package-over-weight' => 'الوزن الزائد',
+    'package-over-weight-cost' => 'تكلفة الوزن الزائد',
+    'tax' => 'الضريبة',
+    'discount' => 'الخصم',
+    'delivery-on-consignee' => 'الشحن على المستلم',
+    'delivery-on-me' => 'الشحن يخصم من الشحنة'
 
 ];

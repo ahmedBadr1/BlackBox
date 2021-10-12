@@ -425,3 +425,42 @@ body {
 
 
 
+/*********************** Check Box Style  */
+
+.fb-theme input[type="checkbox"] {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $main-color;
+    border-radius: 15px;
+    outline: none;
+    transition: var(--transition);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.fb-theme input[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    background-color: $light;
+    left: 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: $transition;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fb-theme input:checked[type="checkbox"]{
+    background-color: limegreen;
+}
+.fb-theme input:checked[type="checkbox"]::before {
+    left: 30px;
+
+}
+
+
+/*********************** Check Box Style  */
+

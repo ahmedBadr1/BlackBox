@@ -44,7 +44,9 @@
                             @else
                                 <td><a href="{{route('admin.tasks.assign')}}" class="btn btn-primary">assign</a></td>
                                 @endif
-                            <td>{{$task->created_at}} </td>
+                            <td>
+                                    {{$task->created_at->diffForHumans()}}
+                            </td>
 
                             @can('task-edit')
                                 <td><a href="{{ route('admin.tasks.edit',$task->id) }}" class="btn btn-info">edit</a></td>
@@ -60,17 +62,10 @@
                             @endcan
                             @can('task-done')
                                 <td>
-                                    @if(!$task->done_at)
                                     <form action="{{route('admin.tasks.done',$task->id) }}" method="POST">
                                         @csrf
                                         <input type="submit" class="btn btn-secondary"  value="done">
                                     </form>
-                                    @else
-                                        <form action="{{route('admin.tasks.undone',$task->id) }}" method="POST">
-                                            @csrf
-                                            <input type="submit" class="btn btn-secondary"  value="undone">
-                                        </form>
-                                    @endif
                                 </td>
                             @endcan
                         </tr>

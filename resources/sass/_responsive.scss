@@ -2,7 +2,7 @@
     .fb-side-d {
         display: none;
         overflow: hidden;
-        width: 25vw;
+       // width: 25vw;
         z-index: 2;
         opacity: 1;
         pointer-events: all;
@@ -32,7 +32,6 @@
     }
     .fb-container {
         grid-template-columns: 1fr;
-        background-color: yellow;
     }
     .fb-side-d .profile-inf img {
         display: none;
@@ -40,7 +39,8 @@
     .fb-side-d~main,
     .fb-side-d~footer {
         transition: var(--transition);
-        width: calc(100vw - 27vw);
+        //width: calc(100vw - 27vw);
+        width: 100vw;
         margin-left: auto;
     }
     .fb-side-d.shrink~main,
@@ -57,13 +57,13 @@
     .fb-side-d {
         display: none;
         overflow: hidden;
-        width: 45vw;
-        z-index: 2;
-        opacity: 1;
+     //   width: 45vw;
+     //   z-index: 2;
+     //   opacity: 1;
         pointer-events: all;
     }
     .fb-container {
-        background-color: gray;
+    width: 100vw;
     }
 }
 
@@ -71,7 +71,7 @@
     .fb-side-d {
         display: none;
         overflow: hidden;
-        width: 25vw;
+        width: 0;
         z-index: 2;
         opacity: 1;
         pointer-events: all;
@@ -79,19 +79,15 @@
     .fb-side-d.shrink {
         width: 9vw;
     }
-    .fb-container {
-        background-color: yellow;
-
-    }
     .fb-side-d~main,
     .fb-side-d~footer {
         transition: var(--transition);
-        width: calc(100vw - 26vw);
+        width: 100vw;
         margin-left: auto;
     }
     .fb-side-d.shrink~main,
     .fb-side-d.shrink~footer {
-        width: calc(100vw - 10vw);
+        width: 100vw ;
     }
 }
 
@@ -102,10 +98,7 @@
     .fb-side-d.shrink {
         width: 6vw;
     }
-    .fb-container {
-        grid-template-columns: 1fr 1fr 1fr;
-        background-color: yellow;
-    }
+
     .fb-side-d~main,
     .fb-side-d~footer {
         transition: var(--transition);

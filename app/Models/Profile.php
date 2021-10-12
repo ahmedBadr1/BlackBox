@@ -18,9 +18,13 @@ class Profile extends Model
         'address',
         'profile_photo',
         'url',
+        'location'
     ];
 
-
+    public function location()
+    {
+        return $this->hasOne(Location::class);
+    }
     public function user()
     {
         return  $this->belongsTo(User::class);

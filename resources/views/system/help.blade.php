@@ -1,11 +1,11 @@
-@extends('system.layouts.system')
+@extends('admin.layouts.admin')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center">Help</h1>
-                <p>{{ __('messages.help') }}</p>
+                <h1 class="text-center">{{ __('names.help-center') }}</h1>
+                <p  class="text-center">{{ __('messages.help') }}</p>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -20,4 +20,3 @@
 
 
 @endsection
-

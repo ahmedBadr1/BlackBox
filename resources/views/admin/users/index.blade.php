@@ -14,63 +14,7 @@
                     </div>
                 @endif
 
-                <table class="table table-hover">
-
-                    <thead>
-                    <th>ID</th>
-                    <th>Username</th>
-
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Role</th>
-                    <th>branch</th>
-
-
-
-                    </thead>
-
-                    <tbody>
-
-                    @foreach($users as $user)
-
-                        <tr>
-                            <td>{{$user->id}} </td>
-                            <td> <a href="{{ route('admin.users.show',$user->id) }}"> {{$user->name}} </a></td>
-
-                            <td>{{$user->email}} </td>
-                            <td>{{$user->phone}} </td>
-                            <td><a href="{{ route('admin.roles.show',  $user->roles[0]->id) }}">{{$user->getRoleNames()[0]}}</a></td>
-                            <td>@if ($user->branch_id)
-                                    {{ $user->branch->name  }}
-                                @else
-                                    @can('user-edit')
-                                        <a href="{{route('admin.branches.index')}}" class="btn btn-outline-success">{{__('names.assign')}}</a>
-                                    @else
-                                        <b>none</b>
-                                    @endcan
-                                @endif
-                            </td>
-                            @can('user-edit')
-                                <td><a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info">edit</a></td>
-                            @endcan
-                            @can('user-delete')
-                            <td>
-                               <form action="{{route('admin.users.destroy',$user->id) }}" method="POST">
-                                   @csrf
-                                   @method('DELETE')
-                                <input type="submit" class="btn btn-danger" name="delete" value="delete">
-                               </form>
-                            </td>
-                            @endcan
-                        </tr>
-                    @endforeach
-
-                    </tbody>
-
-                </table>
-
-
-                        {{ $users->links() }}
+              <livewire:admin.users-table />
 
 
             </div>

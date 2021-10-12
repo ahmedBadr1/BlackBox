@@ -33,7 +33,7 @@ class AreaController extends Controller
     public function states()
     {
        // $this->middleware('permission:states');
-        $states= State::where('active',true)->with(array('users'=>function ($query){  $query->select('id','name');},'branches','areas','zones'))->get();
+        $states= State::with(array('users'=>fn ($q) => $q->select('id','name'),'branches','areas','zones'))->get();
 //        foreach ($states as $state){
 //            dd($state->users);
 //        }

@@ -45,6 +45,17 @@
             <div class="">{{__("message.order-nor-found")}}</div>
             @endif
             </div>
+            @if($orderLogs)
+       <div class="">
+           @forelse($orderLogs as $log)
+               <pre>{{$log->description}} by {{ App\Models\User::find($log->causer_id)->name }} at {{$log->updated_at->diffForHumans()}}
+{{--                 to {{ $log->properties->attributes->id }}       from {{ $log->properties['attributes'][1] }} to {{ $log->properties['old'][1] }} --}}
+               </pre>
+           @empty
+            <p>no logs for this order</p>
+           @endforelse
+       </div>
+            @endif
         </div>
     </div>
 @endsection

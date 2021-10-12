@@ -13,7 +13,7 @@ class OrdersController extends Controller
 {
     public function __construct()
     {
-        //   $this->middleware('role:seller|Feedback');
+           $this->middleware('role:seller|Feedback');
     }
 
     /**
@@ -23,8 +23,8 @@ class OrdersController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = auth()->user()->orders()->with('user','area','state','status')->orderBy('updated_at','DESC')->simplePaginate(10);
-        return view('orders.index',compact('orders'));
+      //  $orders = auth()->user()->orders()->with('user','area','state','status')->orderBy('updated_at','DESC')->simplePaginate(25);
+        return view('seller.orders.index');
     }
 
     /**
@@ -37,7 +37,7 @@ class OrdersController extends Controller
         //
         //   $states= State::where('active',true)->get();
         $areas = Area::all();
-        return view('orders.create',compact('areas'));
+        return view('seller.orders.create',compact('areas'));
     }
 
     /**
@@ -68,7 +68,7 @@ class OrdersController extends Controller
         Order::create($input);
 
         notify()->success('Order Created Successfully');
-        return redirect()->route('orders.index');
+        return redirect()->route('seller.orders.index');
     }
 
     /**
@@ -82,7 +82,7 @@ class OrdersController extends Controller
             if (auth()->id() !== $order->user_id){
                 abort(404);
             }
-        return view('orders.show',compact('order'));
+        return view('seller.orders.show',compact('order'));
     }
 
     /**
@@ -106,7 +106,7 @@ class OrdersController extends Controller
 
         // $states= State::where('active',true)->get();
         $areas = Area::all();
-        return view('orders.edit',compact('order','areas'));
+        return view('seller.orders.edit',compact('order','areas'));
     }
 
     /**
@@ -132,7 +132,7 @@ class OrdersController extends Controller
         $input = $request->all();
         $order->update($input);
         notify()->success('Order Updated Successfully');
-        return redirect()->route('orders.index');
+        return redirect()->route('seller.orders.index');
     }
 
 
@@ -149,7 +149,7 @@ class OrdersController extends Controller
         }
         $order->delete();
         notify()->success('Order Deleted Successfully');
-        return redirect()->route('orders.index');
+        return redirect()->route('seller.orders.index');
     }
     public function trash(){
         $orders = auth()->user()->onlyTrashed()->paginate(25);

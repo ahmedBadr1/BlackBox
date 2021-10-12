@@ -6,6 +6,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header text-center">{{ __('auth.login') }}</div>
 

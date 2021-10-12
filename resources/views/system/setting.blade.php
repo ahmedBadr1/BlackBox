@@ -16,6 +16,24 @@
                     @csrf
 
                     <div class="form-group">
+                        <label for="company_name" class="label">@lang('auth.company_name')</label>
+                        <input type="text" name="company_name" class="form-control" value="{{$setting->company_name ?? '' }}">
+                        @error('company_name')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="location_id" class="label">@lang('auth.location_id')</label>
+                        <input type="number" name="location_id" class="form-control" value="{{$setting->location_id ?? '' }}">
+                        @error('location_id')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="theme" class="label">@lang('auth.reschedule_limit')</label>
                         <input type="number" name="reschedule_limit" class="form-control" value="{{$setting->reschedule_limit ?? '' }}">
                         @error('theme')

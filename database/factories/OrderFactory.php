@@ -27,15 +27,16 @@ class OrderFactory extends Factory
     {
         return [
             'product_name' => $this->faker->company(),
-            'value' => $this->faker->numerify(),
+            'value' => $this->faker->numberBetween(20,200),
             'cust_name' => $this->faker->company(),
             'cust_num' => $this->faker->phoneNumber(),
             'address' => $this->faker->streetAddress(),
             'area_id' => Area::all()->random()->id,
-            'quantity' => $this->faker->numberBetween(1,10),
+            'quantity' => $this->faker->numberBetween(1,5),
             'notes' => $this->faker->sentence(),
             'status_id' => Status::all()->random()->id,
             'user_id'  =>  User::all()->random()->id,
+            'delivery_id' => User::role('delivery')->inRandomOrder()->first()->id,
             'total'  =>  $this->faker->numerify(),
         ];
     }

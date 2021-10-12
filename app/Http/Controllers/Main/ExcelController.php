@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Main;
 
 use App\Exports\OrdersExportAr;
 use App\Exports\OrdersExportEn;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ImportRequest;
 use App\Imports\OrdersImport;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\HeadingRowImport;
 
 class ExcelController extends Controller
 {
@@ -26,10 +29,12 @@ class ExcelController extends Controller
 
     public function importOrders(Request $request)
     {
-       // dd( $request->file('import_file'));
+        dd( $request->file('import_file'));
 
         Excel::import(new OrdersImport, $request->file('import_file'));
 
         return redirect()->back()->with('success', 'All good!');
     }
+
+
 }

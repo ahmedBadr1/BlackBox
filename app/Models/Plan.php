@@ -11,9 +11,11 @@ class Plan extends Model
     protected $fillable = [
         'name',
         'orders_count',
-        'pickup_cost'
+        'pickup_cost',
+        'area'
     ];
 
+    protected $casts = ['area'=>'array'];
     public function features(){
         return $this->belongsToMany(Feature::class);
     }

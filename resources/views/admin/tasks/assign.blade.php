@@ -41,7 +41,7 @@
                             @foreach($tasks as $task)
                                 <div class="m-2">
                                     <input type="checkbox"  name="tasks[]" value="{{$task->id}}" @if($delivery->id === $task->delivery_id) {{__("checked")}} @endif>
-                                    <label for="{{$task->id}}">{{$task->id}} => <a href="{{route('tasks.show',$task->id)}}">{{$task->type}}</a> </label><br>
+                                    <label for="{{$task->id}}">{{$task->id}} => <a href="{{route('admin.tasks.show',$task->id)}}">{{$task->type}}</a> </label><br>
                                 </div>
                             @endforeach
 

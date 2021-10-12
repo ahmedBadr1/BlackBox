@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Area;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
@@ -33,15 +31,16 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = QueryBuilder::for(User::class)
-            ->with('roles','state','branch')
-            ->whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })
-            ->allowedFilters(['name','email',AllowedFilter::exact('id')])
-            ->orderBy('id','DESC')
-            ->paginate(10);
+//        $users = QueryBuilder::for(User::class)
+//            ->with('roles','state','branch')
+//            ->whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })
+//            ->allowedFilters(['name','email',AllowedFilter::exact('id')])
+//            ->orderBy('id','DESC')
+//            ->paginate(10);
 
-        return view('admin.users.index',compact('users'))->with('i',($request->input('page',1)-1)*10);
 
+    //    return view('admin.users.index',compact('users'))->with('i',($request->input('page',1)-1)*10);
+        return view('admin.users.index');
     }
 
     /**
@@ -53,7 +52,7 @@ class UserController extends Controller
     {
         //
         $states= State::where('active',true)->get();
-        $roles = Role::whereNotIn('name', ['seller'])->pluck('name');
+        $roles = Role::whereNotIn('name', ['seller','feedback'])->pluck('name');
         return view('admin.users.create',compact('roles','states'));
     }
 
@@ -68,7 +67,7 @@ class UserController extends Controller
         //
         $this->validate($request,[
             'name'=>'required|string|unique:users,name',
-            'email'=> 'required',
+            'email'=>'required|string|unique:users,email',
             'role'=>'required',
             'password'=> 'required',
 

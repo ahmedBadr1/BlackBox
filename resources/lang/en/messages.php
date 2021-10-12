@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'welcome' => 'welcome',
+    'welcome' => 'welcome all',
     'start' => 'start with Bagy now',
+
+    'help' => 'please read the instructions carefully',
 
 ];

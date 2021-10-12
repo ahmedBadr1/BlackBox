@@ -29,18 +29,18 @@
 
                         <tr>
 
-                            <td><a href="{{route('users.show',$task->user_id)}}">{{$task->user->name}} </a></td>
+                            <td>{{$task->user->name}} </a></td>
                             <td>{{$task->type}} </td>
 
                             <td>{{$task->created_at}}</td>
                             <td>
                                 @if(!$task->done_at)
-                                    <form action="{{route('tasks.done',$task->id) }}" method="POST">
+                                    <form action="{{route('delivery.tasks.done',$task->id) }}" method="POST">
                                         @csrf
                                         <input type="submit" class="btn btn-secondary"  value="done">
                                     </form>
                                 @else
-                                    <form action="{{route('tasks.undone',$task->id) }}" method="POST">
+                                    <form action="{{route('delivery.tasks.undone',$task->id) }}" method="POST">
                                         @csrf
                                         <input type="submit" class="btn btn-secondary"  value="undone">
                                     </form>

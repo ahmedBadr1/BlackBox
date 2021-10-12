@@ -59,6 +59,23 @@ return [
     'zone'=>'زون',
     'zones'=>'الزونات',
 
+    'packing'=>'التغليف',
+    'plans'=>'خطط الأسعار',
+    'features'=>'مميزات',
+    'delivery' => 'مندوب',
+    'deliveries'=>'مندوبين',
+    'locations'=>'عنواوين',
+    'statuses'=>'حالات',
+    'receipts'=>'إيصالات',
+    'setting'=>'الإعدادات',
+    'help'=>'المساعدة',
+    'financials'=>'الحسابات',
+    'statics'=>'الإحصائيات',
+
+    'help-center' => 'مركز المساعدة',
+    'consignee-details' => 'تفاصيل المستلم',
+    'order-details' => 'تفاصيل الشحنة',
+
 
 
 ];

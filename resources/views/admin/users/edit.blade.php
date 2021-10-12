@@ -60,13 +60,12 @@
                         <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
 
                         <div class="col-md-6">
-                            <select name="state" class="form-select" aria-label="Default select example" >
+                            <select name="state_id" class="form-select" aria-label="Default select example" >
                                 @foreach($states as $state)
                                     <option value="{{$state->id}}" @if($state->name=== $user->state)
                                         {{ __('selected') }}
                                         @endif>{{$state->name}}</option>
                                 @endforeach
-
                             </select>
                             @error('state')
                             <span class="invalid-feedback" role="alert">

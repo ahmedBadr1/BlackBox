@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <a href="{{route('admin.orders.index')}}">{{__("names.manage")}} {{__("auth.orders")}}</a>
-                <h1 class="text-center">{{__("auth.edit")}} {{__("auth.branch")}}</h1>
+                <h1 class="text-center">{{__("auth.edit")}} {{__("auth.order")}}</h1>
 
                 <form method="POST" action="{{ route('admin.orders.update',$order->hashid) }}">
                     @csrf

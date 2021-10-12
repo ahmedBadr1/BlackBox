@@ -172,6 +172,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         \Vinkla\Hashids\HashidsServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        \Livewire\LivewireServiceProvider::class,
 
         /*
          * Application Service Providers...
