@@ -90,10 +90,10 @@ class PermissionsSeeder extends Seeder
 
         // create demo users
 
-        $password = Hash::make('seller@bagyexpress.com');
+        $password = Hash::make('seller@blackbox.com');
         $user = \App\Models\User::factory()->create([
             'name' => 'seller',
-            'email' => 'seller@bagyexpress.com',
+            'email' => 'seller@blackbox.com',
             'phone' => '01100068386',
             'state_id' => '1',
             'hearAboutUs' => 'system',
@@ -106,7 +106,7 @@ class PermissionsSeeder extends Seeder
 
         $user = \App\Models\User::factory()->create([
             'name' => 'delivery',
-            'email' => 'delivery@bagyexpress.com',
+            'email' => 'delivery@blackbox.com',
             'phone' => '01100068386',
             'state_id' => '1',
             'hearAboutUs' => 'system',
@@ -115,10 +115,10 @@ class PermissionsSeeder extends Seeder
         ]);
         $user->assignRole($role1);
 
-        $password = Hash::make('kimo@bagyexpress.com');
+        $password = Hash::make('owner@bagyexpress.com');
         $user = \App\Models\User::factory()->create([
-            'name' => 'kimo',
-            'email' => 'kimo@bagyexpress.com',
+            'name' => 'owner',
+            'email' => 'owner@blackbox.com',
             'phone' => '01090007769',
             'state_id' => '1',
             'hearAboutUs' => 'system',
@@ -130,7 +130,7 @@ class PermissionsSeeder extends Seeder
 
         $user = \App\Models\User::factory()->create([
             'name' => 'feedback',
-            'email' => 'admin@bagyexpress.com',
+            'email' => 'admin@blackbox.com',
             'phone' => '01098281638',
             'state_id' => '1',
             'hearAboutUs' => 'system',
