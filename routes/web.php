@@ -95,6 +95,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::put('profile/', [App\Http\Controllers\Admin\DashboardController::class, 'profileUpdate'])->name('profile.update');
                 Route::get('sellers', [App\Http\Controllers\Admin\DashboardController::class, 'sellers'])->name('sellers');
                 Route::get('trash', [App\Http\Controllers\Admin\DashboardController::class, 'trash'])->name('trash');
+
                 Route::get('financials', [App\Http\Controllers\Admin\FinancialController::class, 'index'])->name('financials');
                 Route::get('/invoice', [\App\Http\Controllers\Admin\FinancialController::class, 'invoice']);
                 Route::get('statics', [App\Http\Controllers\Admin\StaticsController::class, 'index'])->name('statics');
@@ -124,11 +125,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::post('tasks/{id}/undone',[\App\Http\Controllers\Admin\TaskController::class,'undone'])->name('tasks.undone');
                 Route::get('tasks/assign',[\App\Http\Controllers\Admin\TaskController::class,'assign'])->name('tasks.assign');
                 Route::post('tasks/assign',[\App\Http\Controllers\Admin\TaskController::class,'assignGo'])->name('tasks.assign');
-                Route::get('tasks/trash',[\App\Http\Controllers\Admin\TaskController::class,'trash'])->name('tasks.trash');
 
                 Route::get('orders/trash',[\App\Http\Controllers\Admin\OrdersController::class,'trash'])->name('orders.trash');
-
-
+                Route::get('tasks/trash',[\App\Http\Controllers\Admin\TaskController::class,'trash'])->name('tasks.trash');
+                Route::post('orders/{id}/restore', [App\Http\Controllers\Admin\OrdersController::class, 'restore'])->name('orders.restore');
+                Route::post('tasks/{id}/restore', [App\Http\Controllers\Admin\TaskController::class, 'restore'])->name('tasks.restore');
 
                 Route::get('/features',[\App\Http\Controllers\Admin\PlanController::class,'features'])->name('features');
                 Route::get('/features/{id}',[\App\Http\Controllers\Admin\PlanController::class,'featuresShow'])->name('features.show');

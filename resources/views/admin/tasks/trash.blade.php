@@ -40,7 +40,7 @@
 
                             <td>{{$task->type}} </td>
                             @if($task->delivery_id)
-                                <td><a href="{{ route('admin.users.show',$task->delivery->id) }}"> {{$task->delivery->name}} </a> </td>
+                                <td><a href="{{ route('admin.users.show',$task->delivery->id) }}"> {{$task->delivery->name ?? 0}} </a> </td>
                             @else
                                 <td><a href="{{route('admin.tasks.assign')}}" class="btn btn-primary">assign</a></td>
                             @endif
@@ -51,7 +51,12 @@
                                 <td>
                                     {{$task->deleted_at }}
                                 </td>
-
+                            <td>
+                                <form action="{{route('admin.tasks.restore',$task->id) }}" method="POST">
+                                    @csrf
+                                    <input type="submit" class="btn btn-danger" value="{{__('auth.restore')}}">
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
 

@@ -140,12 +140,33 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+       $task=  Task::findOrFail($id);
+        $task->delete();
+        notify()->success('Task Deleted Successfully','Task Deleted');
+        return  redirect()->route('admin.tasks.index');
     }
 
     public function trash(){
-        $tasks = Task::onlyTrashed()->paginate(25);
+        $tasks = Task::onlyTrashed()->with(['user'=>fn($q)=>$q->select('id','name'),'delivery'=>fn($q)=>$q->select('id','name')])->paginate(25);
         return view('admin.tasks.trash',compact('tasks'));
     }
+
+    public function restore( $id){
+
+
+        $task = Task::onlyTrashed()->findOrFail($id);
+
+        if (!$task->trashed()){
+
+            notify()->error('Task isn\'t in trash');
+            return redirect()->back();
+        }
+
+        $task->restore();
+        notify()->success('Task Restored Successfully');
+        return redirect()->route('admin.tasks.trash');
+    }
+
     public function done($id){
        $task =  Task::findOrFail($id);
     //   dd($task);

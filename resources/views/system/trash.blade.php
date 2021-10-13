@@ -1,4 +1,4 @@
-@extends('system.layouts.system')
+@extends('admin.layouts.admin')
 
 @section('content')
     <div class="container">
@@ -16,7 +16,7 @@
                     <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
                         <div class="card-header">{{__("names.deleted")}} {{__("names.count")}} {{__("names.Tasks")}} </div>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{route('tasks.trash')}}">{{$deletedTasks}} {{__("names.Tasks")}}</a></h5>
+                            <h5 class="card-title"><a href="{{route('admin.tasks.trash')}}">{{$deletedTasks}} {{__("names.Tasks")}}</a></h5>
                         </div>
                     </div>
                 @endcan
@@ -24,7 +24,7 @@
                     <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
                         <div class="card-header">{{__("names.deleted")}} {{__("names.count")}} {{__("names.Tasks")}} </div>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{route('orders.trash')}}">{{$deletedOrders}} {{__("names.Orders")}}</a></h5>
+                            <h5 class="card-title"><a href="{{route('admin.orders.trash')}}">{{$deletedOrders}} {{__("names.Orders")}}</a></h5>
                         </div>
                     </div>
                 @endcan

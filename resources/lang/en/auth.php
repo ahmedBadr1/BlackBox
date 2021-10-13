@@ -61,9 +61,19 @@ return [
     'tax' => 'Tax',
     'discount' => 'Discount',
     'delivery-on-consignee' => 'Delivery on consignee',
-    'delivery-on-me' => 'Delivery on Me'
+    'delivery-on-me' => 'Delivery on Me',
 
-
+    'company_name' => 'Company Name',
+    'location_id' => 'Location',
+    'reschedule_limit' => 'Reschedule Limit',
+    'package_weight_limit' => 'Package WeightLimit',
+    'app_name' => 'App Name',
+    'title' => 'Title',
+    'slogan' => 'Slogan',
+    'footer' => 'Footer',
+    'owner' => 'Owner',
+    'theme' => 'Theme',
+    'auto_send' => 'Auto Send Welcome Mail',
 
 
 

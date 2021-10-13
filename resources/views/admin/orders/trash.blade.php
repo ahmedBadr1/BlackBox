@@ -5,22 +5,6 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @role('seller|Feedback')
-                <a href="{{route('admin.orders.create')}}" class="btn btn-success">{{__("auth.create")}} {{__("names.order")}}</a>
-                @endrole
-                @can('order-assign')
-                    <a href="{{route('admin.orders.assign')}}" class="btn btn-secondary">{{__("auth.assign")}} {{__("names.order")}}</a>
-                @endcan
-                <form action="{{route('admin.import.orders')}}" enctype="multipart/form-data" method="post">
-                    @csrf
-                    <input type="file" name="import_file">
-                    <button type="submit"  class="btn btn-primary">Import</button>
-                </form>
-                @can('order-import')
-
-
-                @endcan
-
                 <h1 class="text-center">{{__("names.all")}} {{__("names.orders")}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -67,17 +51,10 @@
                             <td><a href="{{route('admin.users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
                             @auth
                                 @role('seller|Feedback')
-                                <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
-                                @endrole
-                                @role('seller|Feedback')
-                                <td><a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">{{__('auth.edit')}}</a></td>
-                                @endrole
-                                @role('seller|Feedback')
                                 <td>
-                                    <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">
+                                    <form action="{{route('admin.orders.restore',$order->hashid) }}" method="POST">
                                         @csrf
-                                        @method('DELETE')
-                                        <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
+                                        <input type="submit" class="btn btn-danger" value="{{__('auth.restore')}}">
                                     </form>
                                 </td>
                                 @endrole

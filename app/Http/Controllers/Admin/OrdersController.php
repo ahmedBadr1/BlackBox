@@ -188,6 +188,7 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
+
         return view('admin.orders.show',compact('order'));
     }
 
@@ -199,6 +200,7 @@ class OrdersController extends Controller
      */
     public function edit(Order $order)
     {
+
             if (auth()->id() !== $order->user_id){
                // abort(404);
                 return redirect()->back()->with('You cant change order now');
@@ -296,22 +298,51 @@ class OrdersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order  $order
+     *@param  \App\Models\Order  $order
      * @return
      */
     public function destroy(Order $order)
     {
+
+        dd($order->hashid);
+
         if (auth()->id() !== $order->user_id){
             notify()->warning('You cant Delete this order');
             return redirect()->back()->with('You cant Delete this order');
         }
+
         $order->delete();
         notify()->success('Order Deleted Successfully');
-        return redirect()->route('orders.index');
+        return redirect()->route('admin.orders.index');
     }
     public function trash(){
         $orders = Order::onlyTrashed()->with('user')->paginate(25);
         return view('admin.orders.trash',compact('orders'));
+    }
+    /**
+     * Restore the specified resource from trash.
+     *
+     *
+     * @return
+     */
+    public function restore( $id){
+
+        $oid= Hashids::connection(Order::class)->decode($id) ?? [0];
+        if(!$oid){
+            abort(404);
+        }
+
+        $order = Order::onlyTrashed()->findOrFail($oid[0]);
+
+        if (!$order->trashed()){
+
+            notify()->error('Order isn\'t in trash');
+           return redirect()->back();
+        }
+
+        $order->restore();
+        notify()->success('Order Restored Successfully');
+        return redirect()->route('admin.orders.trash');
     }
 
     public function packing(){

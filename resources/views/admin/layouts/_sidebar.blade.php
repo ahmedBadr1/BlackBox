@@ -146,6 +146,9 @@
         <li class="nav-item">
             <a class="sidebar-link" href="{{route('admin.setting')}}"><i class="fas fa-cogs"></i><span>{{__('names.setting')}}</span></a>
         </li>
+        <li class="nav-item">
+            <a class="sidebar-link" href="{{route('admin.trash')}}"><i class="fas fa-trash-restore-alt"></i><span>{{__('names.trash')}}</span></a>
+        </li>
 
 
 

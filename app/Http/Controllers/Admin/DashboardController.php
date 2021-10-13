@@ -244,8 +244,8 @@ class DashboardController extends Controller
             'email'=>'nullable|email',
             'theme'=>'nullable',
             'auto_send'=>'nullable|boolean',
-            'reschedule_limit' => 'nullable',
-            'package_weight_limit' => 'nullable',
+            'reschedule_limit' => 'required',
+            'package_weight_limit' => 'required',
         ]);
 
        $input = $request->all();

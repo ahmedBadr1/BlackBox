@@ -62,6 +62,19 @@ return [
     'tax' => 'الضريبة',
     'discount' => 'الخصم',
     'delivery-on-consignee' => 'الشحن على المستلم',
-    'delivery-on-me' => 'الشحن يخصم من الشحنة'
+    'delivery-on-me' => 'الشحن يخصم من الشحنة',
+
+    'company_name' => 'إسم الشركة',
+    'location_id' => 'الموقع',
+    'reschedule_limit' => 'أقصي عدد مرات للتأجيل',
+    'package_weight_limit' => 'أقصي وزن بدون تكلفة',
+    'app_name' => 'إسم التطبيق',
+    'title' => 'عنوان الصفحة',
+    'slogan' => 'الشعار',
+    'footer' => 'الشريط السفلي',
+    'owner' => 'المالك',
+    'theme' => 'المظهر',
+    'auto_send' => 'إرسال إيميل ترحيب تلقائي',
+
 
 ];
