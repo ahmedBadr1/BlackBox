@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Status;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Facades\Invoice;
 use Milon\Barcode\DNS1D;
 
 class ReceiptController extends Controller
@@ -33,7 +37,7 @@ class ReceiptController extends Controller
     {
         //auth()->user()->orders->where('status_id','>',4)->sortBy('status_id');
         $pendingOrders = auth()->user()->orders->where('status_id','=',1)->sortByDesc('id');
-dd($pendingOrders);
+     //   dd($pendingOrders);
         return view('admin.receipts.generate',compact('pendingOrders'));
     }
 
@@ -60,6 +64,36 @@ dd($pendingOrders);
         //
        // echo DNS1D::getBarcodeHTML('4445645656', 'PHARMA2T');
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  Task  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function print($task)
+    {
+        dd($task);
+
+        $customer = new Buyer([
+            'name'          => 'John Doe',
+            'custom_fields' => [
+                'email' => 'test@example.com',
+            ],
+        ]);
+
+        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
+
+        $invoice = Invoice::make()
+            ->buyer($customer)
+            ->discountByPercent(10)
+            ->taxRate(15)
+            ->shipping(1.99)
+            // ->logo('https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg')
+            ->addItem($item);
+
+        return $invoice->stream();
+    }
+
 
     /**
      * Show the form for editing the specified resource.

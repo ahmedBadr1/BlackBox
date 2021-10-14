@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Main;
 
-use App\Exports\OrdersExportAr;
-use App\Exports\OrdersExportEn;
+use App\Exports\Seller\OrdersExportAr;
+use App\Exports\Seller\OrdersExportEn;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportRequest;
 use App\Imports\OrdersImport;
@@ -26,6 +27,7 @@ class ExcelController extends Controller
 
         return Excel::download(new OrdersExportEn, 'orders.xlsx');
     }
+
 
     public function importOrders(Request $request)
     {

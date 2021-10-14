@@ -131,9 +131,15 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::post('orders/{id}/restore', [App\Http\Controllers\Admin\OrdersController::class, 'restore'])->name('orders.restore');
                 Route::post('tasks/{id}/restore', [App\Http\Controllers\Admin\TaskController::class, 'restore'])->name('tasks.restore');
 
+                Route::get('/export/orders/en', [App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersEn'])->name('export.orders.en');
+                Route::get('/export/orders/ar', [App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersAr'])->name('export.orders.ar');
+                Route::get('receipts/print',[\App\Http\Controllers\Admin\ReceiptController::class,'print'])->name('receipts.print');
+
                 Route::get('/features',[\App\Http\Controllers\Admin\PlanController::class,'features'])->name('features');
                 Route::get('/features/{id}',[\App\Http\Controllers\Admin\PlanController::class,'featuresShow'])->name('features.show');
                 Route::get('/packing',[\App\Http\Controllers\Admin\OrdersController::class,'packing'])->name('packing');
+
+
 
             Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
             Route::resource('roles',\App\Http\Controllers\Admin\RolesController::class);

@@ -105,8 +105,8 @@
 
         @if(count($orders) > 0 )
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>{{__('names.download')}}</small></button>
-                <a href="{{route('admin.export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('names.excel')}}</a>
+                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>{{__('auth.download')}}</small></button>
+                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('auth.excel')}}</a>
             </div>
         @endif
         <div class="d-flex justify-content-center">

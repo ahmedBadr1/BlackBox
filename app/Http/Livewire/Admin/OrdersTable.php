@@ -2,11 +2,8 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Exports\OrdersExport;
-use App\Exports\OrdersExportEn;
-use App\Jobs\ImportOrdersAdmin;
+use App\Exports\Admin\SelectedOrdersExport;
 use App\Models\Order;
-use Illuminate\Support\Facades\Bus;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,7 +44,7 @@ class OrdersTable extends Component
             ->with('user','area','status','state')
             ->orderBy($this->orderBy, $this->orderDesc ?  'desc' : 'asc')
             ->pluck('id');
-       return Excel::download(new OrdersExport($orders),'selectedOrders.csv');
+       return Excel::download(new SelectedOrdersExport($orders),'selected orders.csv');
     }
 
 

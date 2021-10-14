@@ -10,7 +10,7 @@
 
 
 
-                <h1 class="text-center">{{__("names.all")}} {{__("names.orders")}}</h1>
+                <h1 class="text-center">{{__("auth.generate")}} {{__("auth.receipt")}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -18,7 +18,7 @@
                 @endif
 
                 @role('seller|Feedback')
-                <a href="{{route('admin.receipts.store',)}}" class="btn btn-success">{{__("auth.generate")}} {{__("names.receipt")}}</a>
+                <a href="{{route('admin.receipts.store',)}}" class="btn btn-success">{{__("auth.generate")}} {{__("auth.receipt")}}</a>
                 @endrole
 
                 <table class="table table-hover">
@@ -46,7 +46,7 @@
 
                         <tr>
                             <td><input type="checkbox" name="orders[]" value="{{$order->id}}"></td>
-                            <td> <a href="{{ route('admin.orders.show',$order->id) }}"> {{$order->id}}@php echo DNS1D::getBarcodeHTML($order->id,'C39'); @endphp</a></td>
+                            <td> <a href="{{ route('admin.orders.show',$order->hashid) }}"> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
                             <td>{{$order->product_name}} </td>
                             <td>{{$order->cust_name}} </td>
                             <td>{{$order->cust_num}} </td>

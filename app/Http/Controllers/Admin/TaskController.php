@@ -152,16 +152,11 @@ class TaskController extends Controller
     }
 
     public function restore( $id){
-
-
         $task = Task::onlyTrashed()->findOrFail($id);
-
         if (!$task->trashed()){
-
             notify()->error('Task isn\'t in trash');
             return redirect()->back();
         }
-
         $task->restore();
         notify()->success('Task Restored Successfully');
         return redirect()->route('admin.tasks.trash');

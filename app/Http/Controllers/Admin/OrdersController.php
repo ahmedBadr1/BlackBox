@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\OrdersExportEn;
+use App\Exports\admin\OrdersExportAr;
+use App\Exports\Admin\OrdersExportEn;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Order;
@@ -348,5 +349,16 @@ class OrdersController extends Controller
     public function packing(){
         $packing = Packing::all();
         return view('admin.orders.packing',compact('packing'));
+    }
+
+    public function adminExportOrdersAr()
+    {
+
+        return Excel::download(new OrdersExportAr, 'orders.xlsx');
+    }
+
+    public function adminExportOrdersEn()
+    {
+        return Excel::download(new OrdersExportEn, 'orders.xlsx');
     }
 }

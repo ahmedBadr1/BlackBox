@@ -64,7 +64,7 @@
                             <td>@php echo DNS1D::getBarcodeHTML($receipt->order_id,'C39'); @endphp</td>
                             <td><a href="{{route('admin.users.show',$receipt->user_id)}}">{{ $receipt->user->name }}</a> </td>
                             @role('client|Feedback')
-                            <td><a href="{{route('admin.track',['order_id' => $receipt->order_id])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
+                            <td><a href="{{route('admin.receipts.print',$receipt->id)}}" class="btn btn-outline-success">{{__('auht.print')}}</a></td>
                             @endrole
 
                             @role('client|Feedback')
