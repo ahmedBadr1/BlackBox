@@ -76,8 +76,9 @@
 
                         </div>
                     </div>
-                    @if($allTasks === 0)
                     <div class="row gutters-sm">
+                    @if($allTasks > 0)
+
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
@@ -91,8 +92,10 @@
                                 </div>
                             </div>
                         </div>
+
+
                         @endif
-                        @if($allOrders === 0)
+                        @if($allOrders > 0)
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
@@ -106,12 +109,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+
                     @endif
+                    </div>
 
 
-                </div>
-            </div>
 
         </div>
     </div>

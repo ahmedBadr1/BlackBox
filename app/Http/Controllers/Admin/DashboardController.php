@@ -143,7 +143,7 @@ class DashboardController extends Controller
 
         $input = $request->all();
 
-        $path = 'uploads/profiles/photos/';
+        $path = 'uploads/profiles/photos';
         if(!File::isDirectory($path)){
             File::makeDirectory($path, 0777, true, true);
         }
@@ -159,6 +159,7 @@ class DashboardController extends Controller
             $user->profile->profile_photo = $photoPath;
 
         }
+    //    dd($photoPath);
         if($input['bio']){
             $user->profile->bio = $input['bio'];
         }

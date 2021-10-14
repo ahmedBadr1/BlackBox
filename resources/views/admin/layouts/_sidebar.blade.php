@@ -187,8 +187,8 @@
         <img src="/storage/{{ auth()->user()->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture" />
         <div class="fb-info">
 
-            <a href="{{route('admin.profile')}}" class="fb-username">{{ Auth::user()->name }}</a>
-            <div class="fb-bio">{{ Auth::user()->profile->bio }}</div>
+            <a href="{{route('admin.profile')}}" class="fb-username">{{ auth()->user()->name}}</a>
+            <div class="fb-bio">{{ auth()->user()->profile->bio }}</div>
         </div>
 
 

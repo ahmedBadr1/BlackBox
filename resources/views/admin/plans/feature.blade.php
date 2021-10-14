@@ -13,9 +13,9 @@
                 @endif
                 <label>{{__("names.plan")}} {{__("auth.orders_count")}}</label>
                 <p><b>{{$feature->rank}}</b></p> <hr>
-                <label>{{__("names.plan")}} {{__("auth.pickup_cost")}}</label>
+                <label>{{__("names.plan")}} {{__("auth.description")}}</label>
                 <p><b>{{$feature->description}}</b></p> <hr>
-                <label>{{__("names.plan")}} {{__("names.features")}}</label>
+                <label>{{__("names.feature")}} {{__("names.plans")}}</label>
                 <p>@foreach($feature->plans as $plan)
                         <span class="badge badge-success"><a href="{{route('admin.plans.show',$plan->plan_id)}}">{{$plan->name}}</a></span>
                     @endforeach

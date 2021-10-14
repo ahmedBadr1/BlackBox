@@ -57,23 +57,6 @@
                             <td>{{$order->status->name}} </td>
 
                             <td><a href="{{route('admin.users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
-                            @auth
-                                @role('seller|Feedback')
-                                <td><a href="{{route('admin.track',['order_id' => $order->id])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
-                                @endrole
-                                @role('seller')
-                                <td><a href="{{ route('admin.orders.edit',$order->id) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>
-                                @endrole
-                                @role('seller')
-                                <td>
-                                    <form action="{{route('admin.orders.destroy',$order->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
-                                    </form>
-                                </td>
-                                @endrole
-                            @endauth
                         </tr>
 
                     @endforeach
