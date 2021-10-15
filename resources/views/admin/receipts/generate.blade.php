@@ -18,13 +18,18 @@
                 @endif
 
                 @role('seller|Feedback')
-                <a href="{{route('admin.receipts.store',)}}" class="btn btn-success">{{__("auth.generate")}} {{__("auth.receipt")}}</a>
+                <form action="{{route('admin.receipts.store')}}" method="post">
+                    @csrf
+                    <input type="hidden" id="selectAll" name="selectAll" value="0">
+                    <button  class="btn btn-success">{{__("auth.generate")}} {{__("auth.receipt")}}</button>
+
+
                 @endrole
 
                 <table class="table table-hover">
 
                     <thead>
-                    <th ><input type="checkbox" id="selectAll"></th>
+                    <th ><input type="checkbox" id="selectAll" name="selectAll" value="1"></th>
                     <th>{{__("auth.id")}} {{__("names.order")}}</th>
                     <th>{{__("auth.product_name")}}</th>
 
@@ -60,7 +65,7 @@
                         </tr>
 
                     @endforeach
-
+                </form>
                     </tbody>
 
                 </table>

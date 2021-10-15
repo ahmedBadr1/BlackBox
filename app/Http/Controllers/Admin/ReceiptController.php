@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Receipt;
 use App\Models\Status;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -22,7 +23,8 @@ class ReceiptController extends Controller
     public function index()
     {
         //
-        $receipts = auth()->user()->receipts->where('ready',0);
+      //  $receipts = auth()->user()->receipts()->where('ready',0);
+        $receipts = auth()->user()->receipts()->with('user')->get();
 
        // dd($receipts);
         return view('admin.receipts.index',compact('receipts'));
@@ -36,8 +38,12 @@ class ReceiptController extends Controller
     public function create()
     {
         //auth()->user()->orders->where('status_id','>',4)->sortBy('status_id');
-        $pendingOrders = auth()->user()->orders->where('status_id','=',1)->sortByDesc('id');
-     //   dd($pendingOrders);
+        $pendingOrders = auth()->user()->orders()->where('status_id','=',1)->with(['user'=> fn($q)=>$q->select('users.id','users.name'),
+            'state'=> fn($q)=>$q->select('states.id','states.name'),
+            'area'=> fn($q)=>$q->select('areas.id','areas.name'),
+            'status'=> fn($q)=>$q->select('statuses.id','statuses.name'),
+            ])->orderBy('id','desc')->get();
+       // dd($pendingOrders);
         return view('admin.receipts.generate',compact('pendingOrders'));
     }
 
@@ -50,7 +56,30 @@ class ReceiptController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request->all());
+       $input =  $this->validate($request,[
+           'selectAll' =>'required|boolean',
+            'orders' =>'required|array',
+        ]);
+        $receipt = new Receipt;
+        $receipt->orders_ids = $input['orders'];
+        $receipt->orders_count = count($input['orders']);
+        $receipt->total = 1000 ;
+        $receipt->user_id = auth()->id() ;
+        $receipt->save();
+        if (!$input['selectAll']){
+           foreach ($input['orders'] as $id){
+               $order = Order::find($id);
+               $order->receipt()->associate($receipt);
+               $order->save();
+           }
+
+        }
+        dd(  $receipt->orders);
+        $receipt->orders()->attach($input['orders']);
+
+        $pendingOrders = auth()->user()->orders()->where('status_id','=',1);
+
+       // dd($request->all());
     }
 
     /**
@@ -64,24 +93,26 @@ class ReceiptController extends Controller
         //
        // echo DNS1D::getBarcodeHTML('4445645656', 'PHARMA2T');
     }
+
     /**
      * Display the specified resource.
      *
-     * @param  Task  $task
+     *
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function print($task)
+    public function print($id)
     {
-        dd($task);
-
+      //  dd($id);
+        $receipt = Receipt::findOrFail($id);
         $customer = new Buyer([
-            'name'          => 'John Doe',
+            'name'          => $receipt->user->name,
             'custom_fields' => [
                 'email' => 'test@example.com',
             ],
         ]);
 
-        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
+        $item = (new InvoiceItem())->title($receipt->id)->pricePerUnit(2);
 
         $invoice = Invoice::make()
             ->buyer($customer)

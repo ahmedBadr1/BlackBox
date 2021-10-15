@@ -203,8 +203,8 @@ class OrdersController extends Controller
     {
 
             if (auth()->id() !== $order->user_id){
-               // abort(404);
-                return redirect()->back()->with('You cant change order now');
+                notify()->warning('You cant change this order ');
+                return redirect()->back();
             }
 
         if (!in_array($order->status->id,[1,2])){
@@ -305,7 +305,6 @@ class OrdersController extends Controller
     public function destroy(Order $order)
     {
 
-        dd($order->hashid);
 
         if (auth()->id() !== $order->user_id){
             notify()->warning('You cant Delete this order');
