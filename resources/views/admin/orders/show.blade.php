@@ -14,21 +14,26 @@
                 <label>{{__("names.order")}} {{__("auth.id")}}</label>
                 <p><b>   {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.product_name")}}</label>
-                <p><b>{{$order->product_name}}</b></p> <hr>
+                <p><b>{{$order->product['name']}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.name")}}</label>
-                <p><b>{{$order->cust_name}}</b></p> <hr>
+                <p><b>{{$order->consignee['cust_name']}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.phone")}}</label>
-                <p><b>{{$order->cust_num}}</b></p> <hr>
+                <p><b>{{$order->consignee['cust_num']}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.location")}}</label>
-                <p><b> {{$order->address}}, <a href="{{route('admin.areas.show',$order->area->id )}}">{{ $order->area->name }}</a>, {{$order->state->name}}</b></p> <hr>
+                <p><b> {{$order->consignee['address']}}, <a href="{{route('admin.areas.show',$order->area->id )}}">{{ $order->area->name }}</a>, {{$order->state->name}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.value")}}</label>
-                <p><b>{{$order->value}}</b></p> <hr>
+                <p><b>{{$order->product['value']}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.count")}}</label>
-                <p><b>{{$order->quantity}}</b></p> <hr>
+                <p><b>{{$order->product['quantity']}}</b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.notes")}}</label>
-                <p><b>{{$order->notes ?? 'no notes'}} </b></p> <hr>
+                <p><b>{{$order->details['notes'] ?? 'no notes'}} </b></p> <hr>
+                <label>{{__("names.order")}} {{__("auth.cost")}}</label>
+                <p><b>{{$order->cost }} </b></p> <hr>
+                <label>{{__("names.order")}} {{__("auth.total")}}</label>
+                <p><b>{{$order->total }} </b></p> <hr>
                 <label>{{__("names.order")}} {{__("auth.status")}}</label>
                 <p><b>{{$order->status->name}}</b></p> <hr>
+                <p>{{__("auth.created")}}<b> {{$order->created_at->diffForHumans()}}</b></p> <hr>
 
                 <div class="d-flex ">
                         <a href="{{ route('admin.orders.edit',$order->hashid) }}" class="btn btn-info o">{{__("auth.edit")}}</a>

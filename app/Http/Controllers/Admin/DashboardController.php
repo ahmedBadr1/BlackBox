@@ -237,33 +237,54 @@ class DashboardController extends Controller
     public function saveSetting(Request $request)
     {
         $this->validate($request,[
-           'app_name'=>'nullable',
-           'title'=>'nullable',
+            'company_name'=>'nullable',
+            'company_logo'=>'nullable', // required
+            'location_id'=>'nullable|numeric',
            'slogan'=>'nullable',
-           'footer'=>'nullable',
             'owner'=>'nullable',
             'email'=>'nullable|email',
+            'contact'=>'nullable',
+
             'theme'=>'nullable',
+            'footer'=>'nullable',
+
             'auto_send'=>'nullable|boolean',
             'reschedule_limit' => 'required',
             'package_weight_limit' => 'required',
         ]);
 
-       $input = $request->all();
+       $input = $request->except(['_token']);
 
-     //  dd($input);
-       if(!isset($input['auto_send'])){
-           $input['auto_send'] = false;
-       }else{
-           $input['auto_send'] = true;
-       }
-        Config::set(['app.name' => $input['app_name']]);
+      //    dd($input);
+        $path = 'uploads/setting/logo';
+
         $setting = Setting::first();
-       if ($setting){
-           $setting->update($input);
-       }else{
-           Setting::create($input);
-       }
+
+        if(! isset($input['company_logo'])){
+            $photoPath  = $setting->company_logo;
+        }else {
+            if(!File::isDirectory($path)){
+                File::makeDirectory($path, 0777, true, true);
+            }
+            if($setting){
+                if(File::exists(storage_path().'/app/public/'.$setting->company_logo)){
+                    //dd('found');
+                    File::delete(storage_path().'/app/public/'.$setting->company_logo);
+                }
+            }
+            $photoPath =  $input['company_logo']->store($path,'public');
+            $input['company_logo'] = $photoPath;
+        }
+
+        if(!$setting){
+            Setting::create($input) ;
+        }else{
+            $setting->update($input);
+        }
+
+
+        Config::set(['app.name' => $input['company_name']]);
+
         Cache::forget('setting');
 
         notify()->success('setting saved successfully');

@@ -26,17 +26,35 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'product_name' => $this->faker->company(),
-            'value' => $this->faker->numberBetween(20,200),
-            'cust_name' => $this->faker->company(),
-            'cust_num' => $this->faker->phoneNumber(),
-            'address' => $this->faker->streetAddress(),
+            'product'=> [
+                'name' =>  $this->faker->company(),
+                'description' =>  $this->faker->sentence(),
+                'value' =>  $this->faker->numberBetween(20,200),
+                'quantity' => $this->faker->numberBetween(1,5),
+
+            ],
+            'consignee' => [
+                'cust_name' => $this->faker->firstName(),
+                'cust_num' => $this->faker->phoneNumber(),
+                'address' => $this->faker->streetAddress(),
+            ],
+            'details' => [
+                'package_type' =>  $this->faker->creditCardType(),
+                'package_weight' => $this->faker->numberBetween(1,10),
+                'deliver_before' => $this->faker->date(),
+                'cod' => $this->faker->boolean(),
+                'notes' => $this->faker->sentence(),
+            ],
+
             'area_id' => Area::all()->random()->id,
-            'quantity' => $this->faker->numberBetween(1,5),
-            'notes' => $this->faker->sentence(),
+
             'status_id' => Status::all()->random()->id,
             'user_id'  =>  User::all()->random()->id,
             'delivery_id' => User::role('delivery')->inRandomOrder()->first()->id,
+            'cost'  =>  $this->faker->numerify(),
+            'sub_total'  =>  $this->faker->numerify(),
+            'discount'  =>  $this->faker->numerify(),
+            'tax'  =>  $this->faker->numerify(),
             'total'  =>  $this->faker->numerify(),
         ];
     }

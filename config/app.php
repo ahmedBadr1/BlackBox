@@ -173,6 +173,7 @@ return [
         \Vinkla\Hashids\HashidsServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         \Livewire\LivewireServiceProvider::class,
+        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -242,6 +243,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Hashids'=>\Vinkla\Hashids\Facades\Hashids::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class
 
 
     ],

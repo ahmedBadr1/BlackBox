@@ -24,22 +24,19 @@ class Order extends Model
      * @var string[]
      */
     protected $fillable = [
-        'product_name',
-        'value',
-        'cust_name',
-        'cust_num',
-        'address',
-        'cod',
-        'package_type',
-        'deliver_before',
-        'package_weight',
+        'product',
+        'consignee',
+       'details',
+
         'area_id',
-        'quantity',
-        'notes',
         'status_id',
         'receipt_id',
         'user_id',
-        'total'
+        'cost',
+        'sub_total',
+        'discount',
+        'tax',
+        'total',
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -49,6 +46,7 @@ class Order extends Model
     protected $hidden = [
         'user_id',
         'receipt_id',
+        'cost',
     ];
 
     protected $appends = ['hashid'];
@@ -60,6 +58,9 @@ class Order extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
         'cod' => 'boolean',
+        'product'=> 'array',
+        'consignee'=> 'array',
+        'details'=> 'array',
     ];
 
 
@@ -69,7 +70,7 @@ class Order extends Model
     {
         return LogOptions::defaults()
             ->setDescriptionForEvent(fn(string $eventName) => "This Order has been {$eventName}")
-            ->logOnly(['product_name', 'cust_name', 'cust_num','address','value','quantity','user.name'])
+            ->logOnly(['product', 'consignee', 'details','user.name'])
             ->logOnlyDirty()
             ->useLogName('Order');
         // Chain fluent methods for configuration options
@@ -114,9 +115,9 @@ class Order extends Model
         $id =    Hashids::Connection(Order::class)->decode(strtolower($search)) ?? 0;
         return empty($search) ? static::query()
             : static::query()->where('id', 'like', '%'.$search.'%')
-                ->orWhere('product_name', 'like', '%'.$search.'%')
-                ->orWhere('cust_name', 'like', '%'.$search.'%')
-                ->orWhere('cust_num', 'like', '%'.$search.'%')
+                ->orWhere('product', 'like', '%'.$search.'%')
+                ->orWhere('consignee', 'like', '%'.$search.'%')
+                ->orWhere('details', 'like', '%'.$search.'%')
                 ->orWhere('id', '=', $id)
                 ->orWhereHas('user', fn($q) => $q->where('name','like', '%'.$search.'%'))
                 ->orWhereHas('area', fn($q) => $q->where('name','like', '%'.$search.'%'));

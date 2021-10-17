@@ -16,22 +16,19 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id')->startingValue(65000);
-            $table->string('product_name')->nullable();
-            $table->string('value')->nullable();
-            $table->string('cust_name');
-            $table->string('cust_num');
-            $table->string('address');
-            $table->boolean('cod')->default(1);
-            $table->string('package_type')->nullable();
-            $table->dateTime('deliver_before')->nullable();
-            $table->smallInteger('package_weight')->nullable();
-            $table->string('quantity')->default(1);
+            $table->increments('id')->startingValue(1); // check again
+            $table->text('product');
+            $table->text('consignee');
+            $table->text('details');
             $table->foreignIdFor(\App\Models\Area::class);
-            $table->string('notes')->default('no notes')->nullable();
             $table->foreignIdFor(\App\Models\Status::class);
             $table->foreignIdFor(User::class);
+            $table->smallInteger('cost');
+            $table->mediumInteger('sub_total');
+            $table->mediumInteger('discount');
+            $table->mediumInteger('tax');
             $table->mediumInteger('total');
+            $table->boolean('printed')->default(0);
             $table->unsignedBigInteger('delivery_id')->nullable();
             $table->dateTime('received_at')->nullable();
             $table->dateTime('expire_at')->nullable();

@@ -9,18 +9,22 @@ class Setting extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'reschedule_limit',
-        'package_weight_limit',
-        'app_name',
-        'title',
-        'slogan',
-        'footer',
+
+        'company_name',
+        'company_logo',
+        'location_id',
+
         'owner',
         'email',
+        'contact',
+
         'theme',
+        'footer',
+
+        'reschedule_limit',
+        'package_weight_limit',
         'auto_send',
-        'company_name',
-        'location_id'
+
     ];
     protected $casts = [
         'auto_send' => 'boolean'

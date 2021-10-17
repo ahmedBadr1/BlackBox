@@ -20,8 +20,8 @@ class OrdersTable extends Component
 
     public function mount()
     {
-        $this->startDate =  today()->subDays(365);
-        $this->endDate = now() ;
+        $this->startDate =  today()->subDays(365)->format('Y-m-d');
+        $this->endDate = today()->format('Y-m-d') ;
     }
 
     public function render()
@@ -30,7 +30,7 @@ class OrdersTable extends Component
             'orders' => Order::search($this->search)
                 ->whereDate('created_at','>=',$this->startDate)
                 ->WhereDate('created_at','<=',$this->endDate)
-               ->with('user','area','status','state')
+                ->with('user','area','status','state')
                 ->orderBy($this->orderBy, $this->orderDesc ? 'desc' : 'asc')
                 ->paginate($this->perPage)
         ]);

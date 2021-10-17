@@ -9,19 +9,20 @@ use App\Models\Area;
 use App\Models\Order;
 use App\Models\Packing;
 use App\Models\Plan;
-use App\Models\Setting;
-use App\Models\State;
 use App\Models\Status;
+
 use App\Models\User;
-use App\Notifications\DoneNotification;
-use Illuminate\Support\Facades\Notification;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Buyer;
+
+
 use Spatie\Activitylog\Models\Activity;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\Console\Input\Input;
+use PDF ;
 
 
 
@@ -120,8 +121,8 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
         $user = \auth()->user();
-
-       // dd($request->all());
+            dd($user);
+        dd($request->all());
         $this->validate($request,[
             'product_name' =>'required',
             'value'=>'nullable|numeric|gt:0',
@@ -192,6 +193,130 @@ class OrdersController extends Controller
 
         return view('admin.orders.show',compact('order'));
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  Order  $order
+     * @return
+     */
+    public function print(Order $order)
+    {
+//
+    $client = new Party([
+        'name'          => $order->consignee['cust_name'],
+        'phone'         =>  $order->consignee['cust_num'],
+        'address'         => $order->consignee['address'],
+        'custom_fields' => [
+            'area'        => $order->area->name,
+        ],
+    ]);
+
+        $customer = new Party([
+            'name'          => $order->user->name,
+            'phone'         => $order->user->phone,
+            'address'       => $order->user->profile->address,
+            'custom_fields' => [
+                'email' =>$order->user->email,
+            ],
+        ]);;
+
+        $item = (new InvoiceItem())->title($order->product['name'])
+            ->pricePerUnit($order->product['value'])
+            ->quantity($order->product['quantity'])
+            ->description($order->product['description'] ?? '');
+       $shipping =  $order->cost ;
+       // dd($shipping);
+        if(!$order->details['cod']){
+            $shipping = number_format(0);
+        }
+      //  dd($shipping);
+
+//        $notes = [
+//            'your multiline',
+//            'additional notes',
+//            'in regards of delivery or something else',
+//        ];
+//        $notes = implode("<br>", $notes);
+
+        $logoPath =  storage_path('app/public/'.setting('company_logo'))   ?? '';
+
+
+        $invoice = Invoice::make()
+           // ->sequence($order->hashid)
+            ->buyer($client)
+            ->seller($customer)
+            ->addItem($item)
+            ->shipping($shipping)
+            ->logo($logoPath)
+            ->date($order->created_at)
+            ->filename('order_'.$order->hashid)
+            ->payUntilDays(14)
+          //  ->subTotalPrice($order->sub_total)
+          //  ->discountByPercent(10)
+          // ->totalAmount(number_format($order->total))
+            ->notes($order->details['notes'] ?? '');
+//        $serial =  $invoice->getSerialNumber() ;
+//        dd($serial);
+//            ->currencySymbol('L.E')
+//            ->currencyCode('EGP')
+//            ->discountByPercent(10)
+//            ->taxRate(14)
+//            ->totalTaxes($order->tax)
+//            ->series('fb')
+//            ->sequence(88)
+
+
+//dd($invoice);
+//   //     return view('vendor.invoices.templates.default',compact('invoice'));
+//        return $invoice->stream();
+
+       // $pdf = PDF::chunkLoadView('pdf.document', $data);
+      //  ini_set("pcre.backtrack_limit", "1000000");
+    //    $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
+        if(app()->getLocale() == "ar"){
+         //   notify()->error('can\'t print arabic charachters');
+            $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
+            return $pdf->stream('arabic.pdf');
+        }
+
+        return $invoice->download($order->hashid.'.pdf');
+    }
+    public function pdf(Order $order)
+    {
+//
+//        $data = User::take(10)->get();
+//////
+//////
+////        $pdf = PDF::loadView('vendor.invoices.templates.invoice',['data'=>$data]);
+////
+////       // $pdf->SetDirectionality('rtl');
+////
+////
+////        return $pdf->stream('invoice.pdf');
+//
+//        $html = view('vendor.invoices.templates.invoice',['data'=>$data])->render(); // file render
+//// or pure html
+//        $html = '<h1>مرحبا بكم فى العالم </h1>';
+//        $pdfarr = [
+//            'title'=>'اهلا بكم ',
+//            'data'=>$html, // render file blade with content html
+//            'header'=>['show'=>false], // header content
+//            'footer'=>['show'=>false], // Footer content
+//            'font'=>'aealarabiya', //  dejavusans, aefurat ,aealarabiya ,times
+//            'font-size'=>12, // font-size
+//            'text'=>'', //Write
+//            'rtl'=>true, //true or false
+//            'creator'=>'phpanonymous', // creator file - you can remove this key
+//            'keywords'=>'phpanonymous keywords', // keywords file - you can remove this key
+//            'subject'=>'phpanonymous subject', // subject file - you can remove this key
+//            'filename'=>'phpanonymous.pdf', // filename example - invoice.pdf
+//            'display'=>'print', // stream , download , print
+//        ];
+//
+//        PDF::HTML($pdfarr);
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.

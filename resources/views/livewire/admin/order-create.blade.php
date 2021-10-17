@@ -29,10 +29,22 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="product_name" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.product_name")}}</label>
+                    <label for="product_name" class="col-md-4 col-form-label text-md-right">{{__("auth.product_name")}}</label>
                     <div class="col-md-6">
-                        <input  type="text" wire:model.lazy="product_name" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}"  autocomplete="name" autofocus>
+                        <input  type="text" wire:model.lazy="product_name" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}"   >
                         @error('product_name')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="product_description" class="col-md-4 col-form-label text-md-right">{{__("auth.product_description")}}</label>
+                    <div class="col-md-6">
+                        <input  type="text" wire:model.lazy="product_name" class="form-control @error('product_description') is-invalid @enderror" name="product_description" value="{{ old('product_description') }}"  >
+                        @error('product_description')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -58,9 +70,9 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="value" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.value-per-one")}}</label>
+                    <label for="value" class="col-md-4 col-form-label text-md-right">{{__("auth.value-per-one")}}</label>
                     <div class="col-md-6">
-                        <input  type="number" wire:model.lazy="value" step="00.25" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}"  autocomplete="name" autofocus>
+                        <input  type="number" wire:model.lazy="value" step="00.25" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}" >
                         @error('value')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -70,7 +82,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="quantity" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("names.count")}}</label>
+                    <label for="quantity" class="col-md-4 col-form-label text-md-right">{{__("names.product")}} {{__("names.count")}}</label>
                     <div class="col-md-6">
                         <input  type="number" wire:model.lazy="quantity"  class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') ?? 1 }}" >
                         @error('quantity')
@@ -141,17 +153,6 @@
             <div class="card-header">@lang('names.consignee-details')</div>
             <div class="card-body">
 
-                <div class="form-group row">
-                    <label for="product_name" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.product_name")}}</label>
-                    <div class="col-md-6">
-                        <input  type="text" wire:model.lazy="product_name" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}"  autocomplete="name" autofocus>
-                        @error('product_name')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <label for="cust_name" class="col-md-4 col-form-label text-md-right">{{__("names.order")}} {{__("auth.cust_name")}}</label>
@@ -218,13 +219,17 @@
                 <div class="card-body">
                     <p>      @lang('auth.value'):  {{$value}}   </p>
                     <p>      @lang('auth.quantity'):  {{$quantity }}   </p>
-                    <p>       @lang('auth.delivery-cost') :  {{$cost}}   </p>
+                    <p>       @lang('auth.delivery-cost') :  {{$delivery_cost}}   </p>
                     <p>       @lang('auth.package-weight') :  {{  $weight}}   </p>
                     <p>      @lang('auth.package-over-weight') :  {{  $overWeight}}   </p>
                     <p>     @lang('auth.package-over-weight-cost') :  {{  $overWeightCost}}   </p>
+                    <p>     @lang('auth.cost') :  {{  $cost}}   </p>
                     <hr>
+                    <p>     @lang('auth.sub-total'):  {{$subTotal}}   </p>
+                    <p>     @lang('auth.discount'):  {{$discount}}   </p>
                     <p>     @lang('auth.tax'):  {{$tax}}   </p>
-                    <p>     @lang('auth.total') :  {{$total}}   </p>
+                    <hr>
+                   <h2> @lang('auth.total') :  {{$total}}</h2>
                 </div>
             </div>
         </div>

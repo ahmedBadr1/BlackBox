@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="rtl" lang="ar">
     <head>
         <title>{{ $invoice->name }}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -133,7 +133,7 @@
         @if($invoice->logo)
             <img src="{{ $invoice->getLogo() }}" alt="logo" height="100">
         @endif
-
+        <p dir="rtl" lang="ar" style="color:#e0e0e0;font-size:20px;">رَبٍّ زِدْنٍي عِلمًا</p>
         <table class="table mt-5">
             <tbody>
                 <tr>
@@ -298,7 +298,7 @@
                     @endif
 
                     <td class="text-right pr-0">
-                        {{ $invoice->formatCurrency($item->sub_total_price) }}
+                        {{ number_format($item->sub_total_price) }}
                     </td>
                 </tr>
                 @endforeach
@@ -352,7 +352,7 @@
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.total_amount') }}</td>
                         <td class="text-right pr-0 total-amount">
-                            {{ $invoice->formatCurrency($invoice->total_amount) }}
+                            {{ number_format($invoice->total_amount) }}
                         </td>
                     </tr>
             </tbody>
@@ -364,9 +364,9 @@
             </p>
         @endif
 
-        <p>
-            {{ trans('invoices::invoice.amount_in_words') }}: {{ $invoice->getTotalAmountInWords() }}
-        </p>
+{{--        <p>--}}
+{{--            {{ trans('invoices::invoice.amount_in_words') }}: {{ $invoice->getTotalAmountInWords() }}--}}
+{{--        </p>--}}
         <p>
             {{ trans('invoices::invoice.pay_until') }}: {{ $invoice->getPayUntilDate() }}
         </p>

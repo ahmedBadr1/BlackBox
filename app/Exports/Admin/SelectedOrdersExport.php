@@ -26,22 +26,25 @@ class SelectedOrdersExport implements FromCollection , ShouldAutoSize ,WithMappi
     {
         return Order::with('user','area')->find($this->orders);
     }
+
     public function map($order): array
     {
             // TODO: Implement map() method.
         return [
-        $order->hashid,
-        $order->product_name,
-        $order->value,
-        $order->cust_name,
-        $order->cust_num,
-        $order->address,
-        $order->area->name,
+            $order->hashid,
+            $order->product['name'],
+            $order->product['description'],
+            $order->product['value'],
+            $order->consignee['cust_name'],
+            $order->consignee['cust_num'],
+            $order->consignee['address'],
+            $order->area->name,
+            $order->product['quantity'],
+            $order->total,
+            $order->details['notes'],
+            $order->status->name,
             $order->user->name,
-        $order->quantity,
-        $order->notes,
-        $order->status->name,
-        $order->created_at->format('d/m/Y'),
+            $order->created_at->format('d/m/Y'),
         ];
     }
     public function headings():array
@@ -49,7 +52,8 @@ class SelectedOrdersExport implements FromCollection , ShouldAutoSize ,WithMappi
 
         return [
             'Track ID',
-            'product_name',
+            'product name',
+            'description',
             'Value',
             'Customer_name',
             'Customer_number',
@@ -68,7 +72,7 @@ class SelectedOrdersExport implements FromCollection , ShouldAutoSize ,WithMappi
         return [
             AfterSheet::class => function(AfterSheet $event){
                 //    $event->sheet->getDelegate()->setRightToLeft(true);
-                $event->sheet->getStyle('A1:K1')->applyFromArray(
+                $event->sheet->getStyle('A1:M1')->applyFromArray(
                     [
                         'font'=>['bold'=>true]
                     ]);

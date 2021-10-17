@@ -80,32 +80,32 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         ], function () {
 
             /** ADD ALL auth ROUTES INSIDE THIS GROUP **/
-            Route::get('setting', [App\Http\Controllers\Admin\DashboardController::class, 'setting'])->middleware(['role:admin|Feedback'])->name('setting');
-            Route::post('/setting', [App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
+            Route::get('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'setting'])->middleware(['role:admin|Feedback'])->name('setting');
+            Route::post('/setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
             Route::group(['middleware'=>'System'],function (){
                 /** ADD ALL System ROUTES INSIDE THIS GROUP **/
 
-                Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+                Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
-                Route::get('help', [App\Http\Controllers\Admin\DashboardController::class, 'help'])->name('help');
-                Route::get('notifications', [App\Http\Controllers\Admin\DashboardController::class, 'notifications'])->name('notifications');
+                Route::get('help', [\App\Http\Controllers\Admin\DashboardController::class, 'help'])->name('help');
+                Route::get('notifications', [\App\Http\Controllers\Admin\DashboardController::class, 'notifications'])->name('notifications');
 
-                Route::get('profile', [App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
-                Route::get('profile/edit', [App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');
-                Route::put('profile/', [App\Http\Controllers\Admin\DashboardController::class, 'profileUpdate'])->name('profile.update');
-                Route::get('sellers', [App\Http\Controllers\Admin\DashboardController::class, 'sellers'])->name('sellers');
-                Route::get('trash', [App\Http\Controllers\Admin\DashboardController::class, 'trash'])->name('trash');
+                Route::get('profile', [\App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
+                Route::get('profile/edit', [\App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');
+                Route::put('profile/', [\App\Http\Controllers\Admin\DashboardController::class, 'profileUpdate'])->name('profile.update');
+                Route::get('sellers', [\App\Http\Controllers\Admin\DashboardController::class, 'sellers'])->name('sellers');
+                Route::get('trash', [\App\Http\Controllers\Admin\DashboardController::class, 'trash'])->name('trash');
 
-                Route::get('financials', [App\Http\Controllers\Admin\FinancialController::class, 'index'])->name('financials');
+                Route::get('financials', [\App\Http\Controllers\Admin\FinancialController::class, 'index'])->name('financials');
                 Route::get('/invoice', [\App\Http\Controllers\Admin\FinancialController::class, 'invoice']);
-                Route::get('statics', [App\Http\Controllers\Admin\StaticsController::class, 'index'])->name('statics');
+                Route::get('statics', [\App\Http\Controllers\Admin\StaticsController::class, 'index'])->name('statics');
 
 
-                Route::get('/states', [App\Http\Controllers\Admin\AreaController::class, 'states'])->name('states');
+                Route::get('/states', [\App\Http\Controllers\Admin\AreaController::class, 'states'])->name('states');
                 Route::post('/states/toggle/{id}', [\App\Http\Controllers\Admin\AreaController::class,'toggle']);
-                Route::get('/export/orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
-                Route::get('/export/orders/ar', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
-               Route::post('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
+                Route::get('/export/orders/en', [\App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
+                Route::get('/export/orders/ar', [\App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
+               Route::post('/import/orders', [\App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
               //  Route::post('/parse/import', [App\Http\Controllers\Main\ExcelController::class,'parseImport'])->name('parse.import');
 
                 Route::get('roles/permissions',[\App\Http\Controllers\Admin\RolesController::class,'permissions'])->name('roles.permissions');
@@ -117,8 +117,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 
                 Route::get('orders/assign',[\App\Http\Controllers\Admin\DashboardController::class,'assign'])->name('orders.assign');
                 Route::post('orders/assign',[\App\Http\Controllers\Admin\DashboardController::class,'assignGo'])->name('orders.assign');
-                Route::get('orders/track', [App\Http\Controllers\Admin\OrdersController::class, 'track']);
-                Route::post('orders/track', [App\Http\Controllers\Admin\OrdersController::class, 'trackgo'])->name('track');
+                Route::get('orders/track', [\App\Http\Controllers\Admin\OrdersController::class, 'track']);
+                Route::post('orders/track', [\App\Http\Controllers\Admin\OrdersController::class, 'trackgo'])->name('track');
+
 
                 Route::get('tasks/archive',[\App\Http\Controllers\Admin\TaskController::class,'archive'])->name('tasks.archive');
                 Route::post('tasks/{id}/done',[\App\Http\Controllers\Admin\TaskController::class,'done'])->name('tasks.done');
@@ -128,11 +129,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 
                 Route::get('orders/trash',[\App\Http\Controllers\Admin\OrdersController::class,'trash'])->name('orders.trash');
                 Route::get('tasks/trash',[\App\Http\Controllers\Admin\TaskController::class,'trash'])->name('tasks.trash');
-                Route::post('orders/{id}/restore', [App\Http\Controllers\Admin\OrdersController::class, 'restore'])->name('orders.restore');
-                Route::post('tasks/{id}/restore', [App\Http\Controllers\Admin\TaskController::class, 'restore'])->name('tasks.restore');
+                Route::post('orders/{id}/restore', [\App\Http\Controllers\Admin\OrdersController::class, 'restore'])->name('orders.restore');
+                Route::post('tasks/{id}/restore', [\App\Http\Controllers\Admin\TaskController::class, 'restore'])->name('tasks.restore');
 
-                Route::get('/export/orders/en', [App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersEn'])->name('export.orders.en');
-                Route::get('/export/orders/ar', [App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersAr'])->name('export.orders.ar');
+                Route::get('/export/orders/en', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersEn'])->name('export.orders.en');
+                Route::get('/export/orders/ar', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersAr'])->name('export.orders.ar');
+                Route::get('orders/{order}/pdf', [\App\Http\Controllers\Admin\OrdersController::class, 'pdf'])->name('orders.pdf');
+                Route::get('orders/{order}/print', [\App\Http\Controllers\Admin\OrdersController::class, 'print'])->name('orders.print');
                 Route::get('receipts/{id}/print',[\App\Http\Controllers\Admin\ReceiptController::class,'print'])->name('receipts.print');
 
                 Route::get('/features',[\App\Http\Controllers\Admin\PlanController::class,'features'])->name('features');
@@ -153,10 +156,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::resource('locations', App\Http\Controllers\Admin\LocationsControllers::class);
 
 
-            Route::get('/e', [App\Http\Controllers\Admin\MailController::class, 'index'])->name('email');
-            Route::post('/e/s', [App\Http\Controllers\Admin\MailController::class, 'send'])->name('email.send');
-            Route::post('/e', [App\Http\Controllers\Admin\MailController::class, 'index'])->name('emailto');
-            Route::get('/welcome-email', [App\Http\Controllers\Admin\MailController::class, 'welcomeMail'])->name('welcome.email');
+            Route::get('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('email');
+            Route::post('/e/s', [\App\Http\Controllers\Admin\MailController::class, 'send'])->name('email.send');
+            Route::post('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('emailto');
+            Route::get('/welcome-email', [\App\Http\Controllers\Admin\MailController::class, 'welcomeMail'])->name('welcome.email');
             }); // end System group middleware
         }); // end admin group prefix
 

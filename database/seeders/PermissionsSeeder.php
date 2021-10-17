@@ -110,12 +110,12 @@ class PermissionsSeeder extends Seeder
             'phone' => '01100068386',
             'state_id' => '1',
             'hearAboutUs' => 'system',
-            'password'=>bcrypt('delivery@bagyexpress.com'),
+            'password'=>bcrypt('delivery@blackbox.com'),
 
         ]);
         $user->assignRole($role1);
 
-        $password = Hash::make('owner@bagyexpress.com');
+        $password = Hash::make('owner@blackbox.com');
         $user = \App\Models\User::factory()->create([
             'name' => 'owner',
             'email' => 'owner@blackbox.com',

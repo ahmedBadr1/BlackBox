@@ -20,18 +20,19 @@ class OrdersExportEn implements FromQuery , ShouldAutoSize ,WithMapping ,WithHea
          // TODO: Implement map() method.
          return [
              $order->hashid,
-             $order->product_name,
-             $order->value,
-             $order->cust_name,
-             $order->cust_num,
-             $order->address,
+             $order->product['name'],
+             $order->product['description'],
+             $order->product['value'],
+             $order->consignee['cust_name'],
+             $order->consignee['cust_num'],
+             $order->consignee['address'],
              $order->area->name,
-             $order->quantity,
+             $order->product['quantity'],
              $order->total,
-             $order->notes,
+             $order->details['notes'],
              $order->status->name,
              $order->user->name,
-            $order->created_at->format('d/m/Y'),
+             $order->created_at->format('d/m/Y'),
          ];
      }
 
@@ -40,7 +41,8 @@ class OrdersExportEn implements FromQuery , ShouldAutoSize ,WithMapping ,WithHea
 
         return [
             'Track ID',
-            'product_name',
+            'product name',
+            'description',
             'Value',
             'Customer_name',
             'Customer_number',

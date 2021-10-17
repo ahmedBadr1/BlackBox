@@ -21,7 +21,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <title>{{ setting('title') ?? config('app.name', 'Laravel') }}</title>
+    <title>{{ setting('company_name') ?? config('app.name', 'Laravel') }}</title>
 </head>
 <body >
 <div id="app" class="">

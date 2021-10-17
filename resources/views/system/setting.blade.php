@@ -12,8 +12,9 @@
                     </div>
                 @endif
 
-                <form action="{{route('admin.setting')}}" method="Post">
+                <form action="{{route('admin.setting')}}" method="Post" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="auto_send" value="0">
 
                     <div class="form-group">
                         <label for="company_name" class="label">@lang('auth.company_name')</label>
@@ -24,15 +25,95 @@
                                     </span>
                         @enderror
                     </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="company_logo" class="label">@lang('auth.company_logo')</label>
+                            <input type="file" name="company_logo" id="company_logo"  class="form-control  @error('company_logo') is-invalid @enderror" value="{{$setting->company_logo ?? '' }}">
+                            @error('company_logo')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-8 mb-2">
+                            <img id="preview-image-before-upload"  src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                                 alt="preview image" style="max-height: 250px;">
+                        </div>
+                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="location_id" class="label">@lang('auth.location_id')</label>--}}
+{{--                        <input type="number" name="location_id" class="form-control" value="{{$setting->location_id ?? '' }}">--}}
+{{--                        @error('location_id')--}}
+{{--                        <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{ $message }}</strong>--}}
+{{--                                    </span>--}}
+{{--                        @enderror--}}
+{{--                    </div>--}}
+
+
+
+
                     <div class="form-group">
-                        <label for="location_id" class="label">@lang('auth.location_id')</label>
-                        <input type="number" name="location_id" class="form-control" value="{{$setting->location_id ?? '' }}">
-                        @error('location_id')
+                        <label for="owner" class="label">@lang('auth.owner')</label>
+                        <input type="text" name="owner" class="form-control" value="{{$setting->owner ?? ''}}">
+                        @error('owner')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="email" class="label">@lang('auth.email')</label>
+                        <input type="email" name="email" class="form-control" value="{{$setting->email?? '' }}">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="contact" class="label">@lang('auth.contact')</label>
+                        <input type="tel" name="contact" class="form-control" value="{{$setting->contact?? '' }}">
+                        @error('contact')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="slogan" class="label">@lang('auth.slogan')</label>
+                        <input type="text" name="slogan" class="form-control" value="{{$setting->slogan ?? ''}}">
+                        @error('slogan')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="theme" class="label">@lang('auth.theme')</label>
+                        <input type="text" name="theme" class="form-control" value="{{$setting->theme ?? '' }}">
+                        @error('theme')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="footer" class="label">@lang('auth.footer')</label>
+                        <input type="text" name="footer" class="form-control" value="{{$setting->footer ?? ''}}">
+                        @error('footer')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+
+
                     <div class="form-group">
                         <label for="theme" class="label">@lang('auth.reschedule_limit')</label>
                         <input type="number" name="reschedule_limit" class="form-control" value="{{$setting->reschedule_limit ?? '' }}">
@@ -53,74 +134,9 @@
                         @enderror
                     </div>
 
-
-
-                    <div class="form-group">
-                        <label for="app_name" class="label">@lang('auth.app_name')</label>
-                        <input type="text" name="app_name" class="form-control" value="{{$setting->app_name ?? ''}}">
-                        @error('app_name')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="title" class="label">@lang('auth.title')</label>
-                        <input type="text" name="title" class="form-control" value="{{$setting->title ?? ''}}">
-                        @error('title')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="slogan" class="label">@lang('auth.slogan')</label>
-                        <input type="text" name="slogan" class="form-control" value="{{$setting->slogan ?? ''}}">
-                        @error('slogan')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="footer" class="label">@lang('auth.footer')</label>
-                        <input type="text" name="footer" class="form-control" value="{{$setting->footer ?? ''}}">
-                        @error('footer')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="owner" class="label">@lang('auth.owner')</label>
-                        <input type="text" name="owner" class="form-control" value="{{$setting->owner ?? ''}}">
-                        @error('owner')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="label">@lang('auth.email')</label>
-                        <input type="email" name="email" class="form-control" value="{{$setting->email?? '' }}">
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="theme" class="label">@lang('auth.theme')</label>
-                        <input type="text" name="theme" class="form-control" value="{{$setting->theme ?? '' }}">
-                        @error('theme')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
                     <div class="form-group">
                         <label for="auto_send" class="label">@lang('auth.auto_send')</label>
-                        <input type="checkbox" name="auto_send" @if($setting->auto_send ?? '' ) checked @endif>
+                        <input type="checkbox" name="auto_send" value="1" @if($setting->auto_send ?? '' ) checked @endif>
                     </div>
 
                     <div class="form-group row mb-0">
@@ -147,3 +163,28 @@
 
 @endsection
 
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+
+
+            $('#company_logo').change(function(){
+
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+
+                    $('#preview-image-before-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(this.files[0]);
+
+            });
+
+        });
+
+    </script>
+@endsection

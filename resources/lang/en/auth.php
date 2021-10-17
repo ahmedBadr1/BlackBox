@@ -74,6 +74,9 @@ return [
     'owner' => 'Owner',
     'theme' => 'Theme',
     'auto_send' => 'Auto Send Welcome Mail',
+    'print' => 'Print',
+    'track' => 'Track',
+    'excel' => 'Excel'
 
 
 

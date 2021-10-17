@@ -7,7 +7,7 @@
 >
     <!-- Sidebar -->
     <a class="navbar-brand fb-nav-logo font-weight-bold text-uppercase" href="{{ url('/') }}">
-        {{ setting('app_name') ?? config('app.name', 'Laravel') }}
+        {{ setting('company_name') ?? config('app.name', 'Laravel') }}
     </a>
     <i class="fas fa-bars" id="menu"></i>
     <ul class="navbar-nav " id="accordionSidebar">

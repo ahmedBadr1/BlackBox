@@ -28,15 +28,15 @@ return [
     ],
 
     'currency' => [
-        'code' => 'eur',
+        'code' => 'EGP',
         /*
          * Usually cents
          * Used when spelling out the amount and if your currency has decimals.
          *
          * Example: Amount in words: Eight hundred fifty thousand sixty-eight EUR and fifteen ct.
          */
-        'fraction' => 'ct.',
-        'symbol'   => '€',
+        'fraction' => 'L.E',
+        'symbol'   => 'L.E',
         /*
          * Example: 19.00
          */

@@ -22,7 +22,7 @@ class CreateReceiptsTable extends Migration
             $table->unsignedBigInteger('discount')->nullable();
             $table->unsignedBigInteger('tax')->nullable();
             $table->unsignedBigInteger('total');
-            $table->boolean('ready')->default(0);
+            $table->boolean('printed')->default(0);
             $table->foreignIdFor(User::class);
             $table->softDeletes();
             $table->timestamps();

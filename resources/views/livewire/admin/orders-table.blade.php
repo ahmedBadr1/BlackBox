@@ -8,9 +8,10 @@
                 <select wire:model="orderBy" class="form-control-sm">
                     <option>Id</option>
                     <option>Value</option>
-                    <option value="cust_name">Consignee Name</option>
-                    <option value="cust_num">Consignee Number</option>
-                    <option>Quantity</option>
+
+                    <option value="status_id">Status</option>
+                    <option>discount</option>
+                    <option>tax</option>
                     <option>total</option>
                     <option>created_at</option>
                 </select>
@@ -63,15 +64,15 @@
             <tr>
                 <td>{{++$key}}</td>
                 <td> <a href="{{ route('admin.orders.show',$order->hashid) }}" style="max-width: 100px "> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
-                <td>{{$order->product_name}} </td>
-                <td>{{$order->cust_name}} </td>
-                <td>{{$order->cust_num}} </td>
-                <td>{{$order->address}}, <a href="{{route('admin.areas.show',$order->area_id)}}">
+                <td>{{$order->product['name']}} </td>
+                <td>{{$order->consignee['cust_name']}} </td>
+                <td>{{$order->consignee['cust_num']}} </td>
+                <td>{{$order->consignee['address']}}, <a href="{{route('admin.areas.show',$order->area_id)}}">
                                                         {{ $order->area->name}}</a>, {{$order->state->name}}
                 </td>
                 <td>{{$order->total}} </td>
-                <td>{{$order->quantity}} </td>
-                <td>{{\Illuminate\Support\Str::limit($order->notes, 20) ?? 'no notes'}} </td>
+                <td>{{$order->product['quantity']}} </td>
+                <td>{{\Illuminate\Support\Str::limit($order->details['notes'], 20) ?? 'no notes'}} </td>
                 <td>{{$order->status->name}} </td>
 
                 <td><a href="{{route('admin.users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
@@ -79,11 +80,17 @@
                     @role('seller|Feedback')
                     <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
                     @endrole
-                    @role('seller|Feedback')
-                    <td><a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">{{__('auth.edit')}}</a></td>
-                    @endrole
-                    @role('seller|Feedback')
                     <td>
+{{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">{{__('auht.pdf')}}</a>--}}
+                        <a href="{{route('admin.orders.print',$order->hashid)}}" class="btn btn-outline-warning">{{__('auth.print')}}</a>
+                    </td>
+
+                    @role('seller|Feedback')
+                    <td class="d-flex flex-column ">
+
+
+                  <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">{{__('auth.edit')}}</a>
+
                         <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">
                             @csrf
                             @method('DELETE')

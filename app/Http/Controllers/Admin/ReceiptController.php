@@ -24,6 +24,8 @@ class ReceiptController extends Controller
     {
         //
       //  $receipts = auth()->user()->receipts()->where('ready',0);
+       $role =  auth()->user()->roles[0]->name;
+       dd($role);
         $receipts = auth()->user()->receipts()->with('user')->get();
 
        // dd($receipts);
