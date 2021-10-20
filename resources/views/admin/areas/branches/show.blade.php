@@ -16,7 +16,7 @@
                 <label>{{__("names.branch")}} {{__("auth.phone")}}</label>
                 <p><b>{{$branch->phone}}</b></p> <hr>
                 <label>{{__("names.branch")}} {{__("auth.location")}}</label>
-                <p><b>{{$branch->location}}</b></p> <hr>
+                <p><b><a href="{{route('admin.locations.show',$branch->location->id)}}">{{$branch->location->name }}</a></b></p> <hr>
                 <label>{{__("names.branch")}} {{__("auth.state")}}</label>
                 <p><b>{{$branch->state->name }}</b></p> <hr>
                 <label>{{__("names.branch")}} {{__("auth.manager")}}</label>
@@ -31,9 +31,18 @@
                     @endforeach
                 </p> <hr>
                 <div class="d-flex ">
-                    @can('branch-edit')
-                        <a href="{{ route('admin.branches.edit',$branch->id) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
-                    @endcan
+                    @if($branch->active)
+                        @can('branch-close')
+                            <a href="{{ route('admin.branches.close',$branch->id) }}" class="btn btn-info ">{{__("auth.close")}}</a>
+                        @endcan
+                    @else
+                        @can('branch-open')
+                            <a href="{{ route('admin.branches.open',$branch->id) }}" class="btn btn-info ">{{__("auth.open")}}</a>
+                        @endcan
+                    @endif
+                        @can('branch-edit')
+                            <a href="{{ route('admin.branches.edit',$branch->id) }}" class="btn btn-info ">{{__("auth.edit")}}</a>
+                        @endcan
                     @can('branch-delete')
                         <form class="ml-5" action="{{route('admin.branches.destroy',$branch->id) }}" method="POST">
                             @csrf

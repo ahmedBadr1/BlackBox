@@ -39,10 +39,29 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="location" class="col-md-4 col-form-label text-md-right">{{__("names.branch")}} {{__("auth.location")}}</label>
+                        <label for="location_id" class="col-md-4 col-form-label text-md-right">{{__("names.branch")}} {{__("auth.location")}}</label>
                         <div class="col-md-6">
-                            <input  type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ $branch->location }}"  >
+                            <input  type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ $branch->location->name }}"  >
                             @error('location')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('location')}}</label>
+                        <div class="col-md-6">
+                            <select name="location_id"  class="form-control @error('location_id') is-invalid @enderror">
+                                <option value="" selected>{{__('names.select location')}}</option>
+                                @foreach($locations as $location)
+                                    <option value="{{$location->id}}"
+                                            @if($location->id === $branch->location_id)
+                                            selected
+                                        @endif>{{$location->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('location_id')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -85,7 +104,6 @@
                             @enderror
                         </div>
                     </div>
-
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">

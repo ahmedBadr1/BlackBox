@@ -60,29 +60,33 @@ class PermissionsSeeder extends Seeder
             Permission::findOrCreate($permission);
         }
 
+
+        $role1 = Role::findOrCreate('Feedback');
+
+        $role2 = Role::findOrCreate('owner');
+
+        $role3 = Role::findOrCreate('manager');
+        $role3->givePermissionTo('role-show');
+        $role3->givePermissionTo('role-edit');
+        $role3->givePermissionTo('area-show');
+        $role3->givePermissionTo('area-create');
+        $role3->givePermissionTo('user-create');
+        $role3->givePermissionTo('user-show');
+        $role3->givePermissionTo('dashboard');
+
+        $role4 = Role::findOrCreate('delivery');
+        $role4->givePermissionTo('order-show');
+        $role4->givePermissionTo('order-status');
+        $role4->givePermissionTo('area-show');
+        $role4->givePermissionTo('dashboard');
+
+
         // create roles and assign existing permissions
-        $role0 = Role::findOrCreate('seller');
-        $role0->givePermissionTo('dashboard');
-
-        $role1 = Role::findOrCreate('delivery');
-        $role1->givePermissionTo('order-show');
-        $role1->givePermissionTo('order-status');
-        $role1->givePermissionTo('area-show');
-        $role1->givePermissionTo('dashboard');
-
-        $role2 = Role::findOrCreate('manager');
-        $role2->givePermissionTo('role-show');
-        $role2->givePermissionTo('role-edit');
-        $role2->givePermissionTo('area-show');
-        $role2->givePermissionTo('area-create');
-        $role2->givePermissionTo('user-create');
-        $role2->givePermissionTo('user-show');
-        $role2->givePermissionTo('dashboard');
-
-        //$role2 = Role::findOrCreate('owner');
+        $role5 = Role::findOrCreate('seller');
+        $role5->givePermissionTo('dashboard');
 
 
-        $role3 = Role::findOrCreate('Feedback');
+
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
 
@@ -90,27 +94,14 @@ class PermissionsSeeder extends Seeder
 
         // create demo users
 
-        $password = Hash::make('seller@blackbox.com');
+        $password = Hash::make('feedback');
         $user = \App\Models\User::factory()->create([
-            'name' => 'seller',
-            'email' => 'seller@blackbox.com',
-            'phone' => '01100068386',
+            'name' => 'feedback',
+            'email' => 'admin@blackbox.com',
+            'phone' => '01098281638',
             'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
-
-
-        ]);
-        $user->assignRole($role0);
-
-
-        $user = \App\Models\User::factory()->create([
-            'name' => 'delivery',
-            'email' => 'delivery@blackbox.com',
-            'phone' => '01100068386',
-            'state_id' => '1',
-            'hearAboutUs' => 'system',
-            'password'=>bcrypt('delivery@blackbox.com'),
 
         ]);
         $user->assignRole($role1);
@@ -126,18 +117,48 @@ class PermissionsSeeder extends Seeder
 
         ]);
         $user->assignRole($role2);
-        $password = Hash::make('feedback');
 
+
+        $password = Hash::make('manager@blackbox.com');
         $user = \App\Models\User::factory()->create([
-            'name' => 'feedback',
-            'email' => 'admin@blackbox.com',
-            'phone' => '01098281638',
+            'name' => 'manager',
+            'email' => 'manager@blackbox.com',
+            'phone' => '01090007769',
             'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
 
         ]);
         $user->assignRole($role3);
+
+
+
+
+        $user = \App\Models\User::factory()->create([
+            'name' => 'delivery',
+            'email' => 'delivery@blackbox.com',
+            'phone' => '01100068386',
+            'state_id' => '1',
+            'hearAboutUs' => 'system',
+            'password'=>bcrypt('delivery@blackbox.com'),
+
+        ]);
+        $user->assignRole($role4);
+
+
+        $password = Hash::make('seller@blackbox.com');
+        $user = \App\Models\User::factory()->create([
+            'name' => 'seller',
+            'email' => 'seller@blackbox.com',
+            'phone' => '01100068386',
+            'state_id' => '1',
+            'hearAboutUs' => 'system',
+            'password'=>$password,
+        ]);
+        $user->assignRole($role5);
+
+
+
 
     }
 }

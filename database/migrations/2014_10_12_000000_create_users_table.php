@@ -18,11 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone');
+            $table->integer('balance')->default(0);
             $table->foreignIdFor(\App\Models\State::class)->nullable();
             $table->string('hearAboutUs')->default('none');
-          //  $table->boolean('is_seller')->default(false);
             $table->foreignIdFor(\App\Models\Branch::class)->default(0);
-           // $table->tinyInteger('role')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignIdFor(\App\Models\Plan::class)->default(1);
             $table->string('password');

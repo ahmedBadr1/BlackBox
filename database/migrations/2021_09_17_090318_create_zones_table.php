@@ -16,7 +16,7 @@ class CreateZonesTable extends Migration
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('rank')->default(1);
+            $table->unsignedSmallInteger('rank')->default(1);
             $table->foreignIdFor(\App\Models\State::class);
             $table->timestamps();
         });

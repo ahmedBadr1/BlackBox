@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\WelcomeMailNotification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -53,7 +54,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'numeric'],
+            'phone' => ['required', 'min:10'],
             'state_id' => ['required', 'numeric'],
             'hearedAboutUs' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -78,6 +79,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
         $user->assignRole('seller');
+
         return$user;
     }
 }

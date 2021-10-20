@@ -1,13 +1,13 @@
 
 
 # Black Box Shipping System
-<p>For shipping companies </p>
+<p>For shipping companies powered by laravel </p>
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - Simple, fast routing engine
 
-Badr is accessible, powerful, and provides tools required for large, robust applications.
+Black Box is accessible, powerful, and provides tools required for large, robust applications.
 
 # Getting started
 
@@ -62,20 +62,21 @@ You can now access the server at http://localhost:8000
     composer install
     cp .env.example .env
     php artisan key:generate
-
-    
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
     php artisan migrate
-    php artisan serve
-
-## Database seeding
+    
+**Make sure you set the connection between storage and public directory (run only once in project lifetime)**
+    
+    php artisna storage:link 
+    
+### Database seeding
 
 **Populate the database with seed data with relationships which includes users, articles, comments, tags, favorites and follows. This can help you to quickly start testing the api or couple a frontend and start using it with ready content.**
 
 Open the DummyDataSeeder and set the property values as per your requirement
 
-    database/seeds/DummyDataSeeder.php
+    database/seeds/DatabaseSeeder.php
 
 Run the database seeder and you're done
 
@@ -84,11 +85,17 @@ Run the database seeder and you're done
 ***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
 
     php artisan migrate:refresh --seed
+    
 **Accounts**
 
     admin@blackbox.com  
     owner@blackbox.com  
     seller@blackbox.com  
     delivery@blackbox.com   
+    
+You can now access the server at http://localhost:8000    
+
+    php artisan serve
+***Enjoy*** 
     
     

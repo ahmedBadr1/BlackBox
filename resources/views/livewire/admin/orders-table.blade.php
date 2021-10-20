@@ -10,6 +10,7 @@
                     <option>Value</option>
 
                     <option value="status_id">Status</option>
+                    <option>cost</option>
                     <option>discount</option>
                     <option>tax</option>
                     <option>total</option>
@@ -50,7 +51,7 @@
         <th>{{__("auth.cust_num")}}</th>
         <th>{{__("auth.address")}}</th>
         <th>{{__("names.total")}}</th>
-        <th>{{__("names.count")}}</th>
+        <th>{{__("names.cost")}}</th>
         <th>{{__("names.notes")}}</th>
         <th>{{__("names.status")}}</th>
         <th>{{__("auth.username")}}</th>
@@ -71,7 +72,7 @@
                                                         {{ $order->area->name}}</a>, {{$order->state->name}}
                 </td>
                 <td>{{$order->total}} </td>
-                <td>{{$order->product['quantity']}} </td>
+                <td>{{$order->cost}} </td>
                 <td>{{\Illuminate\Support\Str::limit($order->details['notes'], 20) ?? 'no notes'}} </td>
                 <td>{{$order->status->name}} </td>
 

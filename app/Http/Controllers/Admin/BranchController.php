@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
+use App\Models\Location;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -115,7 +116,9 @@ class BranchController extends Controller
         $managers =User::role(['manager'])->select('id','name')->get();
       //  dd($managers);
         $states= State::where('active',true)->get();
-       return view('admin.areas.branches.edit',compact('branch','managers','states'));
+        $locations = Location::select('id','name')->get();
+     //   dd($locations);
+       return view('admin.areas.branches.edit',compact('branch','managers','states','locations'));
 
     }
 
@@ -154,6 +157,13 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
+        $main = Branch::first();
+      //  dd($main->id);
+        if ($id == $main->id) {
+            notify()->warning($main->name . ' Branch can\'t be deleted ','Deleting Denied');
+            return  redirect()->back();
+        }
+
       $branch =  Branch::where('id',$id)->withCount('users')->first();
 
 
@@ -191,10 +201,28 @@ class BranchController extends Controller
         //notify()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
         return redirect()->route('admin.branches.index');
     }
-    public function close(){
+    public function close($id){
 
+        $branch = Branch::findOrFail($id);
+
+        if(auth()->id() != $branch->user_id){
+            notify()->error( 'only manager can do this');
+            return redirect()->back();
+        }
+        $branch->active = false;
+        notify()->success( 'The Branch is cloesd now',$branch->name . ' Branch closed');
+        $branch->save();
+        return redirect()->back();
     }
-    public function open(){
-
+    public function open($id){
+        $branch = Branch::findOrFail($id);
+        if(auth()->id() != $branch->user_id){
+            notify()->error( 'only manager can do this');
+            return redirect()->back();
+        }
+        $branch->active = true;
+        $branch->save();
+        notify()->success( 'The Branch is open now',$branch->name . ' Branch open');
+        return redirect()->back();
     }
 }

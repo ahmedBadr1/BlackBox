@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Main;
 
+use App\Models\User;
+use App\Notifications\BlockedUserNotification;
+use App\Notifications\UnBlockedUserNotification;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
 
@@ -24,5 +27,11 @@ class ToggleButton extends Component
         $this->model->setAttribute($this->field,$value)->save();
         $this->dispatchBrowserEvent('alert',
             ['type' => 'info',  'message' => 'Going Well!']);
+        if ($this->model instanceof User ){
+            if ($value){
+                $this->model->notify(new UnBlockedUserNotification());
+            }else
+            $this->model->notify(new BlockedUserNotification());
+        }
     }
 }

@@ -15,6 +15,7 @@ class Task extends Model
     public static array $types = ['pickup', 'dropoff','else'];
     protected $dates = [
         'due_to',
+        'location_id',
         'created_at',
         'updated_at',
         'done_at'

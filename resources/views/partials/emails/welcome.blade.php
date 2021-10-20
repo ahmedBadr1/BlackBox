@@ -10,6 +10,6 @@
 <body>
 <h1>{{$details['title']}}</h1>
 <p>{{$details['body']}}</p>
-<a href="www.bagyexpress.com" >visit us</a>
+<a href="www.blackbox.com" >visit us</a>
 </body>
 </html>

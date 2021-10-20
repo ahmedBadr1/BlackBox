@@ -12,10 +12,10 @@
 
 
                 @foreach($packing as $pack)
-                <div class="col-md-3 mb-3 ">
+                <div class="col-6 col-md-4  col-lg-3 mb-3 ">
 
 
-                <div class="card col-md-12 ">
+                <div class="card  ">
                     <div class="card-header">{{$pack->type}}</div>
                     <div class="card-body">
                         <p>Price :<b> {{$pack->price}}</b></p>

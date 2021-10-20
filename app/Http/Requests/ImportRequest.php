@@ -13,7 +13,7 @@ class ImportRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class ImportRequest extends FormRequest
     public function rules()
     {
         return [
-            'importFile' =>['required','file']
+            'import_file' =>['required','file']
         ];
     }
 }

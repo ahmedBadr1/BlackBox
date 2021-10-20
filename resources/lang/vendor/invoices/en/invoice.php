@@ -35,4 +35,6 @@ return [
     'shipping'               => 'Shipping',
     'paid'                   => 'Paid',
     'due'                    => 'Due',
+    'company'                => 'Company',
+    'shipper'                => 'Shipper',
 ];

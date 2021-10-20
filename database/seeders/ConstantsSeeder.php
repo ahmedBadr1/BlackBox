@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\Feature;
+use App\Models\Location;
 use App\Models\Packing;
 use App\Models\Plan;
 use App\Models\State;
@@ -44,17 +46,17 @@ class ConstantsSeeder extends Seeder
                 'area' => []
             ]);
         }
-            $features = ['clients','products','trash'];
+        $features = ['clients','products','trash'];
 
-            foreach ($features as $feature){
-                Feature::factory()->create([
-                    'name' => $feature,
+        foreach ($features as $feature){
+            Feature::factory()->create([
+                'name' => $feature,
 
-                ]);
+            ]);
         }
 
 
-       $types = [
+        $packing = [
         'Poly Bags',
         'Paperboard Boxes',
         'Paper Bag',
@@ -63,14 +65,16 @@ class ConstantsSeeder extends Seeder
         'Plastic Boxes',
         'Side Gusset Bags',
         'Rigid',
-    ];
-            foreach($types as $type){
-                Packing::factory()->create([
-                    'type' => $type,
-                    'price' => rand(.25,20),
-                    'size' => rand(10,100),
-                ]);
-            }
+        ];
+        foreach($packing as $type){
+            Packing::factory()->create([
+                'type' => $type,
+                'price' => rand(.25,20),
+                'size' => rand(10,100),
+            ]);
+        }
+
+
 
     }
 }

@@ -31,24 +31,41 @@ class OrdersImport implements ToModel ,WithHeadingRow ,WithBatchInserts ,WithCus
         $area = $this->areas->where('name',$row['area'])->first();
 //dd($area->id);
         return new Order([
-            'product_name'  => $row['product_name'],
-            'value'    => $row['value'],
-            'cust_name' =>$row['customer_name'],
-            'cust_num' =>$row['customer_number'],
-            'address' =>$row['address'],
-            'area_id' => $area->id ,
-            'quantity' =>$row['quantity'],
-            'notes' => $row['notes'],
-            'status_id'=> 1,
-            'user_id'=> $this->id,
-            'total'=>  $row['value'] * $row['quantity'],
+            'product'=> [
+                'name' => $row['product_name'],
+                'description' =>$row['description'],
+                'value' => $row['value'],
+                'quantity' => $row['quantity'],
+            ],
+            'consignee' => [
+                'cust_name' => $row['customer_name'],
+                'cust_num' => $row['customer_number'],
+                'address' => $row['address'],
+            ],
+            'details' => [
+                'package_type' => $row['package_type'] ?? null,
+                'package_weight' => $row['package_weight']?? null,
+                'deliver_before' => $row['deliver_before']?? null,
+                'cod' =>$row['cod']?? null,
+                'notes' => $row['notes']?? null,
+            ],
 
+            'area_id' => $area->id ,
+            'user_id'=> $this->id,
+            'status_id' => 1,
+            'cost' => $row['cost'] ?? null,
+            'sub_total' => $row['sub_total'] ?? 0,
+            'tax' => $row['tax'] ?? 0,
+            'discount' => $row['discount']?? 0,
+            'total' => $row['total']?? $row['value'] * $row['quantity'],
         ]);
 
     }
     public function onError(\Throwable $e)
     {
         // Handle the exception how you'd like.
+     //   notify()->error('somrthing went wrong please try again later','oops');
+       throw($e);
     }
     public function chunkSize(): int
     {

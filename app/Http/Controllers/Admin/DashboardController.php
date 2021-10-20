@@ -17,6 +17,7 @@ use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
+use App\Notifications\Admin\NewUserNotification;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -97,6 +98,13 @@ class DashboardController extends Controller
             'packing',
             'locations',
         ));
+    }
+    public function notifications()
+    {
+       $notifications =  \auth()->user()->notifications;
+     //  dd($notifications);
+     //   auth()->user()->notify(new NewUserNotification());
+        return \view('admin.notifications',compact('notifications')) ;
     }
     public function profile()
     {
@@ -260,26 +268,28 @@ class DashboardController extends Controller
 
         $setting = Setting::first();
 
-        if(! isset($input['company_logo'])){
-            $photoPath  = $setting->company_logo;
-        }else {
-            if(!File::isDirectory($path)){
-                File::makeDirectory($path, 0777, true, true);
-            }
-            if($setting){
-                if(File::exists(storage_path().'/app/public/'.$setting->company_logo)){
-                    //dd('found');
-                    File::delete(storage_path().'/app/public/'.$setting->company_logo);
-                }
-            }
-            $photoPath =  $input['company_logo']->store($path,'public');
-            $input['company_logo'] = $photoPath;
-        }
+        if($setting){
+            if(! isset($input['company_logo'])){
+                $photoPath  = $setting->company_logo;
+            }else {
 
-        if(!$setting){
-            Setting::create($input) ;
+                if(!File::isDirectory($path)){
+                    File::makeDirectory($path, 0777, true, true);
+                }
+                if($setting){
+                    if(File::exists(storage_path().'/app/public/'.$setting->company_logo)){
+                        //dd('found');
+                        File::delete(storage_path().'/app/public/'.$setting->company_logo);
+                    }
+                }
+                $photoPath =  $input['company_logo']->store($path,'public');
+                $input['company_logo'] = $photoPath;
+
+                $setting->update($input);
+            }
+
         }else{
-            $setting->update($input);
+            Setting::create($input) ;
         }
 
 

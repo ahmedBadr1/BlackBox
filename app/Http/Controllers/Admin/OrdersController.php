@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\admin\OrdersExportAr;
 use App\Exports\Admin\OrdersExportEn;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImportRequest;
+use App\Imports\OrdersImport;
 use App\Models\Area;
 use App\Models\Order;
 use App\Models\Packing;
@@ -180,6 +182,15 @@ class OrdersController extends Controller
         notify()->success('Order Created Successfully');
 
         return redirect()->route('admin.orders.index');
+    }
+
+
+    public function import(ImportRequest $request)
+    {
+
+        Excel::import(new OrdersImport(), $request->file('import_file'));
+
+        return redirect()->back()->with('success', 'All good!');
     }
 
     /**

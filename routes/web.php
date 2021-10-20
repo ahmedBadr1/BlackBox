@@ -27,11 +27,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 
     Route::get('/auth/redirect', function () {
          return Socialite::driver('google')
-            ->with(['hd' => 'www.bagyexpress.com'])
+            ->with(['hd' => 'www.blackbox.com'])
             ->redirect();
     });
 
-    Auth::routes(['verify' => true]);
+    \Illuminate\Support\Facades\Auth::routes(['verify' => true]);
 
 
     Route::group(['middleware'=>['auth','verified','IsActive']],function (){
@@ -64,12 +64,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('mytrash',[\App\Http\Controllers\Seller\OrdersController::class,'mytrash']);
         Route::get('/export/orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
         Route::get('/export/orders/ar', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
-        Route::post('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
+        Route::get('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
         Route::get('areas',[\App\Http\Controllers\Seller\SellerController::class,'areas'])->name('areas');
         Route::get('areas/{id}',[\App\Http\Controllers\Seller\SellerController::class,'areasShow'])->name('areas.show');
 
             Route::get('branches',[\App\Http\Controllers\Seller\SellerController::class,'branches'])->name('branches');
             Route::get('branches/{id}',[\App\Http\Controllers\Seller\SellerController::class,'branchesShow'])->name('branches.show');
+
         Route::resource('orders',\App\Http\Controllers\Seller\OrdersController::class);
 
         }); // end seller group middleware
@@ -105,7 +106,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::post('/states/toggle/{id}', [\App\Http\Controllers\Admin\AreaController::class,'toggle']);
                 Route::get('/export/orders/en', [\App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
                 Route::get('/export/orders/ar', [\App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
-               Route::post('/import/orders', [\App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
+//                Route::get('/import/orders', [\App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
+//                Route::post('/import/orders', [\App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
               //  Route::post('/parse/import', [App\Http\Controllers\Main\ExcelController::class,'parseImport'])->name('parse.import');
 
                 Route::get('roles/permissions',[\App\Http\Controllers\Admin\RolesController::class,'permissions'])->name('roles.permissions');
@@ -134,6 +136,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 
                 Route::get('/export/orders/en', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersEn'])->name('export.orders.en');
                 Route::get('/export/orders/ar', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersAr'])->name('export.orders.ar');
+
                 Route::get('orders/{order}/pdf', [\App\Http\Controllers\Admin\OrdersController::class, 'pdf'])->name('orders.pdf');
                 Route::get('orders/{order}/print', [\App\Http\Controllers\Admin\OrdersController::class, 'print'])->name('orders.print');
                 Route::get('receipts/{id}/print',[\App\Http\Controllers\Admin\ReceiptController::class,'print'])->name('receipts.print');
@@ -142,6 +145,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::get('/features/{id}',[\App\Http\Controllers\Admin\PlanController::class,'featuresShow'])->name('features.show');
                 Route::get('/packing',[\App\Http\Controllers\Admin\OrdersController::class,'packing'])->name('packing');
 
+                Route::any('/orders/import', [\App\Http\Controllers\Admin\OrdersController::class,'import'])->name('orders.import');
+
+                Route::get('branches/{id}/close',[\App\Http\Controllers\Admin\BranchController::class,'close'])->name('branches.close');
+                Route::get('branches/{id}/open',[\App\Http\Controllers\Admin\BranchController::class,'open'])->name('branches.open');
 
 
             Route::resource('users',\App\Http\Controllers\Admin\UserController::class);

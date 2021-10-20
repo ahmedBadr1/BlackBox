@@ -20,6 +20,16 @@
 
         </div>
     </div>
+    <form action="{{route('admin.orders.import')}}" enctype="multipart/form-data" method="post">
+        @csrf
+        <input type="file" name="import_file">
+        <button type="submit"  class="btn btn-primary">Import</button>
+        @error('import_file')
+
+                                        <strong>{{ $message }}</strong>
+
+        @enderror
+    </form>
     @if($importon)
         <div class="col-md-12">
 {{--            <form  wire:submit.prevent="import" enctype="multipart/form-data" >--}}
@@ -39,12 +49,7 @@
 {{--            </form>--}}
 
 
-            <form action="{{route('admin.import.orders')}}" enctype="multipart/form-data" method="post">
-                @csrf
-                @method('POST')
-                <input type="file" name="import_file">
-                <button type="submit"  class="btn btn-primary">Import</button>
-            </form>
+
 
 {{--            @if($importing && !$importFinished)--}}
 {{--                <div wire:poll="updateImportProgress">Importing...please wait.</div>--}}

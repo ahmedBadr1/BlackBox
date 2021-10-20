@@ -63,6 +63,7 @@ class SelectedOrdersExport implements FromCollection , ShouldAutoSize ,WithMappi
             'Quantity',
             'Notes',
             'Status',
+            'Created_by',
             'Created_at',
         ];
     }

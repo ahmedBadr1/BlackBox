@@ -43,7 +43,7 @@
                 <div class="form-group row">
                     <label for="product_description" class="col-md-4 col-form-label text-md-right">{{__("auth.product_description")}}</label>
                     <div class="col-md-6">
-                        <input  type="text" wire:model.lazy="product_name" class="form-control @error('product_description') is-invalid @enderror" name="product_description" value="{{ old('product_description') }}"  >
+                        <input  type="text" wire:model.lazy="product_description" class="form-control @error('product_description') is-invalid @enderror" name="product_description" value="{{ old('product_description') }}"  >
                         @error('product_description')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="area_id" class="col-md-4 col-form-label text-md-right">{{__('auth.package_type')}}</label>
+                    <label for="package_type" class="col-md-4 col-form-label text-md-right">{{__('auth.package_type')}}</label>
                     <div class="col-md-6">
                         <select name="package_type" wire:model.lazy="package_type" id="package_type" class="form-control @error('package_type') is-invalid @enderror">
                             <option value="">select Type</option>
@@ -62,6 +62,23 @@
                             @endforeach
                         </select>
                         @error('package_type')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="packing" class="col-md-4 col-form-label text-md-right">{{__('auth.packing')}}</label>
+                    <div class="col-md-6">
+                        <select name="packing" wire:model.lazy="packing" id="packing" class="form-control @error('packing') is-invalid @enderror">
+                            <option value="0">select Type</option>
+                            @foreach($packing_type as $pack)
+                                <option value="{{$pack->id}}" @if(old('packing') === $pack->id ) selected @endif>{{$pack->type}}</option>
+                            @endforeach
+                        </select>
+                        @error('packing')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -220,6 +237,7 @@
                     <p>      @lang('auth.value'):  {{$value}}   </p>
                     <p>      @lang('auth.quantity'):  {{$quantity }}   </p>
                     <p>       @lang('auth.delivery-cost') :  {{$delivery_cost}}   </p>
+                    <p>       @lang('auth.packing-cost') :  {{$packing_cost}}   </p>
                     <p>       @lang('auth.package-weight') :  {{  $weight}}   </p>
                     <p>      @lang('auth.package-over-weight') :  {{  $overWeight}}   </p>
                     <p>     @lang('auth.package-over-weight-cost') :  {{  $overWeightCost}}   </p>

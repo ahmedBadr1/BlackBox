@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Admin;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class DoneNotification extends Notification
+class NewUserNotification extends Notification
 {
     use Queueable;
-    public  $user;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(public $order)
+    public function __construct()
     {
-
+        //
     }
 
     /**
@@ -39,11 +39,10 @@ class DoneNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
-            'id' => $this->order->id,
-            'total' => $this->order->total,
+         'message'=>'new member joined us',
         ];
     }
 }

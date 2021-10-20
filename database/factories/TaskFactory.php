@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Location;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -24,6 +25,7 @@ class TaskFactory extends Factory
     {
         return [
             'type' => Task::$types[rand(0,2)],
+      //      'location_id' => Location::all()->random()->id,
             'due_to'=> $this->faker->dateTime(),
             'delivery_id'=> User::role(['delivery'])->pluck('id')->random(),
             'user_id'=> User::role(['seller'])->pluck('id')->random()

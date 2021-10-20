@@ -19,8 +19,8 @@ class CreateReceiptsTable extends Migration
             $table->string('orders_ids');
             $table->unsignedBigInteger('orders_count');
             $table->unsignedBigInteger('sub_total')->nullable();
-            $table->unsignedBigInteger('discount')->nullable();
-            $table->unsignedBigInteger('tax')->nullable();
+            $table->unsignedBigInteger('discount')->default(0);
+            $table->unsignedBigInteger('tax')->default(0);
             $table->unsignedBigInteger('total');
             $table->boolean('printed')->default(0);
             $table->foreignIdFor(User::class);

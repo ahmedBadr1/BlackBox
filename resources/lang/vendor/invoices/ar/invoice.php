@@ -36,4 +36,7 @@ return [
     'shipping'               => 'الشحن',
     'paid'                   => 'مدفوع',
     'due'                    => 'إلى',
+    'company'                => 'الشركة',
+    'shipper'                => 'الشاحن',
+
 ];

@@ -16,7 +16,7 @@ class CreatePackingsTable extends Migration
         Schema::create('packings', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->string('price');
+            $table->unsignedSmallInteger('price');
             $table->string('size');
             $table->timestamps();
         });

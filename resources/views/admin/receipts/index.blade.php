@@ -55,7 +55,10 @@
 
                             <td> <a href="{{ route('admin.receipts.show',$receipt->id) }}"> {{$receipt->id}} </a></td>
 
-                            <td>{{$receipt->order_id}}</td>
+                            <td>@foreach($receipt->orders_ids as $order)
+                              {{ $order }} ,
+                                @endforeach
+                            </td>
                             <td>{{$receipt->orders_count}}</td>
                             <td>{{$receipt->sub_total}}</td>
                             <td>{{$receipt->discount}} </td>
@@ -64,20 +67,7 @@
                             <td>@php echo DNS1D::getBarcodeHTML($receipt->order_id,'C39'); @endphp</td>
                             <td><a href="{{route('admin.users.show',$receipt->user_id)}}">{{ $receipt->user->name }}</a> </td>
                             @role('client|Feedback')
-                            <td><a href="{{route('admin.receipts.print',$receipt->id)}}" class="btn btn-outline-success">{{__('auht.print')}}</a></td>
-                            @endrole
-
-                            @role('client|Feedback')
-                            <td><a href="{{ route('admin.receipts.edit',$receipt->id) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>
-                            @endrole
-                            @role('client|Feedback')
-                            <td>
-                                <form action="{{route('admin.receipts.destroy',$receipt->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
-                                </form>
-                            </td>
+                            <td><a href="{{route('admin.receipts.print',$receipt->id)}}" class="btn btn-outline-success">{{__('auth.print')}}</a></td>
                             @endrole
 
                         </tr>

@@ -9,9 +9,10 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Facades\Invoice;
 use Milon\Barcode\DNS1D;
-
+use PDF;
 class ReceiptController extends Controller
 {
 
@@ -25,7 +26,7 @@ class ReceiptController extends Controller
         //
       //  $receipts = auth()->user()->receipts()->where('ready',0);
        $role =  auth()->user()->roles[0]->name;
-       dd($role);
+     //  dd($role);
         $receipts = auth()->user()->receipts()->with('user')->get();
 
        // dd($receipts);
@@ -65,7 +66,7 @@ class ReceiptController extends Controller
         $receipt = new Receipt;
         $receipt->orders_ids = $input['orders'];
         $receipt->orders_count = count($input['orders']);
-        $receipt->total = 1000 ;
+        $receipt->total = 0 ;
         $receipt->user_id = auth()->id() ;
         $receipt->save();
         if (!$input['selectAll']){
@@ -74,26 +75,29 @@ class ReceiptController extends Controller
                $order->receipt()->associate($receipt);
                $order->save();
            }
-
         }
-        dd(  $receipt->orders);
-        $receipt->orders()->attach($input['orders']);
+        $receipt->total =   $receipt->orders()->sum('cost');
+        $receipt->save();
+     //   $receipt->orders()->attach($input['orders']);
 
         $pendingOrders = auth()->user()->orders()->where('status_id','=',1);
 
        // dd($request->all());
+        return redirect()->route('admin.receipts.index',compact('pendingOrders'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $receipt = Receipt::findOrFail($id);
+      //  dd($receipt);
        // echo DNS1D::getBarcodeHTML('4445645656', 'PHARMA2T');
+        return view('admin.receipts.show',compact('receipt'));
     }
 
     /**
@@ -106,24 +110,52 @@ class ReceiptController extends Controller
     public function print($id)
     {
       //  dd($id);
+      $user=   auth()->user();
         $receipt = Receipt::findOrFail($id);
-        $customer = new Buyer([
+        $buyer = new Buyer([
             'name'          => $receipt->user->name,
+            'phone'          => $receipt->user->phone,
+            'address'          => $receipt->user->profile->address,
             'custom_fields' => [
-                'email' => 'test@example.com',
+                'email' => $receipt->user->email,
+            ],
+        ]);
+        $seller = new Party([
+            'name'          => setting('owner'),
+            'phone'         => setting('contact'),
+            'address'       => setting('location_id'),
+            'custom_fields' => [
+                'email' => setting('email'),
             ],
         ]);
 
-        $item = (new InvoiceItem())->title($receipt->id)->pricePerUnit(2);
 
+
+         $orders =    Order::find($receipt->orders_ids);
+        $items = [];
+         //   dd($orders);
+            foreach ($orders as $order) {
+                $items[] = (new InvoiceItem())->title($order->hashid)->description($order->id)->pricePerUnit($order->cost);
+            }
+
+        $logoPath =  storage_path('app/public/'.setting('company_logo'))   ?? '';
         $invoice = Invoice::make()
-            ->buyer($customer)
-            ->discountByPercent(10)
-            ->taxRate(15)
-            ->shipping(1.99)
-            // ->logo('https://png.pngtree.com/element_our/png/20180912/coffee-time-png_91570.jpg')
-            ->addItem($item);
+            ->template('custom')
+            ->sequence($receipt->id)
+            ->buyer($buyer)
+            ->seller($seller)
+          //  ->discountByPercent(10)
+            ->taxRate(14)
+            ->shipping(20)
+            ->totalAmount($receipt->total)
+            ->logo($logoPath)
+            ->addItems($items);
 
+        if(app()->getLocale() == "ar"){
+            //   notify()->error('can\'t print arabic charachters');
+            $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
+            return $pdf->stream('arabic.pdf');
+        }
         return $invoice->stream();
     }
 
@@ -137,6 +169,7 @@ class ReceiptController extends Controller
     public function edit($id)
     {
         //
+        abort(403);
     }
 
     /**
@@ -160,5 +193,6 @@ class ReceiptController extends Controller
     public function destroy($id)
     {
         //
+        abort(403);
     }
 }
