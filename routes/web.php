@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
 {
+
     /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
     Route::get('/', function (){
         return view('main.home');
@@ -45,6 +46,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 return redirect()->route('admin.dashboard');
             }
         })->name('dashboard');
+        Route::get('valex/{name}',\App\Http\Controllers\ValexController::class)->name('valex');
+
+
+
         Route::group([
             'middleware' => ['role:seller']
         ], function () {
