@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Order;
 use App\Models\State;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -15,7 +18,34 @@ class DashboardController extends Controller
     //
     public function index()
     {
-        return view('seller.dashboard');
+        $user = \auth()->user();
+
+      //  $orders = Order::where('user_id',auth()->id());
+
+        $total =  Order::myOrders()->whereNotIn('status_id', [1,2,10] )->sum('total'); //scope in Order
+        $count = Order::myOrders()->count();
+
+        $success = Order::myOrders()->where('status_id',  6)->count();
+        $pending =  Order::myOrders()->whereIn('status_id', [1,2,3,4,5] )->count();
+        $failed  =     Order::myOrders()->whereIn('status_id', [7,8,9,10]  )->count();
+//dd($failed);
+        $cancelled =  Order::myOrders()->whereIn('status_id', [7,8])->count(); // refused or cancel
+
+        $monthOrdersCount =$user->ordersMonthly(now()->month)->count(); //relation based on month in User
+        $monthOrdersValue = $user->ordersMonthly(now()->month)->sum('total');
+
+        $lastMonthOrdersCount = $user->ordersMonthly(now()->subMonth(1))->whereNotIn('status_id', [1,2,10] )->count();
+        $lastMonthOrdersValue = $user->ordersMonthly(now()->subMonth(1))->whereNotIn('status_id', [1,2,10] )->sum('total');
+
+
+       // dd($monthOrdersCount);
+
+        return view('seller.dashboard',compact(
+            'monthOrdersCount', 'monthOrdersValue'
+            ,'lastMonthOrdersCount','lastMonthOrdersValue'
+            ,'success','pending','failed','cancelled',
+            'total','count'
+        ));
     }
     public function mybalance (){
         //   $total = auth()->user()->orders->sum('value');
@@ -29,23 +59,21 @@ class DashboardController extends Controller
         //    dd($total);
         return view('seller.accounting.mybalance',compact('total','ordersCount','avilableOrders'));
     }
-    public function mytrash()
-    {
-        if(Gate::allows('feature','trash')){
-            $orders = auth()->user()->orders()->onlyTrashed()->paginate(25);
-        }else{
-            abort('403');
-        }
 
-
-        //   dd($orders);
-        return view('seller.orders.trash',compact('orders'));
-    }
     public function profile()
     {
         $user = Auth::user();
 
+        $total =  $user->orders()->whereNotIn('status_id', [1,2,10] )->sum('total');
+        $count = $user->orders()->count();
 
+        $orders =  $user->orders()->select('product')->get();
+        $products = 0;
+
+       foreach ($orders as $order){
+           $products += $order->product['quantity'];
+       }
+      // dd($products);
             $allTasks = $user->tasks->count();
             $doneTasks = $user->tasks->whereNotNull('done_at')->count();
 
@@ -54,15 +82,10 @@ class DashboardController extends Controller
         $allOrders = $user->orders->count();
         $doneOrders = $user->orders->where('status_id','6')->count();
 
-
-        return view('admin.profile.index', compact('user','allTasks','doneTasks','allOrders','doneOrders'));
-    }
-    public function profileEdit()
-    {
-        $user = Auth::user();
         $states= State::where('active',true)->get();
         $areas = Area::pluck('name')->all();
-        return view('admin.profile.edit', compact('user','states','areas'));
+
+        return view('seller.profile', compact('user','allTasks','doneTasks','allOrders','doneOrders' , 'total','count','products','states','areas'));
     }
     public function profileUpdate(Request $request)
     {
@@ -116,4 +139,15 @@ class DashboardController extends Controller
         notify()->success('Profile Updated Successfully','Profile Updated');
         return redirect()->route('profile');
     }
+    public function help(){
+        return view('seller.help');
+    }
+    public function notifications(){
+        return view('seller.notifications');
+    }
+    public function messages(){
+        return view('seller.messages.index');
+    }
+
+
 }

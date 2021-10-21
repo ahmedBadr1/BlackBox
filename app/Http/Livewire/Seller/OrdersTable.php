@@ -22,8 +22,9 @@ class OrdersTable extends Component
 
     public function mount()
     {
-        $this->startDate =  today()->subDays(365);
-        $this->endDate = now() ;
+        $this->startDate =  today()->subDays(365)->format('Y-m-d');
+        $this->endDate = now()->format('Y-m-d');
+
     }
 
     public function render()

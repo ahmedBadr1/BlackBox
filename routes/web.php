@@ -54,11 +54,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             'middleware' => ['role:seller']
         ], function () {
         Route::get('home',[\App\Http\Controllers\Seller\DashboardController::class,'index'])->name('seller.dashboard');
-        Route::get('help', [App\Http\Controllers\Admin\DashboardController::class, 'help'])->name('help');
-        Route::get('notifications', [App\Http\Controllers\Admin\DashboardController::class, 'notifications'])->name('notifications');
-        Route::get('profile', [App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('profile');
-        Route::get('profile/edit', [App\Http\Controllers\Seller\DashboardController::class, 'profileEdit'])->name('profile.edit');
-            Route::put('profile/', [App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
+        Route::get('help', [\App\Http\Controllers\Seller\DashboardController::class, 'help'])->name('help');
+        Route::get('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('setting');
+        Route::get('notifications', [\App\Http\Controllers\Seller\DashboardController::class, 'notifications'])->name('notifications');
+            Route::get('messages', [\App\Http\Controllers\Seller\DashboardController::class, 'messages'])->name('messages');
+        Route::get('profile', [\App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('profile');
+        Route::get('profile/edit', [\App\Http\Controllers\Seller\DashboardController::class, 'profileEdit'])->name('profile.edit');
+            Route::put('profile/', [\App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
         Route::get('inventory',[\App\Http\Controllers\Seller\SellerController::class,'inventory'])->name('orders.inventory');
         Route::get('orders/inline',[\App\Http\Controllers\Seller\SellerController::class,'inline'])->name('orders.inline');
         Route::post('orders/inline/{id}',[\App\Http\Controllers\Seller\SellerController::class,'inlinego'])->name('orders.inlinego');
@@ -76,6 +78,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::get('branches',[\App\Http\Controllers\Seller\SellerController::class,'branches'])->name('branches');
             Route::get('branches/{id}',[\App\Http\Controllers\Seller\SellerController::class,'branchesShow'])->name('branches.show');
 
+            Route::get('orders/trash',[\App\Http\Controllers\Seller\OrdersController::class,'trash'])->name('orders.trash');
         Route::resource('orders',\App\Http\Controllers\Seller\OrdersController::class);
 
         }); // end seller group middleware

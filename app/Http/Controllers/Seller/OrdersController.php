@@ -9,6 +9,8 @@ use App\Models\Area;
 use App\Models\Order;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+
 class OrdersController extends Controller
 {
     public function __construct()
@@ -100,7 +102,7 @@ class OrdersController extends Controller
         }
 
         if (!in_array($order->status->id,[1,2])){
-            notify()->warning("Order Can't be changed after reaching to Bagy");
+            notify()->warning("Order Can't be changed after reaching to ".setting('company_name'));
             return redirect()->route('orders.index');
         }
 
@@ -147,12 +149,28 @@ class OrdersController extends Controller
         if (auth()->id() !== $order->user_id){
             abort(404);
         }
+        if (!in_array($order->status_id,[1,2,10]) ){
+            notify()->warning("Order Can't be deleted after reaching to ".setting('company_name'));
+         return back();
+        }
+
         $order->delete();
         notify()->success('Order Deleted Successfully');
-        return redirect()->route('seller.orders.index');
+        return redirect()->route('orders.index');
     }
     public function trash(){
         $orders = auth()->user()->onlyTrashed()->paginate(25);
+        return view('seller.orders.trash',compact('orders'));
+    }
+
+    public function mytrash()
+    {
+        if(Gate::allows('feature','trash')){
+            $orders = auth()->user()->orders()->onlyTrashed()->paginate(25);
+        }else{
+            abort('403');
+        }
+        //   dd($orders);
         return view('seller.orders.trash',compact('orders'));
     }
 

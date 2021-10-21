@@ -100,6 +100,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Order::class);
     }
+
+    public function ordersMonthly($month)
+    {
+        return $this->hasMany(Order::class)->whereMonth('created_at',$month);
+    }
     public function custody(){
         return $this->hasMany(Order::class,'delivery_id');
     }

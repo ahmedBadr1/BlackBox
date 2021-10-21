@@ -9,7 +9,7 @@ return [
     /*
      * Positions:  top, topLeft, topCenter, topRight, center, centerLeft, centerRight, bottom, bottomLeft, bottomCenter, bottomRight
      */
-    'layout' => 'topRight',
+    'layout' => 'bottomRight',
 
     /*
      * Themes:  relax, mint, sunset, metroui, semanticui, nest, light, bootstrap-v3, bootstrap-v4

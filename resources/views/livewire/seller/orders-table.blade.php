@@ -1,34 +1,37 @@
 <div>
-    <div class="container-fluid ">
+
         <div class="row my-3 d-flex">
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-4">
                 <input type="search" wire:model.debounce.500ms="search" class="form-control" placeholder="search in names">
             </div>
-            <div class="col-xs-2">
+            <div class="col-6 col-md-2">
+                <label for="">From</label>
+                <input type="date" wire:model="startDate">
+            </div>
+            <div class="col-6 col-md-2">
+                <label for="">To</label>
+                <input type="date" wire:model="endDate">
+            </div>
+            <div class="col-4 col-md-2">
                 <select wire:model="orderBy" class="form-control-sm">
                     <option>Id</option>
-                    <option>Value</option>
-                    <option value="cust_name">Consignee Name</option>
-                    <option value="cust_num">Consignee Number</option>
-                    <option>Quantity</option>
+                    <option value="status_id">Status</option>
+                    <option>cost</option>
+                    <option>discount</option>
+                    <option>tax</option>
                     <option>total</option>
                     <option>created_at</option>
                 </select>
             </div>
-            <div class="col-xs-2">
+            <div class="col-4 col-md-1">
                 <select wire:model="orderDesc" class="custom-select-sm border">
                     <option value="1">Desc</option>
                     <option value="0">Asc</option>
 
                 </select>
             </div>
-            <div class="col-xs-2">
-                <label for="">From</label>
-                <input type="date" wire:model="startDate">
-                <label for="">To</label>
-                <input type="date" wire:model="endDate">
-            </div>
-            <div class="col-xs-2">
+
+            <div class="col-4 col-md-1">
                 <select wire:model="perPage" class="form-control-sm">
                     <option>5</option>
                     <option>10</option>
@@ -39,17 +42,17 @@
             </div>
         </div>
         <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover  table-responsive">
 
         <thead>
         <th>#</th>
         <th>{{__("auth.id")}} {{__("names.order")}}</th>
-        <th>{{__("auth.product_name")}}</th>
-        <th>{{__("auth.cust_name")}}</th>
-        <th>{{__("auth.cust_num")}}</th>
+        <th>{{__("auth.product-name")}}</th>
+        <th>{{__("auth.cust-name")}}</th>
+        <th>{{__("auth.cust-num")}}</th>
         <th>{{__("auth.address")}}</th>
-        <th>{{__("names.total")}}</th>
-        <th>{{__("names.count")}}</th>
+        <th>{{__("auth.total")}}</th>
+        <th>{{__("auth.cost")}}</th>
         <th>{{__("names.notes")}}</th>
         <th>{{__("names.status")}}</th>
 
@@ -62,33 +65,31 @@
             <tr>
                 <td>{{++$key}}</td>
                 <td> <a href="{{ route('orders.show',$order->hashid) }}" style="max-width: 100px "> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
-                <td>{{$order->product_name}} </td>
-                <td>{{$order->cust_name}} </td>
-                <td>{{$order->cust_num}} </td>
-                <td>{{$order->address}}, <a href="{{route('areas.show',$order->area_id)}}">
-                                                        {{ $order->area->name}}</a>, {{$order->state->name}}
+                <td>{{$order->product['name']}} </td>
+                <td>{{$order->consignee['cust_name']}} </td>
+                <td>{{$order->consignee['cust_num']}} </td>
+                <td>{{$order->consignee['address']}}, <a href="{{route('admin.areas.show',$order->area_id)}}">
+                        {{ $order->area->name}}</a>, {{$order->state->name}}
                 </td>
                 <td>{{$order->total}} </td>
-                <td>{{$order->quantity}} </td>
-                <td>{{\Illuminate\Support\Str::limit($order->notes, 20) ?? 'no notes'}} </td>
+                <td>{{$order->cost}} </td>
+                <td>{{\Illuminate\Support\Str::limit($order->details['notes'], 20) ?? 'no notes'}} </td>
                 <td>{{$order->status->name}} </td>
 
                 @auth
-                    @role('seller|Feedback')
+
                     <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
-                    @endrole
-                    @role('seller|Feedback')
-                    <td><a href="{{ route('orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">{{__('auth.edit')}}</a></td>
-                    @endrole
-                    @role('seller|Feedback')
+
+                    <td><a href="{{ route('orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info-gradient">{{__('auth.edit')}}</a></td>
+
                     <td>
                         <form action="{{route('orders.destroy',$order->hashid) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
+                            <input type="submit" class="btn btn-danger-gradient" value="{{__('auth.delete')}}">
                         </form>
                     </td>
-                    @endrole
+
                 @endauth
             </tr>
 
@@ -105,14 +106,14 @@
 
         @if(count($orders) > 0 )
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>{{__('auth.download')}}</small></button>
-                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('auth.excel')}}</a>
+                <button type="button" class="btn btn-warning-gradient" wire:click="export" wire:loading.attr="disabled"><small>{{__('auth.download')}}</small></button>
+                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success-gradient">{{__('auth.excel')}}</a>
             </div>
         @endif
         <div class="d-flex justify-content-center">
             {{ $orders->links('vendor.pagination.bootstrap-4') }}
         </div>
-    </div>
+
 </div>
 
 

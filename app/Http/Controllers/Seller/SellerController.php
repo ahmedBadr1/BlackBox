@@ -65,7 +65,7 @@ class SellerController extends Controller
     }
     public function areas()
     {
-        $areas = Area::all();
+        $areas = Area::paginate(10);
         return view('seller.areas.index',compact('areas'));
     }
     public function areasShow($id)
@@ -83,7 +83,5 @@ class SellerController extends Controller
         $branch = Branch::findOrFail($id);
         return view('seller.areas.show',compact('branch'));
     }
-
-
 
 }

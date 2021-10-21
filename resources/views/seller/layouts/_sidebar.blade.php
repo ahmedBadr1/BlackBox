@@ -1,129 +1,94 @@
-<aside class="fb-side-d navbar-fixed-top text-light bg-dark bg-gradient"
-       @if(app()->getLocale() == "ar")
-       dir="rtl"
-       @else
-       dir="ltr"
-    @endif
->
-    <!-- Sidebar -->
-    <a class="navbar-brand fb-nav-logo font-weight-bold text-uppercase" href="{{ url('/') }}">
-        {{ config('app.name', 'Laravel') }}
-    </a>
-    <i class="fas fa-bars" id="menu"></i>
-    <ul class="navbar-nav " id="accordionSidebar">
-        <li class="nav-item nav-search">
-            <i class="fas fa-search"></i>
-            <input type="search" name="search" id="search" placeholder="{{__("names.search")}}" />
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="" href="{{route('dashboard')}}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>{{__("names.dashboard")}}</span>
-                <span class="icon-name">{{__("names.dashboard")}}</span>
-            </a>
-        </li>
-
-
-    <!-- Heading -->
-        <div class="text-muted">
-            Interface
-        </div>
-        <!-- Nav Item - Pages Collapse Menu -->
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="sidebar-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnalysis"
-               aria-expanded="false" aria-controls="collapseExample">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>{{__('names.orders')}}</span>
-                <span class="icon-name">{{__('names.orders')}}</span>
-                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-            </a>
-            <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a href="{{ route('orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
-
-                <a href="{{ route('orders.inventory') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i> {{__("names.inventory")}}</a>
-                <a href="{{ route('orders.create') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.add")}} {{__("names.order")}}</a>
-            </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#collapseStyles"
-               aria-expanded="false" aria-controls="collapseStyles">
-                <i class="fas fa-palette"></i>
-                <span>{{__('names.accounting')}}</span>
-                <span class="icon-name">{{__('names.accounting')}}</span>
-                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-            </a>
-            <div id="collapseStyles" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="py-2 collapse-inner rounded">
-
-                    <a class="collapse-item" href="{{route('mybalance')}}"><i class="fas fa-images"></i><span>{{__('names.mybalance')}}</span></a>
+<!-- main-sidebar -->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar sidebar-scroll">
+    <div class="main-sidebar-header active">
+        <h3 class="text-center w-100" ><b> <a href="{{url('/')}}" class="desktop-logo logo-light active nav-link">{{setting('company_name')}}</a></b></h3>
+{{--        <a class="desktop-logo logo-light active" href="{{ url('/') }}"><img--}}
+{{--                src="{{URL::asset('assets/img/brand/logo.png')}}" class="main-logo" alt="logo"></a>--}}
+{{--        <a class="desktop-logo logo-dark active" href="{{ url('/') }}"><img--}}
+{{--                src="{{URL::asset('assets/img/brand/logo-white.png')}}" class="main-logo dark-theme" alt="logo"></a>--}}
+{{--        <a class="logo-icon mobile-logo icon-light active" href="{{ url('/') }}"><img--}}
+{{--                src="{{URL::asset('assets/img/brand/favicon.png')}}" class="logo-icon" alt="logo"></a>--}}
+{{--        <a class="logo-icon mobile-logo icon-dark active" href="{{ url('/') }}"><img--}}
+{{--                src="{{URL::asset('assets/img/brand/favicon-white.png')}}" class="logo-icon dark-theme" alt="logo"></a>--}}
+    </div>
+    <div class="main-sidemenu">
+        <div class="app-sidebar__user clearfix">
+            <div class="dropdown user-pro-body">
+                <div class="">
+                    <a href="{{route('profile')}}">
+                        <img alt="user-img" class="avatar avatar-xl brround"
+                             src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}"><span
+                            class="avatar-status profile-status bg-green"></span>
+                    </a>
+                </div>
+                <div class="user-info">
+                    <h4 class="font-weight-semibold mt-3 mb-0">{{ Auth::user()->name }}</h4>
+                    <span class="mb-0 text-muted">{{ Auth::user()->profile->bio }}</span>
                 </div>
             </div>
-        </li>
-@can('feature','trash')
-            <li class="nav-item">
-                <a class="sidebar-link" href="{{route('trash')}}"><i class="fas fa-trash"></i><span>{{__('names.trash')}}</span></a>
+        </div>
+        <ul class="side-menu">
+            <li class="side-item side-item-category">@lang('names.main')</li>
+            <li class="slide">
+
+                <a class="side-menu__item" href="{{route('dashboard')}}">
+                    <i class='bx bxs-dashboard side-menu__icon' ></i>
+                    <span class="side-menu__label">@lang('names.dashboard')</span>
+                    <span class="badge badge-success side-badge">1</span></a>
             </li>
-@endcan
-
-        <li class="nav-item">
-            <a class="sidebar-link" href="{{route('help')}}"><i class="fas fa-question-circle"></i><span>{{__('names.help')}}</span></a>
-        </li>
-
-        <!-- Nav Item - Tables -->
-{{--        @can('inbox')--}}
-{{--            <li class="nav-item">--}}
-{{--                <a class="" href="{{route('inbox')}}">--}}
-{{--                    <i class="fas fa-inbox  "></i>--}}
-{{--                    <span>Inbox</span>--}}
-{{--                    <span class="icon-name">Inbox</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--        @endcan--}}
-{{--        --}}{{--        @can('email')--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="" href="{{route('email')}}">--}}
-{{--                <i class="fas fa-envelope"></i>--}}
-{{--                <span>Email</span>--}}
-{{--                <span class="icon-name">Email</span>--}}
-{{--            </a>--}}
-{{--        </li>--}}
-{{--    --}}{{--        @endcan--}}
+            <li class="side-item side-item-category">@lang('names.interface')</li>
 
 
-    <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-    </ul>
-
-    <div class="profile-inf">
-        <img src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture" />
-        <div class="fb-info">
-
-            <a href="{{route('profile')}}" class="fb-username">{{ Auth::user()->name }}</a>
-            <div class="fb-bio">{{ Auth::user()->profile->bio }}</div>
-        </div>
+            <li class="slide">
+                <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
+                    <i class='bx bx-basket side-menu__icon' ></i>
+                    <span class="side-menu__label">@lang('names.orders')</span><i class="angle fe fe-chevron-down"></i></a>
+                <ul class="slide-menu">
+                    <li><a class="slide-item"
+                           href="{{ route('orders.index') }}">{{__("names.manage")}} {{__("names.orders")}}</a></li>
+                    <li><a class="slide-item" href="{{ route('orders.inventory') }}">{{__("names.inventory")}}</a></li>
+                    <li><a class="slide-item" href="{{ route('orders.create') }}">{{__("names.add-order")}} <span
+                                class="badge badge-danger side-badge">@lang('names.new')</span></a></li>
+                </ul>
+            </li>
 
 
-        <a href="{{ route('logout') }}"
-           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt" id="logout"></i>
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('mybalance')}}">
+                    <i class="bx bx-dollar side-menu__icon"></i>
+                    <span  class="side-menu__label">{{__('names.mybalance')}}</span>
+                </a>
+            </li>
 
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('help')}}">
+                    <i class="bx  bx-help-circle  side-menu__icon"></i>
+                    <span class="side-menu__label">{{__('names.help')}}</span>
+                </a>
+            </li>
+
+            @can('feature','trash')
+                <li class="slide">
+                    <a class="side-menu__item" href="{{route('orders.trash')}}">
+                        <i class="bx  bx-trash  side-menu__icon"></i>
+                        <span class="side-menu__label">{{__('names.trash')}}</span>
+                    </a>
+                </li>
+            @endcan
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('setting')}}">
+                    <i class="bx  bx-cog side-menu__icon"></i>
+                    <span class="side-menu__label">{{__('names.setting')}}</span>
+                </a>
+            </li>
+
+        </ul>
     </div>
-
 </aside>
-<!-- End of Sidebar -->
+<!-- main-sidebar -->
+
+
+
+
+

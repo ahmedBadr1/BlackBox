@@ -13,7 +13,7 @@ class ValexController extends Controller
             return view('valex.'.$name);
         }
 
-            return view('404');
+            return view('valex.'.'404');
         //   return view($id);
     }
 }
