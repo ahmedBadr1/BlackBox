@@ -97,7 +97,7 @@
                             <div class="col-6">
                                 <div class="mt-0 text-center">
                                     <span class="text-white">@lang('names.profits')</span>
-                                    <h2 class="text-white mb-0 tx-30">{{$total}}</h2>
+                                    <h2 class="text-white mb-0 tx-30">{{number_format($subTotal - $total)}}</h2>
                                 </div>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                         <h4 class="card-title">@lang('names.recent-orders')</h4>
                         <i class="mdi mdi-dots-vertical"></i>
                     </div>
-                    <p class="card-description mb-1">@lang('names.this-week')</p>
+{{--                    <p class="card-description mb-1"></p>--}}
                     @foreach($recentOrders as $order)
                         <div class="list d-flex align-items-center border-bottom py-3">
                             <div class="wrapper w-100 mr-3">
@@ -237,8 +237,8 @@
 
                     @endforeach
                 </div>
-            </div>
-        </div>
+
+
 
 @endsection
 

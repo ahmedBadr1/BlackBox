@@ -67,14 +67,14 @@
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{$monthOrdersValue}} @lang('auth.symbol')</h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{number_format($monthOrdersValue)}} @lang('auth.symbol')</h4>
                                 <p class="mb-0 tx-12 text-white op-7">@lang('names.compare-last-month')</p>
                             </div>
                             <span class="float-right my-auto mr-auto">
 
                                 @if($lastMonthOrdersValue)
                                     <i class="fas fa-arrow-circle-down text-white"></i>
-                                    <span class="text-white op-7">{{($monthOrdersValue * 100 /$lastMonthOrdersValue  ) }}%</span>
+                                    <span class="text-white op-7">{{number_format($monthOrdersValue * 100 /$lastMonthOrdersValue) }}%</span>
                                     @endif
 
 										</span>
@@ -93,12 +93,12 @@
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{$total}} </h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{number_format($total)}} </h4>
                                 <p class="mb-0 tx-12 text-white op-7">@lang('names.orders-count')</p>
                             </div>
                             <span class="float-right my-auto mr-auto">
 											<i class="fas fa-arrow-circle-up text-white"></i>
-											<span class="text-white op-7">{{$count}}</span>
+											<span class="text-white op-7">{{number_format($count)}}</span>
 										</span>
                         </div>
                     </div>

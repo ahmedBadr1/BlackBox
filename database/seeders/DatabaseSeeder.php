@@ -38,12 +38,12 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\Branch::factory(10)->create();
 
-        \App\Models\User::factory(20)->create()->each(function($user) {
+        \App\Models\User::factory(5)->create()->each(function($user) {
             $role = Role::whereNotIn('name', ['feedback'])->inRandomOrder()->first();
             $user->assignRole($role);
         });
 
-        \App\Models\Order::factory(200)->create();
+        \App\Models\Order::factory(500)->create();
 
         \App\Models\Task::factory(50)->create();
     }

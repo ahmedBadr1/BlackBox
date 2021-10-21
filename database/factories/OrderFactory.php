@@ -56,6 +56,7 @@ class OrderFactory extends Factory
             'discount'  =>  $this->faker->numerify(),
             'tax'  =>  $this->faker->numerify(),
             'total'  =>  $this->faker->numerify(),
+            'created_at' => $this->faker->dateTimeBetween('-6month','now')
         ];
     }
 }
