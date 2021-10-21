@@ -36,12 +36,12 @@ class SellerController extends Controller
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
         return view('seller.orders.inventory',compact('orders'));
     }
-    public function  inline()
+    public function  ready()
     {
         $orders = auth()->user()->orders()->with('area','state','status')->whereIn('status_id',[2])->orderBy('updated_at','DESC')->paginate(10);
         return view('seller.orders.inline',compact('orders'));
     }
-    public function  inlinego(Request $request,$id)
+    public function  readyGo(Request $request,$id)
     {
      //   dd($hash);
        $key =  Hashids::connection(Order::class)->decode($id);

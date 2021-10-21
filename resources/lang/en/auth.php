@@ -20,6 +20,7 @@ return [
     'import' => 'Import',
     'signout' => 'Sign Out',
     'logout' => 'Logout',
+    'actions' => 'Actions',
 
     'symbol' => 'EGP',
 

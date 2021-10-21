@@ -5,33 +5,30 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @role('seller|Feedback')
-                <a href="{{route('orders.create')}}" class="btn btn-success">{{__("auth.create")}} {{__("names.order")}}</a>
-                <a href="{{route('orders.inline')}}" class="btn btn-success">{{__("auth.inline")}} {{__("names.order")}}</a>
-                @endrole
-                @can('order-assign')
-                    <a href="{{route('orders.assign')}}" class="btn btn-secondary">{{__("auth.assign")}} {{__("names.order")}}</a>
-                @endcan
+
+                <a href="{{route('orders.ready')}}" class="btn btn-success">{{__("names.ready-orders")}}</a>
 
 
-                <h1 class="text-center">{{__("names.inventory")}}</h1>
+
+                <h1 class="text-center main-content-title">{{__("names.inventory")}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive">
 
                     <thead>
                     <th>#</th>
                     <th>{{__("auth.id")}} {{__("names.order")}}</th>
-                    <th>{{__("auth.product_name")}}</th>
+                    <th>{{__("auth.product-name")}}</th>
 
-                    <th>{{__("auth.cust_name")}}</th>
-                    <th>{{__("auth.cust_num")}}</th>
+                    <th>{{__("auth.cust-name")}}</th>
+                    <th>{{__("auth.cust-num")}}</th>
                     <th>{{__("auth.address")}}</th>
-                    <th>{{__("names.value")}}</th>
-                    <th>{{__("names.count")}}</th>
+                    <th>{{__("auth.cost")}}</th>
+                    <th>{{__("auth.total")}}</th>
+
                     <th>{{__("names.notes")}}</th>
                     <th>{{__("names.status")}}</th>
 
@@ -46,13 +43,13 @@
                         <tr>
                             <td>{{++$key}}</td>
                             <td> <a href="{{ route('orders.show',$order->hashid) }}"> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
-                            <td>{{$order->product_name}} </td>
-                            <td>{{$order->cust_name}} </td>
-                            <td>{{$order->cust_num}} </td>
-                            <td>{{$order->address}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state->name}}</td>
-                            <td>{{$order->value}} </td>
-                            <td>{{$order->quantity}} </td>
-                            <td>{{$order->notes ?? 'no notes'}} </td>
+                            <td>{{$order->product['name']}} </td>
+                            <td>{{$order->consignee['cust_name']}} </td>
+                            <td>{{$order->consignee['cust_num']}} </td>
+                            <td>{{$order->consignee['address']}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state->name}}</td>
+                            <td>{{$order->cost}} </td>
+                            <td>{{$order->total}} </td>
+                            <td>{{$order->detials['notes'] ?? 'no notes'}} </td>
                             <td>{{$order->status->name}} </td>
 
                             @auth
@@ -62,26 +59,22 @@
 {{--                                @role('seller|Feedback')--}}
 {{--                                <td><a href="{{ route('orders.edit',$order->hashid) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>--}}
 {{--                                @endrole--}}
-                                @role('seller|Feedback')
-                                <td>
-                                    <form action="{{route('orders.inlinego',$order->hashid) }}" method="POST">
+
+                                <td class="d-flex">
+                                    <form action="{{route('orders.readyGo',$order->hashid) }}" method="POST">
                                     @csrf
-                                        <input type="submit" class="btn btn-secondary" @if($order->status->id === 2)
+                                        <input type="submit" class="btn btn-secondary-gradient" @if($order->status->id === 2)
                                         disabled
                                                @endif
-                                        value="{{__('names.ready to pick up')}}">
+                                        value="{{__('names.ready-for-pickup')}}">
                                     </form>
-                                </td>
-                                @endrole
-                                @role('seller|Feedback')
-                                <td>
                                     <form action="{{route('orders.destroy',$order->hashid) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
+                                        <input type="submit" class="btn btn-danger-gradient" value="{{__('auth.delete')}}">
                                     </form>
                                 </td>
-                                @endrole
+
                             @endauth
                         </tr>
 

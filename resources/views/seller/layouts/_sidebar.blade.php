@@ -2,7 +2,7 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar sidebar-scroll">
     <div class="main-sidebar-header active">
-        <h3 class="text-center w-100" ><b> <a href="{{url('/')}}" class="desktop-logo logo-light active nav-link">{{setting('company_name')}}</a></b></h3>
+        <h3 class="text-center w-100" ><b> <a href="{{url('/')}}" class="desktop-logo logo-light active nav-link main-content-title">{{setting('company_name')}}</a></b></h3>
 {{--        <a class="desktop-logo logo-light active" href="{{ url('/') }}"><img--}}
 {{--                src="{{URL::asset('assets/img/brand/logo.png')}}" class="main-logo" alt="logo"></a>--}}
 {{--        <a class="desktop-logo logo-dark active" href="{{ url('/') }}"><img--}}

@@ -62,8 +62,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('profile/edit', [\App\Http\Controllers\Seller\DashboardController::class, 'profileEdit'])->name('profile.edit');
             Route::put('profile/', [\App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
         Route::get('inventory',[\App\Http\Controllers\Seller\SellerController::class,'inventory'])->name('orders.inventory');
-        Route::get('orders/inline',[\App\Http\Controllers\Seller\SellerController::class,'inline'])->name('orders.inline');
-        Route::post('orders/inline/{id}',[\App\Http\Controllers\Seller\SellerController::class,'inlinego'])->name('orders.inlinego');
+        Route::get('orders/ready',[\App\Http\Controllers\Seller\SellerController::class,'ready'])->name('orders.ready');
+        Route::post('orders/ready/{id}',[\App\Http\Controllers\Seller\SellerController::class,'readyGo'])->name('orders.readyGo');
         Route::post('orders/wait/{id}',[\App\Http\Controllers\Seller\SellerController::class,'wait'])->name('orders.wait');
         Route::post('orders/pickup',[\App\Http\Controllers\Seller\TaskController::class,'pickup'])->name('orders.pickup');
         Route::get('/mybalance', [\App\Http\Controllers\Seller\DashboardController::class, 'mybalance'])->name('mybalance');

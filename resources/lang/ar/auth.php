@@ -20,6 +20,7 @@ return [
     'import'=>'إستيراد',
     'signout' => 'تسجيل خروج',
     'logout' => 'تسجيل خروج',
+    'actions' => 'الأوامر',
 
     'symbol' => 'جم',
 

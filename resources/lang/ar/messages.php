@@ -25,6 +25,7 @@ return [
     'no-notifications'=> 'لا يوجد لديك إشعارات',
     'no-unread-messages' => 'لا يوجد رسائل غير مقروئة',
     'no-unread-notifications'=> 'لا يوجد إشعارات غير مقروئة',
+    'no-orders' => 'لا توجد أوردرات',
 
 
 ];

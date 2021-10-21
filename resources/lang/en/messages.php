@@ -25,5 +25,6 @@ return [
     'no-notifications'=> 'you have no notifications yet',
     'no-unread-messages' => 'You have 0 unread Messages',
     'no-unread-notifications'=> 'You have 0 unread Notifications',
+    'no-orders' => 'No Orders Found',
 
 ];

@@ -114,6 +114,15 @@ return [
     'success'=> 'Success',
     'products'=> 'Products',
 
+    'balance' => 'Balance',
+    'profits' => 'Profits',
+    'taxes' => 'Taxes',
+    'sales' => 'Sales',
+    'ready-for-pickup' => 'Ready For Pickup',
+    'ready-orders' => 'Ready Orders',
+    'request-pickup' => 'Request Pickup',
+    'not-ready' => 'Not Ready',
+
 
 
 

@@ -11,6 +11,10 @@
                     {{ session('status') }}
                 </div>
             @endif
+
+            <div class="col-md-8 offset-md-2">
+                <img src="http://blackbox.me/assets/img/svgicons/no-data.svg" alt="" class="mx-auto d-block">
+            </div>
         </div>
     </div>
 

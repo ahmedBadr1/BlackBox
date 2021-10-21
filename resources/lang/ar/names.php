@@ -115,6 +115,15 @@ return [
     'success'=> 'ناجح',
     'products'=> 'المنتجات',
 
+    'balance' => 'الرصيد',
+    'profits' => 'الأرباح',
+    'taxes' => 'الضرائب',
+    'sales' => 'المبيعات',
+    'ready-for-pickup' => 'جاهز للشحن',
+    'ready-orders' => 'الطلبات الجاهزة',
+    'request-pickup' => 'طلب مندوب',
+    'not-ready' => 'غير جاهز',
+
 
 
 

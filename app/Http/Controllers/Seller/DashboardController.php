@@ -50,14 +50,18 @@ class DashboardController extends Controller
     public function mybalance (){
         //   $total = auth()->user()->orders->sum('value');
         //   Order::with('area')->whereIn('status_id',[3,4,5,6,7,8,9])->sortBy('status_id');
-        $avilableOrders = auth()->user()->orders()->with('area','status')->whereIn('status_id',[3,4,5,6,7,8,9])->orderBy('status_id')->get();
-        //  dd($avilableOrders);
-        $total = $avilableOrders->sum('value');
+        $avilableOrders = auth()->user()->orders()->with('area','status')->whereIn('status_id',[3,4,5,6,7,8,9])->orderBy('created_at','desc')->get();
+        $recentOrders = auth()->user()->orders()->with('status')->orderBy('created_at','desc')->take(10)->get();
+      //   dd($recentOrders);
+        $subTotal = $avilableOrders->sum('sub_total');
+        $discount = $avilableOrders->sum('discount');
+        $tax = $avilableOrders->sum('tax');
+        $total = $avilableOrders->sum('total');
         // dd($avilableOrders);
         $ordersCount = auth()->user()->orders->count();
 
-        //    dd($total);
-        return view('seller.accounting.mybalance',compact('total','ordersCount','avilableOrders'));
+
+        return view('seller.accounting.mybalance',compact('total','subTotal','discount','tax','ordersCount','avilableOrders','recentOrders'));
     }
 
     public function profile()
