@@ -15,7 +15,7 @@
                     @endif
 
                     {{ __('welcome to our website') }}
-                    <h1>hello islam</h1>
+                    <h1>hello mohamed ayman</h1>
                 </div>
             </div>
         </div>
