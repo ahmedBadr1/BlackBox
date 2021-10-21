@@ -168,14 +168,13 @@
                         </div>
                         <a class="dropdown-item" href="{{route('profile')}}"><i
                                 class="bx bx-user-circle"></i>@lang('names.profile')</a>
-                        <a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>Inbox</a>
-                        <a class="dropdown-item" href=""><i class="bx bx-envelope"></i>Messages</a>
+                        <a class="dropdown-item" href="{{route('messages')}}"><i class="bx bxs-envelope"></i> @lang('names.messages')</a>
                         <a class="dropdown-item" href="{{route('setting')}}"><i
                                 class="bx bx-slider-alt"></i>@lang('names.setting')</a>
 
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
-                            <i class="bx bx-log-out"></i>@lang('auth.singout')
+                            <i class="bx bx-log-out"></i>@lang('auth.signout')
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
