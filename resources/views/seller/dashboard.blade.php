@@ -114,12 +114,20 @@
                     </div>
                     <div class="pb-0 mt-0">
                         <div class="d-flex">
+
                             <div class="">
-                                <h4 class="tx-20 font-weight-bold mb-1 text-white">{{ number_format($success * 100 / $count)  }}%</h4>
+                                <h4 class="tx-20 font-weight-bold mb-1 text-white">
+                                    @if($count)
+                                    {{ number_format($success * 100 / $count)  }}
+                                    @else
+                                        0git
+                                    @endif
+                                    %</h4>
+
                                 <p class="mb-0 tx-12 text-white op-7">@lang('names.compare-last-month')</p>
                             </div>
                             <span class="float-right my-auto mr-auto">
-                                 @if($success)
+                                 @if($count)
 											<i class="fas fa-arrow-circle-down text-white"></i>
 											<span class="text-white op-7">{{ number_format($success * 100 / $count)  }}%</span>
 										</span>
