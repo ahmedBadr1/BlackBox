@@ -47,7 +47,11 @@
                         <div class="main-profile-overview">
                             <div class="main-img-user profile-user">
                                 <img alt="profile photo"
-                                     src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}">
+                                     @if($path = auth()->user()->profile->profile_photo)
+                                     src="{{ '/storage/' .$path}}"
+                                     @else
+                                     src="/pics/profile.png"
+                                    @endif>
 {{--                                <a class="bx bxs-camera profile-edit" href="JavaScript:void(0);"></a>--}}
                             </div>
                             <div class="d-flex justify-content-between mg-b-20">

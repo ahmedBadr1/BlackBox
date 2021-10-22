@@ -184,7 +184,11 @@
     </ul>
 
     <div class="profile-inf">
-        <img src="/storage/{{ auth()->user()->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture" />
+        <img      @if($path = auth()->user()->profile->profile_photo)
+                  src="{{ '/storage/' .$path}}"
+                  @else
+                  src="/pics/profile.png"
+                  @endif alt="profile picture" />
         <div class="fb-info">
 
             <a href="{{route('admin.profile')}}" class="fb-username">{{ auth()->user()->name}}</a>

@@ -155,7 +155,11 @@
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
                     <a class="profile-user d-flex" href=""><img alt="profile photo"
-                                                                src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}"></a>
+                                                                @if($path = auth()->user()->profile->profile_photo)
+                                                                src="{{ '/storage/' .$path}}"
+                                                                @else
+                                                                src="/pics/profile.png"
+                            @endif></a>
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3 ">
                             <div class="d-flex wd-100p">

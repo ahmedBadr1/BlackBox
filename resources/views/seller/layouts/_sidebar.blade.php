@@ -17,8 +17,14 @@
             <div class="dropdown user-pro-body">
                 <div class="">
                     <a href="{{route('profile')}}">
-                        <img alt="user-img" class="avatar avatar-xl brround"
-                             src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}"><span
+                        <img  class="avatar avatar-xl brround"
+                              @if($path = auth()->user()->profile->profile_photo)
+                              src="{{ '/storage/' .$path}}"
+                              @else
+                             src="/pics/profile.png"
+                              @endif
+                        >
+                        <span
                             class="avatar-status profile-status bg-green"></span>
                     </a>
                 </div>

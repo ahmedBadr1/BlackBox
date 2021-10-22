@@ -9,7 +9,11 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="/storage/{{ $user->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture"  class="rounded-circle border" width="150">
+                                <img @if($path = auth()->user()->profile->profile_photo)
+                                    src="{{ '/storage/' .$path}}"
+                                    @else
+                                    src="/pics/profile.png"
+                                    @endif alt="profile picture"  class="rounded-circle border" width="150">
                                 <div class="mt-3">
                                     <h4>@lang('messages.welcome') {{$user->name}}</h4>
                                     <p class="text-secondary mb-1 ">{{$user->profile->bio}}</p>
