@@ -29,6 +29,9 @@
                         <button type="submit" class="btn btn-info-gradient">@lang('auth.import')</button>
                     </div>
                 </form>
+                @error('import_file')
+                <small>{{$message}}</small>
+                @enderror
             </div>
 
                 <div class="col-sm-4 ">

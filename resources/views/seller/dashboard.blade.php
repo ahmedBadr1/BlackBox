@@ -73,8 +73,13 @@
                             <span class="float-right my-auto mr-auto">
 
                                 @if($lastMonthOrdersValue)
-                                    <i class="fas fa-arrow-circle-down text-white"></i>
-                                    <span class="text-white op-7">{{number_format($monthOrdersValue * 100 /$lastMonthOrdersValue) }}%</span>
+                                    @if($monthOrdersValue - $lastMonthOrdersValue   >= 0)
+                                    <i class="fas fa-arrow-circle-up text-white"></i>
+                                    @else
+                                        <i class="fas fa-arrow-circle-down text-white"></i>
+                                    @endif
+
+                                    <span class="text-white op-7">{{number_format(($monthOrdersValue - $lastMonthOrdersValue)  /$monthOrdersValue  * 100) }}%</span>
                                     @endif
 
 										</span>
@@ -120,7 +125,7 @@
                                     @if($count)
                                     {{ number_format($success * 100 / $count)  }}
                                     @else
-                                        0git
+                                        0
                                     @endif
                                     %</h4>
 

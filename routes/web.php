@@ -61,7 +61,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('profile', [\App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('profile');
         Route::get('profile/edit', [\App\Http\Controllers\Seller\DashboardController::class, 'profileEdit'])->name('profile.edit');
             Route::put('profile/', [\App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
+            Route::get('price-list',[\App\Http\Controllers\Seller\SellerController::class,'priceList'])->name('price-list');
         Route::get('inventory',[\App\Http\Controllers\Seller\SellerController::class,'inventory'])->name('orders.inventory');
+        Route::get('inventory/export/en',[\App\Http\Controllers\Seller\SellerController::class,'inventoryExport'])->name('orders.inventory.export.en');
+        Route::get('inventory/export/ar',[\App\Http\Controllers\Seller\SellerController::class,'inventoryExport'])->name('orders.inventory.export.ar');
+        Route::get('orders/{order}/print', [\App\Http\Controllers\Seller\OrdersController::class, 'print'])->name('orders.print');
         Route::get('orders/ready',[\App\Http\Controllers\Seller\SellerController::class,'ready'])->name('orders.ready');
         Route::post('orders/ready/{id}',[\App\Http\Controllers\Seller\SellerController::class,'readyGo'])->name('orders.readyGo');
         Route::post('orders/wait/{id}',[\App\Http\Controllers\Seller\SellerController::class,'wait'])->name('orders.wait');
@@ -71,7 +75,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::get('mytrash',[\App\Http\Controllers\Seller\OrdersController::class,'mytrash']);
         Route::get('/export/orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
         Route::get('/export/orders/ar', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
-        Route::get('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
+      //  Route::get('/export/selected-orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportSelectedOrdersEN'])->name('export.selected-orders');
+
+
+        Route::any('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
         Route::get('areas',[\App\Http\Controllers\Seller\SellerController::class,'areas'])->name('areas');
         Route::get('areas/{id}',[\App\Http\Controllers\Seller\SellerController::class,'areasShow'])->name('areas.show');
 

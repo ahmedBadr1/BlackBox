@@ -18,6 +18,7 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
 use App\Notifications\Admin\NewUserNotification;
+use App\Notifications\WelcomeMailNotification;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -188,6 +189,8 @@ class DashboardController extends Controller
     public function sellers()
     {
         $sellers = User::with('plan')->whereHas("roles", function($q){ $q->where("name" ,'seller'); })->get();
+        $seller = User::find(5);
+        $seller->notify(new WelcomeMailNotification());
      //   dd($sellers);
       //  $sellers = User::whereIn('role', 'seller')->get();
 //dd($sellers);
@@ -257,8 +260,8 @@ class DashboardController extends Controller
             'footer'=>'nullable',
 
             'auto_send'=>'nullable|boolean',
-            'reschedule_limit' => 'required',
-            'package_weight_limit' => 'required',
+            'reschedule_limit' => 'nullable',
+            'package_weight_limit' => 'nullable',
         ]);
 
        $input = $request->except(['_token']);
@@ -285,9 +288,9 @@ class DashboardController extends Controller
                 $photoPath =  $input['company_logo']->store($path,'public');
                 $input['company_logo'] = $photoPath;
 
-                $setting->update($input);
-            }
 
+            }
+            $setting->update($input);
         }else{
             Setting::create($input) ;
         }

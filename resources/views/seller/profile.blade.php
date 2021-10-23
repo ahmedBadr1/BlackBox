@@ -76,17 +76,18 @@
                                     <h5>{{$user->phone}}</h5>
                                 </div>
 
+                                @if($user->profile->address)
                                 <div class="col-md-8 col my-2">
                                     <h6 class="text-small text-muted mb-0">@lang('auth.address')</h6>
                                     <h5>{{$user->profile->address}}</h5>
                                 </div>
-
-
+                                @endif
+                                @if($user->profile->url)
                                 <div class="col-md-8 col my-2">
-                                    <h6 class="text-small text-muted mb-0">@lang('auth.company')</h6>
+                                    <h6 class="text-small text-muted mb-0">@lang('auth.company-name')</h6>
                                     <h5><a href="{{$user->profile->url}}">{{$user->profile->url}}</a></h5>
                                 </div>
-
+                                @endif
 
 
                             </div>
@@ -124,7 +125,7 @@
 
 
                             <div class="skill-bar clearfix">
-                                <span>Coffee</span>
+                                <span>@lang('names.orders')</span>
                                 <div class="progress mt-2">
                                     <div class="progress-bar bg-info-gradient" role="progressbar" aria-valuenow="85"
                                          aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div>
@@ -335,7 +336,7 @@
                                     </div>
                                     <div class="col-md-8 mb-2">
                                         <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
-                                             alt="preview image" style="overflow: hidden">
+                                             alt="preview image" >
                                     </div>
                                 </div>
 
@@ -349,7 +350,7 @@
                             </form>
                         </div>
                         <div class="tab-pane" id="settings">
-                            <p>all setting</p>
+                            <p>no setting yet</p>
                         </div>
                     </div>
                 </div>

@@ -261,11 +261,11 @@ class OrdersController extends Controller
             ->logo($logoPath)
             ->date($order->created_at)
             ->filename('order_'.$order->hashid)
-            ->payUntilDays(14)
+            ->payUntilDays(14) ;
           //  ->subTotalPrice($order->sub_total)
           //  ->discountByPercent(10)
           // ->totalAmount(number_format($order->total))
-            ->notes($order->details['notes'] ?? '');
+
 //        $serial =  $invoice->getSerialNumber() ;
 //        dd($serial);
 //            ->currencySymbol('L.E')

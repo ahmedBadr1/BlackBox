@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Exports\Seller\SelectedOrdersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Branch;
@@ -12,6 +13,7 @@ use App\Models\Task;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Vinkla\Hashids\Facades\Hashids;
 
 class SellerController extends Controller
@@ -35,6 +37,17 @@ class SellerController extends Controller
         // dd($orders);
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
         return view('seller.orders.inventory',compact('orders'));
+    }
+    public function inventoryExport()
+    {
+        $ordersIds = auth()->user()->orders()->with('area','state','status')->whereIn('status_id',[1,2])->orderBy('updated_at','DESC')->pluck('id');
+        return Excel::download(new SelectedOrdersExport($ordersIds), __('names.selected-orders').'.csv');
+    }
+    public function priceList(){
+        $plan = auth()->user()->plan;
+        $areas = Area::all();
+       // dd($plan);
+        return view('seller.accounting.price-list',compact('plan'));
     }
     public function  ready()
     {
@@ -83,5 +96,6 @@ class SellerController extends Controller
         $branch = Branch::findOrFail($id);
         return view('seller.areas.show',compact('branch'));
     }
+
 
 }

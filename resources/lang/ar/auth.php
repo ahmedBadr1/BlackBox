@@ -18,6 +18,7 @@ return [
     'delete'=>'حذف',
     'search' => 'إبحث',
     'import'=>'إستيراد',
+    'export' => 'تصدير',
     'signout' => 'تسجيل خروج',
     'logout' => 'تسجيل خروج',
     'actions' => 'الأوامر',

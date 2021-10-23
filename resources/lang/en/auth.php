@@ -18,6 +18,7 @@ return [
     'delete'=>'Delete',
     'search' => 'Search',
     'import' => 'Import',
+    'export' => 'Export',
     'signout' => 'Sign Out',
     'logout' => 'Logout',
     'actions' => 'Actions',

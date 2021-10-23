@@ -77,7 +77,10 @@
                 <td>{{$order->status->name}} </td>
 
                 @auth
-
+                    <td>
+                        {{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">{{__('auht.pdf')}}</a>--}}
+                        <a href="{{route('orders.print',$order->hashid)}}" class="btn btn-warning-gradient">{{__('auth.print')}}</a>
+                    </td>
                     <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
 
                     <td><a href="{{ route('orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info-gradient">{{__('auth.edit')}}</a></td>

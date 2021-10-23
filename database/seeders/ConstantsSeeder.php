@@ -69,7 +69,7 @@ class ConstantsSeeder extends Seeder
         foreach($packing as $type){
             Packing::factory()->create([
                 'type' => $type,
-                'price' => rand(.25,20),
+                'price' => rand(.25,5),
                 'size' => rand(10,100),
             ]);
         }

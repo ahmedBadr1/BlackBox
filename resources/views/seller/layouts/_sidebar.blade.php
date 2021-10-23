@@ -68,6 +68,13 @@
             </li>
 
             <li class="slide">
+                <a class="side-menu__item" href="{{route('price-list')}}">
+                    <i class='bx bx-list-check side-menu__icon'></i>
+                    <span  class="side-menu__label">{{__('names.myplan')}}</span>
+                </a>
+            </li>
+
+            <li class="slide">
                 <a class="side-menu__item" href="{{route('help')}}">
                     <i class="bx  bx-help-circle  side-menu__icon"></i>
                     <span class="side-menu__label">{{__('names.help')}}</span>

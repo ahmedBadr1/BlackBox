@@ -124,6 +124,8 @@ return [
     'request-pickup' => 'طلب مندوب',
     'not-ready' => 'غير جاهز',
 
+    'selected-orders' => 'الطلبات المختارة',
+
 
 
 

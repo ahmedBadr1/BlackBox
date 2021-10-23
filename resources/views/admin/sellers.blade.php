@@ -47,7 +47,9 @@
                             @endcan
                             @can('user-active')
                                 <td>
-                                    <livewire:user-toggle id="{{$user->id}}" active="{{$user->active}}"  />
+{{--                                    <livewire:user-toggle id="{{$user->id}}" active="{{$user->active}}"  />--}}
+
+                                    @livewire('main.toggle-button',['model' => $user,'field'=>'active'])
                                 </td>
                             @endcan
 

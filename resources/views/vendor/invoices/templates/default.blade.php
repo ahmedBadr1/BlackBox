@@ -133,7 +133,6 @@
         @if($invoice->logo)
             <img src="{{ $invoice->getLogo() }}" alt="logo" height="100">
         @endif
-        <p dir="rtl" lang="ar" style="color:#e0e0e0;font-size:20px;">رَبٍّ زِدْنٍي عِلمًا</p>
         <table class="table mt-5">
             <tbody>
                 <tr>

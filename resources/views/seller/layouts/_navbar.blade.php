@@ -13,8 +13,13 @@
 {{--                                                              class="dark-logo-2" alt="logo"></a>--}}
             </div>
             <div class="app-sidebar__toggle" data-toggle="sidebar">
-                <a class="open-toggle" href="#"><i class="header-icon fe fe-align-left"></i></a>
-                <a class="close-toggle" href="#"><i class="header-icons fe fe-x"></i></a>
+
+                <a class="open-toggle" href="#">      @if(app()->getLocale() == 'ar')
+                        <i class='bx bx-align-right header-icon'></i>
+                    @else
+                        <i class='bx bx-align-left header-icon'></i>
+                    @endif</a>
+                <a class="close-toggle" href="#"><i class='bx bx-x header-icon' ></i></a>
             </div>
             <div class="main-header-center mr-3 d-sm-none d-md-none d-lg-block">
                 <input class="form-control" placeholder="@lang('auth.search')" type="search">
@@ -28,7 +33,7 @@
                         <div class="dropdown  nav-itemd-none d-md-flex">
                             <a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown"
                                aria-expanded="false">
-                                <i class="bx bx-flag side-menu__icon"></i>
+                                <i class="bx bx-flag bx-sm side-menu__icon"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
 
@@ -76,7 +81,7 @@
                 </div>
                 <div class="dropdown nav-item main-header-message ">
                     <a class="new nav-link" href="#">
-                        <i class='bx bx-envelope side-menu__icon' ></i>
+                        <i class='bx bx-envelope bx-sm side-menu__icon' ></i>
                         <span class=" pulse-danger"></span></a>
                     <div class="dropdown-menu">
                         <div class="menu-header-content bg-primary text-right">
@@ -111,7 +116,7 @@
                 </div>
                 <div class="dropdown nav-item main-header-notification">
                     <a class="new nav-link" href="#">
-                        <i class='bx bx-bell side-menu__icon' ></i>
+                        <i class='bx bx-bell bx-sm side-menu__icon bx-tada-hover' ></i>
                         <span class=" pulse"></span></a>
                     <div class="dropdown-menu">
                         <div class="menu-header-content bg-primary text-right">
@@ -122,20 +127,26 @@
                             <p class="dropdown-title-text subtext mb-0 mt-1 ml-3 text-white op-6 pb-0 tx-12 ">@lang('messages.no-unread-notifications')</p>
                         </div>
                         <div class="main-notification-list Notification-scroll">
-                            @foreach(auth()->user()->notifications as $notification)
+                            @foreach(auth()->user()->notifications as $k => $notification)
 
-                            <a class="d-flex p-3 border-bottom" href="#">
-                                <div class="notifyimg bg-pink">
-                                    <i class="la la-file-alt text-white"></i>
-                                </div>
+                            <a class="d-flex py-3 px-1 border-bottom" href="{{$notification->data['url']}}">
+{{--                                <div class="notifyimg bg-pink">--}}
+{{--                                    <i class="la la-file-alt text-white"></i>--}}
+{{--                                </div>--}}
                                 <div class="mx-3">
-                                    <h5 class="notification-label mb-1">New files available</h5>
-                                    <div class="notification-subtext">10 hour ago</div>
+                                    <h5 class="notification-label mb-1">{{$notification->data['from']}}</h5>
+                                    <div class="notification-subtext">{{$notification->data['msg']}}</div>
+
                                 </div>
                                 <div class="mr-auto">
-                                    <i class="las la-angle-left text-left text-muted"></i>
+
+                                    <small class="tx-10">{{$notification->created_at->diffForHumans()}}</small>
                                 </div>
                             </a>
+                                @php if ($k == 3) {
+                                        break;
+                                    }
+                                @endphp
                             @endforeach
                         </div>
                         <div class="dropdown-footer">
@@ -145,12 +156,7 @@
                 </div>
                 <div class="nav-item full-screen fullscreen-button">
                     <a class="new nav-link full-screen-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="feather feather-maximize">
-                            <path
-                                d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                        </svg>
+                        <i class='bx bx-fullscreen bx-sm bx-flashing-hover'></i>
                     </a>
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
@@ -163,7 +169,11 @@
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3 ">
                             <div class="d-flex wd-100p">
-                                <div class="main-img-user"><img alt="profile photo" src="/storage/{{ \Illuminate\Support\Facades\Auth::user()->profile->profile_photo ?? 'pics/profile.png'}}"
+                                <div class="main-img-user"><img alt="profile photo"   @if($path = auth()->user()->profile->profile_photo)
+                                    src="{{ '/storage/' .$path}}"
+                                                                @else
+                                                                src="/pics/profile.png"
+                                                                @endif
                                                                 class=""></div>
                                 <div class="mx-3 my-auto">
                                     <h6>{{auth()->user()->name}}</h6><span>{{auth()->user()->profile->bio}}</span>

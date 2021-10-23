@@ -21,8 +21,9 @@ class DatabaseSeeder extends Seeder
 
 
 //        \App\Models\Receipt::factory(10)->create();
-        $this->call(PermissionsSeeder::class);
+
         $this->call(ConstantsSeeder::class);
+        $this->call(PermissionsSeeder::class);
 
 
         \App\Models\Zone::factory(10)->create();

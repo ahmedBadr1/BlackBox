@@ -10,6 +10,9 @@ use App\Models\Order;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Invoice;
 
 class OrdersController extends Controller
 {
@@ -85,6 +88,69 @@ class OrdersController extends Controller
                 abort(404);
             }
         return view('seller.orders.show',compact('order'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Order  $order
+     * @return
+     */
+    public function print(Order $order)
+    {
+//
+        $client = new Party([
+            'name'          => $order->consignee['cust_name'],
+            'phone'         =>  $order->consignee['cust_num'],
+            'address'         => $order->consignee['address'],
+            'custom_fields' => [
+                'area'        => $order->area->name,
+            ],
+        ]);
+
+        $customer = new Party([
+            'name'          => $order->user->name,
+            'phone'         => $order->user->phone,
+            'address'       => $order->user->profile->address,
+            'custom_fields' => [
+                'email' =>$order->user->email,
+            ],
+        ]);;
+
+        $item = (new InvoiceItem())->title($order->product['name'])
+            ->pricePerUnit($order->product['value'])
+            ->quantity($order->product['quantity'])
+            ->description($order->product['description'] ?? '');
+        $shipping =  $order->cost ;
+        // dd($shipping);
+        if(!$order->details['cod']){
+            $shipping = number_format(0);
+        }
+
+        $logoPath =  storage_path('app/public/'.setting('company_logo')) ;
+
+
+        $invoice = Invoice::make()
+            // ->sequence($order->hashid)
+            ->buyer($client)
+            ->seller($customer)
+            ->addItem($item)
+            ->shipping($shipping)
+            ->logo($logoPath)
+            ->date($order->created_at)
+            ->filename('order_'.$order->hashid)
+            ->payUntilDays(14) ;
+
+
+
+
+        if(app()->getLocale() == "ar"){
+            //   notify()->error('can\'t print arabic charachters');
+            $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
+            return $pdf->stream('arabic.pdf');
+        }
+
+        return $invoice->download($order->hashid.'.pdf');
     }
 
     /**

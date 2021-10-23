@@ -86,10 +86,9 @@
                     </tbody>
 
                 </table>
-                @if(count($orders) > 3 )
+                @if(count($orders) > 2 )
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-warning" disabled><small>{{__('names.download')}}</small></button>
-                        <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('names.excel')}}</a>
+                        <a href="{{route('orders.inventory.export.'.app()->getLocale())}}" class="btn btn-success">{{__('auth.export')}}</a>
                     </div>
                 @endif
 

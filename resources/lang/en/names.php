@@ -123,6 +123,8 @@ return [
     'request-pickup' => 'Request Pickup',
     'not-ready' => 'Not Ready',
 
+    'selected-orders' => 'Selected Orders',
+
 
 
 
