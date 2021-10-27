@@ -44,8 +44,9 @@ class GoogleController extends Controller
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
+                    'phone' => 01999999999,
                     'google_id'=> $user->id,
-                    'password' => encrypt('123456dummy')
+                    'password' => encrypt($user->email)
                 ]);
 
                 Auth::login($newUser);
