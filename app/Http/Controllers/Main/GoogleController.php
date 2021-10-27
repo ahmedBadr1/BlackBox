@@ -50,6 +50,8 @@ class GoogleController extends Controller
                     'password' => encrypt($user->email)
                 ]);
                 $newUser->markEmailAsVerified();
+                $newUser->assignRole('seller');
+
                 Auth::login($newUser);
 
                 return redirect('/home');
