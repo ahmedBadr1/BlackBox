@@ -243,6 +243,7 @@ class DashboardController extends Controller
     public function system()
     {
         $system = system::first() ;
+
         return view('system.setting',compact('system'));
     }
     public function saveSystem(Request $request)
@@ -255,10 +256,8 @@ class DashboardController extends Controller
             'owner'=>'nullable',
             'email'=>'nullable|email',
             'contact'=>'nullable',
-
             'theme'=>'nullable',
             'footer'=>'nullable',
-
             'auto_send'=>'nullable|boolean',
             'reschedule_limit' => 'nullable',
             'package_weight_limit' => 'nullable',
@@ -275,7 +274,6 @@ class DashboardController extends Controller
             if(! isset($input['company_logo'])){
                 $photoPath  = $system->company_logo;
             }else {
-
                 if(!File::isDirectory($path)){
                     File::makeDirectory($path, 0777, true, true);
                 }
@@ -287,8 +285,6 @@ class DashboardController extends Controller
                 }
                 $photoPath =  $input['company_logo']->store($path,'public');
                 $input['company_logo'] = $photoPath;
-
-
             }
             $system->update($input);
         }else{

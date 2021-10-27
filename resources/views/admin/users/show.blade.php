@@ -18,8 +18,8 @@
                 <p><b>{{$user->email}}</b></p> <hr>
                 <label>User Phone</label>
                 <p><b>{{$user->phone}}</b></p> <hr>
-                <label>User State</label>
-                <p><b>{{$user->state->name}}</b></p> <hr>
+{{--                <label>User State</label>--}}
+{{--                <p><b>{{$user->state->name}}</b></p> <hr>--}}
                 <label>User Plan</label>
                 <p><b><a href="{{route('admin.plans.show',$user->plan->id)}}">{{$user->plan->name}}</a></b></p> <hr>
                 <label>User Role</label>
