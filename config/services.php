@@ -32,7 +32,7 @@ return [
     'google' => [
         'client_id' => '1088907681767-33anngfss5b0090uvqe3cvncl6i6a0ut.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => 'https://www.blackbox.host',
+        'redirect' => 'https://www.blackbox.host/auth/callback',
     ],
 
 ];
