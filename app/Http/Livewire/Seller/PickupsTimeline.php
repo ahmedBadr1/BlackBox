@@ -29,6 +29,7 @@ class PickupsTimeline extends Component
         //    dd($locationId);
         auth()->user()->tasks()->where('id', $taskId)->delete();
         $this->refreshPickup();
-        toastr()->success('Have fun storming the castle!', 'Miracle Max Says');
+        $this->emit('alert',
+            ['type' => 'success',  'message' => 'Pickup Deleted Successfully!']);
     }
 }

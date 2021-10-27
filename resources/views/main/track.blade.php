@@ -36,7 +36,7 @@
 
         @if($status)
 
-                    <div class="">{{__("message.".$status)}}</div>
+                    <div class="">{{__("messages.".$status)}}</div>
         @endif
             </div>
         </div>

@@ -18,9 +18,9 @@
                            <label for="location_id" class=" col-form-label text-md-right"> {{__("auth.location")}}</label>
                            <select   class="form-control @error('location_id') is-invalid @enderror" wire:model.lazy="location_id"  value="{{ old('due_to') }}"  >
                                <option value="{{$businessLocation->id}}">{{$businessLocation->name}}</option>
-                               @foreach($locations as $location)
-                                   <option value="{{$location->id}}">{{$location->name}}</option>
-                               @endforeach
+                                   @foreach($locations as $location)
+                                       <option value="{{$location->id}}">{{$location->name}}</option>
+                                   @endforeach
                            </select>
                            @error('location_id')
                            <span class="invalid-feedback" role="alert">

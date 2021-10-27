@@ -51,6 +51,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">@lang('names.locations')</div>
+                     <p>{{$businessLocation->name}} <span class="badge bg-primary-gradient text-light">@lang('auth.default-location')</span></p>
                     @foreach($locations as $location)
                         {{$location->name}} <br>
                     @endforeach

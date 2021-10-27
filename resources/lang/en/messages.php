@@ -36,6 +36,6 @@ return [
     'pickups'=>'Be sure the orders is ready before request a pickup',
     'business-invite'=>'invite another college to join your business account',
     'change-password'=>'be sure to remember it ',
-
+    'order-not-found' => 'there is no order with this id',
 
 ];

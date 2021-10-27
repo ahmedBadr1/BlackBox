@@ -11,7 +11,6 @@
             @if($businessSetting)
             <div class="tab-pane active show " id="business">
                 <livewire:seller.business-setting />
-                <livewire:seller.business-location />
             </div>
             @endif
             @if($resetPassword)

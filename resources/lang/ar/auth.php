@@ -138,6 +138,8 @@ return [
     'due-to' => 'إلى تاريخ',
     'location' => 'الموقع',
 
+    'default-location' => 'الموقع الإفتراضي',
+
 
 
 ];

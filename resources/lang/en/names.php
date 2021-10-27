@@ -144,6 +144,7 @@ return [
     'business' => 'Business',
     'change-password' => 'Change Password',
     'invite' => 'Invite',
+    'recent-orders' => 'Recent Orders',
 
 
 

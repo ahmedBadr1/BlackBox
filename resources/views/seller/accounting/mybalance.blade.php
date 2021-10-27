@@ -201,6 +201,7 @@
     {{--        </div>--}}
     {{--    </div>--}}
     <div class="row">
+        @if($recentOrders->count() > 0)
         <div class="col-md-12 col-xl-4">
             <div class="card">
 
@@ -236,7 +237,7 @@
             </div>
 
         </div>
-
+        @endif
 
         <div class="col-md-12 col-xl-4">
             <div class="card">

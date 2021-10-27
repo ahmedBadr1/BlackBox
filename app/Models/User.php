@@ -31,7 +31,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'phone',
-        'state_id',
         'business_id',
         'hearAboutUs',
         'password',
@@ -134,10 +133,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Branch::class);
     }
-    public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
+
     public function zone()
     {
         return  $this->belongsToMany(Zone::class);

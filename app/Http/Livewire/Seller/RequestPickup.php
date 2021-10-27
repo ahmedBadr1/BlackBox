@@ -8,7 +8,7 @@ use Livewire\Component;
 class RequestPickup extends Component
 {
     protected $rules = [
-        'due_to'=>'required|date',
+        'due_to'=>'required|date|after:today',
         'location_id'=>'required',
         'notes' => 'nullable',
     ];
@@ -22,8 +22,11 @@ class RequestPickup extends Component
     public function mount()
     {
         $this->businessLocation = auth()->user()->business->location()->select('id','name')->first();
+
         $this->locations = auth()->user()->locations()->select('id','name')->get();
-       // dd(   $this->businessLocation);
+
+        $this->location_id =  $this->businessLocation->id;
+
     }
 
 
@@ -46,9 +49,10 @@ class RequestPickup extends Component
       //  dd(auth()->user()->tasks()->get);
       //  $user->locations()->save($location);
         $this->emit('refreshPickup');
-        $this->due_to = null;
-        $this->notes = null;
+        $this->reset('due_to','notes');
 
+        $this->emit('alert',
+            ['type' => 'success',  'message' => 'Pickup Requested Successfully!']);
         return back();
     }
 }

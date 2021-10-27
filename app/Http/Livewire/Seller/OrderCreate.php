@@ -190,10 +190,35 @@ class OrderCreate extends Component
             'total' => $this->total,
         ]);
 
-        $this->dispatchBrowserEvent('alert',
+        $this->emit('alert',
             ['type' => 'success',  'message' => 'Order Created Successfully!']);
-      //  return back();
-        //return redirect()->route('orders.index');
+        $this->reset(      'product_name' ,
+            'value',
+            'cust_name',
+            'cust_num',
+            'product_description',
+            'address',
+            'area_id',
+            'package_type' ,
+            'packing',
+            'package_weight',
+            'deliver_before' ,
+            'quantity',
+            'cod',
+            'notes',
+        'delivery_cost',
+            'packing_cost',
+            'weight',
+            'overWeight',
+            'overWeightCost',
+            'cost',
+        'subTotal',
+        'tax',
+        'discount',
+        'total');
+        return back();
+
+      //  return redirect()->route('orders.index');
     }
 }
 

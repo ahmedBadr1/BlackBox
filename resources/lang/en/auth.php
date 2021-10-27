@@ -136,6 +136,11 @@ return [
     'due-to' => 'Due To',
     'location' => 'Location',
 
+    'default-location' => 'Default',
+
+    '' => 'Signup with Google',
+    '' => 'Signup with Facebook',
+    '' => 'Already have an account?',
 
 
 

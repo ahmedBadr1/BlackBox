@@ -8,6 +8,12 @@
 
 @toastr_js
 @toastr_render
+
+<script>
+    window.livewire.on('alert', param => {
+        toastr[param['type']](param['message']);
+    });
+</script>
 <!-- Bootstrap Bundle js -->
 <script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Ionicons js -->

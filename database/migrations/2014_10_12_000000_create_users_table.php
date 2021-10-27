@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->integer('balance')->default(0);
-            $table->foreignIdFor(\App\Models\State::class)->nullable();
             $table->string('hearAboutUs')->default('none');
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignIdFor(\App\Models\Business::class)->default(0);

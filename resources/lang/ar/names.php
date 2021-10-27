@@ -145,6 +145,7 @@ return [
     'business' => 'الشركة',
     'change-password' => 'تغيير كلمة السر',
     'invite' => 'دعوة',
+    'recent-orders' => 'أحدث الأوردرات',
 
 
 

@@ -78,9 +78,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         Route::post('orders/ready/{id}',[\App\Http\Controllers\Seller\SellerController::class,'readyGo'])->name('orders.readyGo');
         Route::post('orders/wait/{id}',[\App\Http\Controllers\Seller\SellerController::class,'wait'])->name('orders.wait');
         Route::post('orders/pickup',[\App\Http\Controllers\Seller\TaskController::class,'pickup'])->name('orders.pickup');
-        Route::get('/mybalance', [\App\Http\Controllers\Seller\DashboardController::class, 'mybalance'])->name('mybalance');
-        Route::get('myorders',[\App\Http\Controllers\Seller\OrdersController::class,'myorders']);
-        Route::get('mytrash',[\App\Http\Controllers\Seller\OrdersController::class,'mytrash']);
+        Route::get('/my-balance', [\App\Http\Controllers\Seller\DashboardController::class, 'mybalance'])->name('mybalance');
+        Route::get('my-orders',[\App\Http\Controllers\Seller\OrdersController::class,'myorders']);
+        Route::get('my-trash',[\App\Http\Controllers\Seller\OrdersController::class,'mytrash']);
         Route::get('/export/orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
         Route::get('/export/orders/ar', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
       //  Route::get('/export/selected-orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportSelectedOrdersEN'])->name('export.selected-orders');
