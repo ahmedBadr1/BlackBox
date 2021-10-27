@@ -20,35 +20,16 @@ Route::get('/', function (){
 
 Route::get('privacy-policy',[\App\Http\Controllers\Main\HomeController::class ,'privacyPolicy']);
 
-//Route::get('auth/google', [\App\Http\Controllers\Main\GoogleController::class,'redirectToGoogle']);
-//Route::get('auth/google/callback', [\App\Http\Controllers\Main\GoogleController::class,'handleGoogleCallback']);
+Route::get('auth/redirect', [\App\Http\Controllers\Main\GoogleController::class,'redirectToGoogle']);
+Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,'handleGoogleCallback']);
 
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('google')->redirect();
-});
-
-Route::get('/auth/callback', function () {
-    $user = Socialite::driver('google')->user();
-    dd($user);
-    $user = Socialite::driver('github')->user();
-
-    // OAuth 2.0 providers...
-    $token = $user->token;
-    $refreshToken = $user->refreshToken;
-    $expiresIn = $user->expiresIn;
-
-    // OAuth 1.0 providers...
-    $token = $user->token;
-    $tokenSecret = $user->tokenSecret;
-
-    // All providers...
-    $user->getId();
-    $user->getNickname();
-    $user->getName();
-    $user->getEmail();
-    $user->getAvatar();
-    // $user->token
-});
+//Route::get('/auth/redirect', function () {
+//    return Socialite::driver('google')->redirect();
+//});
+//
+//Route::get('/auth/callback', function () {
+//
+//});
 
 Route::group(['prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()

@@ -56,6 +56,29 @@ class GoogleController extends Controller
         } catch (Exception $e) {
             dd($e->getMessage());
         }
+
+
+
+//        $user = Socialite::driver('google')->user();
+//        dd($user);
+//
+//
+//        // OAuth 2.0 providers...
+//        $token = $user->token;
+//        $refreshToken = $user->refreshToken;
+//        $expiresIn = $user->expiresIn;
+//
+//        // OAuth 1.0 providers...
+//        $token = $user->token;
+//        $tokenSecret = $user->tokenSecret;
+//
+//        // All providers...
+//        $user->getId();
+//        $user->getNickname();
+//        $user->getName();
+//        $user->getEmail();
+//        $user->getAvatar();
+//        // $user->token
     }
 
 }
