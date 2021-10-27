@@ -55,6 +55,7 @@ return [
     'status' => 'حالة',
 
     'product-name' => 'إسم المنتج',
+    'product-description' => 'وصف المنتج',
     'cust-name' => 'إسم المستلم',
     'cust-num' => 'رقم المستلم',
     'sub-total' => 'المجموع',
