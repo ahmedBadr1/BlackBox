@@ -166,12 +166,12 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
-        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
+
         Laravel\Socialite\SocialiteServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         \Vinkla\Hashids\HashidsServiceProvider::class,
-        //Barryvdh\Debugbar\ServiceProvider::class,
+
         \Livewire\LivewireServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
 
@@ -242,7 +242,7 @@ return [
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Hashids'=>\Vinkla\Hashids\Facades\Hashids::class,
-       // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
+
         'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class
 
 

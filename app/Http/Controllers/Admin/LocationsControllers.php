@@ -47,7 +47,7 @@ class LocationsControllers extends Controller
     public function store(LocationRequest $request)
     {
         //
-        dd($request->all());
+      //  dd($request->all());
         $this->validate($request,[
            'name' => 'required' ,
             'state_id' => 'required|numeric' ,
@@ -64,8 +64,9 @@ class LocationsControllers extends Controller
         $validated = $request->validated();
         $validated = $request->safe()->only(['name', 'state_id','area_id','street','building','floor','apartment','landmarks','latitude','longitude']);
        // dd($validated);
-        Location::create($validated);
-        notify()->success('Location Created Successfully');
+        $location = Location::create($validated);
+        auth()->user()->locations()->save($location);
+        toastr()->success('Location Created Successfully');
         return redirect()->route('admin.locations.index');
     }
 
@@ -126,7 +127,7 @@ class LocationsControllers extends Controller
      //   $validated = $request->safe()->only(['name', 'state_id','area_id','street','building','floor','apartment','landmarks','latitude','longitude']);
         //dd($input);
         $location->updateOrFail($input);
-        notify()->success('Location ipdated Successfully');
+        toastr()->success('Location ipdated Successfully');
         return redirect()->route('admin.locations.index');
     }
 
@@ -142,7 +143,7 @@ class LocationsControllers extends Controller
 
         $location->deleteOrFail();
 
-        notify()->success('Location Deleted Successfully');
+        toastr()->success('Location Deleted Successfully');
         return redirect()->route('admin.locations.index');
     }
 }

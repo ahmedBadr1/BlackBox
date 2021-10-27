@@ -55,7 +55,7 @@ class WelcomeMailNotification extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
-            'from'=> config('app.name'),
+            'from' => config('app.name'),
           'msg'=> 'welcome to our website, enjoy.',
             'url' => '/help',
         ];

@@ -2,22 +2,45 @@
 
 @section('content')
 
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <h1 class="text-center main-content-title">{{ __('names.notifications') }}</h1>
-                <p  class="text-center">{{ __('messages.no-notifications') }}</p>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <h1 class="text-center main-content-title">{{ __('names.notifications') }}</h1>
 
-            <div class="col-md-8 offset-md-2">
-                <img src="http://blackbox.me/assets/img/svgicons/no-data.svg" alt="" class="mx-auto d-block">
-            </div>
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-            </div>
+
         </div>
+    </div>
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+            <div class="border">
+                <div class="bg-gray-100 nav-bg">
+                    <nav class="nav nav-tabs">
+                        <a class="nav-link active" data-toggle="tab" href="#unReadNotifications">@lang('names.new-notifications')</a>
+                        <a class="nav-link" data-toggle="tab" href="#notifications">@lang('names.all-notifications')</a>
+
+                    </nav>
+                </div>
+                <div class="card-body tab-content">
+                    <div class="tab-pane active show" id="unReadNotifications">
+                        <livewire:main.notification-table :notifications="auth()->user()->unreadNotifications " />
+                    </div>
+                    <div class="tab-pane" id="notifications">
+                        <livewire:main.notification-table :notifications="auth()->user()->notifications " />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
 
 
 

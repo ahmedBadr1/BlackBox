@@ -50,7 +50,7 @@ class OrderCreate extends Component
     public $overWeight = 0 ;
     public  $overWeightCost = 0 ;
     public $area_id ;
-    public $settingLimit;
+    public $systemLimit;
     private $basicId;
 
     public $cost =0 ;
@@ -63,7 +63,7 @@ class OrderCreate extends Component
     {
         $this->packing_type = Packing::all();
         $this->basicId = Plan::first()->id;
-        $this->settingLimit = setting('package_weight_limit');
+        $this->systemLimit = sys('package_weight_limit');
         $this->user = auth()->user();
         $this->types = ['cosmetics','clothes','document','furniture','machines','other'];
         $this->areas = Area::where('active',1)->whereHas('state',fn($q)=>$q->where('active','1'))->select('id','name')->orderBy('id','desc')->get();
@@ -90,8 +90,8 @@ class OrderCreate extends Component
                 }
 
                 $this->weight  = $this->package_weight * $this->quantity ;
-                if( $this->weight  > $this->settingLimit ){
-                    $this->overWeight  = $this->weight - $this->settingLimit;
+                if( $this->weight  > $this->systemLimit ){
+                    $this->overWeight  = $this->weight - $this->systemLimit;
                     $this->overWeightCost =  $this->overWeight * $orderArea->over_weight_cost ;
                 }else{
 
@@ -138,8 +138,8 @@ class OrderCreate extends Component
                 }
 
                 $this->weight  = $this->package_weight * $this->quantity ;
-                if( $this->weight  > $this->settingLimit ){
-                    $this->overWeight  = $this->weight - $this->settingLimit;
+                if( $this->weight  > $this->systemLimit ){
+                    $this->overWeight  = $this->weight - $this->systemLimit;
                     $this->overWeightCost =  $this->overWeight * $orderArea->over_weight_cost ;
                 }else{
                     $this->overWeight  = 0;
@@ -160,6 +160,7 @@ class OrderCreate extends Component
 
 
         Order::create([
+            'type' => 'deliver',
             'product'=> [
                 'name' => $this->product_name,
                 'description' => $this->product_description,
@@ -191,8 +192,8 @@ class OrderCreate extends Component
 
         $this->dispatchBrowserEvent('alert',
             ['type' => 'success',  'message' => 'Order Created Successfully!']);
-
-        return redirect()->route('orders.index');
+      //  return back();
+        //return redirect()->route('orders.index');
     }
 }
 

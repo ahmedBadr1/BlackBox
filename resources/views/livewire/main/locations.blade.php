@@ -1,13 +1,13 @@
 <div class="form-group row">
     <label for="role" class="col-md-4 col-form-label text-md-right">@lang('names.location')</label>
     <div class="col-md-6">
-        <select name="delivery_id" class="form-select" aria-label="Default select example" >
+        <select name="location_id" class="form-select" aria-label="Default select example" >
             <option value="">Select a Location</option>
             @foreach($locations as $location)
                 <option value="{{$location->id}}">{{$location->name}}</option>
             @endforeach
         </select>
-        @error('delivery_id')
+        @error('location_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

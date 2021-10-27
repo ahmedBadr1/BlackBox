@@ -18,7 +18,6 @@ class Profile extends Model
         'address',
         'profile_photo',
         'url',
-        'location'
     ];
 
     public function location()

@@ -15,7 +15,6 @@ class Branch extends Model
     protected $fillable = [
         'name',
         'phone',
-        'location_id',
         'state_id',
         'user_id',
     ];
@@ -41,9 +40,9 @@ class Branch extends Model
     //    $mangers = User::role(['manager'])->get();
         return $this->belongsTo(User::class,'user_id');
     }
-    public function location()
+    public function locations()
     {
-        return $this->belongsTo(Location::class);
+        return $this->morphMany(Location::class, 'locationable');
     }
     public function users()
     {

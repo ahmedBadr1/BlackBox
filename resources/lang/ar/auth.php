@@ -23,6 +23,7 @@ return [
     'logout' => 'تسجيل خروج',
     'actions' => 'الأوامر',
 
+
     'symbol' => 'جم',
 
     'failed'   => 'بيانات الاعتماد هذه غير متطابقة مع البيانات المسجلة لدينا.',
@@ -49,6 +50,9 @@ return [
     'address' => 'العنوان',
     'photo' => 'صورة',
     'url' => 'رابط',
+
+    'count' => 'عدد',
+    'status' => 'حالة',
 
     'product-name' => 'إسم المنتج',
     'cust-name' => 'إسم المستلم',
@@ -99,6 +103,41 @@ return [
     'select-package-type' => 'نوع الشحنة',
     'select-packing-type' => 'وزن الشحنة',
     'product-count' => 'عدد المنتجات',
+
+    'delivery-time' => 'وقت التوصيل',
+    'over-weight-cost'=> 'تكلفة الوزن الزائد',
+    'pickup-cost' => 'تكلفة البيك اب',
+    'hour' => 'ساعة',
+    'description'=> 'الوصف',
+    'unit-price' => 'سعر الوحدة',
+    'amount' => 'القيمة',
+    'notes'=>'الملاحظات',
+    'created' => 'تم اللإنشاء',
+
+    'business-name' => 'إسم الشركة',
+    'business-contact' => 'رقم للتواصل',
+    'business-url' => 'لينك الشركة',
+    'business-field' => 'مجال العمل',
+    'store' => 'المتجر',
+    'street' => 'الشارع',
+    'building' => 'عمارة',
+    'floor' => 'الدور',
+    'apartment' => 'الشقة',
+    'landmarks' => 'علامة مميزة',
+    'latitude' => 'خط عرض',
+    'longitude' => 'خط طول',
+    'current-password' => 'كلمة السر الحالية',
+    'new-password' => 'كلمة السر الجديدة',
+    'con-password' => 'تأكيد كلمة السر',
+    'invite' => 'دعوة',
+    'reset' => 'إعادة ظبط',
+    'save' => 'حفظ',
+    'enter-email' => 'أدخل الحساب الإلكتروني',
+    'create-location' => 'إنشاء موقع',
+    'city' => 'مدينة',
+    'due-to' => 'إلى تاريخ',
+    'location' => 'الموقع',
+
 
 
 ];

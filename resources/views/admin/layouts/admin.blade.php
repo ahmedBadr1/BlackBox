@@ -11,7 +11,7 @@
 @yield('meta')
     @stack('styles')
     @livewireStyles
-    @notifyCss
+
 <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -22,7 +22,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <title>{{ setting('company_name') ?? config('app.name', 'Laravel') }}</title>
+    <title>{{ sys('company_name') ?? config('app.name', 'Laravel') }}</title>
 </head>
 <body >
 <div id="app" class="">
@@ -75,7 +75,7 @@
 
 </div>
 <footer class=" fb-footer">
-    <p > copyright &#169 Feedback 2021 <small> {{ setting('footer') ?? '' }}
+    <p > copyright &#169 Feedback 2021 <small> {{ sys('footer') ?? '' }}
 {{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
         </small></p>
 </footer>
@@ -98,9 +98,9 @@
 {{--    search.addEventListener('click', () => { toggle() });--}}
 {{--</script>--}}
 
-<x:notify-messages />
+
 @livewireScripts
-@notifyJs
+
 @yield('script')
 </body>
 </html>

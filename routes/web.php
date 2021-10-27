@@ -12,15 +12,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+Route::get('/', function (){
+    return view('main.home');
+})->name('home');
 
 Route::group(['prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
 {
 
-    /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-    Route::get('/', function (){
-        return view('main.home');
-    })->name('home');
+
     Route::get('/track', [\App\Http\Controllers\Main\HomeController::class, 'track']);
     Route::post('/track', [\App\Http\Controllers\Main\HomeController::class, 'trackgo'])->name('track');
 
@@ -48,20 +49,27 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         })->name('dashboard');
         Route::get('valex/{name}',\App\Http\Controllers\ValexController::class)->name('valex');
 
-
-
         Route::group([
             'middleware' => ['role:seller']
         ], function () {
-        Route::get('home',[\App\Http\Controllers\Seller\DashboardController::class,'index'])->name('seller.dashboard');
+            Route::get('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'setting'])->name('setting');
+            Route::post('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'saveSetting'])->name('setting');
+            Route::group([
+            'middleware' => ['isBusiness']
+            ], function () {
+        Route::get('/home',[\App\Http\Controllers\Seller\DashboardController::class,'index'])->name('seller.dashboard');
+
         Route::get('help', [\App\Http\Controllers\Seller\DashboardController::class, 'help'])->name('help');
-        Route::get('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('setting');
+
         Route::get('notifications', [\App\Http\Controllers\Seller\DashboardController::class, 'notifications'])->name('notifications');
-            Route::get('messages', [\App\Http\Controllers\Seller\DashboardController::class, 'messages'])->name('messages');
+        Route::get('messages', [\App\Http\Controllers\Seller\DashboardController::class, 'messages'])->name('messages');
         Route::get('profile', [\App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('profile');
-        Route::get('profile/edit', [\App\Http\Controllers\Seller\DashboardController::class, 'profileEdit'])->name('profile.edit');
-            Route::put('profile/', [\App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
-            Route::get('price-list',[\App\Http\Controllers\Seller\SellerController::class,'priceList'])->name('price-list');
+
+        Route::put('profile/', [\App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
+        Route::post('password-change', [\App\Http\Controllers\Seller\DashboardController::class, 'changePassword'])->name('password-change');
+        Route::post('business-invite', [\App\Http\Controllers\Seller\BusinessController::class, 'invite'])->name('business-invite');
+
+        Route::get('price-list',[\App\Http\Controllers\Seller\SellerController::class,'priceList'])->name('price-list');
         Route::get('inventory',[\App\Http\Controllers\Seller\SellerController::class,'inventory'])->name('orders.inventory');
         Route::get('inventory/export/en',[\App\Http\Controllers\Seller\SellerController::class,'inventoryExport'])->name('orders.inventory.export.en');
         Route::get('inventory/export/ar',[\App\Http\Controllers\Seller\SellerController::class,'inventoryExport'])->name('orders.inventory.export.ar');
@@ -79,15 +87,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 
 
         Route::any('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
-        Route::get('areas',[\App\Http\Controllers\Seller\SellerController::class,'areas'])->name('areas');
-        Route::get('areas/{id}',[\App\Http\Controllers\Seller\SellerController::class,'areasShow'])->name('areas.show');
+//        Route::get('areas',[\App\Http\Controllers\Seller\SellerController::class,'areas'])->name('areas');
+//        Route::get('areas/{id}',[\App\Http\Controllers\Seller\SellerController::class,'areasShow'])->name('areas.show');
+//
+//        Route::get('branches',[\App\Http\Controllers\Seller\SellerController::class,'branches'])->name('branches');
+//        Route::get('branches/{id}',[\App\Http\Controllers\Seller\SellerController::class,'branchesShow'])->name('branches.show');
 
-            Route::get('branches',[\App\Http\Controllers\Seller\SellerController::class,'branches'])->name('branches');
-            Route::get('branches/{id}',[\App\Http\Controllers\Seller\SellerController::class,'branchesShow'])->name('branches.show');
+        Route::get('pickups',[\App\Http\Controllers\Seller\TaskController::class,'index'])->name('pickups');
+        Route::get('locations',[\App\Http\Controllers\Seller\TaskController::class,'locations'])->name('locations');
+        Route::post('locations/create',[\App\Http\Controllers\Seller\TaskController::class,'createLocation'])->name('locations.create');
 
-            Route::get('orders/trash',[\App\Http\Controllers\Seller\OrdersController::class,'trash'])->name('orders.trash');
+
+        Route::get('orders/trash',[\App\Http\Controllers\Seller\OrdersController::class,'trash'])->name('orders.trash');
         Route::resource('orders',\App\Http\Controllers\Seller\OrdersController::class);
-
+            }); // end business group middleware
         }); // end seller group middleware
         Route::group([
             'prefix' => 'admin',
@@ -96,9 +109,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         ], function () {
 
             /** ADD ALL auth ROUTES INSIDE THIS GROUP **/
-            Route::get('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'setting'])->middleware(['role:admin|Feedback'])->name('setting');
-            Route::post('/setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
-            Route::group(['middleware'=>'System'],function (){
+            Route::get('system', [\App\Http\Controllers\Admin\DashboardController::class, 'system'])->middleware(['role:admin|Feedback'])->name('system');
+            Route::post('/system', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSystem'])->name('system');
+            Route::group(['middleware'=>['System']],function (){
                 /** ADD ALL System ROUTES INSIDE THIS GROUP **/
 
                 Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');

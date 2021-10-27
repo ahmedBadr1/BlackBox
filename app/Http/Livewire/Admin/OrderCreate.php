@@ -52,7 +52,7 @@ class OrderCreate extends Component
     public $overWeight = 0 ;
     public  $overWeightCost = 0 ;
     public $area_id ;
-    public $settingLimit;
+    public $systemLimit;
     public   $user_id ;
     private $basicId;
 
@@ -66,7 +66,7 @@ class OrderCreate extends Component
     {
         $this->packing_type = Packing::all();
         $this->basicId = Plan::first()->id;
-        $this->settingLimit = setting('package_weight_limit');
+        $this->systemLimit = sys('package_weight_limit');
         $this->user = auth()->user();
         $this->user_id = $this->user->id ;
         $this->types = ['cosmetics','clothes','document','furniture','machines','other'];
@@ -94,8 +94,8 @@ class OrderCreate extends Component
                 }
 
                 $this->weight  = $this->package_weight * $this->quantity ;
-                if( $this->weight  > $this->settingLimit ){
-                    $this->overWeight  = $this->weight - $this->settingLimit;
+                if( $this->weight  > $this->systemLimit ){
+                    $this->overWeight  = $this->weight - $this->systemLimit;
                     $this->overWeightCost =  $this->overWeight * $orderArea->over_weight_cost ;
                 }else{
 
@@ -158,8 +158,8 @@ class OrderCreate extends Component
                 }
 
                 $this->weight  = $this->package_weight * $this->quantity ;
-                if( $this->weight  > $this->settingLimit ){
-                    $this->overWeight  = $this->weight - $this->settingLimit;
+                if( $this->weight  > $this->systemLimit ){
+                    $this->overWeight  = $this->weight - $this->systemLimit;
                     $this->overWeightCost =  $this->overWeight * $orderArea->over_weight_cost ;
                 }else{
                     $this->overWeight  = 0;

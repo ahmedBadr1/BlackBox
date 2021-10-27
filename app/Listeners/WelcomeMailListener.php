@@ -27,7 +27,7 @@ class WelcomeMailListener
      */
     public function handle(Registered $event)
     {
-        if (setting('auto_send')){
+        if (system('auto_send')){
             $event->user->notify(new WelcomeMailNotification());
         }
     }

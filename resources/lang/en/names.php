@@ -31,16 +31,16 @@ return [
     'clients' => 'Clients',
     'seller' => 'Seller',
     'sellers' => 'Sellers',
-    'count' => 'count',
+
     'manage' => 'manage',
     'task'=> 'Task',
     'tasks' => 'Tasks',
-    'status' => 'Status',
+
 
     'branch' => 'Branch',
     'branches' => 'Branches',
-    'invocie' => 'invocie',
-    'invocies' => 'invocies',
+    'invoice' => 'Invoice',
+    'invoices' => 'Invoices',
     'accounting' => 'Accounting',
     'jop' => 'Jop',
     'jops' => 'Jops',
@@ -49,8 +49,7 @@ return [
     'new' => 'New',
     'all' => 'All',
 
-    'notes'=>'Notes',
-    'mybalance'=>'My Balance',
+    'my-balance'=>'My Balance',
     'state'=>'State',
     'states'=>'States',
     'zone'=>'Zone',
@@ -124,6 +123,30 @@ return [
     'not-ready' => 'Not Ready',
 
     'selected-orders' => 'Selected Orders',
+    'price-list' => 'Price List',
+    'plan'=> 'Price Plan',
+
+
+    'invoice-details' => 'Invoice Details',
+    'order-id' => 'Order ID',
+    'no-notes' => 'No Notes',
+    'order-status' => 'Order Status',
+    'date' => 'Date',
+    'pickups-timeline' => 'Pickups Timeline',
+    'dropoff' => 'Drop off',
+    'pickup' => 'Pickup',
+    'pickups' => 'Pickups',
+    'all-pickups' => 'All Pickups',
+    'next-pickup' => 'Next Pickup',
+    'next-dropoff' => 'Next Dropoff',
+    'else' => 'Else',
+
+    'business' => 'Business',
+    'change-password' => 'Change Password',
+    'invite' => 'Invite',
+
+
+
 
 
 

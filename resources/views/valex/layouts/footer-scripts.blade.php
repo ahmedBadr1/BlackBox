@@ -1,10 +1,13 @@
 <!-- Back-to-top -->
 <a href="#top" class="bg-primary-gradient" id="back-to-top"><i class="las la-angle-double-up "></i></a>
-<x:notify-messages />
+
 @livewireScripts
-@notifyJs
+
 <!-- JQuery min js -->
 <script src="{{URL::asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+
+@toastr_js
+@toastr_render
 <!-- Bootstrap Bundle js -->
 <script src="{{URL::asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- Ionicons js -->

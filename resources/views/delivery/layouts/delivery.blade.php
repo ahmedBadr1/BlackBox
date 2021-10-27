@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ setting('company_name') ?? config('app.name', 'Laravel') }}</title>
+    <title>{{ sys('company_name') ?? config('app.name', 'Laravel') }}</title>
 
 
     @livewireStyles
@@ -83,7 +83,7 @@
 
 </div>
 <footer class=" fb-footer">
-    <p > copyright &#169 Feedback 2021 <small> {{ setting('footer') ?? '' }}
+    <p > copyright &#169 Feedback 2021 <small> {{ sys('footer') ?? '' }}
             {{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
         </small></p>
 </footer>

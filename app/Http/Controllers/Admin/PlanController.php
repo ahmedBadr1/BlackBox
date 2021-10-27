@@ -140,7 +140,7 @@ class PlanController extends Controller
     {
         //
         if ($id == Plan::first()->id){
-            notify()->error('Basic plan cant be deleted');
+            toastr()->error('Basic plan cant be deleted');
 
 
             return redirect()->back();

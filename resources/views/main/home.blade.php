@@ -262,8 +262,8 @@
             <div class="d-flex justify-content-center">
                 <div class="text-center">
                     <h1 class="mx-auto my-0 text-uppercase">{{ config('app.name', 'Black box') }}</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">A scalable, responsive, one page system for delivery companies.</h2>
-                    <a class="btn btn-dark" href="#about">Get Started</a>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">A scalable, responsive, powerful system for delivery companies.</h2>
+                    <a class="btn btn-dark" href="{{route('track')}}">Track</a>
                 </div>
             </div>
         </div>

@@ -162,7 +162,7 @@ class AreaController extends Controller
     {
         $area = Area::find($id);
         $area->delete();
-        notify()->success('Area Deleted Successfully','Area Deleted');
+        toastr()->success('Area Deleted Successfully','Area Deleted');
         return redirect()->route('admin.areas.index');
     }
 }

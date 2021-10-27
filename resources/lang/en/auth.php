@@ -50,6 +50,9 @@ return [
     'photo' => 'Photo',
     'url' => 'Url',
 
+    'count' => 'count',
+    'status' => 'Status',
+
     'product-name' => 'Product Name',
     'product-description' => 'Product Description',
     'cust-name' => 'Consignee Name',
@@ -92,7 +95,6 @@ return [
     'packing' => 'Packing',
     'packing-cost' => 'Packing Cost',
     'cost' => 'Cost',
-    'package-weight' => 'Packing Weight',
     'kg-per-one' => 'Kg per one',
     'select-area' => 'Select Area',
     'select-state' => 'Select State',
@@ -100,6 +102,42 @@ return [
     'select-package-type' => 'Select Package Type',
     'select-packing-type' => 'Select Packing Type',
     'product-count' => 'Product Count',
+
+    'delivery-time' => 'Delivery Time',
+    'over-weight-cost'=> 'Overweight Cost',
+    'pickup-cost' => 'Pickup Cost',
+    'hour' => 'hour',
+    'description' => 'Description',
+    'unit-price' => 'Unit Price',
+    'amount' => 'Amount',
+    'notes'=>'Notes',
+
+    'business-name' => 'Business Name',
+    'business-contact' => 'Business Contact',
+    'business-url' => 'Business Url',
+    'business-field' => 'Business Field',
+    'store' => 'Store',
+    'street' => 'Street',
+    'building' => 'Building',
+    'floor' => 'Floor',
+    'apartment' => 'Apartment',
+    'landmarks' => 'Landmarks',
+    'latitude' => 'Latitude',
+    'longitude' => 'Longitude',
+    'current-password' => 'Current Password',
+    'new-password' => 'New Password',
+    'con-password' => 'Confirm Password',
+    'invite' => 'Invite',
+    'reset' => 'Reset',
+    'save' => 'Save',
+    'enter-email' => 'Enter Email',
+    'create-location' => 'Create Location',
+    'city' => 'City',
+    'due-to' => 'Due To',
+    'location' => 'Location',
+
+
+
 
 
 

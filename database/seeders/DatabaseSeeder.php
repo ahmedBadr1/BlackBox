@@ -26,13 +26,12 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsSeeder::class);
 
 
-        \App\Models\Zone::factory(10)->create();
-        \App\Models\Area::factory(25)->create();
-        \App\Models\Location::factory(25)->create();
+        \App\Models\Zone::factory(50)->create();
+        \App\Models\Area::factory(250)->create();
+  //      \App\Models\Location::factory(25)->create();
         Branch::factory()->create([
             'name'=> 'main' ,
             'phone'=> '01999999999' ,
-            'location_id'=> 1,
             'user_id'=> 1 ,
             'state_id'=> 1 ,
             'active' => true,

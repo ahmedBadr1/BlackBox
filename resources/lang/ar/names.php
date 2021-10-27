@@ -32,16 +32,16 @@ return [
     'seller' => 'التاجر',
     'sellers' => 'التجار',
 
-    'count' => 'عدد',
+
     'manage' => 'إدارة',
     'task'=> 'مهمة',
     'tasks' => 'المهمات',
-    'status' => 'حالة',
+
 
     'branch' => 'فرع',
     'branches' => 'الفروع',
-    'invocie' => 'فاتورة',
-    'invocies' => 'فواتير',
+    'invoice' => 'فاتورة',
+    'invoices' => 'فواتير',
     'accounting' => 'الحسابات',
     'jop' => 'وظيفة',
     'jops' => 'الوظائف',
@@ -51,8 +51,8 @@ return [
     'new' => 'جديد',
     'all' => 'كل',
 
-    'notes'=>'الملاحظات',
-    'mybalance'=>'رصيدي',
+
+    'my-balance'=>'رصيدي',
     'state'=>'محافظة',
     'states'=>'المحافظات',
     'zone'=>'زون',
@@ -63,7 +63,7 @@ return [
     'features'=>'مميزات',
     'delivery' => 'مندوب',
     'deliveries'=>'مندوبين',
-    'locations'=>'عنواوين',
+    'locations'=>'عناوين',
     'statuses'=>'حالات',
     'receipts'=>'إيصالات',
     'setting'=>'الإعدادات',
@@ -125,6 +125,29 @@ return [
     'not-ready' => 'غير جاهز',
 
     'selected-orders' => 'الطلبات المختارة',
+    'price-list' => 'قائمة التسعير',
+    'plan'=> 'خطة الأسعار',
+
+    'invoice-details' => 'تفاصيل الفاتورة',
+    'order-id' => 'كود الطلب',
+    'no-notes' => 'لا ملاحظات',
+    'order-status' => 'حالة الطلب',
+    'date' => 'تاريخ',
+    'pickups-timeline' => 'الجدول الزمني للتسليمات',
+    'dropoff' => 'إستلام',
+    'pickup' => 'تسليم',
+    'pickups' => 'التسليمات',
+    'all-pickups' => 'كل التسليمات',
+    'next-pickup' => 'التسليم التالي',
+    'next-dropoff' => 'الإستلام التالي',
+    'else' => 'أخري',
+
+    'business' => 'الشركة',
+    'change-password' => 'تغيير كلمة السر',
+    'invite' => 'دعوة',
+
+
+
 
 
 

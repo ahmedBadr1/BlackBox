@@ -40,14 +40,21 @@ class HomeController extends Controller
     public function  trackgo(Request $request)
     {
         //  dd($request['order_id']);
+        $this->validate($request,[
+            'order_id' => 'required'
+        ]);
         $order_hashid =  $request['order_id'];
         $id =    Hashids::Connection(Order::class)->decode($order_hashid);
 
         if($id){
-            $order =Order::findOrFail($id[0]);
-            $status =  Status::find($order->status_id)->name;
+            $order =Order::find($id[0]);
+            if ($order){
+                $status =  Status::find($order->status_id)->name;
+            }else{
+                $status =  'order-not-found';
+            }
         }else{
-            $status =  null;
+            $status =  'order-not-found';
         }
 
 //        if (auth()->user()->id !== $order->user->id){

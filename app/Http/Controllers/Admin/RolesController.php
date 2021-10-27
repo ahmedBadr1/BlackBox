@@ -119,7 +119,7 @@ class RolesController extends Controller
         $role->save();
         $role->syncPermissions($request->input('permissions'));
       //  session()->flash('success','Role Updated Successfully');
-        notify()->success($role->name .'Role Updated Successfully','Role Updated');
+        toastr()->success($role->name .'Role Updated Successfully','Role Updated');
         return redirect()->route('admin.roles.index');
     }
 

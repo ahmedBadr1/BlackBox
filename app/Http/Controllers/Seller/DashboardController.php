@@ -4,22 +4,30 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Business;
 use App\Models\Order;
 use App\Models\State;
 use App\Models\User;
+use App\Notifications\ChangePasswordNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('role:seller');
+    }
     public function index()
     {
+        $business = \auth()->user()->business ;
         $user = \auth()->user();
-
+//dd($business);
       //  $orders = Order::where('user_id',auth()->id());
 
         $total =  Order::myOrders()->whereNotIn('status_id', [1,2,10] )->sum('total'); //scope in Order
@@ -31,11 +39,11 @@ class DashboardController extends Controller
 //dd($failed);
         $cancelled =  Order::myOrders()->whereIn('status_id', [7,8])->count(); // refused or cancel
 
-        $monthOrdersCount =$user->ordersMonthly(now()->month)->count(); //relation based on month in User
-        $monthOrdersValue = $user->ordersMonthly(now()->month)->sum('total');
+        $monthOrdersCount =$business->ordersMonthly(now()->month)->count(); //relation based on month in User
+        $monthOrdersValue = $business->ordersMonthly(now()->month)->sum('total');
 
-        $lastMonthOrdersCount = $user->ordersMonthly(now()->subMonth(1))->whereNotIn('status_id', [1,2,10] )->count();
-        $lastMonthOrdersValue = $user->ordersMonthly(now()->subMonth(1))->whereNotIn('status_id', [1,2,10] )->sum('total');
+        $lastMonthOrdersCount = $business->ordersMonthly(now()->subMonth(1))->whereNotIn('status_id', [1,2,10] )->count();
+        $lastMonthOrdersValue = $business->ordersMonthly(now()->subMonth(1))->whereNotIn('status_id', [1,2,10] )->sum('total');
 
 
        // dd($monthOrdersCount);
@@ -140,7 +148,7 @@ class DashboardController extends Controller
         }
 
         $user->push();
-        notify()->success('Profile Updated Successfully','Profile Updated');
+        toastr()->success('Profile Updated Successfully','Profile Updated');
         return redirect()->route('profile');
     }
     public function help(){
@@ -152,6 +160,64 @@ class DashboardController extends Controller
     public function messages(){
         return view('seller.messages.index');
     }
+
+    public function setting ()
+    {
+        $industries = Business::$industries ;
+        $channels = Business::$channels;
+        $business = \auth()->user()->business ?? null;
+      //  dd(auth()->user()->orders()->count());
+      //  dd($business->orders()->count());
+        return view('seller.setting',compact('business','industries','channels'));
+    }
+    public function saveSetting(Request $request)
+    {
+      //  dd($request->all());
+      $input =  $this->validate($request,[
+            'name' => 'required',
+            "contact" => "required",
+            "industry" => "required",
+            "channel" => "required",
+            "url" => "required|url",
+        ]);
+   //dd($input);
+
+        $user = \auth()->user();
+     //   dd($user->business);
+  //     $business = Business::firstOrNew($input);;
+        if(isset($user->business)){
+            $user->business->update($input) ;
+        }else{
+            $business = Business::create($input);
+            $user->business()->associate($business)->save();
+        }
+   //     dd($user->business);
+
+
+        return back();
+    }
+
+    public function changePassword (Request $request)
+    {
+      $input =  $this->validate($request,[
+            'password' => 'required',
+            'new_password' => 'required|min:8|same:con_password',
+            'con_password' => 'required',
+        ]);
+  //    dd($input);
+        $user = auth()->user();
+      //  dd($user->password);
+        if (!Hash::check($input['password'], $user->password)) {
+            toastr('password not true');
+            return back();
+        }
+        $user->password = Hash::make($input['new_password']);
+        $user->save();
+        $user->notify(new ChangePasswordNotification());
+        toastr('all good');
+        return back();
+    }
+
 
 
 }

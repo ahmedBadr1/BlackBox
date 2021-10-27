@@ -76,7 +76,7 @@ class OrdersController extends Controller
         $order->update();
 
         $statuses = Status::whereIn('id',[6,7,8])->get();
-        notify()->success('Order Status Changed Successfully','Order Updated');
+        toastr()->success('Order Status Changed Successfully','Order Updated');
         return view('delivery.orders.status',compact('order','statuses'));
     }
 

@@ -30,6 +30,7 @@
             <ul class="nav">
                 <li class="">
                     <ul class="d-flex">
+
                         <div class="dropdown  nav-itemd-none d-md-flex">
                             <a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown"
                                aria-expanded="false">
@@ -56,6 +57,18 @@
 
                 </li>
             </ul>
+            <div class="nav nav-item"  >
+                <div class="nav-link" onclick="theme()" >
+                    @if(session()->get('theme') === 'dark')
+                        <i class='bx bxs-brightness-half main-nav-dark bx-sm side-menu__icon' ></i>
+                    @else
+                        <i class='bx bx-brightness-half main-nav-dark bx-sm side-menu__icon' ></i>
+                    @endif
+
+
+
+                </div>
+            </div>
             <div class="nav nav-item  navbar-nav-right ml-auto">
                 <div class="nav-link" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form" role="search">
@@ -79,71 +92,73 @@
                         </div>
                     </form>
                 </div>
-                <div class="dropdown nav-item main-header-message ">
-                    <a class="new nav-link" href="#">
-                        <i class='bx bx-envelope bx-sm side-menu__icon' ></i>
-                        <span class=" pulse-danger"></span></a>
-                    <div class="dropdown-menu">
-                        <div class="menu-header-content bg-primary text-right">
-                            <div class="d-flex">
-                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">@lang('names.messages')</h6>
-                                <span
-                                    class="badge badge-pill badge-warning ml-auto my-auto float-left">@lang('names.mark-all-read')</span>
-                            </div>
-                            <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">@lang('messages.no-unread-messages')</p>
-                        </div>
-                        <div class="main-message-list chat-scroll">
-                            @foreach(auth()->user()->notifications as $notification)
-                            <a href="#" class="p-3 d-flex border-bottom">
-                                <div class="  drop-img  cover-image  "
-                                     data-image-src="{{URL::asset('assets/img/faces/3.jpg')}}">
-                                    <span class="avatar-status bg-teal"></span>
-                                </div>
-                                <div class="wd-90p">
-                                    <div class="d-flex">
-                                        <h5 class="mb-1 name">Petey Cruiser</h5>
-                                    </div>
-                                    <p class="mb-0 desc">I'm sorry but i'm not sure how to help you with that......</p>
-                                    <p class="time mb-0 text-left float-right mr-2 mt-2">Mar 15 3:55 PM</p>
-                                </div>
-                            </a>
-                            @endforeach
-                        </div>
-                        <div class="text-center dropdown-footer">
-                            <a href="{{route('messages')}}">@lang('names.view-all')</a>
-                        </div>
-                    </div>
-                </div>
+
+
+{{--                <div class="dropdown nav-item main-header-message ">--}}
+{{--                    <a class="new nav-link" href="#">--}}
+{{--                        <i class='bx bx-envelope bx-sm side-menu__icon' ></i>--}}
+{{--                        <span class=" pulse-danger"></span></a>--}}
+{{--                    <div class="dropdown-menu">--}}
+{{--                        <div class="menu-header-content bg-primary text-right">--}}
+{{--                            <div class="d-flex justify-content-between">--}}
+{{--                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">@lang('names.messages')</h6>--}}
+{{--                                <span--}}
+{{--                                    class="badge badge-pill badge-warning ">@lang('names.mark-all-read')</span>--}}
+{{--                            </div>--}}
+{{--                            <p class="dropdown-title-text subtext mb-0 text-white op-6 pb-0 tx-12 ">@lang('messages.no-unread-messages')</p>--}}
+{{--                        </div>--}}
+{{--                        <div class="main-message-list chat-scroll">--}}
+{{--                            @foreach(auth()->user()->notifications as $notification)--}}
+{{--                            <a href="#" class="p-3 d-flex border-bottom">--}}
+{{--                                <div class="  drop-img  cover-image  "--}}
+{{--                                     data-image-src="{{URL::asset('assets/img/faces/3.jpg')}}">--}}
+{{--                                    <span class="avatar-status bg-teal"></span>--}}
+{{--                                </div>--}}
+{{--                                <div class="wd-90p">--}}
+{{--                                    <div class="d-flex">--}}
+{{--                                        <h5 class="mb-1 name">Petey Cruiser</h5>--}}
+{{--                                    </div>--}}
+{{--                                    <p class="mb-0 desc">I'm sorry but i'm not sure how to help you with that......</p>--}}
+{{--                                    <p class="time mb-0 text-left float-right mr-2 mt-2">Mar 15 3:55 PM</p>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                        <div class="text-center dropdown-footer">--}}
+{{--                            <a href="{{route('messages')}}">@lang('names.view-all')</a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <div class="dropdown nav-item main-header-notification">
                     <a class="new nav-link" href="#">
                         <i class='bx bx-bell bx-sm side-menu__icon bx-tada-hover' ></i>
                         <span class=" pulse"></span></a>
                     <div class="dropdown-menu">
                         <div class="menu-header-content bg-primary text-right">
-                            <div class="d-flex">
+                            <div class="d-flex justify-content-between">
                                 <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">@lang('names.notifications')</h6>
-                                <span class="badge badge-pill badge-warning mr-auto my-auto float-left">@lang('names.mark-all-read')</span>
+                                <span class="badge badge-pill badge-warning ">@lang('names.mark-all-read')</span>
                             </div>
                             <p class="dropdown-title-text subtext mb-0 mt-1 ml-3 text-white op-6 pb-0 tx-12 ">@lang('messages.no-unread-notifications')</p>
                         </div>
                         <div class="main-notification-list Notification-scroll">
-                            @foreach(auth()->user()->notifications as $k => $notification)
+                            @foreach(auth()->user()->unreadNotifications as $k => $notification)
 
-                            <a class="d-flex py-3 px-1 border-bottom" href="{{$notification->data['url']}}">
+                            <a class="d-flex py-3 px-1 border-bottom" href="{{url('/').$notification->data['url']}}">
 {{--                                <div class="notifyimg bg-pink">--}}
 {{--                                    <i class="la la-file-alt text-white"></i>--}}
 {{--                                </div>--}}
                                 <div class="mx-3">
                                     <h5 class="notification-label mb-1">{{$notification->data['from']}}</h5>
-                                    <div class="notification-subtext">{{$notification->data['msg']}}</div>
+                                    <div class="notification-subtext">{{\Illuminate\Support\Str::limit($notification->data['msg'], 25)}}</div>
 
                                 </div>
                                 <div class="mr-auto">
-
+                                    <i class='bx bx-time-five bx-xs'></i>
                                     <small class="tx-10">{{$notification->created_at->diffForHumans()}}</small>
                                 </div>
                             </a>
-                                @php if ($k == 3) {
+                                @php if ($k == 5) {
                                         break;
                                     }
                                 @endphp
@@ -195,17 +210,13 @@
                         </form>
                     </div>
                 </div>
+
 {{--                <div class="dropdown main-header-message right-toggle">--}}
 {{--                    <a class="nav-link pr-0" data-toggle="sidebar-left" data-target=".sidebar-left">--}}
-{{--                        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none"--}}
-{{--                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"--}}
-{{--                             class="feather feather-menu">--}}
-{{--                            <line x1="3" y1="12" x2="21" y2="12"></line>--}}
-{{--                            <line x1="3" y1="6" x2="21" y2="6"></line>--}}
-{{--                            <line x1="3" y1="18" x2="21" y2="18"></line>--}}
-{{--                        </svg>--}}
+{{--                  <i class="bx bx-menu bx-sm side-menu__icon"></i>--}}
 {{--                    </a>--}}
 {{--                </div>--}}
+
             </div>
         </div>
     </div>

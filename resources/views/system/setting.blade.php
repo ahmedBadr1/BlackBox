@@ -12,7 +12,7 @@
                     </div>
                 @endif
 
-                <form action="{{route('admin.setting')}}" method="Post" enctype="multipart/form-data">
+                <form action="{{route('admin.system')}}" method="Post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="auto_send" value="0">
 

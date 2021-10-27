@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id')->startingValue(1); // check again
+            $table->string('type');
             $table->text('product');
             $table->text('consignee');
             $table->text('details');

@@ -13,7 +13,7 @@
     <meta name="Keywords" content=""/>
     @include('valex.layouts.head')
     @livewireStyles
-    @notifyCss
+    @toastr_css
 {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
 
     <!-- Fonts -->
@@ -22,10 +22,10 @@
 
     <!-- Styles -->
 {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-    <title>{{ setting('company_name') ?? config('app.name', 'Laravel') }}</title>
+    <title>{{ sys('company_name') ?? config('app.name', 'Laravel') }}</title>
 </head>
 
-<body class="main-body app sidebar-mini">
+<body class="main-body app sidebar-mini @if(session()->get('theme') === 'dark') dark-theme  @endif">
 <!-- Loader -->
 <div id="global-loader">
     <img src="{{URL::asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
@@ -40,11 +40,18 @@
     <div class="container-fluid">
 @yield('page-header')
 @yield('content')
+{{--        @include('valex.layouts.sidebar')--}}
     </div>
+</div>
 {{--@include('valex.layouts.sidebar')--}}
 @include('valex.layouts.models')
 @include('valex.layouts.footer')
 @include('valex.layouts.footer-scripts')
-
+<script >
+    function theme() {
+        let body = document.body;
+        body.classList.toggle('dark-theme');
+    }
+</script>
 </body>
 </html>

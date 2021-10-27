@@ -18,7 +18,7 @@ class OrdersController extends Controller
 {
     public function __construct()
     {
-           $this->middleware('role:seller|Feedback');
+           $this->middleware('role:seller');
     }
 
     /**
@@ -72,7 +72,7 @@ class OrdersController extends Controller
         $input['total'] = $input['value'] * $input['quantity'] ?? 0;
         Order::create($input);
 
-        notify()->success('Order Created Successfully');
+        toastr()->success('Order Created Successfully');
         return redirect()->route('seller.orders.index');
     }
 
@@ -87,7 +87,8 @@ class OrdersController extends Controller
             if (auth()->id() !== $order->user_id){
                 abort(404);
             }
-        return view('seller.orders.show',compact('order'));
+            $user = auth()->user();
+        return view('seller.orders.show',compact('order','user'));
     }
 
     /**
@@ -127,7 +128,7 @@ class OrdersController extends Controller
             $shipping = number_format(0);
         }
 
-        $logoPath =  storage_path('app/public/'.setting('company_logo')) ;
+        $logoPath = sys('company_logo')  ? storage_path('app/public/'.sys('company_logo')) :  url('/assets/img/brand/logo-black.png' )  ;
 
 
         $invoice = Invoice::make()
@@ -145,7 +146,7 @@ class OrdersController extends Controller
 
 
         if(app()->getLocale() == "ar"){
-            //   notify()->error('can\'t print arabic charachters');
+            //   toastr()->error('can\'t print arabic charachters');
             $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
             return $pdf->stream('arabic.pdf');
         }
@@ -168,8 +169,8 @@ class OrdersController extends Controller
         }
 
         if (!in_array($order->status->id,[1,2])){
-            notify()->warning("Order Can't be changed after reaching to ".setting('company_name'));
-            return redirect()->route('orders.index');
+            toastr()->warning("Order Can't be changed after reaching to ".sys('company_name'));
+            return back();
         }
 
         // $states= State::where('active',true)->get();
@@ -199,7 +200,7 @@ class OrdersController extends Controller
         ]);
         $input = $request->all();
         $order->update($input);
-        notify()->success('Order Updated Successfully');
+        toastr()->success('Order Updated Successfully');
         return redirect()->route('seller.orders.index');
     }
 
@@ -216,12 +217,12 @@ class OrdersController extends Controller
             abort(404);
         }
         if (!in_array($order->status_id,[1,2,10]) ){
-            notify()->warning("Order Can't be deleted after reaching to ".setting('company_name'));
+            toastr()->warning("Order Can't be deleted after reaching to ".sys('company_name'));
          return back();
         }
 
         $order->delete();
-        notify()->success('Order Deleted Successfully');
+        toastr()->success('Order Deleted Successfully');
         return redirect()->route('orders.index');
     }
     public function trash(){

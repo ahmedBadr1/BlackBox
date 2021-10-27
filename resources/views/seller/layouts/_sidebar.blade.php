@@ -2,7 +2,8 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar sidebar-scroll">
     <div class="main-sidebar-header active">
-        <h3 class="text-center w-100" ><b> <a href="{{url('/')}}" class="desktop-logo logo-light active nav-link main-content-title">{{setting('company_name')}}</a></b></h3>
+        <h3 class="main-content-title mt-auto" ><b> <a href="{{url('/')}}" class="desktop-logo logo-light active nav-link ">{{sys('company_name')}}</a></b></h3>
+        <h3 class="main-content-title mt-auto" ><b> <a href="{{url('/')}}" class="desktop-logo logo-dark  nav-link main-content-title">{{sys('company_name')}}</a></b></h3>
 {{--        <a class="desktop-logo logo-light active" href="{{ url('/') }}"><img--}}
 {{--                src="{{URL::asset('assets/img/brand/logo.png')}}" class="main-logo" alt="logo"></a>--}}
 {{--        <a class="desktop-logo logo-dark active" href="{{ url('/') }}"><img--}}
@@ -59,18 +60,32 @@
                 </ul>
             </li>
 
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('pickups')}}">
+                    <i class='bx bx-box side-menu__icon'></i>
+                    <span  class="side-menu__label">{{__('names.pickups')}}</span>
+                </a>
+            </li>
+
 
             <li class="slide">
-                <a class="side-menu__item" href="{{route('mybalance')}}">
+                <a class="side-menu__item " href="{{route('mybalance')}}">
                     <i class="bx bx-dollar side-menu__icon"></i>
-                    <span  class="side-menu__label">{{__('names.mybalance')}}</span>
+                    <span  class="side-menu__label ">{{__('names.my-balance')}}</span>
                 </a>
             </li>
 
             <li class="slide">
                 <a class="side-menu__item" href="{{route('price-list')}}">
                     <i class='bx bx-list-check side-menu__icon'></i>
-                    <span  class="side-menu__label">{{__('names.myplan')}}</span>
+                    <span  class="side-menu__label">{{__('names.price-list')}}</span>
+                </a>
+            </li>
+
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('locations')}}">
+                    <i class="bx  bx-map  side-menu__icon"></i>
+                    <span class="side-menu__label">{{__('names.locations')}}</span>
                 </a>
             </li>
 

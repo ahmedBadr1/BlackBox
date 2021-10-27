@@ -45,9 +45,17 @@ class SellerController extends Controller
     }
     public function priceList(){
         $plan = auth()->user()->plan;
-        $areas = Area::all();
-       // dd($plan);
-        return view('seller.accounting.price-list',compact('plan'));
+        $areas = Area::select('delivery_cost','id','name','delivery_time','over_weight_cost')->get();
+      //  dd($areas[4]);
+        foreach ($plan->area as $key=> $planArea){
+            if ($planArea){
+                $areas[$key-1]->delivery_cost = $planArea;
+            }
+
+        }
+
+      //  dd($areas);
+        return view('seller.accounting.price-list',compact('plan','areas'));
     }
     public function  ready()
     {

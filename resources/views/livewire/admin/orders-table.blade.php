@@ -46,14 +46,14 @@
         <thead>
         <th>#</th>
         <th>{{__("auth.id")}} {{__("names.order")}}</th>
-        <th>{{__("auth.product_name")}}</th>
-        <th>{{__("auth.cust_name")}}</th>
-        <th>{{__("auth.cust_num")}}</th>
+        <th>{{__("auth.product-name")}}</th>
+        <th>{{__("auth.cust-name")}}</th>
+        <th>{{__("auth.cust-num")}}</th>
         <th>{{__("auth.address")}}</th>
-        <th>{{__("names.total")}}</th>
-        <th>{{__("names.cost")}}</th>
-        <th>{{__("names.notes")}}</th>
-        <th>{{__("names.status")}}</th>
+        <th>{{__("auth.total")}}</th>
+        <th>{{__("auth.cost")}}</th>
+        <th>{{__("auth.notes")}}</th>
+        <th>{{__("auth.status")}}</th>
         <th>{{__("auth.username")}}</th>
 
         </thead>

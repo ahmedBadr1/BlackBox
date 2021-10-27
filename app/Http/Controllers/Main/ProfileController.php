@@ -78,7 +78,7 @@ class ProfileController extends Controller
         }
 
         $user->push();
-        notify()->success('Profile Updated Successfully','Profile Updated');
+        toastr()->success('Profile Updated Successfully','Profile Updated');
         return redirect()->route('profile');
     }
 }

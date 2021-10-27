@@ -24,6 +24,8 @@ class Order extends Model
      * @var string[]
      */
     protected $fillable = [
+        'type',
+
         'product',
         'consignee',
        'details',
@@ -63,6 +65,7 @@ class Order extends Model
         'details'=> 'array',
     ];
 
+    public static $types = ['deliver','exchange','return','cash'];
 
     protected static $recordEvents = ['updated','deleted'];
 
@@ -78,6 +81,10 @@ class Order extends Model
     public function state()
     {
         return  $this->belongsToThrough('App\Models\State',['App\Models\Zone', 'App\Models\Area']);
+    }
+    public function business()
+    {
+        return  $this->belongsToThrough('App\Models\Business',['App\Models\User']);
     }
     public function user()
     {

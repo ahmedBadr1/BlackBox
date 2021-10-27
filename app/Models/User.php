@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'phone',
         'state_id',
+        'business_id',
         'hearAboutUs',
         'password',
 
@@ -144,15 +145,31 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function locations()
     {
-        return $this->hasMany(Location::class);
+        return $this->morphMany(Location::class, 'locationable');
+    }
+    public function latestLocation()
+    {
+        return $this->morphOne(Location::class, 'locationable')->latestOfMany();
     }
     public function tasks()
     {
         return $this->hasMany(Task::class);
     }
-    public function taskson()
+    public function pickups()
+    {
+        return $this->hasMany(Task::class)->where('type','pickup');
+    }
+    public function dropoffs()
+    {
+        return $this->hasMany(Task::class)->where('type','dropoff');
+    }
+    public function tasksOn()
     {
         return $this->hasMany(Task::class,'delivery_id');
+    }
+    public function business()
+    {
+        return  $this->belongsTo(Business::class);
     }
 
 }

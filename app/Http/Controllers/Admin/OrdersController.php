@@ -154,21 +154,21 @@ class OrdersController extends Controller
                 $input['user_id'] = $user->id;
             }
     //        $input['total'] = $input['value'] * $input['quantity'] ;
-            //       dd(setting('package_weight_limit'));
+            //       dd(System('package_weight_limit'));
             if(!$input['cod']){
                 $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
                // dd($input['total']);
-                if($input['package_weight'] > setting('package_weight_limit')){
+                if($input['package_weight'] > sys('package_weight_limit')){
                     $input['total'] = ($input['value'] -
                             ( $orderArea->delivery_cost + (
-                                    ($input['package_weight'] - setting('package_weight_limit')
+                                    ($input['package_weight'] - sys('package_weight_limit')
                                     ) * $orderArea->over_weight_cost )
                             )
                         ) * $input['quantity']  ?? 0;
                 }
-            }elseif($input['package_weight'] > setting('package_weight_limit')){
+            }elseif($input['package_weight'] > sys('package_weight_limit')){
 
-                $over = ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ;
+                $over = ($input['package_weight'] - sys('package_weight_limit')) * $orderArea->over_weight_cost ;
                 $input['total'] = ($input['value'] -  $over) * $input['quantity']  ?? 0;
             }else{
 
@@ -179,7 +179,7 @@ class OrdersController extends Controller
      //   dd($input['total']);
         Order::create($input);
 
-        notify()->success('Order Created Successfully');
+        toastr()->success('Order Created Successfully');
 
         return redirect()->route('admin.orders.index');
     }
@@ -249,7 +249,7 @@ class OrdersController extends Controller
 //        ];
 //        $notes = implode("<br>", $notes);
 
-        $logoPath =  storage_path('app/public/'.setting('company_logo'))   ?? '';
+        $logoPath =  storage_path('app/public/'.sys('company_logo'))   ?? '';
 
 
         $invoice = Invoice::make()
@@ -285,7 +285,7 @@ class OrdersController extends Controller
       //  ini_set("pcre.backtrack_limit", "1000000");
     //    $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
         if(app()->getLocale() == "ar"){
-         //   notify()->error('can\'t print arabic charachters');
+         //   toastr()->error('can\'t print arabic charachters');
             $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
             return $pdf->stream('arabic.pdf');
         }
@@ -339,12 +339,12 @@ class OrdersController extends Controller
     {
 
             if (auth()->id() !== $order->user_id){
-                notify()->warning('You cant change this order ');
+                toastr()->warning('You cant change this order ');
                 return redirect()->back();
             }
 
         if (!in_array($order->status->id,[1,2])){
-            notify()->warning("Order Can't be changed after reaching to Bagy");
+            toastr()->warning("Order Can't be changed after reaching to Bagy");
             return redirect()->route('admin.orders.index');
         }
 
@@ -398,23 +398,23 @@ class OrdersController extends Controller
             }
 
             //        $input['total'] = $input['value'] * $input['quantity'] ;
-            //       dd(setting('package_weight_limit'));
+            //       dd(sys('package_weight_limit'));
 
             if(!$input['cod']){
                 $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
 
                 // dd($input['total']);
-                if($input['package_weight'] > setting('package_weight_limit')){
+                if($input['package_weight'] > sys('package_weight_limit')){
                     $input['total'] = ($input['value'] -
                             ( $orderArea->delivery_cost + (
-                                    ($input['package_weight'] - setting('package_weight_limit')
+                                    ($input['package_weight'] - sys('package_weight_limit')
                                     ) * $orderArea->over_weight_cost )
                             )
                         ) * $input['quantity']  ?? 0;
                 }
-            }elseif($input['package_weight'] > setting('package_weight_limit')){
+            }elseif($input['package_weight'] > sys('package_weight_limit')){
 
-                $over = ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ;
+                $over = ($input['package_weight'] - sys('package_weight_limit')) * $orderArea->over_weight_cost ;
                 $input['total'] = ($input['value'] -  $over) * $input['quantity']  ?? 0;
             }else{
 
@@ -427,7 +427,7 @@ class OrdersController extends Controller
         dd($input['total']);
 
         $order->update($input);
-        notify()->success('Order Updated Successfully');
+        toastr()->success('Order Updated Successfully');
         return redirect()->route('admin.orders.index');
     }
 
@@ -443,12 +443,12 @@ class OrdersController extends Controller
 
 
         if (auth()->id() !== $order->user_id){
-            notify()->warning('You cant Delete this order');
+            toastr()->warning('You cant Delete this order');
             return redirect()->back()->with('You cant Delete this order');
         }
 
         $order->delete();
-        notify()->success('Order Deleted Successfully');
+        toastr()->success('Order Deleted Successfully');
         return redirect()->route('admin.orders.index');
     }
     public function trash(){
@@ -472,12 +472,12 @@ class OrdersController extends Controller
 
         if (!$order->trashed()){
 
-            notify()->error('Order isn\'t in trash');
+            toastr()->error('Order isn\'t in trash');
            return redirect()->back();
         }
 
         $order->restore();
-        notify()->success('Order Restored Successfully');
+        toastr()->success('Order Restored Successfully');
         return redirect()->route('admin.orders.trash');
     }
 

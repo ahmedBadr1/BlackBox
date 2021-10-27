@@ -8,8 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-<h1>{{$details['title']}}</h1>
-<p>{{$details['body']}}</p>
-<a href="www.blackbox.com" >visit us</a>
+<h1>{{$data['title']}}</h1>
+<p>{{$data['body']}}</p>
+<a href="www.blackbox.host" >visit us</a>
 </body>
 </html>

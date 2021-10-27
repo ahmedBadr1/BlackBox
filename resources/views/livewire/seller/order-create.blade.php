@@ -1,6 +1,6 @@
 <div class="">
 
-    <form method="POST" wire:change="go"  action="{{ route('orders.store') }}" wire:submit.prevent="save">
+    <form method="POST" wire:change="go"  action="#" wire:submit.prevent="save">
         @csrf
         <div class="row">
 

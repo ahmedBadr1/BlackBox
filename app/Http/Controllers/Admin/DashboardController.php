@@ -11,7 +11,7 @@ use App\Models\Order;
 use App\Models\Packing;
 use App\Models\Plan;
 use App\Models\Receipt;
-use App\Models\Setting;
+use App\Models\System;
 use App\Models\State;
 use App\Models\Status;
 use App\Models\Task;
@@ -183,7 +183,7 @@ class DashboardController extends Controller
         }
 
         $user->push();
-        notify()->success('Profile Updated Successfully','Profile Updated');
+        toastr()->success('Profile Updated Successfully','Profile Updated');
         return redirect()->route('admin.profile');
     }
     public function sellers()
@@ -233,19 +233,19 @@ class DashboardController extends Controller
             // $branch->users()->save($user); $order->area->time_delivery
         }
 
-        notify()->success( ' Orders Assigned Successfully To '.$delivery->name . ' Delivery','Orders Assigned');
+        toastr()->success( ' Orders Assigned Successfully To '.$delivery->name . ' Delivery','Orders Assigned');
         return redirect()->route('admin.orders.index');
     }
     public function help()
     {
         return view('system.help');
     }
-    public function setting()
+    public function system()
     {
-        $setting = Setting::first() ;
-        return view('system.setting',compact('setting'));
+        $system = system::first() ;
+        return view('system.setting',compact('system'));
     }
-    public function saveSetting(Request $request)
+    public function saveSystem(Request $request)
     {
         $this->validate($request,[
             'company_name'=>'nullable',
@@ -267,22 +267,22 @@ class DashboardController extends Controller
        $input = $request->except(['_token']);
 
       //    dd($input);
-        $path = 'uploads/setting/logo';
+        $path = 'uploads/system/logo';
 
-        $setting = Setting::first();
+        $system = system::first();
 
-        if($setting){
+        if($system){
             if(! isset($input['company_logo'])){
-                $photoPath  = $setting->company_logo;
+                $photoPath  = $system->company_logo;
             }else {
 
                 if(!File::isDirectory($path)){
                     File::makeDirectory($path, 0777, true, true);
                 }
-                if($setting){
-                    if(File::exists(storage_path().'/app/public/'.$setting->company_logo)){
+                if($system){
+                    if(File::exists(storage_path().'/app/public/'.$system->company_logo)){
                         //dd('found');
-                        File::delete(storage_path().'/app/public/'.$setting->company_logo);
+                        File::delete(storage_path().'/app/public/'.$system->company_logo);
                     }
                 }
                 $photoPath =  $input['company_logo']->store($path,'public');
@@ -290,17 +290,17 @@ class DashboardController extends Controller
 
 
             }
-            $setting->update($input);
+            $system->update($input);
         }else{
-            Setting::create($input) ;
+            system::create($input) ;
         }
 
 
         Config::set(['app.name' => $input['company_name']]);
 
-        Cache::forget('setting');
+        Cache::forget('system');
 
-        notify()->success('setting saved successfully');
+        toastr()->success('system saved successfully');
         return redirect()->route('admin.dashboard');
     }
 

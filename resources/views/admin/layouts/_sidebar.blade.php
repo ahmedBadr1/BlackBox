@@ -7,7 +7,7 @@
 >
     <!-- Sidebar -->
     <a class="navbar-brand fb-nav-logo font-weight-bold text-uppercase" href="{{ url('/') }}">
-        {{ setting('company_name') ?? config('app.name', 'Laravel') }}
+        {{ sys('company_name') ?? config('app.name', 'Laravel') }}
     </a>
     <i class="fas fa-bars" id="menu"></i>
     <ul class="navbar-nav " id="accordionSidebar">
@@ -144,7 +144,7 @@
             <a class="sidebar-link" href="{{route('admin.help')}}"><i class="fas fa-question-circle"></i><span>{{__('names.help')}}</span></a>
         </li>
         <li class="nav-item">
-            <a class="sidebar-link" href="{{route('admin.setting')}}"><i class="fas fa-cogs"></i><span>{{__('names.setting')}}</span></a>
+            <a class="sidebar-link" href="{{route('admin.system')}}"><i class="fas fa-cogs"></i><span>{{__('names.system')}}</span></a>
         </li>
         <li class="nav-item">
             <a class="sidebar-link" href="{{route('admin.trash')}}"><i class="fas fa-trash-restore-alt"></i><span>{{__('names.trash')}}</span></a>

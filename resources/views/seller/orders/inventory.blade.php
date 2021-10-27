@@ -46,7 +46,7 @@
                             <td>{{$order->product['name']}} </td>
                             <td>{{$order->consignee['cust_name']}} </td>
                             <td>{{$order->consignee['cust_num']}} </td>
-                            <td>{{$order->consignee['address']}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state->name}}</td>
+                            <td>{{$order->consignee['address']}}, {{ $order->area->name}}, {{$order->state->name}}</td>
                             <td>{{$order->cost}} </td>
                             <td>{{$order->total}} </td>
                             <td>{{$order->detials['notes'] ?? 'no notes'}} </td>

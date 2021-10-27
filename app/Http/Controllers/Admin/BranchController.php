@@ -78,9 +78,9 @@ class BranchController extends Controller
         //dd($user);
 
 
-        notify()->success($branch->name .' Branch Created Successfully',$branch->name.' Created');
+        toastr()->success($branch->name .' Branch Created Successfully',$branch->name.' Created');
 
-       // notify('Branch '.$branch->name.' Created Successfully');
+       // toastr('Branch '.$branch->name.' Created Successfully');
         return redirect()->route('admin.branches.index');
     }
 
@@ -145,7 +145,7 @@ class BranchController extends Controller
         $user = User::findOrFail($input['user_id']);
         $branch->users()->save($user);
 
-        notify()->success($branch->name .' Branch Updated Successfully','Branch Updated');
+        toastr()->success($branch->name .' Branch Updated Successfully','Branch Updated');
         return redirect()->route('admin.branches.index');
     }
 
@@ -160,7 +160,7 @@ class BranchController extends Controller
         $main = Branch::first();
       //  dd($main->id);
         if ($id == $main->id) {
-            notify()->warning($main->name . ' Branch can\'t be deleted ','Deleting Denied');
+            toastr()->warning($main->name . ' Branch can\'t be deleted ','Deleting Denied');
             return  redirect()->back();
         }
 
@@ -168,11 +168,11 @@ class BranchController extends Controller
 
 
         if ($branch->users_count > 0){
-            notify()->warning('Delete them first','Branch Still Has Employee');
+            toastr()->warning('Delete them first','Branch Still Has Employee');
             return  redirect()->back();
         }
         $branch->delete();
-        notify()->success($branch->name .' Branch Deleted Successfully','Branch Deleted');
+        toastr()->success($branch->name .' Branch Deleted Successfully','Branch Deleted');
         return redirect()->route('admin.branches.index');
     }
     public function assign($id){
@@ -197,8 +197,8 @@ class BranchController extends Controller
             }
             $branch->users()->save($user);
         }
-        notify()->warning( 'Last man standing at '.$user->branch->name . ' Branch','brnach is falling');
-        //notify()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
+        toastr()->warning( 'Last man standing at '.$user->branch->name . ' Branch','brnach is falling');
+        //toastr()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
         return redirect()->route('admin.branches.index');
     }
     public function close($id){
@@ -206,23 +206,23 @@ class BranchController extends Controller
         $branch = Branch::findOrFail($id);
 
         if(auth()->id() != $branch->user_id){
-            notify()->error( 'only manager can do this');
+            toastr()->error( 'only manager can do this');
             return redirect()->back();
         }
         $branch->active = false;
-        notify()->success( 'The Branch is cloesd now',$branch->name . ' Branch closed');
+        toastr()->success( 'The Branch is cloesd now',$branch->name . ' Branch closed');
         $branch->save();
         return redirect()->back();
     }
     public function open($id){
         $branch = Branch::findOrFail($id);
         if(auth()->id() != $branch->user_id){
-            notify()->error( 'only manager can do this');
+            toastr()->error( 'only manager can do this');
             return redirect()->back();
         }
         $branch->active = true;
         $branch->save();
-        notify()->success( 'The Branch is open now',$branch->name . ' Branch open');
+        toastr()->success( 'The Branch is open now',$branch->name . ' Branch open');
         return redirect()->back();
     }
 }

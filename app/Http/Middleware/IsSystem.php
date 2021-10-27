@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Setting;
+use App\Models\System;
 use Closure;
 use Illuminate\Http\Request;
 
-class System
+class IsSystem
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,14 @@ class System
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if(Setting::first() === null){
-            return redirect()->route('admin.setting');
+        if (auth()->user()->hasRole(['seller','delivery'])){
+            abort(404);
         }
+        if(System::first() === null){
+            return redirect()->route('admin.system');
+        }
+
+
         return $next($request);
     }
 }

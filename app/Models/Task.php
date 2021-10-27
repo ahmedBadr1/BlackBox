@@ -15,9 +15,6 @@ class Task extends Model
     public static array $types = ['pickup', 'dropoff','else'];
     protected $dates = [
         'due_to',
-        'location_id',
-        'created_at',
-        'updated_at',
         'done_at'
     ];
 
@@ -25,14 +22,16 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'delivery_id');
     }
+
     public function location()
     {
-        return $this->hasOne(Location::class);
+        return $this->belongsTo(Location::class);
     }
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');
     }
+
     public  function getCreatedAtForHumansAttribute()
     {
         return $this->created_at->diffForHumans();
@@ -40,6 +39,10 @@ class Task extends Model
     public  function getDoneAtForHumansAttribute()
     {
         return $this->done_at->diffForHumans();
+    }
+    public  function getDueToForHumansAttribute()
+    {
+        return $this->due_to->diffForHumans();
     }
 
 }

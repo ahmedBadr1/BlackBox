@@ -22,7 +22,7 @@
 
                         <div class="col-md-6">
                             <select name="type" class="form-select" aria-label="Default select example" >
-                                <option value="">Select a type</option>
+                                <option value="">@lang('names.select-type')</option>
                                 @foreach($types as $type)
                                     <option value="{{$type}}">{{$type}}</option>
                                 @endforeach
@@ -35,7 +35,38 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="user_id" class="col-md-4 col-form-label text-md-right">@lang('names.seller')</label>
+
+                        <div class="col-md-6">
+                            <select name="user_id" class="form-select"  >
+                                <option value="">@lang('names.select-seller')</option>
+                                @foreach($sellers as $seller)
+                                    <option value="{{$seller->id}}">{{$seller->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('user_id')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <livewire:main.locations />
+
+                    <div class="form-group row">
+                        <label for="role" class="col-md-4 col-form-label text-md-right">due_to</label>
+
+                        <div class="col-md-6">
+                            <input type="datetime-local" name="due_to">
+                            @error('due_to')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <label for="role" class="col-md-4 col-form-label text-md-right">Delivery</label>
@@ -54,6 +85,7 @@
                             @enderror
                         </div>
                     </div>
+
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">

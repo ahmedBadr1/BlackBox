@@ -13,7 +13,7 @@
             </div>
             <div class="col-12">
                 @foreach($notifications as $notification)
-                    <p>{{$notification->data['message']}}</p> <small>{{$notification->created_at->diffForHumans()}}</small>
+                    <p>{{$notification->data['msg']}}</p> <small>{{$notification->created_at->diffForHumans()}}</small>
                 @endforeach
             </div>
         </div>

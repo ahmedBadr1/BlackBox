@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class LocationsUsersPivotTabel extends Migration
+class CreateBranchUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class LocationsUsersPivotTabel extends Migration
      */
     public function up()
     {
-        Schema::create('location_user', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\User::class)->nullable();
-            $table->foreignIdFor(\App\Models\Location::class)->nullable();
+        Schema::create('branch_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Branch::class);
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->timestamps();
         });
+
     }
 
     /**
@@ -26,6 +29,6 @@ class LocationsUsersPivotTabel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('location_user');
+        Schema::dropIfExists('branch_user');
     }
 }
