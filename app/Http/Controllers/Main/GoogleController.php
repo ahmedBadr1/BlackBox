@@ -46,6 +46,7 @@ class GoogleController extends Controller
                     'email' => $user->email,
                     'phone' => '01999999999',
                     'google_id'=> $user->id,
+                    'email_verified_at' => now(),
                     'password' => encrypt($user->email)
                 ]);
 
