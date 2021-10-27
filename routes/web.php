@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,18 @@ Route::get('/', function (){
 
 Route::get('privacy-policy',[\App\Http\Controllers\Main\HomeController::class ,'privacyPolicy']);
 
-Route::get('auth/google', [\App\Http\Controllers\Main\GoogleController::class,'redirectToGoogle']);
-Route::get('auth/google/callback', [\App\Http\Controllers\Main\GoogleController::class,'handleGoogleCallback']);
+//Route::get('auth/google', [\App\Http\Controllers\Main\GoogleController::class,'redirectToGoogle']);
+//Route::get('auth/google/callback', [\App\Http\Controllers\Main\GoogleController::class,'handleGoogleCallback']);
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('google')->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('google')->user();
+    dd($user);
+    // $user->token
+});
 
 Route::group(['prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
