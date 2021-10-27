@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'phone' => $this->faker->phoneNumber(),
             'email_verified_at' => now(),
-            'hearAboutUs'=> $this->faker->company(),
+            'hearAboutUs'=> 'system',
             'password' => bcrypt('feedback'), // password
 
         ];
