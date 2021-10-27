@@ -27,14 +27,13 @@
             </div>
         </div>
         <div class="main-header-right">
-            <ul class="nav">
-                <li class="">
+            <div class="nav nav-link"  >
                     <ul class="d-flex">
 
-                        <div class="dropdown  nav-itemd-none d-md-flex">
-                            <a href="#" class="d-flex  nav-item nav-link pl-0 country-flag1" data-toggle="dropdown"
+                        <div class="dropdown nav-itemd-none d-md-flex">
+                            <a href="#" class="d-flex  nav-item nav-link pl-0 country-flag" data-toggle="dropdown"
                                aria-expanded="false">
-                                <i class="bx bx-flag bx-sm side-menu__icon"></i>
+                                <i class="bx bx-flag bx-sm "></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
 
@@ -53,10 +52,7 @@
                             </div>
                         </div>
                     </ul>
-
-
-                </li>
-            </ul>
+            </div>
             <div class="nav nav-item"  >
                 <div class="nav-link" onclick="theme()" >
                     @if(session()->get('theme') === 'dark')
