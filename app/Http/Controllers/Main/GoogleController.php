@@ -49,7 +49,7 @@ class GoogleController extends Controller
                     'email_verified_at' => now(),
                     'password' => encrypt($user->email)
                 ]);
-
+                $newUser->markEmailAsVerified();
                 Auth::login($newUser);
 
                 return redirect('/home');
