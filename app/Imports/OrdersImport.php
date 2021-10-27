@@ -20,16 +20,17 @@ class OrdersImport implements ToModel ,WithHeadingRow ,WithBatchInserts ,WithCus
     public function __construct()
     {
         $this->id = auth()->user()->id;
-        $this->areas = Area::select('id','name')->get();
+        $this->areas = Area::select('id','name');
+
     }
 
 
     public function model(array $row)
     {
 //        dd($this->areas);
-   //     dd($row);
+
         $area = $this->areas->where('name',$row['area'])->first();
-//dd($area->id);
+
         return new Order([
             'product'=> [
                 'name' => $row['product_name'],

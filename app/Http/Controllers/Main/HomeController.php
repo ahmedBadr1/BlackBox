@@ -64,4 +64,9 @@ class HomeController extends Controller
 
         return view('main.track',compact('status','order_hashid'));
     }
+    public function privacyPolicy()
+    {
+        return view('main.privacy');
+    }
+
 }

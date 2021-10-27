@@ -111,7 +111,6 @@ class DashboardController extends Controller
             'phone'=>'required|numeric',
             'address'=> '',
             'area'=> '',
-            'state'=> 'required',
             'profile_photo'=> 'image',
             'url'=> '',
         ]);

@@ -17,6 +17,11 @@ Route::get('/', function (){
     return view('main.home');
 })->name('home');
 
+Route::get('privacy-policy',[\App\Http\Controllers\Main\HomeController::class ,'privacyPolicy']);
+
+Route::get('auth/google', [\App\Http\Controllers\Main\GoogleController::class,'redirectToGoogle']);
+Route::get('auth/google/callback', [\App\Http\Controllers\Main\GoogleController::class,'handleGoogleCallback']);
+
 Route::group(['prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
 {

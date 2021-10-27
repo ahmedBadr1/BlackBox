@@ -262,30 +262,12 @@
                                 </div>
 
 
-                                <div class=" row">
-                                    <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <label for="address" class="col-form-label text-md-right">{{__('auth.address')}}</label>
                                         <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $user->profile->address  }}"  >
 
                                         @error('address')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="state" class=" col-form-label text-md-right">{{__('auth.state')}}</label>
-                                        <select name="state" class="form-select form-control"  aria-label="Default select example" >
-                                            @foreach($states as $state)
-                                                <option value="{{$state->id}}" @if($state=== $user->state->name)
-                                                    {{ __('selected') }}
-                                                    @endif>{{$state->name}}</option>
-                                            @endforeach
-
-                                        </select>
-                                        @error('state')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -321,9 +303,6 @@
                                     </span>
                                         @enderror
                                     </div>
-                                </div>
-
-                                <div class="form-group row">
 
                                     <div class="col-md-4">
                                         <label for="profile_photo" class=" col-form-label text-md-right">{{__('auth.photo')}}</label>
@@ -334,11 +313,12 @@
                                     </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-8 mb-2">
+
+                                </div>
+                                <div class="row"> <div class="col-md-4 mb-2">
                                         <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
                                              alt="preview image" >
-                                    </div>
-                                </div>
+                                    </div></div>
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
