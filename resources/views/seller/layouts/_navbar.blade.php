@@ -141,7 +141,7 @@
                             </div>
                             <p class="dropdown-title-text subtext mb-0 mt-1 ml-3 text-white op-6 pb-0 tx-12 ">@lang('messages.no-unread-notifications')</p>
                         </div>
-                        <div class="main-notification-list Notification-scroll">
+                        <div class="main-notification-list Notification-scroll chat-scroll">
                             @foreach(auth()->user()->unreadNotifications as $k => $notification)
 
                             <a class="d-flex py-3 px-1 border-bottom" href="{{url('/').$notification->data['url']}}">

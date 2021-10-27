@@ -71,9 +71,12 @@
                                 @endif
                             </div>
                         </div>
-                        <a href="{{ url('auth/redirect') }}" style="margin-top: 20px;" class="btn btn-lg btn-success btn-block">
-                            <strong>Login With Google</strong>
-                        </a>
+                        <div class="row">
+                            <a href="{{ url('auth/redirect') }}" style="margin-top: 20px;" class="btn btn-danger  mx-auto">
+                                <strong>Login With Google</strong>
+                            </a>
+                        </div>
+
                     </form>
                 </div>
             </div>

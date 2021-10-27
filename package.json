@@ -29,6 +29,7 @@
         "@popperjs/core": "^2.10.1",
         "bootstrap-rtl": "^3.3.4",
         "font-awesome": "^4.7.0",
-        "font-awesome-rtl": "^1.1.0"
+        "font-awesome-rtl": "^1.1.0",
+        "toastr": "^2.1.4"
     }
 }

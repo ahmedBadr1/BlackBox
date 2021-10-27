@@ -14,6 +14,7 @@
     @include('valex.layouts.head')
     @livewireStyles
     @toastr_css
+
 {{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
 
     <!-- Fonts -->
