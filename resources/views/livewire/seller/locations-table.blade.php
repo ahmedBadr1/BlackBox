@@ -12,7 +12,7 @@
         <th>@lang('auth.delete')</th>
         </thead>
 
-        <tbody >
+        <tbody>
         @foreach($locations as $location)
             <tr>
                 <td> <a href="{{ route('admin.locations.show',$location->id) }}"> {{$location->name}} </a></td>
@@ -20,13 +20,14 @@
                 <td><a href="{{ route('admin.areas.show',$location->area->id) }}"> {{$location->area->name}} </a></td>
                 <td>{{Str::limit($location->street. ', '. $location->building . ', '.$location->floor. ', '.$location->apatrment, 60) }}</td>
 
-                <td><a href="{{ route('admin.locations.edit',$location->id) }}"  class="btn btn-info">edit</a></td>
+                <td>
+                    <button wire:click="edit({{ $location->id }})" class="btn btn-primary-gradient">@lang('auth.edit')</button>
+                </td>
                 <td>
                     <button wire:click="delete({{ $location->id }})" class="btn btn-danger-gradient">@lang('auth.delete')</button>
                 </td>
             </tr>
         @endforeach
-
         </tbody>
 
     </table>

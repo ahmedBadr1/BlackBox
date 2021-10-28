@@ -20,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
         Notifiable,
         HasRoles,
         LogsActivity;
-
+    use \Znck\Eloquent\Traits\BelongsToThrough;
 
     /**
      * The attributes that are mass assignable.
@@ -86,17 +86,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->created_at->diffForHumans();
     }
 
-    public static function search($search)
-    {
-        return empty($search) ? static::query()
-            : static::query()->where('id', 'like', '%'.$search.'%')
-                ->orWhere('name', 'like', '%'.$search.'%')
-                ->orWhere('email', 'like', '%'.$search.'%')
-                ->orWhere('phone', 'like', '%'.$search.'%')
-                ->orWhereHas('roles', fn($q) => $q->where('name','like', '%'.$search.'%'))
-                ->orWhereHas('branch', fn($q) => $q->where('name','like', '%'.$search.'%'));
-    }
-
     public function orders()
     {
         return $this->hasMany(Order::class);
@@ -114,6 +103,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Receipt::class);
     }
+//    public function state()
+//    {
+//        return  $this->belongsToThrough('App\Models\State',[ 'App\Models\Business','App\Models\Location']);
+//    }
     public function latestOrder()
     {
         return $this->hasOne(Order::class)->latestOfMany();
@@ -167,6 +160,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function business()
     {
         return  $this->belongsTo(Business::class);
+    }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('id', 'like', '%'.$search.'%')
+                ->orWhere('name', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('phone', 'like', '%'.$search.'%')
+                ->orWhereHas('roles', fn($q) => $q->where('name','like', '%'.$search.'%'));
+           //     ->orWhereHas('branch', fn($q) => $q->where('name','like', '%'.$search.'%'));
     }
 
 }

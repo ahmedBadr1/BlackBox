@@ -83,16 +83,12 @@
                     </td>
                     <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
 
-                    <td><a href="{{ route('orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info-gradient">{{__('auth.edit')}}</a></td>
-
                     <td>
-                        <form action="{{route('orders.destroy',$order->hashid) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="btn btn-danger-gradient" value="{{__('auth.delete')}}">
-                        </form>
+                        <button wire:click="edit('{{ $order->hashid }}')" class="btn btn-primary-gradient">@lang('auth.edit')</button>
                     </td>
-
+                    <td>
+                        <button wire:click="delete('{{ $order->hashid }}')" class="btn btn-danger-gradient">@lang('auth.delete')</button>
+                    </td>
                 @endauth
             </tr>
 

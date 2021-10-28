@@ -191,8 +191,8 @@ class BranchController extends Controller
         $branch = Branch::findOrFail($id);
         foreach ($input['users'] as $id){
             $user = User::where('id',$id)->with(['branch'=>fn($q)=> $q->withCount('users')])->first();
+            dd($user);
             if($user->branch->users_count === 1){
-
                 continue;
             }
             $branch->users()->save($user);

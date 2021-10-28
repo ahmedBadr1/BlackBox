@@ -9,6 +9,8 @@ use Livewire\Component;
 
 class LocationsCreate extends Component
 {
+    protected $listeners = ['editLocation' => 'edit' ];
+
     protected $rules = [
         'name' => 'required' ,
         'state_id' => 'required|numeric' ,
@@ -21,9 +23,9 @@ class LocationsCreate extends Component
         'latitude' => 'required|numeric|between:-90,90',
         'longitude' => 'required|numeric|between:-180,180',
     ];
+
     public $states ;
     public $areas ;
-
 
     public $name ;
     public $state_id ;
@@ -36,10 +38,11 @@ class LocationsCreate extends Component
     public $latitude ;
     public $longitude ;
 
+    public $location  ;
+    public $title = 'create' ;
+    public $button = 'create' ;
+    public $color = 'success';
 
-    public function mount(){
-
-    }
     public function render()
     {
         $this->states = State::where('active',true)->select('id','name')->get();
@@ -64,11 +67,52 @@ class LocationsCreate extends Component
     public function save()
     {
         $validated =  $this->validate();
-        $location =  Location::create($validated);
         $user = auth()->user();
-        $user->locations()->save($location);
+        if ($this->location){
+            $this->location->update($validated);
+            $this->emit('alert',
+                ['type' => 'info',  'message' => 'Location Updated Successfully!']);
+        }else{
+            $location =  Location::create($validated);
+            $user->locations()->save($location);
+            $this->emit('alert',
+                ['type' => 'success',  'message' => 'Location Created Successfully!']);
+    }
         $this->emit('refreshLocation');
+        $this->reset(
+            'name',
+            'state_id' ,
+            'area_id',
+            'street' ,
+            'building' ,
+            'floor' ,
+            'apartment',
+            'landmarks',
+            'latitude' ,
+            'longitude');
+
 
         return back();
+    }
+
+    public function edit(int $locationId)
+    {
+       // dd($locationId);
+        $this->location = auth()->user()->locations()->where('id', $locationId)->first();
+
+        $this->name = $this->location->name;
+        $this->state_id = $this->location->state_id;
+        $this->area_id = $this->location->area_id;
+        $this->street = $this->location->street;
+        $this->building = $this->location->building;
+        $this->floor = $this->location->floor;
+        $this->apartment = $this->location->apartment;
+        $this->landmarks = $this->location->landmarks;
+        $this->latitude = $this->location->latitude;
+        $this->longitude = $this->location->longitude;
+
+        $this->title = 'edit';
+        $this->button = 'update';
+        $this->color = 'primary';
     }
 }

@@ -10,9 +10,11 @@ use App\Models\Order;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Invoice;
+use Vinkla\Hashids\Facades\Hashids;
 
 class OrdersController extends Controller
 {
@@ -37,12 +39,25 @@ class OrdersController extends Controller
      *
      * @return
      */
-    public function create()
+    public function create(Request $request)
     {
+   //     dd($request['order_']);
         //
         //   $states= State::where('active',true)->get();
-        $areas = Area::all();
-        return view('seller.orders.create',compact('areas'));
+
+        if (Session::get('orderHashId')){
+            $id =    Hashids::Connection(Order::class)->decode(strtolower(Session::get('orderHashId'))) ?? null;
+            if(!$id){
+             toastError('order not found');
+                $order = null;
+                return view('seller.orders.create',compact('order'));
+            }
+            $order =Order::findOrFail($id[0]);
+        }else{
+            $order = null;
+        }
+
+        return view('seller.orders.create',compact('order'));
     }
 
     /**
@@ -137,7 +152,7 @@ class OrdersController extends Controller
             ->seller($customer)
             ->addItem($item)
             ->shipping($shipping)
-            ->logo($logoPath)
+          ///  ->logo($logoPath)
             ->date($order->created_at)
             ->filename('order_'.$order->hashid)
             ->payUntilDays(14) ;

@@ -3,14 +3,14 @@
 
     <div class="panel-group1" id="accordion">
         <div class="panel panel-default  mb-4">
-            <div class="panel-heading1 bg-primary-gradient ">
+            <div class="panel-heading1 bg-{{$color}}-gradient ">
                 <h4 class="panel-title1">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#create" aria-expanded="true">@lang('auth.create-location')</a>
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#create" aria-expanded="true">@lang('auth.'.$title.'-location')</a>
                 </h4>
             </div>
             <div id="create" class="panel-collapse collapse show" role="tabpanel" aria-expanded="true" style="">
                 <div class="panel-body border">
-                    <form method="POST"  action="#" wire:submit.prevent="save">
+                    <form method="POST"  action="#" wire:submit.prevent="save" >
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -121,8 +121,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-success-gradient">
-                                    {{ __('auth.create') }}
+                                <button type="submit" class="btn btn-{{$color}}-gradient">
+                                    {{ __('auth.'.$button) }}
                                 </button>
                             </div>
                         </div>

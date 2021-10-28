@@ -1,5 +1,5 @@
 <div class="">
-
+    <h1 class="main-content-title">{{__("auth.".$title)}} {{__("names.order")}}</h1>
     <form method="POST" wire:change="go"  action="#" wire:submit.prevent="save">
         @csrf
         <div class="row">
@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="packing" class=" col-form-label text-md-right">{{__('auth.packing')}}</label>
-                                <select name="packing" wire:model.lazy="packing" id="packing" class="form-control @error('packing') is-invalid @enderror">
+                                <select wire:model.lazy="packing" class="form-control @error('packing') is-invalid @enderror">
                                     <option value="0">@lang('auth.select-packing-type')</option>
                                     @foreach($packing_type as $pack)
                                         <option value="{{$pack->id}}" @if(old('packing') === $pack->id ) selected @endif>{{$pack->type}}</option>
@@ -221,8 +221,8 @@
                         <h2 class="card-title"> @lang('auth.total') :<b>   {{$total}} </b></h2>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success-gradient w-100 m-auto ">
-                    {{ __('auth.create') }}
+                <button type="submit" class="btn btn-{{$color}}-gradient w-100 m-auto ">
+                    {{ __('auth.'.$button) }}
                 </button>
             </div>
             <div class="col-md-4">

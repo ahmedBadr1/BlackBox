@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('balance')->default(0);
             $table->string('hearAboutUs')->default('none');
             $table->timestamp('email_verified_at')->nullable();
+            $table->foreignIdFor(\App\Models\Branch::class)->default(0);
             $table->foreignIdFor(\App\Models\Business::class)->default(0);
             $table->foreignIdFor(\App\Models\Plan::class)->default(1);
             $table->text('password');

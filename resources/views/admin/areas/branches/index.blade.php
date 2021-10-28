@@ -36,7 +36,9 @@
                             <td> <a href="{{ route('admin.branches.show',$branch->id) }}"> {{$branch->name}} </a></td>
 
                             <td>{{$branch->phone}} </td>
+                            @if($branch->location)
                             <td><a href="{{route('admin.locations.show',$branch->location->id)}}">{{$branch->location->name}}</a></td>
+                            @endif
                             <td>{{$branch->state->name }} </td>
 
                             <td><a href="{{route('admin.users.show',$branch->manager->id)}}">{{$branch->manager->name}}</a></td>

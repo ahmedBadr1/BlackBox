@@ -40,9 +40,9 @@ class Branch extends Model
     //    $mangers = User::role(['manager'])->get();
         return $this->belongsTo(User::class,'user_id');
     }
-    public function locations()
+    public function location()
     {
-        return $this->morphMany(Location::class, 'locationable');
+        return $this->morphOne(Location::class, 'locationable');
     }
     public function users()
     {
