@@ -183,7 +183,7 @@ class DashboardController extends Controller
 
         $user = \auth()->user();
      //   dd($user->business);
-  //     $business = Business::firstOrNew($input);;
+  //     $business = HasBusiness::firstOrNew($input);;
         if(isset($user->business)){
             $user->business->update($input) ;
         }else{

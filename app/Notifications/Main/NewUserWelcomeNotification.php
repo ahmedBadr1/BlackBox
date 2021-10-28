@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Main;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeMailNotification extends Notification implements ShouldQueue
+class NewUserWelcomeNotification extends Notification
 {
     use Queueable;
 
@@ -29,21 +29,7 @@ class WelcomeMailNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('Welcome to our website')
-                    ->action('learn more about us', url('/'))
-                    ->line('Thank you for using our application!');
+        return ['database'];
     }
 
     /**
@@ -56,7 +42,7 @@ class WelcomeMailNotification extends Notification implements ShouldQueue
     {
         return [
             'from' => config('app.name'),
-            'msg'=> 'congrats, your account has been verified, go to help page to know us better.',
+            'msg'=> 'welcome to our website, enjoy.',
             'url' => '/help',
         ];
     }

@@ -141,7 +141,7 @@ return [
     'next-dropoff' => 'Next Dropoff',
     'else' => 'Else',
 
-    'business' => 'Business',
+    'business' => 'HasBusiness',
     'change-password' => 'Change Password',
     'invite' => 'Invite',
     'recent-orders' => 'Recent Orders',

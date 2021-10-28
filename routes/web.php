@@ -69,7 +69,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::get('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'setting'])->name('setting');
             Route::post('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'saveSetting'])->name('setting');
             Route::group([
-            'middleware' => ['isBusiness']
+            'middleware' => ['hasBusiness']
             ], function () {
         Route::get('/home',[\App\Http\Controllers\Seller\DashboardController::class,'index'])->name('seller.dashboard');
 

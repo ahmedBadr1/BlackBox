@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Business;
+use App\Http\Middleware\HasBusiness;
 use App\Http\Middleware\IsActive;
 use App\Http\Middleware\IsSystem;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -70,7 +70,7 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'System' => IsSystem::class,
         'IsActive' => IsActive::class,
-        'isBusiness' => Business::class,
+        'hasBusiness' => HasBusiness::class,
 
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,

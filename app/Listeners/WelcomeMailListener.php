@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Notifications\Main\NewUserWelcomeNotification;
 use App\Notifications\WelcomeMailNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,5 +31,6 @@ class WelcomeMailListener
         if (system('auto_send')){
             $event->user->notify(new WelcomeMailNotification());
         }
+        $event->user->notify(new NewUserWelcomeNotification());
     }
 }
