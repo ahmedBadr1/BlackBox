@@ -169,8 +169,8 @@ return [
             'to' => 'ahmedbauomy30@gmail.com',
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'admin@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
+                'address' => env('MAIL_FROM_ADDRESS', 'admin@blackbox.host'),
+                'name' => env('MAIL_FROM_NAME', 'BlackBox'),
             ],
         ],
 
