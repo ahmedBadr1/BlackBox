@@ -26,8 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
      //   $schedule->command('backup:run')->dailyAt('14:39')->timezone('Europe/Paris');
-        $schedule->command('backup:clean')->dailyAt('01:30');
+      //  $schedule->command('backup:clean')->dailyAt('01:30');
         $schedule->command('backup:run')->dailyAt('02:00');
+        $schedule->command('backup:run')->dailyAt('13:45');
 //            ->onFailure(function () {
 //                ...
 //            })

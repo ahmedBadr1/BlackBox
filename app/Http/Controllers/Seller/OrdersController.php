@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DeliveryController;
-use App\Http\Controllers\SellerController;
+
 use App\Models\Area;
 use App\Models\Order;
 use App\Models\Status;
@@ -15,6 +14,7 @@ use LaravelDaily\Invoices\Classes\InvoiceItem;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Invoice;
 use Vinkla\Hashids\Facades\Hashids;
+use PDF;
 
 class OrdersController extends Controller
 {

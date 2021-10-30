@@ -20,8 +20,8 @@ class LocationsCreate extends Component
         'floor' => 'nullable' ,
         'apartment' => 'nullable' ,
         'landmarks' => 'nullable' ,
-        'latitude' => 'required|numeric|between:-90,90',
-        'longitude' => 'required|numeric|between:-180,180',
+//        'latitude' => 'required|numeric|between:-90,90',
+//        'longitude' => 'required|numeric|between:-180,180',
     ];
 
     public $states ;
@@ -35,8 +35,8 @@ class LocationsCreate extends Component
     public $floor ;
     public $apartment ;
     public $landmarks;
-    public $latitude ;
-    public $longitude ;
+//    public $latitude ;
+//    public $longitude ;
 
     public $location  ;
     public $title = 'create' ;
@@ -88,8 +88,9 @@ class LocationsCreate extends Component
             'floor' ,
             'apartment',
             'landmarks',
-            'latitude' ,
-            'longitude');
+//            'latitude' ,
+//            'longitude'
+        );
 
 
         return back();
@@ -108,8 +109,8 @@ class LocationsCreate extends Component
         $this->floor = $this->location->floor;
         $this->apartment = $this->location->apartment;
         $this->landmarks = $this->location->landmarks;
-        $this->latitude = $this->location->latitude;
-        $this->longitude = $this->location->longitude;
+//        $this->latitude = $this->location->latitude;
+//        $this->longitude = $this->location->longitude;
 
         $this->title = 'edit';
         $this->button = 'update';

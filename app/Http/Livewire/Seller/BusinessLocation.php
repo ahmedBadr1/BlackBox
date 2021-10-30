@@ -19,8 +19,8 @@ class BusinessLocation extends Component
         'floor' => 'nullable' ,
         'apartment' => 'nullable' ,
         'landmarks' => 'nullable' ,
-        'latitude' => 'required|numeric|between:-90,90',
-        'longitude' => 'required|numeric|between:-180,180',
+//        'latitude' => 'required|numeric|between:-90,90',
+//        'longitude' => 'required|numeric|between:-180,180',
     ];
     public $states ;
     public $areas ;
@@ -35,8 +35,8 @@ class BusinessLocation extends Component
     public $floor ;
     public $apartment ;
     public $landmarks;
-    public $latitude ;
-    public $longitude ;
+//    public $latitude ;
+//    public $longitude ;
 
     public function mount(){
 
@@ -51,8 +51,8 @@ class BusinessLocation extends Component
             $this->floor = $this->location->floor ;
             $this->apartment = $this->location->apartment ;
             $this->landmarks = $this->location->landmarks ;
-            $this->latitude = $this->location->latitude ;
-            $this->longitude = $this->location->longitude ;
+//            $this->latitude = $this->location->latitude ;
+//            $this->longitude = $this->location->longitude ;
         }
 
         $this->states = State::where('active',true)->select('id','name')->get();

@@ -51,8 +51,8 @@
         <th>{{__("auth.cust-name")}}</th>
         <th>{{__("auth.cust-num")}}</th>
         <th>{{__("auth.address")}}</th>
-        <th>{{__("auth.total")}}</th>
         <th>{{__("auth.cost")}}</th>
+        <th>{{__("auth.total")}}</th>
         <th>{{__("names.notes")}}</th>
         <th>{{__("names.status")}}</th>
 
@@ -71,8 +71,8 @@
                 <td>{{$order->consignee['address']}}, <a href="{{route('admin.areas.show',$order->area_id)}}">
                         {{ $order->area->name}}</a>, {{$order->state->name}}
                 </td>
-                <td>{{$order->total}} </td>
                 <td>{{$order->cost}} </td>
+                <td>{{$order->total}} </td>
                 <td>{{\Illuminate\Support\Str::limit($order->details['notes'], 20) ?? 'no notes'}} </td>
                 <td>{{$order->status->name}} </td>
 

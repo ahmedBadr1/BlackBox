@@ -168,24 +168,24 @@
                                     </span>
                 @enderror
             </div>
-            <div class="col-md-4">
-                <label for="latitude" class="col-form-label text-md-right">{{__("auth.latitude")}}</label>
-                <input wire:model.lazy="latitude" type="number" step="00.000001" class="form-control @error('latitude') is-invalid @enderror" name="latitude" value="{{ $location->latitude ?? '' }}" >
-                @error('latitude')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
-            </div>
-            <div class="col-md-4">
-                <label for="longitude" class=" col-form-label text-md-right">{{__("auth.longitude")}}</label>
-                <input wire:model.lazy="longitude" type="number"  step="00.000001" class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{ $location->longitude ?? '' }}" >
-                @error('longitude')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
-            </div>
+{{--            <div class="col-md-4">--}}
+{{--                <label for="latitude" class="col-form-label text-md-right">{{__("auth.latitude")}}</label>--}}
+{{--                <input wire:model.lazy="latitude" type="number" step="00.000001" class="form-control @error('latitude') is-invalid @enderror" name="latitude" value="{{ $location->latitude ?? '' }}" >--}}
+{{--                @error('latitude')--}}
+{{--                <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{ $message }}</strong>--}}
+{{--                                    </span>--}}
+{{--                @enderror--}}
+{{--            </div>--}}
+{{--            <div class="col-md-4">--}}
+{{--                <label for="longitude" class=" col-form-label text-md-right">{{__("auth.longitude")}}</label>--}}
+{{--                <input wire:model.lazy="longitude" type="number"  step="00.000001" class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{ $location->longitude ?? '' }}" >--}}
+{{--                @error('longitude')--}}
+{{--                <span class="invalid-feedback" role="alert">--}}
+{{--                                        <strong>{{ $message }}</strong>--}}
+{{--                                    </span>--}}
+{{--                @enderror--}}
+{{--            </div>--}}
         </div>
 
         <div class="row justify-content-center mt-3">

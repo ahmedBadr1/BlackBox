@@ -24,8 +24,8 @@ class BusinessSetting extends Component
         'floor' => 'nullable' ,
         'apartment' => 'nullable' ,
         'landmarks' => 'nullable' ,
-        'latitude' => 'required|numeric|between:-90,90',
-        'longitude' => 'required|numeric|between:-180,180',
+//        'latitude' => 'required|numeric|between:-90,90',
+//        'longitude' => 'required|numeric|between:-180,180',
     ];
     public $industries;
     public $channels ;
@@ -50,8 +50,8 @@ class BusinessSetting extends Component
     public $floor ;
     public $apartment ;
     public $landmarks;
-    public $latitude ;
-    public $longitude ;
+//    public $latitude ;
+//    public $longitude ;
 
     public function mount()
     {
@@ -78,8 +78,8 @@ class BusinessSetting extends Component
             $this->floor = $this->location->floor ;
             $this->apartment = $this->location->apartment ;
             $this->landmarks = $this->location->landmarks ;
-            $this->latitude = $this->location->latitude ;
-            $this->longitude = $this->location->longitude ;
+//            $this->latitude = $this->location->latitude ;
+//            $this->longitude = $this->location->longitude ;
         }
 
         $this->states = State::where('active',true)->select('id','name')->get();
@@ -131,8 +131,8 @@ class BusinessSetting extends Component
             'floor' => $validated['floor'],
             'apartment' => $validated['apartment'],
             'landmarks' => $validated['landmarks'],
-            'latitude' => $validated['latitude'],
-            'longitude' => $validated['longitude'],
+//            'latitude' => $validated['latitude'],
+//            'longitude' => $validated['longitude'],
 
         ];
 
