@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
      //   $schedule->command('backup:run')->dailyAt('14:39')->timezone('Europe/Paris');
         $schedule->command('backup:clean')->dailyAt('01:30');
-     //   $schedule->command('backup:run')->dailyAt('02:00');
-        $schedule->command('backup:run')->dailyAt('13:45');
+        $schedule->command('backup:run')->dailyAt('02:00');
+
 //            ->onFailure(function () {
 //                ...
 //            })
@@ -37,15 +37,15 @@ class Kernel extends ConsoleKernel
 //            });
     }
 
-    /**
-     * Get the timezone that should be used by default for scheduled events.
-     *
-     * @return \DateTimeZone|string|null
-     */
-    protected function scheduleTimezone()
-    {
-        return 'Africa/Cairo';
-    }
+//    /**
+//     * Get the timezone that should be used by default for scheduled events.
+//     *
+//     * @return \DateTimeZone|string|null
+//     */
+//    protected function scheduleTimezone()
+//    {
+//        return 'Africa/Cairo';
+//    }
 
     /**
      * Register the commands for the application.
