@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Google_Client;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,7 +26,7 @@ class GoogleDriveServiceProvider extends ServiceProvider
     public function boot()
     {
         Storage::extend('google', function ($app, $config) {
-            $client = new \Google_Client();
+            $client = new Google_Client();
             $client->setClientId($config['clientId']);
             $client->setClientSecret($config['clientSecret']);
             $client->refreshToken($config['refreshToken']);
