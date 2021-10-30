@@ -15,6 +15,7 @@ use Laravel\Socialite\Facades\Socialite;
 */
 /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
 Route::get('/', function (){
+    \Illuminate\Support\Facades\Storage::disk('google')->put('hello.txt',' أنا جعان يا أسامة');
     return view('main.home');
 })->name('home');
 
