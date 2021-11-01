@@ -10,7 +10,6 @@
 
 @yield('meta')
     @stack('styles')
-    @livewireStyles
 
 <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,7 +20,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    @livewireStyles
+    @toastr_css
     <title>{{ sys('company_name') ?? config('app.name', 'Laravel') }}</title>
 </head>
 <body >
@@ -65,7 +65,7 @@
 
         @if (Session::has('success'))
             @php
-                notify()->success(Session::get('success'));
+                toastSuccess(Session::get('success'));
             @endphp
         @endif
 
@@ -100,7 +100,14 @@
 
 
 @livewireScripts
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+<script type="text/javascript">toastr.options = {"closeButton":true,"closeClass":"toast-close-button","closeDuration":300,"closeEasing":"swing","closeHtml":"<button><i class=\"icon-off\"><\/i><\/button>","closeMethod":"fadeOut","closeOnHover":true,"containerId":"toast-container","debug":false,"escapeHtml":false,"extendedTimeOut":10000,"hideDuration":1000,"hideEasing":"linear","hideMethod":"fadeOut","iconClass":"toast-info","iconClasses":{"error":"toast-error","info":"toast-info","success":"toast-success","warning":"toast-warning"},"messageClass":"toast-message","newestOnTop":false,"onHidden":null,"onShown":null,"positionClass":"toast-top-right","preventDuplicates":true,"progressBar":true,"progressClass":"toast-progress","rtl":false,"showDuration":300,"showEasing":"swing","showMethod":"fadeIn","tapToDismiss":true,"target":"body","timeOut":5000,"titleClass":"toast-title","toastClass":"toast"};</script>
 
+<script>
+    window.livewire.on('alert', param => {
+        toastr[param['type']](param['message']);
+    });
+</script>
 @yield('script')
 </body>
 </html>

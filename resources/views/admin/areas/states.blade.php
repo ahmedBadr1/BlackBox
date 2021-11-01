@@ -10,23 +10,17 @@
     <table class="table table-hover">
 
         <thead>
-        <th>Status</th>
         <th>State ID</th>
         <th>{{__('names.state')}}</th>
         <th>Branches</th>
         <th>Zones</th>
         <th>Areas</th>
-        <th>Users</th>
         <th>Status</th>
         </thead>
         <tbody>
         @foreach($states as $state)
             <tr>
-                <td>
-{{--           <livewire:counter />         <x-toggle-state state-id="{{$state->id}}" like="{{ $state->active ? $state->active : false}}"></x-toggle-state> --}}
-                    @livewire('main.toggle-button',['model' => $state,'field'=>'active'])
 
-                </td>
                 <td>{{$state->id}} </td>
                 <td>{{$state->name}}
                 <td>@foreach($state->branches as $branch )
@@ -51,15 +45,10 @@
                         </a>
                     @endforeach
                 </td>
-                <td>@foreach($state->users as $user )
-                        <a href="{{route('admin.users.show',$user->id)}}">
-                    <div class="badge badge-info">
-                        {{$user->name}}
-                    </div>
-                        </a>
-                    @endforeach
+                <td>
+                    {{--           <livewire:counter />         <x-toggle-state state-id="{{$state->id}}" like="{{ $state->active ? $state->active : false}}"></x-toggle-state> --}}
+                    @livewire('main.toggle-button',['model' => $state,'field'=>'active'])
                 </td>
-                <td>{{$state->active}}</td>
             </tr>
         @endforeach
 

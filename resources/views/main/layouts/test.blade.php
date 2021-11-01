@@ -11,10 +11,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
 <!-- Scripts -->
-
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -73,6 +72,7 @@
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
+                                @method('POST')
                             </form>
                         </div>
                     </li>
@@ -94,6 +94,6 @@
 </footer>
 
 @yield('script')
-<script src="{{ asset('js/app.js') }}" defer></script>
+
 </body>
 </html>
