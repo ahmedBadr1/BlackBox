@@ -33,11 +33,11 @@ class OrdersTable extends Component
 
     public function render()
     {
-        $this->user_id =  auth()->user()->id;
+        $user_id =  auth()->user()->id;
 
         return view('livewire.seller.orders-table', [
-            'orders' => Order::searchSeller($this->search,$this->user_id )
-                ->where('user_id', $this->user_id )
+            'orders' => Order::searchSeller($this->search,$user_id )
+                ->where('user_id', $user_id )
                 ->whereDate('created_at','>=',$this->startDate)
                 ->WhereDate('created_at','<=',$this->endDate)
                 ->with('area','status','state')
@@ -48,8 +48,10 @@ class OrdersTable extends Component
 
     public function export()
     {
-        $orders = Order::searchSeller($this->search,$this->user_id )
-            ->where('user_id', $this->user_id )
+        $user_id =  auth()->user()->id;
+
+        $orders = Order::searchSeller($this->search,$user_id )
+            ->where('user_id', $user_id )
             ->whereDate('created_at','>=',$this->startDate)
             ->WhereDate('created_at','<=',$this->endDate)
             ->with('area','status','state')

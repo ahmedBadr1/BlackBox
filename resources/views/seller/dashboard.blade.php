@@ -72,7 +72,7 @@
                             </div>
                             <span class="float-right my-auto mr-auto">
 
-                                @if($lastMonthOrdersValue)
+                                @if($monthOrdersValue)
                                     @if($monthOrdersValue - $lastMonthOrdersValue   >= 0)
                                     <i class="fas fa-arrow-circle-up text-white"></i>
                                     @else
@@ -80,7 +80,7 @@
                                     @endif
 
                                     <span class="text-white op-7">{{number_format(($monthOrdersValue - $lastMonthOrdersValue)  /$monthOrdersValue  * 100) }}%</span>
-                                    @endif
+                                @endif
 
 										</span>
                         </div>
