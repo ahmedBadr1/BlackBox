@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="row">
-    <table class="table table-hover  table-responsive">
+    <table class="table table-hover  table-responsive-md">
 
         <thead>
         <th>#</th>
@@ -110,7 +110,7 @@
             </div>
         @endif
         <div class="d-flex justify-content-center">
-            {{ $orders->links('vendor.pagination.bootstrap-4') }}
+            {{ $orders->links() }}
         </div>
 
 </div>

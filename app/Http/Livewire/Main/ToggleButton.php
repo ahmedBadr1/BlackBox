@@ -30,13 +30,16 @@ class ToggleButton extends Component
         if ($this->model instanceof User ){
             if ($value){
                 $this->emit('alert',
-                    ['type' => 'success',  'message' => 'Setting Created Successfully!']);
+                    ['type' => 'success',  'message' => 'User Unblocked Successfully!']);
                 $this->model->notify(new UnBlockedUserNotification());
             }else {
                 $this->emit('alert',
-                    ['type' => 'success', 'message' => 'Setting Created Successfully!']);
+                    ['type' => 'success', 'message' => 'User Blocked Successfully!']);
                 $this->model->notify(new BlockedUserNotification());
             }
+        }else{
+            $this->emit('alert',
+                ['type' => 'success',  'message' => 'Updated Successfully!']);
         }
     }
 }

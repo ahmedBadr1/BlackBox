@@ -1,6 +1,6 @@
 <div class="">
     @if($locations->count() > 0)
-    <table class="table table-hover table-responsive ">
+    <table class="table table-hover  table-responsive-md ">
 
         <thead >
 

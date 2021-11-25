@@ -147,11 +147,8 @@ return [
     'invite' => 'دعوة',
     'recent-orders' => 'أحدث الأوردرات',
 
-
-
-
-
-
+    'new-notifications' => 'الإشعارات الجديدة',
+    'all-notifications' => 'كل الإشعارات',
 
 
 ];

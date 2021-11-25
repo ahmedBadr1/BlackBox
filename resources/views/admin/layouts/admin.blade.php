@@ -12,73 +12,56 @@
     @stack('styles')
 
 <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/admin/admin.js') }}" defer></script>
 
     <!-- Fonts -->
 
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin/admin.css') }}" rel="stylesheet">
     @livewireStyles
     @toastr_css
     <title>{{ sys('company_name') ?? config('app.name', 'Laravel') }}</title>
 </head>
-<body >
-<div id="app" class="">
-    <nav class="navbar navbar-light bg-light ">
-        <div class="container-fluid">
-            <div class="nav-logo"></div>
-            <ul class="d-flex">
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    <li>
-                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                            {{ $properties['native'] }}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
+<body  class="sidebar-mini" style="height: auto;">
 
-            <i class="fas fa-bell"></i>
-            <i class="fas fa-envelope "></i><span class="counter counter-lg">29</span>
+    <div class="wrapper">
+
+
+        @include('admin.layouts._navbar')
+
+        @include('admin.layouts._sidebar')
+
+
+        <div class="content-wrapper " style="min-height: 404px;">
+
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    @yield('content_header')
+                </div>
+            </div>
+
+
+            <div class="content">
+                <div class="container-fluid">
+
+                    @yield('content')
+                </div>
+            </div>
+            <footer class=" fb-footer">
+                <p > copyright &#169 Feedback 2021 <small> {{ sys('footer') ?? '' }}
+                        {{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
+                    </small></p>
+            </footer>
         </div>
-    </nav>
-
-    @auth()
-        @if ( auth()->user()->hasRole('seller'))
-        @include('seller.layouts._sidebar')
-        @elseif(auth()->user()->hasRole('delivery'))
-                @include('delivery.layouts._sidebar')
-        @else
-            @include('admin.layouts._sidebar')
-        @endif
-    @else
-
-    @endauth
-
-    <main class="fb-container">
 
 
-        <!-- As a heading -->
+        <div id="sidebar-overlay"></div>
+    </div>
 
 
-
-        @if (Session::has('success'))
-            @php
-                toastSuccess(Session::get('success'));
-            @endphp
-        @endif
-
-        @yield('content')
-    </main>
-
-
-</div>
-<footer class=" fb-footer">
-    <p > copyright &#169 Feedback 2021 <small> {{ sys('footer') ?? '' }}
-{{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
-        </small></p>
-</footer>
 {{--<script>--}}
 {{--    let menu = document.getElementById('menu');--}}
 {{--    let search = document.querySelector('.fa-search');--}}
@@ -98,16 +81,17 @@
 {{--    search.addEventListener('click', () => { toggle() });--}}
 {{--</script>--}}
 
+    @yield('js')
+    <!-- Livewire Scripts -->
 
-@livewireScripts
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<script type="text/javascript">toastr.options = {"closeButton":true,"closeClass":"toast-close-button","closeDuration":300,"closeEasing":"swing","closeHtml":"<button><i class=\"icon-off\"><\/i><\/button>","closeMethod":"fadeOut","closeOnHover":true,"containerId":"toast-container","debug":false,"escapeHtml":false,"extendedTimeOut":10000,"hideDuration":1000,"hideEasing":"linear","hideMethod":"fadeOut","iconClass":"toast-info","iconClasses":{"error":"toast-error","info":"toast-info","success":"toast-success","warning":"toast-warning"},"messageClass":"toast-message","newestOnTop":false,"onHidden":null,"onShown":null,"positionClass":"toast-top-right","preventDuplicates":true,"progressBar":true,"progressClass":"toast-progress","rtl":false,"showDuration":300,"showEasing":"swing","showMethod":"fadeIn","tapToDismiss":true,"target":"body","timeOut":5000,"titleClass":"toast-title","toastClass":"toast"};</script>
-
-<script>
-    window.livewire.on('alert', param => {
-        toastr[param['type']](param['message']);
-    });
-</script>
-@yield('script')
+    @livewireScripts
+    @jquery
+    @toastr_js
+    @toastr_render
+    <script>
+        window.livewire.on('alert', param => {
+            toastr[param['type']](param['message']);
+        });
+    </script>
 </body>
 </html>

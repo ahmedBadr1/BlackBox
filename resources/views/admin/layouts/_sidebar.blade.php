@@ -1,211 +1,474 @@
-<aside class="fb-side-d navbar-fixed-top "
+<aside class="main-sidebar sidebar-dark bg-gradient-navy text-white fixed elevation-4"
        @if(app()->getLocale() == "ar")
        dir="rtl"
        @else
        dir="ltr"
     @endif
 >
-    <!-- Sidebar -->
-    <a class="navbar-brand fb-nav-logo font-weight-bold text-uppercase" href="{{ url('/') }}">
-        {{ sys('company_name') ?? config('app.name', 'Laravel') }}
+    <a href="{{route('home')}}" class="brand-link text-center">
+        <span class="brand-text font-weight-light ">
+     {{ sys('company_name') ?? config('app.name', 'Laravel') }}
+    </span>
     </a>
-    <i class="fas fa-bars" id="menu"></i>
-    <ul class="navbar-nav " id="accordionSidebar">
-        <li class="nav-item nav-search">
-            <i class="fas fa-search"></i>
-            <input type="search" name="search" id="search" placeholder="{{__("names.search")}}" />
-        </li>
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="" href="{{route('admin.dashboard')}}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>{{__("names.dashboard")}}</span>
-                <span class="icon-name">{{__("names.dashboard")}}</span>
-            </a>
-        </li>
-        <!-- Heading -->
-        <div class=" text-muted">
-            Controls
-        </div>
-    @canany(['user-show','role-show'])
-        <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item ">
-                <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#Roles" aria-expanded="false"
-                   aria-controls="collapseTwo">
-                    <i class="fas fa-users"></i>
-                    <span>{{__("names.users")}}</span>
+    <div class="sidebar ">
+        <nav class="pt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">
+                <!-- Heading -->
+                <div class=" text-muted">
+                    Controls
+                </div>
+            @canany(['user-show','role-show'])
+                <!-- Nav Item - Pages Collapse Menu -->
+                    <li class="nav-item has-treeview ">
+                        <a class="nav-link  text-white" href="">
+                            <i class='bx bxs-user-detail bx-xs'></i>
 
-                    <span class="icon-name">{{__("names.users")}}</span>
-                    <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-                </a>
-
-                <div id="Roles" class="collapse" data-parent="#accordionSidebar">
-
-                    <div class="py-2 collapse-inner rounded">
-                        @can('user-show')
-                            <a class="collapse-item " href="{{route('admin.users.index')}}">{{__("names.manage")}} {{__("names.users")}}</a>
-                        @endcan
-                        @can('role-show')
-                            <a class="collapse-item " href="{{route('admin.roles.index')}}">{{__("names.manage")}} {{__("names.roles")}}</a>
-                        @endcan
-                        <a class="" href="{{route('admin.sellers')}}">
-                            <i class="fas fa-user-tie"></i>
-                            <span>{{__("names.seller")}}</span>
-                            <span class="icon-name">{{__("names.seller")}}</span>
+                            <p>
+                                @lang('names.users')
+                                <i class='bx bxs-left-arrow right'></i>
+                            </p>
                         </a>
-                    </div>
+                        <ul class="nav nav-treeview">
+                            @can('user-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.users.index')}}">
+                                        <p>
+                                            @lang('names.users')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('role-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.roles.index')}}">
+                                        <p>
+                                            @lang('names.roles')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('seller')
+                                <li class="nav-item">
+                                    <a class="nav-link  text-white" href="{{route('admin.sellers')}}">
+                                        <p>
+                                            @lang('names.sellers')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+            @endcanany
+
+            @can('area-show')
+                <!-- Nav Item - Utilities Collapse Menu -->
+                    <li class="nav-item has-treeview ">
+                        <a class="nav-link text-white " href="">
+                            <i class='bx bx-map-pin bx-xs' ></i>
+                            <p>
+                                @lang('names.areas')
+                                <i class='bx bxs-left-arrow right'></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('area-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.areas.index')}}">
+                                        <p>
+                                            @lang('names.areas')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('branch-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.branches.index')}}">
+                                        <p>
+                                            @lang('names.branches')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('zone-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.zones.index')}}">
+                                        <p>
+                                            @lang('names.zones')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+            @endcan
+            <!-- Heading -->
+                <div class="text-muted">
+                    Interface
                 </div>
-            </li>
-    @endcanany
-    @can('area-show')
-        <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="false" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder-open"></i>
-                    <span>{{__("names.areas")}}</span>
-                    <span class="icon-name">{{__("names.areas")}}</span>
-                    <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class=" py-2 collapse-inner rounded">
-                        <a href="{{ route('admin.areas.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.areas")}}</a>
-                        <a class="collapse-item " href="{{route('admin.branches.index')}}">{{__("names.manage")}} {{__('names.branches')}}</a>
 
-                        <a href="{{ route('admin.zones.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.zones")}}</a>
-                    </div>
-                </div>
-            </li>
-    @endcan
-    <!-- Heading -->
-        <div class="text-muted">
-            Interface
-        </div>
-        <!-- Nav Item - Pages Collapse Menu -->
-
-
-
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="sidebar-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnalysis"
-               aria-expanded="false" aria-controls="collapseExample">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>{{__('names.tasks')}}</span>
-                <span class="icon-name">{{__('names.tasks')}}</span>
-                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-            </a>
-            <div id="collapseAnalysis" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a href="{{ route('admin.tasks.index') }}" class="collapse-item ">{{__("names.manage")}} {{__("names.tasks")}}</a>
-                <a class="collapse-item " href="{{ route('admin.locations.index') }}"><i class="fas fa-map-marker-alt"></i><span>{{__('names.locations')}}</span></a>
-            </div>
-        </li>
+            @can('task-show')
+                <!-- Nav Item - Utilities Collapse Menu -->
+                    <li class="nav-item has-treeview ">
+                        <a class="nav-link text-white " href="">
+                            <i class='bx bx-task bx-xs'></i>
+                            <p>
+                                @lang('names.tasks')
+                                <i class='bx bxs-left-arrow right'></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('task-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.tasks.index')}}">
+                                        <p>
+                                            @lang('names.tasks')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('location-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.locations.index')}}">
+                                        <p>
+                                            @lang('names.locations')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+            @endcan
 
 
-        <li class="nav-item">
-            <a class="sidebar-link" href="#" data-toggle="collapse" data-target="#collapseStyles"
-               aria-expanded="false" aria-controls="collapseStyles">
-                <i class="fas fa-palette"></i>
-                <span>{{__('names.accounting')}}</span>
-                <span class="icon-name">{{__('names.accounting')}}</span>
-                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-            </a>
-            <div id="collapseStyles" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{route('admin.receipts.index')}}"><i class="fas fa-money-check "></i><span>{{__('names.receipts')}}</span></a>
+            @can('accounting')
+                <!-- Nav Item - Utilities Collapse Menu -->
+                    <li class="nav-item has-treeview ">
+                        <a class="nav-link text-white " href="">
+                            <i class='bx bx-dollar bx-xs'></i>
+                            <p>
+                                @lang('names.accounting')
+                                <i class='bx bxs-left-arrow right'></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('task-show')
+                                <li class="nav-item">
+                                    <a class="nav-link  text-white" href="{{route('admin.receipts.index')}}">
+                                        <p>
+                                            @lang('names.receipts')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('financials')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.financials')}}">
+                                        <p>
+                                            @lang('names.financials')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('statics')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.statics')}}">
+                                        <p>
+                                            @lang('names.statics')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+            @endcan
+            @can('order-show')
+                <!-- Nav Item - Utilities Collapse Menu -->
+                    <li class="nav-item has-treeview ">
+                        <a class="nav-link text-white " href="">
 
-                    <a class="collapse-item" href="{{route('admin.financials')}}"><i class="fas fa-images"></i><span>{{__('names.financials')}}</span></a>
-                    <a class="collapse-item" href="{{route('admin.statics')}}"><i class="fas fa-chart-line"></i><span>{{__('names.statics')}}</span></a>
-                </div>
-            </div>
-        </li>
+                            <i class='bx bxs-cart-add bx-xs' ></i>
+                            <p>
+                                @lang('names.orders')
+                                <i class='bx bxs-left-arrow right'></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('order-show')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.orders.index')}}">
+                                        <p>
+                                            @lang('names.orders')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('packing')
+                                <li class="nav-item">
+                                    <a class="nav-link text-white " href="{{route('admin.packing')}}">
+                                        <p>
+                                            @lang('names.packing')
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
+
+                @can('plans')
+                    <li class="nav-item">
+                        <a class="nav-link text-white " href="{{route('admin.plans.index')}}">
+                            <p>
+                                <i class="fas fa-trash-restore-alt"></i>
+                                @lang('names.plans')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                @can('help')
+                    <li class="nav-item">
+                        <a class="nav-link text-white " href="{{route('admin.help')}}">
+                            <p>
+                                <i class="fas fa-trash-restore-alt"></i>
+                                @lang('names.help')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                @can('system')
+                    <li class="nav-item">
+                        <a class="nav-link text-white " href="{{route('admin.system')}}">
+                            <p>
+                                <i class="fas fa-trash-restore-alt"></i>
+                                @lang('names.system')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('trash')
+                    <li class="nav-item">
+                        <a class="nav-link text-white    " href="{{route('admin.trash')}}">
+                            <p>
+                                <i class="fas fa-trash-restore-alt"></i>
+                                @lang('names.trash')
+                            </p>
+                        </a>
+                    </li>
+            @endcan
 
 
-        <li class="nav-item">
-            <a class="sidebar-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOreder"
-               aria-expanded="false" aria-controls="collapseExample">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>{{__('names.orders')}}</span>
-                <span class="icon-name">{{__('names.orders')}}</span>
-                <span class="right-icon"><i class="fas fa-chevron-down"></i></span>
-            </a>
-            <div id="collapseOreder" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <a href="{{ route('admin.orders.index') }}" class="collapse-item "><i class="fas fa-fw fa-box-open"></i>{{__("names.manage")}} {{__("names.orders")}}</a>
-                <a href="{{route('admin.packing')}}"><i class="fas fa-fw fa-box"></i> {{__("names.manage")}} {{__("names.packing")}}</a>
-            </div>
-        </li>
 
-        <li class="nav-item">
-            <a href="{{ route('admin.plans.index') }}" class="sidebar-link"><i class="fas fa-fw fa-tags"></i>{{__("names.manage")}} {{__("names.plans")}}</a>
-
-        </li>
-        <li class="nav-item">
-            <a class="sidebar-link" href="{{route('admin.help')}}"><i class="fas fa-question-circle"></i><span>{{__('names.help')}}</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="sidebar-link" href="{{route('admin.system')}}"><i class="fas fa-cogs"></i><span>{{__('names.system')}}</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="sidebar-link" href="{{route('admin.trash')}}"><i class="fas fa-trash-restore-alt"></i><span>{{__('names.trash')}}</span></a>
-        </li>
-
-
-
-        <!-- Nav Item - Tables -->
-    {{--        @can('inbox')--}}
-    {{--            <li class="nav-item">--}}
-    {{--                <a class="" href="{{route('inbox')}}">--}}
-    {{--                    <i class="fas fa-inbox  "></i>--}}
-    {{--                    <span>Inbox</span>--}}
-    {{--                    <span class="icon-name">Inbox</span>--}}
-    {{--                </a>--}}
-    {{--            </li>--}}
-    {{--        @endcan--}}
-    {{--        --}}{{--        @can('email')--}}
-    {{--        <li class="nav-item">--}}
-    {{--            <a class="" href="{{route('email')}}">--}}
-    {{--                <i class="fas fa-envelope"></i>--}}
-    {{--                <span>Email</span>--}}
-    {{--                <span class="icon-name">Email</span>--}}
-    {{--            </a>--}}
-    {{--        </li>--}}
-    {{--    --}}{{--        @endcan--}}
-
-
-    <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
-    </ul>
-
-    <div class="profile-inf">
-        <img      @if($path = auth()->user()->profile->profile_photo)
-                  src="{{ '/storage/' .$path}}"
-                  @else
-                  src="/pics/profile.png"
-                  @endif alt="profile picture" />
-        <div class="fb-info">
-
-            <a href="{{route('admin.profile')}}" class="fb-username">{{ auth()->user()->name}}</a>
-            <div class="fb-bio">{{ auth()->user()->profile->bio }}</div>
-        </div>
-
-
-        <a href="{{ route('logout') }}"
-           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-            <i class="fas fa-sign-out-alt" id="logout"></i>
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-
+            </ul>
+        </nav>
     </div>
+
 
 </aside>
 <!-- End of Sidebar -->
+
+{{--    <div class="profile-inf">--}}
+{{--        <img @if($path = auth()->user()->profile->profile_photo)--}}
+{{--             src="{{ '/storage/' .$path}}"--}}
+{{--             @else--}}
+{{--             src="/pics/profile.png"--}}
+{{--             @endif alt="profile picture"/>--}}
+{{--        <div class="fb-info">--}}
+
+{{--            <a href="{{route('admin.profile')}}" class="fb-username">{{ auth()->user()->name}}</a>--}}
+{{--            <div class="fb-bio">{{ auth()->user()->profile->bio }}</div>--}}
+{{--        </div>--}}
+
+
+{{--        <a href="{{ route('logout') }}"--}}
+{{--           onclick="event.preventDefault();--}}
+{{--                                                     document.getElementById('logout-form').submit();">--}}
+{{--            <i class="fas fa-sign-out-alt" id="logout"></i>--}}
+{{--        </a>--}}
+{{--        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">--}}
+{{--            @csrf--}}
+{{--        </form>--}}
+
+{{--    </div>--}}
+
+
+{{--<aside class="main-sidebar sidebar-dark-primary fixed elevation-4">--}}
+{{--    <a href="{{route('home')}}" class="brand-link text-center">--}}
+{{--        <span class="brand-text font-weight-light ">--}}
+{{--        <b>Taco</b> system--}}
+{{--    </span>--}}
+{{--    </a>--}}
+{{--    <div class="sidebar">--}}
+{{--        <nav class="pt-2">--}}
+{{--            <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu">--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link  " href="{{route('home')}}">--}}
+{{--                        <i class='bx bxs-dashboard bx-xs'></i>--}}
+{{--                        <p>Dashboard</p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-header ">Interface</li>--}}
+{{--                <li class="nav-item has-treeview">--}}
+{{--                    <a class="nav-link  " href="">--}}
+{{--                        <i class='bx bxs-user-detail bx-xs'></i>--}}
+{{--                        <p>--}}
+{{--                            Users--}}
+{{--                            <i class='bx bxs-left-arrow right'></i>--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                    <ul class="nav nav-treeview">--}}
+{{--                        @can('user-show')--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link  " href="{{route('users.index')}}">--}}
+{{--                                    <i class=" "></i>--}}
+{{--                                    <p>--}}
+{{--                                        Manage Users--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
+{{--                        @can('role-show')--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link  " href="{{route('roles.index')}}">--}}
+{{--                                    <i class=" "></i>--}}
+{{--                                    <p>--}}
+{{--                                        Manage Roles--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
+
+{{--                <li class="nav-item has-treeview ">--}}
+{{--                    <a class="nav-link  " href="">--}}
+{{--                        <i class="bx bx-atom bx-xs"></i>--}}
+{{--                        <p>--}}
+{{--                            Formulas--}}
+{{--                            <i class='bx bxs-left-arrow right'></i>--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                    <ul class="nav nav-treeview">--}}
+{{--                        @can('formula-show')--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link  " href="{{route('formulas.index')}}">--}}
+{{--                                    <p>--}}
+{{--                                        Manage Formulas--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
+{{--                        @can('element-show')--}}
+
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link  " href="{{route('elements.index')}}">--}}
+{{--                                    <p>--}}
+{{--                                        Manage Elements--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
+{{--                        @can('category-show')--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link  " href="{{route('categories.index')}}">--}}
+{{--                                    <p>--}}
+{{--                                        Manage Categories--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
+{{--                                <li class="nav-item has-treeview ">--}}
+{{--                                    <a class="nav-link  " href="">--}}
+{{--                                        <i class='bx bx-network-chart bx-xs'></i>--}}
+{{--                                        <p>--}}
+{{--                                            Production--}}
+{{--                                            <i class='bx bxs-left-arrow right' ></i>--}}
+{{--                                        </p>--}}
+{{--                                    </a>--}}
+{{--                                    <ul class="nav nav-treeview" >--}}
+{{--                                        <li class="nav-item">--}}
+{{--                                            <a class="nav-link  " href="{{route('production')}}">--}}
+{{--                                                <p>--}}
+{{--                                                    Manage Production--}}
+{{--                                                </p>--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item">--}}
+{{--                                            <a class="nav-link  " href="{{route('404')}}">--}}
+{{--                                                <p>--}}
+{{--                                                    Manage Products--}}
+{{--                                                </p>--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item">--}}
+{{--                                            <a class="nav-link  " href="{{route('404')}}">--}}
+{{--                                                <p>--}}
+{{--                                                    Manage Projects--}}
+{{--                                                </p>--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link  " href="{{route('purchasing')}}">--}}
+{{--                        <i class='bx bx-purchase-tag bx-xs '></i>--}}
+{{--                        <p>--}}
+{{--                            Purchasing--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link  " href="{{route('production')}}">--}}
+{{--                        <i class='bx bxs-network-chart bx-xs'></i>--}}
+{{--                        <p>--}}
+{{--                            Production--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                @can('inventory')--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link  " href="{{route('inventory')}}">--}}
+{{--                            <i class='bx bx-box bx-xs '></i>--}}
+{{--                            <p>--}}
+{{--                                Inventory--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                @endcan--}}
+{{--                                @can('accounting')--}}
+{{--                                <li class="nav-item">--}}
+{{--                                    <a class="nav-link  " href="{{route('accounting')}}">--}}
+{{--                                        <i class='bx bx-line-chart bx-xs' ></i>--}}
+{{--                                        <p>--}}
+{{--                                            Accounting--}}
+{{--                                        </p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                @endcan--}}
+
+{{--                                <li class="nav-item">--}}
+{{--                                    <a class="nav-link  " href="{{route('dropbox')}}">--}}
+{{--                                        <p>--}}
+{{--                                            <i class='bx bxl-dropbox bx-xs' ></i>--}}
+{{--                                            Dropbox--}}
+{{--                                        </p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                @can('setting')--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link  " href="{{route('setting')}}">--}}
+{{--                            <p>--}}
+{{--                                <i class='bx bx-cog bx-xs'></i>--}}
+{{--                                Setting--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                @endcan--}}
+
+{{--            </ul>--}}
+{{--        </nav>--}}
+{{--    </div>--}}
+
+{{--</aside>--}}

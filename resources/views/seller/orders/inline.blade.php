@@ -6,19 +6,16 @@
             <div class="col-md-12">
                 <h1 class="text-center main-content-title">{{__("names.ready-for-pickup")}} </h1>
                 <div class="my-2">
-                    <form action="{{route('orders.pickup') }}" method="POST">
-                        @csrf
-                        <input type="submit" class="btn btn-dark"   onclick="return confirm('Sure Want Order pickup?')" value="{{__('names.request-pickup')}}">
-                    </form>
+                    <a href="{{route('pickups')}}" class="btn btn-dark">
+                        {{__('names.request-pickup')}}
+                    </a>
                 </div>
-
 
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                 @endif
-
 
                     @forelse($orders as $key => $order)
 
@@ -28,7 +25,7 @@
                             </div>
                             <div class="card-body">
                                 {{$order->consignee['cust_name']}} :{{$order->consignee['cust_num']}}
-                                <p>{{$order->consignee['address']}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state->name}}</p>
+                                <p>{{$order->consignee['address']}},{{ $order->area->name}}, {{$order->state->name}}</p>
                                 <p> @lang('auth.cost'):{{$order->cost}}</p>
                                 <p>@lang('auth.total') : {{$order->total}}</p>
                                 <p>{{$order->notes ?? 'no notes'}}</p>

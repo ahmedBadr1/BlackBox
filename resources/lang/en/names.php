@@ -146,6 +146,9 @@ return [
     'invite' => 'Invite',
     'recent-orders' => 'Recent Orders',
 
+    'new-notifications' => 'New Notifications',
+    'all-notifications' => 'All Notifications',
+
 
 
 

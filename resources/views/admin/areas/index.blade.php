@@ -33,7 +33,10 @@
                 <td data-label="Zone"><a href="{{route('admin.zones.show',$area->zone->id)}}">{{$area->zone->name}}</a></td>
                 <td data-label="State">{{$area->state->name}}</td>
 @can('area-active')
-    <td>@livewire('main.toggle-button',['model' => $area,'field'=>'active'])</td>
+    <td>
+{{--        @livewire('main.toggle-button',['model' => $area,'field'=>'active','key'=> $area->id])--}}
+        <livewire:main.toggle-button :model="$area" :field="'active'" :key="$area->id">
+    </td>
     @endcan
                 @can('area-edit')
                     <td><a href="{{ route('admin.areas.edit',$area->id) }}" class="btn btn-info">edit</a></td>

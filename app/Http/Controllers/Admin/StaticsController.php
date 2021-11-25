@@ -31,9 +31,10 @@ class StaticsController extends Controller
 
         $chart_options2 = [
             'chart_title' => 'Balance of sellers',
-            'chart_type' => 'bar',
+            'chart_type' => 'pie',
             'report_type' => 'group_by_relationship',
             'model' => 'App\Models\Order',
+            'chart_color' => "#191919",
 
             'relationship_name' => 'user', // represents function orders() on User model
             'group_by_field' => 'name', // users.name

@@ -17,10 +17,11 @@ class OrdersTable extends Component
 {
     use WithPagination;
     public $perPage = 10;
+    protected $paginationTheme = 'bootstrap';
     public $search = '';
     public $orderBy = 'id';
     public $orderDesc = true;
-    public  $startDate   ;
+    public $startDate   ;
     public $endDate ;
     public $user_id ;
 
@@ -44,6 +45,10 @@ class OrdersTable extends Component
                 ->orderBy($this->orderBy, $this->orderDesc ? 'desc' : 'asc')
                 ->paginate($this->perPage)
         ]);
+    }
+    public function updatedPerPage()
+    {
+        $this->resetPage();
     }
 
     public function export()
