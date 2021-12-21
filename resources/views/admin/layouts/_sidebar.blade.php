@@ -20,13 +20,18 @@
             @canany(['user-show','role-show'])
                 <!-- Nav Item - Pages Collapse Menu -->
                     <li class="nav-item has-treeview ">
-                        <a class="nav-link  text-white" href="">
-                            <i class='bx bxs-user-detail bx-xs'></i>
+                        <a class="nav-link  text-white d-flex justify-content-between" href="">
+
 
                             <p>
+                                <i class='bx bxs-user-detail bx-xs'></i>
                                 @lang('names.users')
-                                <i class='bx bxs-left-arrow right'></i>
+
+
                             </p>
+                            <span>
+                                     <i class='bx bxs-left-arrow '></i>
+                                </span>
                         </a>
                         <ul class="nav nav-treeview">
                             @can('user-show')
@@ -63,12 +68,16 @@
             @can('area-show')
                 <!-- Nav Item - Utilities Collapse Menu -->
                     <li class="nav-item has-treeview ">
-                        <a class="nav-link text-white " href="">
-                            <i class='bx bx-map-pin bx-xs' ></i>
+                        <a class="nav-link text-white d-flex justify-content-between" href="">
+
                             <p>
+                                <i class='bx bx-map-pin bx-xs'></i>
                                 @lang('names.areas')
-                                <i class='bx bxs-left-arrow right'></i>
+
                             </p>
+                            <span>
+                                     <i class='bx bxs-left-arrow '></i>
+                                </span>
                         </a>
                         <ul class="nav nav-treeview">
                             @can('area-show')
@@ -109,12 +118,16 @@
             @can('task-show')
                 <!-- Nav Item - Utilities Collapse Menu -->
                     <li class="nav-item has-treeview ">
-                        <a class="nav-link text-white " href="">
-                            <i class='bx bx-task bx-xs'></i>
+                        <a class="nav-link text-white d-flex justify-content-between" href="">
+
                             <p>
+                                <i class='bx bx-task bx-xs'></i>
                                 @lang('names.tasks')
-                                <i class='bx bxs-left-arrow right'></i>
+
                             </p>
+                            <span class=" ">
+                                     <i class='bx bxs-left-arrow'></i>
+                            </span>
                         </a>
                         <ul class="nav nav-treeview">
                             @can('task-show')
@@ -143,12 +156,15 @@
             @can('accounting')
                 <!-- Nav Item - Utilities Collapse Menu -->
                     <li class="nav-item has-treeview ">
-                        <a class="nav-link text-white " href="">
-                            <i class='bx bx-dollar bx-xs'></i>
+                        <a class="nav-link text-white d-flex justify-content-between" href="">
                             <p>
-                                @lang('names.accounting')
-                                <i class='bx bxs-left-arrow right'></i>
+                                <i class='bx bx-dollar bx-xs'></i>
+                                @lang('names.areas')
+
                             </p>
+                            <span>
+                                     <i class='bx bxs-left-arrow '></i>
+                                </span>
                         </a>
                         <ul class="nav nav-treeview">
                             @can('task-show')
@@ -184,13 +200,15 @@
             @can('order-show')
                 <!-- Nav Item - Utilities Collapse Menu -->
                     <li class="nav-item has-treeview ">
-                        <a class="nav-link text-white " href="">
+                        <a class="nav-link text-white d-flex justify-content-between" href="">
+                            <p class="">
+                                <i class='bx bxs-cart-add bx-xs'></i>
+                                @lang('names.areas')
 
-                            <i class='bx bxs-cart-add bx-xs' ></i>
-                            <p>
-                                @lang('names.orders')
-                                <i class='bx bxs-left-arrow right'></i>
                             </p>
+                            <span>
+                                     <i class='bx bxs-left-arrow '></i>
+                                </span>
                         </a>
                         <ul class="nav nav-treeview">
                             @can('order-show')
@@ -255,8 +273,7 @@
                             </p>
                         </a>
                     </li>
-            @endcan
-
+                @endcan
 
 
             </ul>

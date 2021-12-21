@@ -15,16 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-
-
-
-//        \App\Models\Receipt::factory(10)->create();
-
         $this->call(ConstantsSeeder::class);
         $this->call(PermissionsSeeder::class);
-
 
         \App\Models\Zone::factory(50)->create();
         \App\Models\Area::factory(250)->create();

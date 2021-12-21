@@ -23,6 +23,10 @@
     @livewireStyles
     @toastr_css
     <title>{{ sys('company_name') ?? config('app.name', 'Laravel') }}</title>
+    @if(app()->getLocale() == "ar")
+        <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
+    @endif
+
 </head>
 <body  class="sidebar-mini" style="height: auto;">
 
@@ -34,7 +38,7 @@
         @include('admin.layouts._sidebar')
 
 
-        <div class="content-wrapper " style="min-height: 404px;">
+        <div class="content-wrapper"   style="min-height: 404px;">
 
 
             <div class="content-header">
@@ -48,15 +52,16 @@
                 <div class="container-fluid">
 
                     @yield('content')
+
                 </div>
             </div>
-            <footer class=" fb-footer">
-                <p > copyright &#169 Feedback 2021 <small> {{ sys('footer') ?? '' }}
-                        {{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
-                    </small></p>
-            </footer>
-        </div>
 
+        </div>
+        <footer class=" fb-footer text-center py-1">
+            <p > copyright &#169 Feedback 2021 <small> {{ sys('footer') ?? '' }}
+                    {{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
+                </small></p>
+        </footer>
 
         <div id="sidebar-overlay"></div>
     </div>

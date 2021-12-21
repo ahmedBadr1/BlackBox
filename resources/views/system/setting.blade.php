@@ -18,7 +18,7 @@
                     <input type="hidden" name="auto_send" value="0">
 
                     <div class="form-group">
-                        <label for="company_name" class="label">@lang('auth.company_name')</label>
+                        <label for="company_name" class="label">@lang('auth.company-name')</label>
                         <input type="text" name="company_name" class="form-control" value="{{$system->company_name ?? '' }}">
                         @error('company_name')
                         <span class="invalid-feedback" role="alert">
@@ -30,7 +30,7 @@
 
                     <div class="form-group row">
                         <div class="col-md-4">
-                            <label for="company_logo" class="label">@lang('auth.company_logo')</label>
+                            <label for="company_logo" class="label">@lang('auth.company-logo')</label>
                             <input type="file" name="company_logo" id="company_logo"  class="form-control  @error('company_logo') is-invalid @enderror" value="{{$system->company_logo ?? '' }}">
                             @error('company_logo')
                             <span class="invalid-feedback" role="alert">
@@ -116,7 +116,7 @@
 
 
                     <div class="form-group">
-                        <label for="theme" class="label">@lang('auth.reschedule_limit')</label>
+                        <label for="theme" class="label">@lang('auth.reschedule-limit')</label>
                         <input type="number" name="reschedule_limit" class="form-control" value="{{$system->reschedule_limit ?? '' }}">
                         @error('theme')
                         <span class="invalid-feedback" role="alert">
@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="package_weight_limit" class="label">@lang('auth.package_weight_limit')</label>
+                        <label for="package_weight_limit" class="label">@lang('auth.package-weight-limit')</label>
                         <input type="number" name="package_weight_limit" class="form-control" value="{{$system->package_weight_limit ?? '' }}">
                         @error('package_weight_limit')
                         <span class="invalid-feedback" role="alert">
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="auto_send" class="label">@lang('auth.auto_send')</label>
+                        <label for="auto_send" class="label">@lang('auth.auto-send')</label>
                         <input type="checkbox" name="auto_send" value="1" @if($system->auto_send ?? '' ) checked @endif>
                     </div>
 

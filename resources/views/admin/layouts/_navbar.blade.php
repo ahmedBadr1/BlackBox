@@ -3,7 +3,7 @@
 
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#">
-                <i class="fas fa-bars"></i>
+                <i class="bx bx-menu bx-sm"></i>
                 <span class="sr-only">Toggle navigation</span>
             </a>
         </li>
@@ -11,10 +11,10 @@
 
     </ul>
 
-    <ul class="d-flex">
+    <ul class=" navbar-nav ml-auto">
         @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            <li>
-                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+            <li class="nav-item">
+                <a class="nav-link" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                     {{ $properties['native'] }}
                 </a>
             </li>
