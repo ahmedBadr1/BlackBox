@@ -51,7 +51,6 @@ class ConstantsSeeder extends Seeder
         foreach ($features as $feature){
             Feature::factory()->create([
                 'name' => $feature,
-
             ]);
         }
 

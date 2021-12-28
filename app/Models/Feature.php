@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Feature extends Model
 {
     use HasFactory;
-    protected $fillable = ['name','rank','description'];
+    protected $fillable = ['name','description'];
 
     public function plans(){
         return $this->belongsToMany(Plan::class);
