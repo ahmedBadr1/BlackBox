@@ -18,7 +18,7 @@
                     <thead>
                     <th>@lang('auth.id')</th>
                     <th>@lang('auth.plan-name')</th>
-                    <th>@lang('auth.orders-count')</th>
+                    <th>@lang('names.orders-count')</th>
                     <th>@lang('auth.pickup-cost')</th>
                     <th>@lang('names.features')</th>
                     </thead>

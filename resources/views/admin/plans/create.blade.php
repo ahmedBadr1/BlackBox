@@ -1,7 +1,9 @@
 @extends('admin.layouts.admin')
 @section('page-header')
     <h1 class="text-center">@lang("auth.create-plan")</h1>
-    <a href="{{route('admin.plans.index')}}" class="btn btn-primary">@lang("names.manage-plans")</a>
+   <div class="">
+       <a href="{{route('admin.plans.index')}}" class="btn btn-primary">@lang("names.manage-plans")</a>
+   </div>
 
 @endsection
 @section('content')
@@ -13,7 +15,7 @@
                     <div class="form-group row">
 
                         <div class="col-md-12">
-                            <label for="name" class="col-form-label text-md-right">@lang("names.plan-name") </label>
+                            <label for="name" class="col-form-label text-md-right">@lang("auth.plan-name") </label>
 
                             <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
 
@@ -27,7 +29,7 @@
 
                     <div class="form-group row">
                         <div class="col-md-6">
-                            <label for="orders_count" class=" col-form-label text-md-right"> @lang("auth.orders_count")</label>
+                            <label for="orders_count" class=" col-form-label text-md-right"> @lang("names.orders-count")</label>
                             <input  type="number" class="form-control @error('orders_count') is-invalid @enderror" name="orders_count" value="{{ old('orders_count') }}" >
 
                             @error('orders_count')
@@ -37,7 +39,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="pickup_cost" class=" col-form-label text-md-right"> @lang("auth.pickup_cost")</label>
+                            <label for="pickup_cost" class=" col-form-label text-md-right"> @lang("auth.pickup-cost")</label>
                             <input  type="number" class="form-control @error('pickup_cost') is-invalid @enderror" name="pickup_cost" value="{{ old('pickup_cost') }}"  >
 
                             @error('pickup_cost')

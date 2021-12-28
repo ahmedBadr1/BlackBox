@@ -6,7 +6,7 @@
             <a href="{{route('admin.tasks.create')}}" class="btn btn-success">@lang('auth.create-task')</a>
         @endcan
         @can('task-archive')
-            <a href="{{route('admin.tasks.archive')}}" class="btn btn-dark">@lang('names.archive')</a>
+            <a href="{{route('admin.tasks.archive')}}" class="btn btn-dark">@lang('auth.archive')</a>
         @endcan
 
     </div>

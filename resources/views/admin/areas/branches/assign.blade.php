@@ -1,7 +1,9 @@
 @extends('admin.layouts.admin')
 @section('page-header')
     <h1 class="text-center">{{$branch->name}} @lang("names.assing") </h1>
-    <a href="{{route('admin.branches.index')}}">@lang("names.manage") @lang("names.branches")}}</a>
+    <div class="">
+        <a href="{{route('admin.branches.index')}}">@lang("names.manage") @lang("names.branches")}}</a>
+    </div>
 @endsection
 @section('content')
 

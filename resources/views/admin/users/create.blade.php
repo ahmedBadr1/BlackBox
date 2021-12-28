@@ -62,7 +62,7 @@
                             @enderror
                         </div>
                         <div class="col-md-4">
-                            <label for="role" class=" col-form-label text-md-right">@lang('auth.role')</label>
+                            <label for="role" class=" col-form-label text-md-right">@lang('names.role')</label>
 
                             <select name="role" class="form-control select2"  >
                                 @foreach($roles as $role)

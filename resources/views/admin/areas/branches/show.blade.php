@@ -1,7 +1,9 @@
 @extends('admin.layouts.admin')
 @section('page-header')
     <h1> @lang("names.branch") {{$branch->name}}</h1>
-    <a href="{{route('admin.branches.index')}}" class="btn btn-primary">@lang("names.manage-branches")</a>
+  <div class="">
+      <a href="{{route('admin.branches.index')}}" class="btn btn-primary">@lang("names.manage-branches")</a>
+  </div>
 @endsection
 @section('content')
         <div class="row">

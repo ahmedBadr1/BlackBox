@@ -37,7 +37,6 @@ return [
     'passreset'=> 'إعادة تعيين كلمة السر',
     'sendpasslink'=> 'إرسال رابط تغيير كلمة السر',
     'remember' => 'تذكرني المرة القادمة',
-    'createdat' => 'تم إنشائه في',
     'login' => 'تسجيل دخول',
     'register' => 'إنشاء حساب جديد',
     'id'=> 'رقم',
@@ -141,6 +140,40 @@ return [
 
     'default-location' => 'الموقع الإفتراضي',
 
+    'sign-google' => 'تسجيل دخول بواسطة جوجل',
+    'sign-facebook' => 'Sign up with Facebook',
+    'have-account' => 'لديك حساب بالفعل ؟',
+    'login-google' => 'تسجيل دخول بواسطة جوجل',
 
+    'create-user' => 'إنشاء مستخدم',
+    'create-role' => 'إنشاء دور',
+    'create-area' => 'إنشاء منطقة',
+    'create-zone' => 'إنشاء زون',
+    'create-branch' => 'إنشاء فرع',
+    'create-task' => 'إنشاء مهمة',
+    'create-plan' => 'إنشاء خطة سعر',
 
+    'user-name' => 'إسم المستخدم',
+    'role-name' => 'إسم الدور',
+    'location-name' => 'إسم الموقع',
+    'area-name' => 'إسم المنطقة',
+    'zone-name' => 'إسم الزون',
+    'branch-name' => 'إسم الفرع',
+    'plan-name' => 'إسم خطة السعر',
+
+    'manager' => 'المدير',
+    'select-manager' => 'إختار المدير',
+    'select-areas' => 'إختار المناطق',
+    'select-zone' => 'إختار الزون',
+    'select-role' => 'إختار الدور',
+    'select-location' => 'إختار الموقع',
+
+    'type' => 'النوع',
+    'assign-to' => 'المسئول',
+    'created-at' => 'وقت الإنشاء',
+    'done-at' => 'وقت الانتهاء',
+
+    'price' => 'السعر',
+    'size' => 'المقاس',
+    'app-setting' => 'إعدادات التطبيق',
 ];

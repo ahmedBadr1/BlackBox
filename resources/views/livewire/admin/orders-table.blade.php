@@ -45,16 +45,16 @@
 
         <thead>
         <th>#</th>
-        <th>@lang("auth.id")}} @lang("names.order")}}</th>
-        <th>@lang("auth.product-name")}}</th>
-        <th>@lang("auth.cust-name")}}</th>
-        <th>@lang("auth.cust-num")}}</th>
-        <th>@lang("auth.address")}}</th>
-        <th>@lang("auth.total")}}</th>
-        <th>@lang("auth.cost")}}</th>
-        <th>@lang("auth.notes")}}</th>
-        <th>@lang("auth.status")}}</th>
-        <th>@lang("auth.username")}}</th>
+        <th>@lang("auth.id") @lang("names.order")</th>
+        <th>@lang("auth.product-name")</th>
+        <th>@lang("auth.cust-name")</th>
+        <th>@lang("auth.cust-num")</th>
+        <th>@lang("auth.address")</th>
+        <th>@lang("auth.total")</th>
+        <th>@lang("auth.cost")</th>
+        <th>@lang("auth.notes")</th>
+        <th>@lang("auth.status")</th>
+        <th>@lang("auth.username")</th>
 
         </thead>
 
@@ -79,23 +79,23 @@
                 <td><a href="{{route('admin.users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
                 @auth
                     @role('seller|Feedback')
-                    <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')}}</a></td>
+                    <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')</a></td>
                     @endrole
                     <td>
 {{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">@lang('auht.pdf')}}</a>--}}
-                        <a href="{{route('admin.orders.print',$order->hashid)}}" class="btn btn-outline-warning">@lang('auth.print')}}</a>
+                        <a href="{{route('admin.orders.print',$order->hashid)}}" class="btn btn-outline-warning">@lang('auth.print')</a>
                     </td>
 
                     @role('seller|Feedback')
                     <td class="d-flex flex-column ">
 
 
-                  <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">@lang('auth.edit')}}</a>
+                  <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">@lang('auth.edit')</a>
 
                         <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="@lang('auth.delete')}}">
+                            <input type="submit" class="btn btn-danger" value="@lang('auth.delete')">
                         </form>
                     </td>
                     @endrole
@@ -115,12 +115,12 @@
 
         @if(count($orders) > 0 )
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>@lang('auth.download')}}</small></button>
-                <a href="{{route('admin.export.orders.'.app()->getLocale())}}" class="btn btn-success">@lang('auth.excel')}}</a>
+                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>@lang('auth.download')</small></button>
+                <a href="{{route('admin.export.orders.'.app()->getLocale())}}" class="btn btn-success">@lang('auth.excel')</a>
             </div>
         @endif
         <div class="d-flex justify-content-center">
-            {{ $orders->links('vendor.pagination.bootstrap-4') }}
+            {{ $orders->links() }}
         </div>
     </div>
 </div>

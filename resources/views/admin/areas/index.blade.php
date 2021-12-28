@@ -1,13 +1,15 @@
 @extends('admin.layouts.admin')
 
 @section('page-header')
-    <h2>All Areas</h2>
-    @can('states')
-        <a href="{{route('admin.states')}}" class="btn btn-dark">@lang('names.states')</a>
-    @endcan
-    @can('area-create')
-        <a href="{{route('admin.areas.create')}}" class="btn btn-success">@lang('auth.create-area')</a>
-    @endcan
+    <h2>@lang('names.all-areas')</h2>
+    <div class="">
+        @can('states')
+            <a href="{{route('admin.states')}}" class="btn btn-dark">@lang('names.all-states')</a>
+        @endcan
+        @can('area-create')
+            <a href="{{route('admin.areas.create')}}" class="btn btn-success">@lang('auth.create-area')</a>
+        @endcan
+    </div>
 @endsection
 
 @section('content')

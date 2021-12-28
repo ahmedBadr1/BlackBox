@@ -80,7 +80,7 @@ return [
     'company-name' => 'Company Name',
     'location-id' => 'Location',
     'reschedule-limit' => 'Reschedule Limit',
-    'package-weight-limit' => 'Package WeightLimit',
+    'package-weight-limit' => 'Package Weight Limit',
     'app-name' => 'App Name',
     'title' => 'Title',
     'slogan' => 'Slogan',
@@ -138,12 +138,41 @@ return [
 
     'default-location' => 'Default',
 
-    '' => 'Signup with Google',
-    '' => 'Signup with Facebook',
-    '' => 'Already have an account?',
+    'sign-google' => 'Sign up with Google',
+    'sign-facebook' => 'Sign up with Facebook',
+    'have-account' => 'Already have an account?',
+    'login-google' => 'Login with Google',
 
+    'create-user' => 'Create User',
+    'create-role' => 'Create Role',
+    'create-area' => 'Create Area',
+    'create-zone' => 'Create Zone',
+    'create-branch' => 'Create Branch',
+    'create-task' => 'Create Task',
+    'create-plan' => 'Create Plan',
 
+    'user-name' => 'User Name',
+    'role-name' => 'Role Name',
+    'location-name' => 'Location Name',
+    'area-name' => 'Area Name',
+    'zone-name' => 'Zone Name',
+    'branch-name' => 'Branch Name',
+    'plan-name' => 'Plan Name',
 
+    'manager' => 'Manager',
+    'select-manager' => 'Select Manager',
+    'select-areas' => 'Select Areas',
+    'select-zone' => 'Select Zone',
+    'select-role' => 'Select Role',
+    'select-location' => 'Select Location',
 
+    'type' => 'Type',
+    'assign-to' => 'Assign To',
+    'created-at' => 'Created At',
+    'done-at' => 'Done At',
 
+    'price' => 'Price',
+    'size' => 'Size',
+
+    'app-setting' => 'Application Setting',
 ];

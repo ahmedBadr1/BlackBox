@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class OrdersTable extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $perPage = 10;
     public $search = '';
     public $orderBy = 'id';

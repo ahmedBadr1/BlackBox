@@ -14,7 +14,7 @@
 
 
                         <div class="col-md-12">
-                            <label for="name" class="col-form-label text-md-right">@lang("names.plan-name")</label>
+                            <label for="name" class="col-form-label text-md-right">@lang("auth.plan-name")</label>
                             <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $plan->name }}"  autocomplete="name" autofocus>
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
                     <div class="form-group row">
 
                         <div class="col-md-6">
-                            <label for="orders_count" class="col-form-label text-md-right">@lang("auth.orders_count")</label>
+                            <label for="orders_count" class="col-form-label text-md-right">@lang("names.orders-count")</label>
 
                             <input  type="number" class="form-control @error('orders_count') is-invalid @enderror" name="orders_count" value="{{ $plan->orders_count }}" >
 
@@ -38,7 +38,7 @@
                             @enderror
                         </div>
                         <div class="col-md-6">
-                            <label for="pickup_cost" class=" col-form-label text-md-right"> @lang("auth.pickup_cost")</label>
+                            <label for="pickup_cost" class=" col-form-label text-md-right"> @lang("auth.pickup-cost")</label>
                             <input  type="number" class="form-control @error('pickup_cost') is-invalid @enderror" name="pickup_cost" value="{{ $plan->pickup_cost }}"  >
 
                             @error('pickup_cost')

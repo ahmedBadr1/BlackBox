@@ -46,15 +46,15 @@
 
         <thead>
         <th>#</th>
-        <th>@lang("auth.id")}} @lang("names.order")}}</th>
-        <th>@lang("auth.product-name")}}</th>
-        <th>@lang("auth.cust-name")}}</th>
-        <th>@lang("auth.cust-num")}}</th>
-        <th>@lang("auth.address")}}</th>
-        <th>@lang("auth.cost")}}</th>
-        <th>@lang("auth.total")}}</th>
-        <th>@lang("names.notes")}}</th>
-        <th>@lang("names.status")}}</th>
+        <th>@lang("auth.id") @lang("names.order")</th>
+        <th>@lang("auth.product-name")</th>
+        <th>@lang("auth.cust-name")</th>
+        <th>@lang("auth.cust-num")</th>
+        <th>@lang("auth.address")</th>
+        <th>@lang("auth.cost")</th>
+        <th>@lang("auth.total")</th>
+        <th>@lang("names.notes")</th>
+        <th>@lang("names.status")</th>
 
         </thead>
 

@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 @section('page-header')
-    <h1>@lang("auth.edit-role") </h1>
+    <h1>@lang("auth.edit") @lang("names.role") {{$role->name}}  </h1>
     <a href="{{route('admin.roles.index')}}" class="btn btn-primary">@lang("names.manage-roles")</a>
 @endsection
 @section('content')

@@ -1,12 +1,14 @@
 @extends('admin.layouts.admin')
 @section('page-header')
     <h1 >@lang("names.all-roles")</h1>
+<div class="">
     @can('permissions')
         <a href="{{route('admin.roles.permissions')}}" class="btn btn-outline-primary">@lang("names.permissions")</a>
     @endcan
     @can('role-create')
         <a href="{{route('admin.roles.create')}}" class="btn btn-success">@lang("auth.create-role")</a>
     @endcan
+</div>
 @endsection
 @section('content')
         <div class="row ">
@@ -15,12 +17,12 @@
 
                     <thead>
 
-                    <th>@lang("names.role")}}</th>
+                    <th>@lang("names.role")</th>
 
-                    <th>@lang("names.role")}} @lang("auth.id")}}</th>
+                    <th> @lang("auth.id")</th>
 
 
-                    <th>@lang("auth.createdat")}}</th>
+                    <th>@lang("auth.created-at")</th>
 
                     </thead>
 

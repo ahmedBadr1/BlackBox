@@ -153,5 +153,38 @@ return [
     'system' => 'السيستم',
     'trash' => 'السلة',
 
+    'all-users' => 'كل المستخدمين',
+    'all-roles' => 'كل الأدوار',
+    'all-areas' => 'كل المناطق',
+    'all-zones' => 'كل الزون',
+    'all-branches' => 'كل الفروع',
+    'all-plans' => 'كل خطط الأسعار',
+    'all-locations' => 'كل المواقع',
+    'all-tasks' => 'كل المهمات',
+    'all-states' => 'كل المحافظات',
+    'all-features' => 'كل المميزات',
+    'all-orders' => 'كل الطلبات',
+
+    'manage-users' => 'إدارة المستخدمين',
+    'manage-roles' => 'إدارة الأدوار',
+    'manage-areas' => 'إدارة المناطق',
+    'manage-zones' => 'إدارة الزون',
+    'manage-branches' => 'إدارة الفروع',
+    'manage-plans' => 'إدارة خطط الأسعار',
+    'manage-locations' => 'إدارة المواقع',
+    'manage-tasks' => 'إدارة المهمات',
+    'manage-states' => 'إدارة المحافظات',
+    'manage-orders' => 'إدارة الطلبات',
+
+
+    'users-count' => 'عدد المستخدمين',
+    'roles-count' => 'عدد الأدوار',
+    'areas-count' => 'عدد المناطق',
+    'zones-count' => 'عدد الزون',
+    'branches-count' => 'عدد الفروع',
+    'plans-count' => 'عدد خطط الأسعار',
+    'locations-count' => 'عدد المواقع',
+    'tasks-count' => 'عدد المهمات',
+    'states-count' => 'عدد المحافظات',
 
 ];

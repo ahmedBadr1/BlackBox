@@ -7,7 +7,7 @@
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li>
-            <a href="{{route('admin.orders.create')}}" class="dropdown-item">@lang("auth.create")}} @lang("names.order")}}</a>
+            <a href="{{route('admin.orders.create')}}" class="dropdown-item">@lang("auth.create") @lang("names.order")</a>
             </li>
             <li>
                 @can('order-import')

@@ -14,7 +14,7 @@
 
 
                         <div class="col-md-6">
-                            <label for="name" class="col-form-label text-md-right">@lang("names.role-name")</label>
+                            <label for="name" class="col-form-label text-md-right">@lang("auth.role-name")</label>
                             <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('role') }}"  autocomplete="name" autofocus>
 
                             @error('name')
