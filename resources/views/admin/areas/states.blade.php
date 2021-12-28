@@ -1,21 +1,20 @@
 @extends('admin.layouts.admin')
 
+@section('page-header')
+    <h2>@lang('names.all-states')</h2>
+@endsection
+
 @section('content')
-    <div class="container-fluid">
-    <h2>All States</h2>
 <div class="row">
-
-
-
     <table class="table table-hover">
 
         <thead>
-        <th>State ID</th>
-        <th>{{__('names.state')}}</th>
-        <th>Branches</th>
-        <th>Zones</th>
-        <th>Areas</th>
-        <th>Status</th>
+        <th>@lang('auth.id')</th>
+        <th>@lang('auth.state')</th>
+        <th>@lang('names.branches')</th>
+        <th>@lang('names.zones')</th>
+        <th>@lang('names.areas')</th>
+        <th>@lang('auth.status')</th>
         </thead>
         <tbody>
         @foreach($states as $state)
@@ -56,7 +55,7 @@
 
     </table>
 </div>
-    </div>
+
 
 
 @endsection

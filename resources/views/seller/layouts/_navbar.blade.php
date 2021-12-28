@@ -172,7 +172,7 @@
                 </div>
                 <div class="dropdown main-profile-menu nav nav-item nav-link">
                     <a class="profile-user d-flex" href=""><img alt="profile photo"
-                                                                @if($path = auth()->user()->profile->profile_photo)
+                                                                @if($path = auth()->user()->profile->photo)
                                                                 src="{{ '/storage/' .$path}}"
                                                                 @else
                                                                 src="/pics/profile.png"
@@ -180,7 +180,7 @@
                     <div class="dropdown-menu">
                         <div class="main-header-profile bg-primary p-3 ">
                             <div class="d-flex wd-100p">
-                                <div class="main-img-user"><img alt="profile photo"   @if($path = auth()->user()->profile->profile_photo)
+                                <div class="main-img-user"><img alt="profile photo"   @if($path = auth()->user()->profile->photo)
                                     src="{{ '/storage/' .$path}}"
                                                                 @else
                                                                 src="/pics/profile.png"

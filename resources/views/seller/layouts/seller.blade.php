@@ -11,6 +11,8 @@
     <meta name="Description" content="">
     <meta name="Author" content="">
     <meta name="Keywords" content=""/>
+
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     @include('valex.layouts.head')
     @livewireStyles
     @toastr_css
@@ -29,7 +31,7 @@
 <body class="main-body app sidebar-mini @if(session()->get('theme') === 'dark') dark-theme  @endif">
 <!-- Loader -->
 <div id="global-loader">
-    <img src="{{URL::asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
+    <img src="{{URL::asset('pics/loader.svg')}}" class="loader-img" alt="Loader">
 </div>
 <!-- /Loader -->
 @include('seller.layouts._sidebar')
@@ -39,7 +41,9 @@
 
 <!-- container -->
     <div class="container-fluid">
-@yield('page-header')
+        <div class="row d-flex justify-content-between">
+            @yield('page-header')
+        </div>
 @yield('content')
 {{--        @include('valex.layouts.sidebar')--}}
     </div>

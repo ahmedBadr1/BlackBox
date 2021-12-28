@@ -46,15 +46,15 @@
 
         <thead>
         <th>#</th>
-        <th>{{__("auth.id")}} {{__("names.order")}}</th>
-        <th>{{__("auth.product-name")}}</th>
-        <th>{{__("auth.cust-name")}}</th>
-        <th>{{__("auth.cust-num")}}</th>
-        <th>{{__("auth.address")}}</th>
-        <th>{{__("auth.cost")}}</th>
-        <th>{{__("auth.total")}}</th>
-        <th>{{__("names.notes")}}</th>
-        <th>{{__("names.status")}}</th>
+        <th>@lang("auth.id")}} @lang("names.order")}}</th>
+        <th>@lang("auth.product-name")}}</th>
+        <th>@lang("auth.cust-name")}}</th>
+        <th>@lang("auth.cust-num")}}</th>
+        <th>@lang("auth.address")}}</th>
+        <th>@lang("auth.cost")}}</th>
+        <th>@lang("auth.total")}}</th>
+        <th>@lang("names.notes")}}</th>
+        <th>@lang("names.status")}}</th>
 
         </thead>
 
@@ -78,10 +78,10 @@
 
                 @auth
                     <td>
-                        {{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">{{__('auht.pdf')}}</a>--}}
-                        <a href="{{route('orders.print',$order->hashid)}}" class="btn btn-warning-gradient">{{__('auth.print')}}</a>
+                        {{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">@lang('auht.pdf')}}</a>--}}
+                        <a href="{{route('orders.print',$order->hashid)}}" class="btn btn-warning-gradient">@lang('auth.print')}}</a>
                     </td>
-                    <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
+                    <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')}}</a></td>
 
                     <td>
                         <button wire:click="edit('{{ $order->hashid }}')" class="btn btn-primary-gradient">@lang('auth.edit')</button>
@@ -105,8 +105,8 @@
 
         @if(count($orders) > 0 )
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning-gradient" wire:click="export" wire:loading.attr="disabled"><small>{{__('auth.download')}}</small></button>
-                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success-gradient">{{__('auth.excel')}}</a>
+                <button type="button" class="btn btn-warning-gradient" wire:click="export" wire:loading.attr="disabled"><small>@lang('auth.download')}}</small></button>
+                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success-gradient">@lang('auth.excel')}}</a>
             </div>
         @endif
         <div class="d-flex justify-content-center">
@@ -132,16 +132,16 @@
 {{--            <span class="mb-2 text-xs">Notes: <span class="text-dark ms-2 font-weight-bold">{{\Illuminate\Support\Str::limit($order->notes, 20) ?? 'no notes'}}</span></span>--}}
 
 {{--            <span class="text-xs">Track ID : <a href="{{ route('admin.orders.show',$order->hashid) }}" style="max-width: 100px "> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></span>--}}
-{{--            <span class="text-xs"><a href="{{route('admin.track',['order_id' => $order->hashid])}}"  class="text-dark ms-2 font-weight-bold" >{{__('names.track')}}</a></span>--}}
+{{--            <span class="text-xs"><a href="{{route('admin.track',['order_id' => $order->hashid])}}"  class="text-dark ms-2 font-weight-bold" >@lang('names.track')}}</a></span>--}}
 {{--        </div>--}}
 {{--        <div class="ms-auto">--}}
 {{--            <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">--}}
 {{--                @csrf--}}
 {{--                @method('DELETE')--}}
 {{--                <i class="far fa-trash-alt me-2" aria-hidden="true"></i>--}}
-{{--                <input type="submit"  value="{{__('auth.delete')}}">--}}
+{{--                <input type="submit"  value="@lang('auth.delete')}}">--}}
 {{--            </form>--}}
-{{--            <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>{{__('auth.edit')}}</a>--}}
+{{--            <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>@lang('auth.edit')}}</a>--}}
 {{--        </div>--}}
 {{--    </li>--}}
 

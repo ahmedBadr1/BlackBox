@@ -150,5 +150,8 @@ return [
     'new-notifications' => 'الإشعارات الجديدة',
     'all-notifications' => 'كل الإشعارات',
 
+    'system' => 'السيستم',
+    'trash' => 'السلة',
+
 
 ];

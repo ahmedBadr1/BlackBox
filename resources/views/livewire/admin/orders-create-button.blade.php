@@ -7,7 +7,7 @@
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li>
-            <a href="{{route('admin.orders.create')}}" class="dropdown-item">{{__("auth.create")}} {{__("names.order")}}</a>
+            <a href="{{route('admin.orders.create')}}" class="dropdown-item">@lang("auth.create")}} @lang("names.order")}}</a>
             </li>
             <li>
                 @can('order-import')
@@ -43,7 +43,7 @@
 {{--                    @enderror--}}
 {{--                </div>--}}
 {{--                <div class="mt-4 flex items-center">--}}
-{{--                    <label for="header">{{__('File contains header row?')}}</label>--}}
+{{--                    <label for="header">@lang('File contains header row?')}}</label>--}}
 {{--                    <input id="header" class="ml-1" type="checkbox" name="header" checked/>--}}
 {{--                </div>--}}
 {{--            </form>--}}

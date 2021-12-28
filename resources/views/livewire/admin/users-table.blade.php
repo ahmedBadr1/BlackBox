@@ -54,7 +54,7 @@
                                 <a href="{{route('admin.branches.show',$user->branch_id)}}" class="btn btn-outline-success"> {{ $user->branch->name  }}</a>
                             @else
                                 @can('user-assign')
-                                    <a href="{{route('admin.branches.index')}}" class="btn btn-outline-success">{{__('names.assign')}}</a>
+                                    <a href="{{route('admin.branches.index')}}" class="btn btn-outline-success">@lang('names.assign')</a>
                                 @endcan
                             @endif
                         </td >

@@ -25,7 +25,6 @@ class ZoneFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->city(),
-            'rank' => rand(1,4),
             'state_id' => State::all()->random()->id,
         ];
     }

@@ -44,7 +44,7 @@
 
                                                 <div class="col-md-12">
                                                     <label for="phone"
-                                                           class=" col-form-label text-md-right">{{ __('auth.phone') }}</label>
+                                                           class=" col-form-label text-md-right">@lang('auth.phone')</label>
                                                     <input id="phone" type="tel"
                                                            class="form-control @error('phone') is-invalid @enderror"
                                                            name="phone" value="{{ old('phone') }}"
@@ -59,7 +59,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="email"
-                                                           class=" col-form-label text-md-right">{{ __('auth.email') }}</label>
+                                                           class=" col-form-label text-md-right">@lang('auth.email')</label>
                                                     <input id="email" type="email"
                                                            class="form-control @error('email') is-invalid @enderror"
                                                            name="email" placeholder="@lang('auth.enter-email')"
@@ -76,7 +76,7 @@
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="password"
-                                                           class="col-form-label text-md-right">{{ __('auth.pass') }}</label>
+                                                           class="col-form-label text-md-right">@lang('auth.pass')</label>
                                                     <input id="password" type="password"
                                                            class="form-control @error('password') is-invalid @enderror"
                                                            name="password" required

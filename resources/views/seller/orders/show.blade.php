@@ -118,7 +118,7 @@
                                     <td class="valign-middle " colspan="2" rowspan="4">
                                         <div class="">
                                             <label class="main-content-label tx-13 text-black ">@lang('auth.notes')</label>
-                                            <p>{{$order->details['notes'] ?? __('names.no-notes')}}</p>
+                                            <p>{{$order->details['notes'] ?? @lang('names.no-notes')}}</p>
                                         </div><!-- invoice-notes -->
                                        <div class="mt-5">
                                            @php echo DNS1D::getBarcodeSVG($order->hashid,'C39'); @endphp

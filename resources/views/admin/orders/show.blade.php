@@ -1,52 +1,50 @@
 @extends('admin.layouts.admin')
-
+@section('page-header')
+    <h1 class="text-center"> @lang("names.order") {{$order->hashid}}</h1>
+    <a href="{{route('admin.orders.index')}}" class="btn btn-primary">@lang("names.manage-orders")</a>
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+
+        <div class="row ">
             <div class="col-md-8">
-                <a href="{{route('admin.orders.index')}}">{{__("names.manage")}} {{__("names.orders")}}</a>
-                <h1 class="text-center"> {{__("names.order")}} {{$order->cust_name}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-                <label>{{__("names.order")}} {{__("auth.id")}}</label>
+
+
+                <label>@lang("names.order-id")</label>
                 <p><b>   {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.product_name")}}</label>
+                <label> @lang("auth.product-name")</label>
                 <p><b>{{$order->product['name']}}</b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.name")}}</label>
+                <label> @lang("auth.cust-name")</label>
                 <p><b>{{$order->consignee['cust_name']}}</b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.phone")}}</label>
+                <label> @lang("auth.cust-num")</label>
                 <p><b>{{$order->consignee['cust_num']}}</b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.location")}}</label>
+                <label> @lang("auth.location")</label>
                 <p><b> {{$order->consignee['address']}}, <a href="{{route('admin.areas.show',$order->area->id )}}">{{ $order->area->name }}</a>, {{$order->state->name}}</b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.value")}}</label>
+                <label> @lang("auth.value")</label>
                 <p><b>{{$order->product['value']}}</b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.count")}}</label>
+                <label> @lang("auth.count")</label>
                 <p><b>{{$order->product['quantity']}}</b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.notes")}}</label>
+                <label>@lang("names.order") @lang("auth.notes")</label>
                 <p><b>{{$order->details['notes'] ?? 'no notes'}} </b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.cost")}}</label>
+                <label> @lang("auth.cost")</label>
                 <p><b>{{$order->cost }} </b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.total")}}</label>
+                <label> @lang("auth.total")</label>
                 <p><b>{{$order->total }} </b></p> <hr>
-                <label>{{__("names.order")}} {{__("auth.status")}}</label>
+                <label> @lang("auth.status")</label>
                 <p><b>{{$order->status->name}}</b></p> <hr>
-                <p>{{__("auth.created")}}<b> {{$order->created_at->diffForHumans()}}</b></p> <hr>
+                <p>@lang("auth.created")<b> {{$order->created_at->diffForHumans()}}</b></p> <hr>
 
                 <div class="d-flex ">
-                        <a href="{{ route('admin.orders.edit',$order->hashid) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
+                        <a href="{{ route('admin.orders.edit',$order->hashid) }}" class="btn btn-info o">@lang("auth.edit")</a>
                         <form class="ml-5" action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="{{__("auth.delete")}}">
+                            <input type="submit" class="btn btn-danger" value="@lang("auth.delete")">
                         </form>
                 </div>
 
 
             </div>
         </div>
-    </div>
+
 @endsection
 

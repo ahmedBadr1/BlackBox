@@ -4,10 +4,10 @@
 
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center main-content-title">{{__("names.ready-for-pickup")}} </h1>
+                <h1 class="text-center main-content-title">@lang("names.ready-for-pickup")}} </h1>
                 <div class="my-2">
                     <a href="{{route('pickups')}}" class="btn btn-dark">
-                        {{__('names.request-pickup')}}
+                        @lang('names.request-pickup')}}
                     </a>
                 </div>
 
@@ -29,13 +29,13 @@
                                 <p> @lang('auth.cost'):{{$order->cost}}</p>
                                 <p>@lang('auth.total') : {{$order->total}}</p>
                                 <p>{{$order->notes ?? 'no notes'}}</p>
-                                <div class="badge badge-primary">{{__('names.'.$order->status->name)}}</div>
+                                <div class="badge badge-primary">@lang('names.'.$order->status->name)}}</div>
                             </div>
                             <div class="card-footer">
                                 <div>
                                     <form action="{{route('orders.wait',$order->hashid) }}" method="POST">
                                         @csrf
-                                        <input type="submit" class="btn btn-danger" value="{{__('names.not-ready')}}">
+                                        <input type="submit" class="btn btn-danger" value="@lang('names.not-ready')}}">
                                     </form>
                                 </div>
                             </div>

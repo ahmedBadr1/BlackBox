@@ -1,7 +1,9 @@
 @extends('admin.layouts.admin')
+@section('page-header')
 
+@endsection
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <h1 class="text-center">All tasks</h1>
@@ -20,11 +22,11 @@
                 <table class="table table-hover">
 
                     <thead>
-                    <th>ID</th>
-                    <th>belong to</th>
-                    <th>Type</th>
-                    <th>assign_to</th>
-                    <th>created_at</th>
+                    <th>@lang('auth.id')</th>
+                    <th>@lang('auth.username')</th>
+                    <th>@lang('auth.type')</th>
+                    <th>@lang('auth.assign-to')</th>
+                    <th>@lang('auth.created-at')</th>
 
 
 

@@ -1,33 +1,24 @@
 @extends('admin.layouts.admin')
+@section('page-header')
+    <h1 class="text-center">@lang('names.all-locations')</h1>
+    @can('plan-create')
+        <a href="{{route('admin.locations.create')}}" class="btn btn-success">@lang('auth.create-location')</a>
+    @endcan
 
+@endsection
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center">All Locations</h1>
-                @can('plan-create')
-                    <a href="{{route('admin.locations.create')}}" class="btn btn-success">Create Location</a>
-                @endcan
-
-
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
                 <table class="table table-hover">
 
                     <thead>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>state</th>
-                    <th>city</th>
-                    <th>address</th>
-                    <th>longitude</th>
-                    <th>latitude</th>
-                    <th>edit</th>
-                    <th>delete</th>
+                    <th>@lang('auth.id')</th>
+                    <th>@lang('auth.location-name')</th>
+                    <th>@lang('auth.state')</th>
+                    <th>@lang('auth.city')</th>
+                    <th>@lang('auth.address')</th>
+                    <th>@lang('auth.actions')</th>
                     </thead>
 
                     <tbody>
@@ -41,12 +32,12 @@
                             <td>{{$location->longitude}}</td>
                             <td>{{$location->latitude}}</td>
 
-                            <td><a href="{{ route('admin.locations.edit',$location->id) }}" class="btn btn-info">edit</a></td>
-                            <td>
+                            <td class="d-flex justify-content-between">
+                                <a href="{{ route('admin.locations.edit',$location->id) }}" class="btn btn-info">@lang('auth.edit')</a>
                                <form action="{{route('admin.locations.destroy',$location->id) }}" method="POST">
                                    @csrf
                                    @method('DELETE')
-                                <input type="submit" class="btn btn-danger" name="delete" value="delete">
+                                <input type="submit" class="btn btn-danger" name="delete" value="@lang('auth.delete')">
                                </form>
                             </td>
                         </tr>
@@ -59,7 +50,7 @@
 
             </div>
         </div>
-    </div>
+
 
 
 @endsection

@@ -1,11 +1,12 @@
 @extends('admin.layouts.admin')
+@section('page-header')
 
+@endsection
 @section('content')
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('admin.users.index')}}">{{__('names.manage')}} {{__('names.users')}}</a>
-                <h1 class="text-center">{{__('auth.edit')}} {{__('names.user')}} {{$user->name}}</h1>
+                <a href="{{route('admin.users.index')}}">@lang('names.manage')}} @lang('names.users')}}</a>
+                <h1 class="text-center">@lang('auth.edit')}} @lang('names.user')}} {{$user->name}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -16,7 +17,7 @@
                     @method('PUT')
 
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('auth.name') }}</label>
+                        <label for="name" class="col-md-4 col-form-label text-md-right">@lang('auth.name')</label>
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}"  autocomplete="name" autofocus>
                             @error('name')
@@ -28,7 +29,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="bio" class="col-md-4 col-form-label text-md-right">{{ __('auth.bio') }}</label>
+                        <label for="bio" class="col-md-4 col-form-label text-md-right">@lang('auth.bio')</label>
                         <div class="col-md-6">
                             <input id="bio" type="text" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{ $user->profile->bio  }}"  >
                             @error('bio')
@@ -40,7 +41,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('auth.email') }}</label>
+                        <label for="email" class="col-md-4 col-form-label text-md-right">@lang('auth.email')</label>
 
                         <div class="col-md-6">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}"  autocomplete="email">
@@ -54,7 +55,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('auth.phone') }}</label>
+                        <label for="phone" class="col-md-4 col-form-label text-md-right">@lang('auth.phone')</label>
                         <div class="col-md-6">
                             <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone  }}"  autocomplete="phone">
                             @error('phone')
@@ -65,7 +66,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="address" class="col-md-4 col-form-label text-md-right">{{__('auth.address')}}</label>
+                        <label for="address" class="col-md-4 col-form-label text-md-right">@lang('auth.address')}}</label>
 
                         <div class="col-md-6">
                             <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $user->profile->address  }}"  >
@@ -78,12 +79,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="area" class="col-md-4 col-form-label text-md-right">{{__('names.area')}}</label>
+                        <label for="area" class="col-md-4 col-form-label text-md-right">@lang('names.area')}}</label>
                         <div class="col-md-6">
                             <select id="area" class="form-select form-control @error('area') is-invalid @enderror" name="area"  aria-label="Default select example" >
                                 @foreach($areas as $area)
                                     <option value="{{$area}}" @if($area === $user->profile->area)
-                                        {{ __('selected') }}
+                                        @lang('selected')
                                         @endif>{{$area}}</option>
                                 @endforeach
                             </select>
@@ -98,13 +99,13 @@
 
 
                     <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
+                        <label for="state" class="col-md-4 col-form-label text-md-right">@lang('auth.state')}}</label>
 
                         <div class="col-md-6">
                             <select name="state" class="form-select form-control"  aria-label="Default select example" >
                                 @foreach($states as $state)
                                     <option value="{{$state->id}}" @if($state=== $user->state->name)
-                                        {{ __('selected') }}
+                                        @lang('selected')
                                         @endif>{{$state->name}}</option>
                                 @endforeach
 
@@ -118,7 +119,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="url" class="col-md-4 col-form-label text-md-right">{{__('auth.url')}}</label>
+                        <label for="url" class="col-md-4 col-form-label text-md-right">@lang('auth.url')}}</label>
 
                         <div class="col-md-6">
                             <input id="url" type="tel" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ $user->profile->url  }}"  >
@@ -132,10 +133,10 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="profile_photo" class="col-md-4 col-form-label text-md-right">{{__('auth.photo')}}</label>
+                        <label for="photo" class="col-md-4 col-form-label text-md-right">@lang('auth.photo')}}</label>
                         <div class="col-md-6">
-                            <input id="profile_photo" type="file" class="form-control @error('profile_photo') is-invalid @enderror" name="profile_photo" >
-                            @error('profile_photo')
+                            <input id="photo" type="file" class="form-control @error('photo') is-invalid @enderror" name="photo" >
+                            @error('photo')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -154,14 +155,14 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">
-                                {{__('auth.update')}}
+                                @lang('auth.update')}}
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+
 @endsection
 
 @section('script')
@@ -172,7 +173,7 @@
         $(document).ready(function (e) {
 
 
-            $('#profile_photo').change(function(){
+            $('#photo').change(function(){
 
                 let reader = new FileReader();
 

@@ -1,47 +1,44 @@
 @extends('admin.layouts.admin')
+@section('page-header')
+    <h1 class="text-center"> @lang("names.location") {{$location->name}}</h1>
+    <a href="{{route('admin.locations.index')}}" class="btn btn-primary">@lang("names.manage-locations")</a>
 
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+
+        <div class="row">
             <div class="col-md-8">
-                <a href="{{route('admin.locations.index')}}">{{__("names.manage")}} {{__("names.locations")}}</a>
-                <h1 class="text-center"> {{__("names.location")}} {{$location->name}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-                <label>{{__("names.location")}} {{__("auth.name")}}</label>
+                <label>@lang("names.location-name")</label>
                 <p><b>{{$location->name}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.state")}}</label>
+                <label>@lang("auth.state")</label>
                 <p><b>{{$location->state->name}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.state")}}</label>
+                <label>@lang("names.area")</label>
                 <p><b><a href="{{route('admin.areas.show',$location->area->id)}}">{{$location->area->name}}</a></b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.street")}}</label>
+                <label> @lang("auth.street")</label>
                 <p><b>{{$location->street}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.building")}}</label>
+                <label> @lang("auth.building")</label>
                 <p><b>{{$location->building}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.floor")}}</label>
+                <label> @lang("auth.floor")</label>
                 <p><b>{{$location->name}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.apartment")}}</label>
+                <label> @lang("auth.apartment")</label>
                 <p><b>{{$location->apartment}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.landmarks")}}</label>
+                <label> @lang("auth.landmarks")</label>
                 <p><b>{{$location->landmarks}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.latitude")}}</label>
+                <label> @lang("auth.latitude")</label>
                 <p><b>{{$location->latitude}}</b></p> <hr>
-                <label>{{__("names.location")}} {{__("auth.longitude")}}</label>
+                <label> @lang("auth.longitude")</label>
                 <p><b>{{$location->longitude}}</b></p> <hr>
 
 
                 <div class="d-flex ">
                     @can('role-edit')
-                        <a href="{{ route('admin.locations.edit',$location->id) }}" class="btn btn-info o">{{__("auth.edit")}}</a>
+                        <a href="{{ route('admin.locations.edit',$location->id) }}" class="btn btn-info o">@lang("auth.edit")</a>
                     @endcan
                     @can('role-delete')
                         <form class="ml-5" action="{{route('admin.locations.destroy',$location->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="{{__("auth.delete")}}">
+                            <input type="submit" class="btn btn-danger" value="@lang("auth.delete")">
                         </form>
                     @endcan
                 </div>
@@ -49,6 +46,6 @@
 
             </div>
         </div>
-    </div>
+
 @endsection
 

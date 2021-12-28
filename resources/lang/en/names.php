@@ -149,10 +149,7 @@ return [
     'new-notifications' => 'New Notifications',
     'all-notifications' => 'All Notifications',
 
-
-
-
-
-
+    'system' => 'System',
+    'trash' => 'Trash',
 
 ];

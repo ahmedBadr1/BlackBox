@@ -1,25 +1,22 @@
 @extends('admin.layouts.admin');
-
-@section('content')
-
+@section('page-header')
     <h2>All Zones</h2>
     @can('zone-create')
-        <a href="{{route('admin.zones.create')}}" class="btn btn-success">Create Zone</a>
+        <a href="{{route('admin.zones.create')}}" class="btn btn-success">@lang('auth.create-zone')</a>
     @endcan
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
+@endsection
+@section('content')
+
+<div class="row">
+
 
     <table class="table table-hover">
 
         <thead>
-        <th>Zone ID</th>
-        <th>Name</th>
-        <th>Areas</th>
-        <th>State</th>
-        <th>Rank</th>
+        <th>@lang('auth.id')</th>
+        <th>@lang('auth.zone-name')</th>
+        <th>@lang('names.areas')</th>
+        <th>@lang('auth.state')</th>
 
         </thead>
         <tbody>
@@ -31,7 +28,6 @@
                         <a href="{{route('admin.areas.show',$area->id)}}"><div class="badge badge-primary"> {{$area->name}}</div></a>
                     @endforeach</td>
                 <td>{{$zone->state->name}}</td>
-                <td>{{$zone->rank}}</td>
 
                 @can('zone-edit')
                     <td><a href="{{ route('admin.zones.edit',$zone->id) }}" class="btn btn-info">edit</a></td>
@@ -51,6 +47,8 @@
         </tbody>
 
     </table>
-    {{ $zones->links() }}
-
+    <div class="d-flex justify-content-center">
+        {{ $zones->links('vendor.pagination.bootstrap-4') }}
+    </div>
+</div>
 @endsection

@@ -1,39 +1,29 @@
 @extends('admin.layouts.admin')
-
+@section('page-header')
+    <h1 >@lang('auth.create-user')</h1>
+    <div class="">
+        <a href="{{route('admin.roles.index')}}" class="btn btn-primary">@lang('names.manage-roles')</a>
+        <a href="{{ route('admin.users.index') }}" class="btn btn-primary">@lang('names.manage-users')</a>
+    </div>
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <a href="{{route('admin.roles.index')}}">Manage Roles</a>
-                <h1 class="text-center">Create New User</h1>
-                <a href="{{ route('admin.users.index') }}" class="btn btn-outline-primary">All Users</a>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
 
+        <div class="row">
+            <div class="col-md-12">
                 <form method="POST" action="{{ route('admin.users.index') }}">
                     @csrf
-
                     <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('auth.name') }}</label>
-
                         <div class="col-md-6">
+                            <label for="name" class=" col-form-label text-md-right">@lang('auth.name')</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
-
                             @error('name')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('auth.email') }}</label>
-
                         <div class="col-md-6">
+                            <label for="email" class=" col-form-label text-md-right">@lang('auth.email')</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
 
                             @error('email')
@@ -44,10 +34,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="phone" class="col-md-4 col-form-label text-md-right">{{__('auth.phone')}}</label>
 
-                        <div class="col-md-6">
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="phone" class=" col-form-label text-md-right">@lang('auth.phone')</label>
                             <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone">
 
                             @error('phone')
@@ -56,12 +47,10 @@
                                     </span>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('auth.state')}}</label>
-                        <div class="col-md-6">
-                            <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">
+                        <div class="col-md-4">
+                            <label for="state" class="col-form-label text-md-right">@lang('auth.state')</label>
+                            <select name="state_id" id="state_id" class="form-control select2 @error('state_id') is-invalid @enderror">
                                 @foreach($states as $state)
                                     <option value="{{$state->id}}">{{$state->name}}</option>
                                 @endforeach
@@ -72,13 +61,10 @@
                                     </span>
                             @enderror
                         </div>
-                    </div>
+                        <div class="col-md-4">
+                            <label for="role" class=" col-form-label text-md-right">@lang('auth.role')</label>
 
-                    <div class="form-group row">
-                        <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
-
-                        <div class="col-md-6">
-                            <select name="role" class="form-select" aria-label="Default select example" >
+                            <select name="role" class="form-control select2"  >
                                 @foreach($roles as $role)
                                     <option value="{{$role}}">{{$role}}</option>
                                 @endforeach
@@ -91,10 +77,12 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
+
+                    <div class="form-group row">
                         <div class="col-md-6">
+                            <label for="password" class="col-form-label text-md-right">@lang('auth.pass')</label>
+
                             <input  type="password" class="form-control @error('password') is-invalid @enderror" name="password"  >
 
                             @error('password')
@@ -103,20 +91,18 @@
                                     </span>
                             @enderror
                         </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
                         <div class="col-md-6">
+                            <label for="password-confirm" class=" col-form-label text-md-right">@lang('auth.conpass')</label>
                             <input  type="password" class="form-control" name="password_confirmation"  >
                         </div>
                     </div>
 
+
+
                     <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
+                        <div class="col-md-2">
                             <button type="submit" class="btn btn-success">
-                                {{ __('Create') }}
+                                @lang('Create')
                             </button>
                         </div>
                     </div>

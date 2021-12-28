@@ -1,16 +1,11 @@
 @extends('admin.layouts.admin')
-
+@section('page-header')
+    <h1 class="text-center">@lang("names.track-order")</h1>
+@endsection
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 class="text-center">{{__("names.order")}} {{__("names.track")}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
                 <form action="{{route('admin.track')}}" method="POST">
                     @csrf
                     @if($order_hashid !== '')
@@ -29,7 +24,7 @@
                     <div class="form-group row mb-0 mt-3">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-success">
-                                {{ __('names.track') }}
+                                @lang('names.track')
                             </button>
                         </div>
                     </div>
@@ -42,7 +37,7 @@
                 {{$status}}
             </div>
                 @else
-            <div class="">{{__("message.order-nor-found")}}</div>
+            <div class="">@lang("message.order-nor-found")</div>
             @endif
             </div>
             @if($orderLogs)
@@ -57,6 +52,6 @@
        </div>
             @endif
         </div>
-    </div>
+
 @endsection
 

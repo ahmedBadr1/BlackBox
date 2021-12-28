@@ -1,33 +1,28 @@
 @extends('admin.layouts.admin')
+@section('page-header')
+    <h1 >@lang('names.all-tasks')</h1>
+    <div class="">
+        @can('task-create')
+            <a href="{{route('admin.tasks.create')}}" class="btn btn-success">@lang('auth.create-task')</a>
+        @endcan
+        @can('task-archive')
+            <a href="{{route('admin.tasks.archive')}}" class="btn btn-dark">@lang('names.archive')</a>
+        @endcan
+    </div>
 
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+
+        <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center">All tasks</h1>
-                @can('task-create')
-                    <a href="{{route('admin.tasks.create')}}" class="btn btn-success">Create Task</a>
-                @endcan
-                @can('task-archive')
-                    <a href="{{route('admin.tasks.archive')}}" class="btn btn-dark">Archive</a>
-                @endcan
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
 
                 <table class="table table-hover">
-
                     <thead>
-                    <th>ID</th>
-                    <th>belong to</th>
-                    <th>Type</th>
-                    <th>assign_to</th>
-                    <th>deleted_at</th>
-
-
-
+                    <th>@lang('auth.id')</th>
+                    <th>@lang('auth.username')</th>
+                    <th>@lang('auth.type')</th>
+                    <th>@lang('auth.assign-to')</th>
+                    <th>@lang('auth.deleted-at')</th>
                     </thead>
 
                     <tbody>
@@ -54,7 +49,7 @@
                             <td>
                                 <form action="{{route('admin.tasks.restore',$task->id) }}" method="POST">
                                     @csrf
-                                    <input type="submit" class="btn btn-danger" value="{{__('auth.restore')}}">
+                                    <input type="submit" class="btn btn-danger" value="@lang('auth.restore')}}">
                                 </form>
                             </td>
                         </tr>

@@ -1,17 +1,11 @@
 @extends('admin.layouts.admin')
-
+@section('page-header')
+    <h1 class="text-center">@lang('names.assign-orders')</h1>
+    <a href="{{route('admin.branches.index')}}" class="btn btn-primary">@lang("names.manage-branches")</a>
+@endsection
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+        <div class="row ">
             <div class="col-md-12">
-                <a href="{{route('admin.branches.index')}}">{{__("names.manage")}} {{__("names.branches")}}</a>
-                <h1 class="text-center">{{__('names.orders')}} {{__("names.assing")}} </h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
                 <form action="{{route('admin.orders.assign')}}" method="POST">
                     @csrf
 
@@ -58,7 +52,7 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-success">
-                                {{ __('names.assign') }}
+                                @lang('names.assign')
                             </button>
                         </div>
                     </div>
@@ -68,6 +62,6 @@
 
             </div>
         </div>
-    </div>
+
 @endsection
 

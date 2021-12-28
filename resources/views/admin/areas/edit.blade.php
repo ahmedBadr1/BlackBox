@@ -1,5 +1,9 @@
 @extends('admin.layouts.admin')
 
+@section('page-header')
+
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -104,10 +108,10 @@
                     </div>
 
 {{--                    <div class="form-group row">--}}
-{{--                        <label for="state" class="col-md-4 col-form-label text-md-right">{{__('state')}}</label>--}}
+{{--                        <label for="state" class="col-md-4 col-form-label text-md-right">@lang('state')}}</label>--}}
 {{--                        <div class="col-md-6">--}}
 {{--                            <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">--}}
-{{--                                <option value="" selected>{{__('names.select state')}}</option>--}}
+{{--                                <option value="" selected>@lang('names.select state')}}</option>--}}
 {{--                                @foreach($states as $state)--}}
 {{--                                    <option value="{{$state->id}}"--}}
 {{--                                            @if($state->id === $area->state_id)--}}
@@ -127,7 +131,7 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-info">
-                                {{ __('Edit') }}
+                                @lang('Edit')
                             </button>
                         </div>
                     </div>

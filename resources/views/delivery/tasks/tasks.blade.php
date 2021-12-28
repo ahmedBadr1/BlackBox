@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <h1 class="text-center">{{__("names.all")}} {{__("names.orders")}}</h1>
+                <h1 class="text-center">@lang("names.all")}} @lang("names.orders")}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -16,10 +16,10 @@
                     <thead>
 
 
-                    <th>{{__("names.belong to")}}</th>
-                    <th>{{__("names.type")}}</th>
+                    <th>@lang("names.belong to")}}</th>
+                    <th>@lang("names.type")}}</th>
 
-                    <th>{{__("names.created_at")}}</th>
+                    <th>@lang("names.created_at")}}</th>
 
                     </thead>
 

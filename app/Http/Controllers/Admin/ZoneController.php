@@ -56,7 +56,6 @@ class ZoneController extends Controller
         //
         $this->validate($request,[
             'name'=>'required|unique:zones,name',
-            'rank'=>'',
             'state_id'=>'required'
         ]);
         $input = $request->all();
@@ -108,7 +107,6 @@ class ZoneController extends Controller
         //
         $this->validate($request,[
             'name'=>'required',
-            'rank'=>'',
             'state_id'=>'required'
         ]);
         $input = $request->all();

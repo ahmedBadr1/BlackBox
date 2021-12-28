@@ -6,11 +6,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <a href="{{route('orders.ready')}}" class="btn btn-success">{{__("names.ready-orders")}}</a>
+                <a href="{{route('orders.ready')}}" class="btn btn-success">@lang("names.ready-orders")}}</a>
 
 
 
-                <h1 class="text-center main-content-title">{{__("names.inventory")}}</h1>
+                <h1 class="text-center main-content-title">@lang("names.inventory")}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -20,19 +20,19 @@
 
                     <thead>
                     <th>#</th>
-                    <th>{{__("auth.id")}} {{__("names.order")}}</th>
-                    <th>{{__("auth.product-name")}}</th>
+                    <th>@lang("auth.id")}} @lang("names.order")}}</th>
+                    <th>@lang("auth.product-name")}}</th>
 
-                    <th>{{__("auth.cust-name")}}</th>
-                    <th>{{__("auth.cust-num")}}</th>
-                    <th>{{__("auth.address")}}</th>
-                    <th>{{__("auth.cost")}}</th>
-                    <th>{{__("auth.total")}}</th>
+                    <th>@lang("auth.cust-name")}}</th>
+                    <th>@lang("auth.cust-num")}}</th>
+                    <th>@lang("auth.address")}}</th>
+                    <th>@lang("auth.cost")}}</th>
+                    <th>@lang("auth.total")}}</th>
 
-                    <th>{{__("names.notes")}}</th>
-                    <th>{{__("names.status")}}</th>
+                    <th>@lang("names.notes")}}</th>
+                    <th>@lang("names.status")}}</th>
 
-                    <th>{{__("auth.actions")}}</th>
+                    <th>@lang("auth.actions")}}</th>
 
                     </thead>
 
@@ -54,10 +54,10 @@
 
                             @auth
 {{--                                @role('seller|Feedback')--}}
-{{--                                <td><a href="{{route('track',['order_id' => $order->id])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>--}}
+{{--                                <td><a href="{{route('track',['order_id' => $order->id])}}" class="btn btn-outline-success">@lang('names.track')}}</a></td>--}}
 {{--                                @endrole--}}
 {{--                                @role('seller|Feedback')--}}
-{{--                                <td><a href="{{ route('orders.edit',$order->hashid) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>--}}
+{{--                                <td><a href="{{ route('orders.edit',$order->hashid) }}" class="btn btn-info">@lang('auth.edit')}}</a></td>--}}
 {{--                                @endrole--}}
 
                                 <td class="d-flex">
@@ -66,12 +66,12 @@
                                         <input type="submit" class="btn btn-secondary-gradient" @if($order->status->id === 2)
                                         disabled
                                                @endif
-                                        value="{{__('names.ready-for-pickup')}}">
+                                        value="@lang('names.ready-for-pickup')}}">
                                     </form>
                                     <form action="{{route('orders.destroy',$order->hashid) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="submit" class="btn btn-danger-gradient" value="{{__('auth.delete')}}">
+                                        <input type="submit" class="btn btn-danger-gradient" value="@lang('auth.delete')}}">
                                     </form>
                                 </td>
 
@@ -88,7 +88,7 @@
                 </table>
                 @if(count($orders) > 2 )
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="{{route('orders.inventory.export.'.app()->getLocale())}}" class="btn btn-success">{{__('auth.export')}}</a>
+                        <a href="{{route('orders.inventory.export.'.app()->getLocale())}}" class="btn btn-success">@lang('auth.export')}}</a>
                     </div>
                 @endif
 

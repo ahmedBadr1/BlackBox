@@ -27,6 +27,7 @@ class ToggleButton extends Component
         $this->model->setAttribute($this->field,$value)->save();
         $this->dispatchBrowserEvent('alert',
             ['type' => 'info',  'message' => 'Going Well!']);
+
         if ($this->model instanceof User ){
             if ($value){
                 $this->emit('alert',

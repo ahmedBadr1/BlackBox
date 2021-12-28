@@ -1,102 +1,62 @@
-<!doctype html>
-<html lang="{{ app()->getLocale()}}"  @if(app()->getLocale() == "ar") dir="rtl"@endif >
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale()}}"
+      @if(app()->getLocale() == "ar")
+      dir="rtl"
+    @endif
+>
 <head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Description" content="">
+    <meta name="Author" content="">
+    <meta name="Keywords" content=""/>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    @include('valex.layouts.head')
+    @livewireStyles
+    @toastr_css
 
-@yield('meta')
-    @stack('styles')
 
-<!-- Scripts -->
-    <script src="{{ asset('js/admin/admin.js') }}" defer></script>
-
-    <!-- Fonts -->
+<!-- Fonts -->
 
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/admin/admin.css') }}" rel="stylesheet">
-    @livewireStyles
-    @toastr_css
+    {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
     <title>{{ sys('company_name') ?? config('app.name', 'Laravel') }}</title>
-    @if(app()->getLocale() == "ar")
-        <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
-    @endif
-
 </head>
-<body  class="sidebar-mini" style="height: auto;">
 
-    <div class="wrapper">
+<body class="main-body app sidebar-mini @if(session()->get('theme') === 'dark') dark-theme  @endif">
+<!-- Loader -->
+<div id="global-loader">
+    <img src="{{URL::asset('pics/loader.svg')}}" class="loader-img" alt="Loader">
+</div>
+<!-- /Loader -->
+@include('admin.layouts._sidebar')
+<!-- main-content -->
+<div class="main-content app-content  " >
+@include('admin.layouts._navbar')
 
-
-        @include('admin.layouts._navbar')
-
-        @include('admin.layouts._sidebar')
-
-
-        <div class="content-wrapper"   style="min-height: 404px;">
-
-
-            <div class="content-header">
-                <div class="container-fluid">
-                    @yield('content_header')
-                </div>
-            </div>
-
-
-            <div class="content">
-                <div class="container-fluid">
-
-                    @yield('content')
-
-                </div>
-            </div>
-
+<!-- container -->
+    <div class="container-fluid ">
+        <div class="row d-flex justify-content-between">
+            @yield('page-header')
         </div>
-        <footer class=" fb-footer text-center py-1">
-            <p > copyright &#169 Feedback 2021 <small> {{ sys('footer') ?? '' }}
-                    {{--            powered by Laravel v{{ Illuminate\Foundation\Application::VERSION }}--}}
-                </small></p>
-        </footer>
-
-        <div id="sidebar-overlay"></div>
+        @yield('content')
+        {{--        @include('valex.layouts.sidebar')--}}
     </div>
-
-
-{{--<script>--}}
-{{--    let menu = document.getElementById('menu');--}}
-{{--    let search = document.querySelector('.fa-search');--}}
-{{--    let sideBar = document.querySelector('aside');--}}
-{{--    let collapses = document.querySelectorAll('.sidebar-link');--}}
-{{--    function toggle() {--}}
-{{--        sideBar.classList.toggle('shrink');--}}
-{{--        if(sideBar.classList.contains('shrink')){--}}
-{{--            collapses.forEach(function (col) {--}}
-{{--                col.ariaExpanded="false";--}}
-{{--                // console.log(col.ariaExpanded);--}}
-{{--            });--}}
-{{--        }--}}
-{{--    }--}}
-
-{{--    menu.addEventListener('click', () => { toggle() });--}}
-{{--    search.addEventListener('click', () => { toggle() });--}}
-{{--</script>--}}
-
-    @yield('js')
-    <!-- Livewire Scripts -->
-
-    @livewireScripts
-    @jquery
-    @toastr_js
-    @toastr_render
-    <script>
-        window.livewire.on('alert', param => {
-            toastr[param['type']](param['message']);
-        });
-    </script>
+</div>
+{{--@include('valex.layouts.sidebar')--}}
+@include('valex.layouts.models')
+@include('valex.layouts.footer')
+@include('valex.layouts.footer-scripts')
+<script >
+    function theme() {
+        let body = document.body;
+        body.classList.toggle('dark-theme');
+    }
+</script>
 </body>
 </html>

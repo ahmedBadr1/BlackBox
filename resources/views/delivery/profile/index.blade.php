@@ -9,9 +9,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="/storage/{{ $user->profile->profile_photo ?? 'pics/profile.png'}}" alt="profile picture"  class="rounded-circle border" width="150">
+                                <img src="/storage/{{ $user->profile->photo ?? 'pics/profile.png'}}" alt="profile picture"  class="rounded-circle border" width="150">
                                 <div class="mt-3">
-                                    <h4>{{__('messages.welcome')}} {{$user->name}}</h4>
+                                    <h4>@lang('messages.welcome')}} {{$user->name}}</h4>
                                     <p class="text-secondary mb-1 ">{{$user->profile->bio}}</p>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.name')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.name')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{$user->name}}
@@ -47,7 +47,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.email')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.email')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{$user->email}}
@@ -56,7 +56,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.phone')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.phone')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{$user->phone}}
@@ -66,7 +66,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.address')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.address')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary" dir="rtl">
                                     {{$user->profile->address}} ,{{$user->profile->area}}, {{$user->state->name}}
@@ -81,8 +81,8 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3">{{__('names.tasks')}} </h6>
-                                    <small>{{__('names.task')}} {{__('names.status')}}</small>
+                                    <h6 class="d-flex align-items-center mb-3">@lang('names.tasks')}} </h6>
+                                    <small>@lang('names.task')}} @lang('names.status')}}</small>
                                     <div class="progress mb-3" style="height: 12px">
                                         <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"  style="width: {{($doneTasks / $allTasks) * 100   }}%" aria-valuenow="{{$doneTasks}}" aria-valuemin="0" aria-valuemax="{{$allTasks}}">
                                             {{$doneTasks}} of  {{$allTasks}}
@@ -94,8 +94,8 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3">{{__('names.orders')}} </h6>
-                                    <small>{{__('names.orders')}} {{__('names.status')}}</small>
+                                    <h6 class="d-flex align-items-center mb-3">@lang('names.orders')}} </h6>
+                                    <small>@lang('names.orders')}} @lang('names.status')}}</small>
                                     <div class="progress mb-3" style="height: 12px">
                                         <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"  style="width: {{($doneOrders / $allOrders) * 100   }}%" aria-valuenow="{{$doneOrders}}" aria-valuemin="0" aria-valuemax="{{$allOrders}}">
                                             {{$doneOrders}} of  {{ $allOrders}}

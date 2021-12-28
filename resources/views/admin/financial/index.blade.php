@@ -1,11 +1,10 @@
 @extends('admin.layouts.admin')
-
+@section('page-header')
+    <h1 class="text-center">@lang('names.financial')</h1>
+@endsection
 @section('content')
-    <h2></h2>
-    <div class="container-fluid">
-        <h1 class="text-center">@lang('names.financial')</h1>
-        <div class="row d-flex ">
 
+        <div class="row d-flex ">
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">Delivers with cash</div>
@@ -30,39 +29,33 @@
             </div>
             <div class="col-md-4">
                 <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
-                    <div class="card-header">{{__("names.availabe-orders-cost")}}</div>
+                    <div class="card-header">@lang("names.availabe-orders-cost")}}</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{$collected}} {{__("names.EGP")}}</h5>
+                        <h5 class="card-title">{{$collected}} @lang("names.EGP")}}</h5>
                     </div>
                 </div>
 
                 <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
-                    <div class="card-header">{{__("names.revenues")}}</div>
+                    <div class="card-header">@lang("names.revenues")}}</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{$revenues}} {{__("names.EGP")}}</h5>
+                        <h5 class="card-title">{{$revenues}} @lang("names.EGP")}}</h5>
                     </div>
                 </div>
 
                 <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
-                    <div class="card-header">{{__("names.shipper-balance")}}</div>
+                    <div class="card-header">@lang("names.shipper-balance")}}</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{$shipperBalance}} {{__("names.EGP")}}</h5>
+                        <h5 class="card-title">{{$shipperBalance}} @lang("names.EGP")}}</h5>
                     </div>
                 </div>
 
                 <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
-                    <div class="card-header">{{__("names.cash-with-delivery")}}</div>
+                    <div class="card-header">@lang("names.cash-with-delivery")}}</div>
                     <div class="card-body">
-                        <h5 class="card-title">{{$outWithDelivery}} {{__("names.EGP")}}</h5>
+                        <h5 class="card-title">{{$outWithDelivery}} @lang("names.EGP")}}</h5>
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
-    </div>
 
 @endsection

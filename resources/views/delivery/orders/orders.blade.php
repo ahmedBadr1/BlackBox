@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <h1 class="text-center">{{__("names.all")}} {{__("names.orders")}}</h1>
+                <h1 class="text-center">@lang("names.all")}} @lang("names.orders")}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -15,18 +15,18 @@
 
                     <thead>
 
-                    <th>{{__("auth.id")}} {{__("names.order")}}</th>
-                    <th>{{__("auth.product_name")}}</th>
+                    <th>@lang("auth.id")}} @lang("names.order")}}</th>
+                    <th>@lang("auth.product_name")}}</th>
 
-                    <th>{{__("auth.cust_name")}}</th>
-                    <th>{{__("auth.cust_num")}}</th>
-                    <th>{{__("auth.address")}}</th>
-                    <th>{{__("names.value")}}</th>
-                    <th>{{__("names.count")}}</th>
-                    <th>{{__("names.notes")}}</th>
-                    <th>{{__("names.status")}}</th>
+                    <th>@lang("auth.cust_name")}}</th>
+                    <th>@lang("auth.cust_num")}}</th>
+                    <th>@lang("auth.address")}}</th>
+                    <th>@lang("names.value")}}</th>
+                    <th>@lang("names.count")}}</th>
+                    <th>@lang("names.notes")}}</th>
+                    <th>@lang("names.status")}}</th>
 
-                    <th>{{__("auth.username")}}</th>
+                    <th>@lang("auth.username")}}</th>
 
                     </thead>
 
@@ -49,7 +49,7 @@
                             <td>{{ $order->user->name }}</a> </td>
                             @auth
                                 @role('delivery|Feedback')
-                                <td><a href="{{ route('delivery.orders.status',$order->hashid) }}" class="collapse-item ">{{__("names.order")}} {{__("names.status")}}</a></td>
+                                <td><a href="{{ route('delivery.orders.status',$order->hashid) }}" class="collapse-item ">@lang("names.order")}} @lang("names.status")}}</a></td>
                                 @endrole
                             @endauth
                         </tr>

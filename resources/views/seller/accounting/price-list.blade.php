@@ -4,8 +4,8 @@
 
     <div class="row justify-content-center">
         <div class="col-md-12 ">
-            <h1 class="text-center main-content-title">{{ __('names.price-list') }}</h1>
-            <p  class="text-center mb-2">{{ __('messages.price-list') }}</p>
+            <h1 class="text-center main-content-title">@lang('names.price-list')</h1>
+            <p  class="text-center mb-2">@lang('messages.price-list')</p>
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}

@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
+@section('page-header')
 
+@endsection
 @section('content')
     <div class="container-fluid">
         <h1 class="text-center">@lang('names.statics')</h1>

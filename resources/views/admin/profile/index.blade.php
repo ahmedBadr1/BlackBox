@@ -1,5 +1,7 @@
 @extends('admin.layouts.admin')
+@section('page-header')
 
+@endsection
 @section('content')
     <div class="container">
         <div class="main-body  justify-content-center">
@@ -9,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img @if($path = auth()->user()->profile->profile_photo)
+                                <img @if($path = auth()->user()->profile->photo)
                                     src="{{ '/storage/' .$path}}"
                                     @else
                                     src="/pics/profile.png"
@@ -42,7 +44,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.name')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.name')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{$user->name}}
@@ -51,7 +53,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.email')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.email')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{$user->email}}
@@ -60,7 +62,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.phone')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.phone')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     {{$user->phone}}
@@ -70,7 +72,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">{{__('auth.address')}}</h6>
+                                    <h6 class="mb-0">@lang('auth.address')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary" dir="rtl">
                                     {{$user->profile->address}} ,{{$user->profile->area}}, {{$user->state->name}}
@@ -86,8 +88,8 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3">{{__('names.tasks')}} </h6>
-                                    <small>{{__('names.task')}} {{__('names.status')}}</small>
+                                    <h6 class="d-flex align-items-center mb-3">@lang('names.tasks')}} </h6>
+                                    <small>@lang('names.task')}} @lang('names.status')}}</small>
                                     <div class="progress mb-3" style="height: 12px">
                                         <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"  style="width: {{($doneTasks / $allTasks) * 100   }}%" aria-valuenow="{{$doneTasks}}" aria-valuemin="0" aria-valuemax="{{$allTasks}}">
                                             {{$doneTasks}} of  {{$allTasks}}
@@ -103,8 +105,8 @@
                         <div class="col-sm-6 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <h6 class="d-flex align-items-center mb-3">{{__('names.orders')}} </h6>
-                                    <small>{{__('names.orders')}} {{__('names.status')}}</small>
+                                    <h6 class="d-flex align-items-center mb-3">@lang('names.orders')}} </h6>
+                                    <small>@lang('names.orders')}} @lang('names.status')}}</small>
                                     <div class="progress mb-3" style="height: 12px">
                                         <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"  style="width: {{($doneOrders / $allOrders) * 100   }}%" aria-valuenow="{{$doneOrders}}" aria-valuemin="0" aria-valuemax="{{$allOrders}}">
                                             {{$doneOrders}} of  {{ $allOrders}}
@@ -125,7 +127,7 @@
     <div class="container-fluid py-4">
         <div class="card">
             <div class="card-header pb-0 px-3">
-                <h6 class="mb-0">{{ __('Profile Information') }}</h6>
+                <h6 class="mb-0">@lang('Profile Information')</h6>
             </div>
             <div class="card-body pt-4 p-3">
 
@@ -133,7 +135,7 @@
                     <div wire:model="showDemoNotification" class="mt-3  alert alert-primary alert-dismissible fade show"
                          role="alert">
                         <span class="alert-text text-white">
-                            {{ __('You are in a demo version, you can\'t update the profile.') }}</span>
+                            @lang('You are in a demo version, you can\'t update the profile.')</span>
                         <button wire:click="$set('showDemoNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         </button>
                     </div>
@@ -144,7 +146,7 @@
                          class="mt-3 alert alert-primary alert-dismissible fade show" role="alert">
                         <span class="alert-icon text-white"><i class="ni ni-like-2"></i></span>
                         <span
-                            class="alert-text text-white">{{ __('Your profile information have been successfuly saved!') }}</span>
+                            class="alert-text text-white">@lang('Your profile information have been successfuly saved!')</span>
                         <button wire:click="$set('showSuccesNotification', false)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         </button>
                     </div>
@@ -154,7 +156,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user-name" class="form-control-label">{{ __('Full Name') }}</label>
+                                <label for="user-name" class="form-control-label">@lang('Full Name')</label>
                                 <div class="@error('user.name')border border-danger rounded-3 @enderror">
                                     <input wire:model="user.name" class="form-control" type="text" placeholder="Name"
                                            id="user-name">
@@ -164,7 +166,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user-email" class="form-control-label">{{ __('Email') }}</label>
+                                <label for="user-email" class="form-control-label">@lang('Email')</label>
                                 <div class="@error('user.email')border border-danger rounded-3 @enderror">
                                     <input wire:model="user.email" class="form-control" type="email"
                                            placeholder="@example.com" id="user-email">
@@ -176,7 +178,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user.phone" class="form-control-label">{{ __('Phone') }}</label>
+                                <label for="user.phone" class="form-control-label">@lang('Phone')</label>
                                 <div class="@error('user.phone')border border-danger rounded-3 @enderror">
                                     <input wire:model="user.phone" class="form-control" type="tel"
                                            placeholder="40770888444" id="phone">
@@ -186,7 +188,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="user.location" class="form-control-label">{{ __('Location') }}</label>
+                                <label for="user.location" class="form-control-label">@lang('Location')</label>
                                 <div class="@error('user.location') border border-danger rounded-3 @enderror">
                                     <input wire:model="user.location" class="form-control" type="text"
                                            placeholder="Location" id="name">

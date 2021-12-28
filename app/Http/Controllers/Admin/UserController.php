@@ -78,7 +78,12 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $user->assignRole($input['role']);
-        toastSuccess('User Created Successfully');
+
+        if (app()->getLocale() == 'ar'){
+            toastSuccess('تم إنشاء مستخدم جديد');
+        }else{
+            toastSuccess('User Created Successfully');
+        }
         return redirect()->route('admin.users.index')->with('success','User Created Successfully');
     }
 
@@ -111,7 +116,7 @@ class UserController extends Controller
     public function edit(int $id)
     {
         //
-        $user = User::findOrFail($id);
+        $user = User::with('roles')->findOrFail($id);
 
         if($user->hasRole('seller')){
             abort(403);
@@ -153,7 +158,12 @@ class UserController extends Controller
 //        $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
 //
 //        DB::table('users')->where('id',$id)->update(['role'=>$roleId]);
-        toastSuccess('yaaaah');
+        if (app()->getLocale() == 'ar'){
+            toastSuccess('تم تعديل بيانات المستخدم');
+        }else{
+            toastSuccess('User Updated Successfully');
+        }
+
 
         $user->assignRole($request->input('role'));
         return redirect()->route('admin.users.index')->with('success','User Updated Successfully');

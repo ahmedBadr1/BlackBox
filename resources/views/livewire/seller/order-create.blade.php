@@ -1,5 +1,5 @@
 <div class="">
-    <h1 class="main-content-title">{{__("auth.".$title)}} {{__("names.order")}}</h1>
+    <h1 class="main-content-title">@lang("auth.".$title)}} @lang("names.order")}}</h1>
     <form method="POST" wire:change="go"  action="#" wire:submit.prevent="save">
         @csrf
         <div class="row">
@@ -14,7 +14,7 @@
                         <div class="form-group row">
 
                             <div class="col-md-4">
-                                <label for="product_name" class=" col-form-label text-md-right">{{__("auth.product-name")}}</label>
+                                <label for="product_name" class=" col-form-label text-md-right">@lang("auth.product-name")}}</label>
                                 <input  type="text" wire:model.lazy="product_name" class="form-control @error('product_name') is-invalid @enderror" name="product_name" value="{{ old('product_name') }}"   >
                                 @error('product_name')
                                 <span class="invalid-feedback" role="alert">
@@ -23,7 +23,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-8">
-                                <label for="product_description" class="col-form-label text-md-right">{{__("auth.product-description")}}</label>
+                                <label for="product_description" class="col-form-label text-md-right">@lang("auth.product-description")}}</label>
                                 <input  type="text" wire:model.lazy="product_description" class="form-control @error('product_description') is-invalid @enderror" name="product_description" value="{{ old('product_description') }}"  >
                                 @error('product_description')
                                 <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="package_type" class=" col-form-label text-md-right">{{__('auth.package-type')}}</label>
+                                <label for="package_type" class=" col-form-label text-md-right">@lang('auth.package-type')}}</label>
                                 <select name="package_type" wire:model.lazy="package_type" id="package_type" class="form-control @error('package_type') is-invalid @enderror">
                                     <option value="">@lang('auth.select-package-type')</option>
                                     @foreach($types as $type)
@@ -49,7 +49,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="packing" class=" col-form-label text-md-right">{{__('auth.packing')}}</label>
+                                <label for="packing" class=" col-form-label text-md-right">@lang('auth.packing')}}</label>
                                 <select wire:model.lazy="packing" class="form-control @error('packing') is-invalid @enderror">
                                     <option value="0">@lang('auth.select-packing-type')</option>
                                     @foreach($packing_type as $pack)
@@ -63,7 +63,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="deliver_before" class="col-form-label text-md-right">{{__("auth.deliver-before")}}</label>
+                                <label for="deliver_before" class="col-form-label text-md-right">@lang("auth.deliver-before")}}</label>
                                 <input  type="datetime-local" wire:model.lazy="deliver_before" class="form-control @error('deliver_before') is-invalid @enderror" name="deliver_before" value="{{ old('deliver_before')  }}" >
                                 @error('deliver_before')
                                 <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
 
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <label for="value" class="col-form-label text-md-right">{{__("auth.value-per-one")}}</label>
+                                <label for="value" class="col-form-label text-md-right">@lang("auth.value-per-one")}}</label>
                                 <input  type="number" wire:model.lazy="value" step="00.25" class="form-control @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}" >
                                 @error('value')
                                 <span class="invalid-feedback" role="alert">
@@ -86,7 +86,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="quantity" class=" col-form-label text-md-right">{{__("auth.product-count")}}</label>
+                                <label for="quantity" class=" col-form-label text-md-right">@lang("auth.product-count")}}</label>
                                 <input  type="number" wire:model.lazy="quantity"  class="form-control @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity') ?? 1 }}" >
                                 @error('quantity')
                                 <span class="invalid-feedback" role="alert">
@@ -95,7 +95,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="package_weight" class=" col-form-label text-md-right">{{__("auth.package-weight-kg-per-one")}} <small>@lang('auth.kg-per-one')</small></label>
+                                <label for="package_weight" class=" col-form-label text-md-right">@lang("auth.package-weight-kg-per-one")}} <small>@lang('auth.kg-per-one')</small></label>
                                 <input  type="number" wire:model.lazy="package_weight" step="00.25" class="form-control @error('package_weight') is-invalid @enderror" name="package_weight" value="{{ old('package_weight')  }}" >
                                 <span><sup>kg</sup></span>
                                 @error('package_weight')
@@ -110,7 +110,7 @@
                         <div class="form-group row">
 
                             <div class="col-md-3">
-                                <label for="deliver_before" class=" col-form-label text-md-right">{{__("auth.cod")}}</label>
+                                <label for="deliver_before" class=" col-form-label text-md-right">@lang("auth.cod")}}</label>
                                 <div class="form-check">
                                     <input class="form-check-input" wire:model.lazy="cod" type="radio"  name="cod" value="1">
                                     <label class="form-check-label"  for="flexRadioDefault1">
@@ -130,7 +130,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-9 ">
-                                <label for="exampleFormControlTextarea1"  class="form-label">{{__("auth.notes")}}</label>
+                                <label for="exampleFormControlTextarea1"  class="form-label">@lang("auth.notes")}}</label>
                                 <textarea wire:model.lazy="notes" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                         <div class="form-group row">
 
                             <div class="col-md-6">
-                                <label for="cust_name" class="col-form-label text-md-right">{{__("auth.cust-name")}}</label>
+                                <label for="cust_name" class="col-form-label text-md-right">@lang("auth.cust-name")}}</label>
                                 <input  type="text" wire:model.lazy="cust_name"  class="form-control @error('cust_name') is-invalid @enderror" name="cust_name" value="{{ old('cust_name') }}"  >
                                 @error('cust_name')
                                 <span class="invalid-feedback" role="alert">
@@ -154,7 +154,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="cust_num "  class=" col-form-label text-md-right">{{__("auth.cust-num")}}</label>
+                                <label for="cust_num "  class=" col-form-label text-md-right">@lang("auth.cust-num")}}</label>
                                 <input  type="tel" wire:model.lazy="cust_num"  class="form-control @error('cust_num') is-invalid @enderror" name="cust_num" value="{{ old('cust_num') }}"  >
                                 @error('cust_num')
                                 <span class="invalid-feedback" role="alert">
@@ -169,7 +169,7 @@
                         <div class="form-group row">
 
                             <div class="col-md-8">
-                                <label for="address" class=" col-form-label text-md-right">{{__("auth.address")}}</label>
+                                <label for="address" class=" col-form-label text-md-right">@lang("auth.address")}}</label>
                                 <input  type="text" wire:model.lazy="address" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}"  >
                                 @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -178,7 +178,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="area_id" class="col-form-label text-md-right">{{__('names.area')}}</label>
+                                <label for="area_id" class="col-form-label text-md-right">@lang('names.area')}}</label>
                                 <select name="area_id" wire:model.lazy="area_id" id="area_id" class="form-control @error('area_id') is-invalid @enderror">
                                     <option value="">@lang('auth.select-area')</option>
                                     @foreach($areas as $area)
@@ -222,7 +222,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-{{$color}}-gradient w-100 m-auto ">
-                    {{ __('auth.'.$button) }}
+                    @lang('auth.'.$button) }}
                 </button>
             </div>
             <div class="col-md-4">

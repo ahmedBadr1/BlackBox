@@ -1,11 +1,13 @@
 @extends('admin.layouts.admin')
+@section('page-header')
 
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <a href="{{route('admin.tasks.index')}}">{{__("names.manage")}} {{__("names.tasks")}}</a>
-                <h1 class="text-center">{{__('names.tasks')}} {{__("names.assing")}} </h1>
+                <a href="{{route('admin.tasks.index')}}">@lang("names.manage")}} @lang("names.tasks")}}</a>
+                <h1 class="text-center">@lang('names.tasks')}} @lang("names.assing")}} </h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -40,7 +42,7 @@
                         <div class="row offset-md-2 ">
                             @foreach($tasks as $task)
                                 <div class="m-2">
-                                    <input type="checkbox"  name="tasks[]" value="{{$task->id}}" @if($delivery->id === $task->delivery_id) {{__("checked")}} @endif>
+                                    <input type="checkbox"  name="tasks[]" value="{{$task->id}}" @if($delivery->id === $task->delivery_id) @lang("checked")}} @endif>
                                     <label for="{{$task->id}}">{{$task->id}} => <a href="{{route('admin.tasks.show',$task->id)}}">{{$task->type}}</a> </label><br>
                                 </div>
                             @endforeach
@@ -57,7 +59,7 @@
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-success">
-                                {{ __('names.assign') }}
+                                @lang('names.assign') }}
                             </button>
                         </div>
                     </div>

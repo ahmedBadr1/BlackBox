@@ -1,32 +1,28 @@
 @extends('admin.layouts.admin')
-
+@section('page-header')
+    <h1 class="text-center">@lang("names.all-orders")</h1>
+@endsection
 @section('content')
 
-    <div class="container-fluid">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center">{{__("names.all")}} {{__("names.orders")}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
                 <table class="table table-hover">
 
                     <thead>
                     <th>#</th>
-                    <th>{{__("auth.id")}} {{__("names.order")}}</th>
-                    <th>{{__("auth.product_name")}}</th>
+                    <th>@lang("auth.id")}} @lang("names.order")}}</th>
+                    <th>@lang("auth.product_name")}}</th>
 
-                    <th>{{__("auth.cust_name")}}</th>
-                    <th>{{__("auth.cust_num")}}</th>
-                    <th>{{__("auth.address")}}</th>
-                    <th>{{__("names.value")}}</th>
-                    <th>{{__("names.count")}}</th>
-                    <th>{{__("names.notes")}}</th>
-                    <th>{{__("names.deleted_at")}}</th>
+                    <th>@lang("auth.cust_name")}}</th>
+                    <th>@lang("auth.cust_num")}}</th>
+                    <th>@lang("auth.address")}}</th>
+                    <th>@lang("names.value")}}</th>
+                    <th>@lang("names.count")}}</th>
+                    <th>@lang("names.notes")}}</th>
+                    <th>@lang("names.deleted_at")}}</th>
 
-                    <th>{{__("auth.username")}}</th>
+                    <th>@lang("auth.username")}}</th>
 
                     </thead>
 
@@ -54,7 +50,7 @@
                                 <td>
                                     <form action="{{route('admin.orders.restore',$order->hashid) }}" method="POST">
                                         @csrf
-                                        <input type="submit" class="btn btn-danger" value="{{__('auth.restore')}}">
+                                        <input type="submit" class="btn btn-danger" value="@lang('auth.restore')}}">
                                     </form>
                                 </td>
                                 @endrole
@@ -63,7 +59,7 @@
 
                     @empty
                         <tr>
-                            <td colspan="3">No Orders Found</td>
+                            <td colspan="3">@lang('message.no-orders')</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -71,8 +67,8 @@
                 </table>
                 @if(count($orders) > 1 )
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-warning" disabled><small>{{__('names.download')}}</small></button>
-                        <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('names.excel')}}</a>
+                        <button type="button" class="btn btn-warning" disabled><small>@lang('names.download')</small></button>
+                        <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">@lang('names.excel')</a>
                     </div>
                 @endif
 
@@ -80,6 +76,6 @@
             </div>
 
         </div>
-    </div>
+
 @endsection
 
