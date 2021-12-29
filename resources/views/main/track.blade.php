@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h1 class="text-center">@lang("names.track")}}</h1>
+                <h1 class="text-center">@lang("names.track")</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -36,7 +36,7 @@
 
         @if($status)
 
-                    <div class="">@lang("messages.".$status)}}</div>
+                    <div class="">@lang("messages.".$status)</div>
         @endif
             </div>
         </div>

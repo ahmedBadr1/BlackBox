@@ -16,7 +16,7 @@
 
                     <th>@lang('auth.email')</th>
                     <th>@lang('auth.phone')</th>
-                    <th>@lang('auth.plane')</th>
+                    <th>@lang('auth.plan')</th>
 
                     <th>@lang('auth.joined_at')</th>
 
