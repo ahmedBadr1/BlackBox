@@ -1,7 +1,10 @@
 @extends('admin.layouts.admin')
 @section('page-header')
-    <h1 class="text-center">@lang("auth.create-order")</h1>
-    <a href="{{route('admin.orders.index')}}" class="btn btn-primary">@lang("names.manage-orders")</a>
+    <h1 class="text-center">@lang("auth.create") @lang("names.order")</h1>
+    <div class="">
+        <a href="{{route('admin.orders.index')}}" class="btn btn-primary">@lang("names.manage-orders")</a>
+
+    </div>
 @endsection
 @section('content')
 

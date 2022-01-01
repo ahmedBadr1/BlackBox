@@ -28,7 +28,7 @@
 
                 @endrole
 
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive-md">
 
                     <thead>
                     <th ><input type="checkbox" id="selectAll" name="selectAll" value="1"></th>

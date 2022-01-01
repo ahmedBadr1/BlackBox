@@ -180,8 +180,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::get('/export/orders/en', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersEn'])->name('export.orders.en');
                 Route::get('/export/orders/ar', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersAr'])->name('export.orders.ar');
 
-                Route::get('orders/{order}/pdf', [\App\Http\Controllers\Admin\OrdersController::class, 'pdf'])->name('orders.pdf');
-                Route::get('orders/{order}/print', [\App\Http\Controllers\Admin\OrdersController::class, 'print'])->name('orders.print');
+                Route::get('orders/{id}/pdf', [\App\Http\Controllers\Admin\OrdersController::class, 'pdf'])->name('orders.pdf');
+                Route::get('orders/{id}/print', [\App\Http\Controllers\Admin\OrdersController::class, 'print'])->name('orders.print');
                 Route::get('receipts/{id}/print',[\App\Http\Controllers\Admin\ReceiptController::class,'print'])->name('receipts.print');
 
                 Route::get('/features',[\App\Http\Controllers\Admin\PlanController::class,'features'])->name('features');

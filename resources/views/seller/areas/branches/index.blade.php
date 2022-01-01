@@ -15,7 +15,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive-md">
 
                     <thead>
 

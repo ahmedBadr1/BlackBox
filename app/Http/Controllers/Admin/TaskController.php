@@ -52,7 +52,7 @@ class TaskController extends Controller
     {
         //
         $types = Task::$types  ;
-           unset($types[0])   ; // delete pickup from here
+     //      unset($types[0])   ; // delete pickup from here
 
         $sellers = User::role('seller')->select('id','name')->get();
         $deliveries = User::role('delivery')->select('id','name')->get();

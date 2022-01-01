@@ -163,6 +163,8 @@ return [
     'all-states' => 'All States',
     'all-features' => 'All Feature',
     'all-orders' => 'All Orders',
+    'all-sellers' => 'All Sellers',
+    'all-deliveries' => 'All Deliveries',
 
     'manage-users' => 'Manage Users',
     'manage-roles' => 'Manage Roles',
@@ -185,4 +187,5 @@ return [
     'tasks-count' => 'Tasks Count',
     'states-count' => 'States Count',
 
+    'delivery-order' => 'Delivery Order'
 ];

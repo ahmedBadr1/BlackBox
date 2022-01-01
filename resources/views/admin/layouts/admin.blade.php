@@ -18,7 +18,7 @@
     @livewireStyles
     @toastr_css
 
-
+@yield('meta')
 <!-- Fonts -->
 
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -41,7 +41,7 @@
 
 <!-- container -->
     <div class="container-fluid ">
-        <div class="row d-flex justify-content-between">
+        <div class="hidden-print row d-flex justify-content-between ">
             @yield('page-header')
         </div>
         @yield('content')

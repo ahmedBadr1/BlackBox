@@ -231,7 +231,7 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table table-hover mb-0 text-md-nowrap">
+									<table class="table table-hover table-responsive-md mb-0 text-md-nowrap">
 										<thead>
 											<tr>
 												<th>ID</th>

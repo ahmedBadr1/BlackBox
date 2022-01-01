@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-md">
         <thead>
         <th scope="col">Area ID</th>
         <th scope="col">Area</th>

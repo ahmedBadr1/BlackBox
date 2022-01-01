@@ -1,7 +1,9 @@
 @extends('admin.layouts.admin')
 @section('page-header')
-    <h1 class="text-center">@lang("auth.edit-location")</h1>
-    <a href="{{route('admin.locations.index')}}" class="btn btn-primary">@lang("names.manage-locations")</a>
+    <h1 class="text-center">@lang("auth.edit") @lang("auth.location")</h1>
+    <div class="">
+        <a href="{{route('admin.locations.index')}}" class="btn btn-primary">@lang("names.manage-locations")</a>
+    </div>
 @endsection
 @section('content')
 
@@ -12,8 +14,8 @@
                     @method('PUT')
 
                     <div class="form-group row">
-                        <div class="col-md-6">
-                            <label for="name" class="col-form-label text-md-right">@lang("names.location-name")</label>
+                        <div class="col-md-4">
+                            <label for="name" class="col-form-label text-md-right">@lang("auth.location-name")</label>
                             <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $location->name }}"  autocomplete="name" autofocus>
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -21,14 +23,10 @@
                                     </span>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="form-group row">
-
-
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="state" class=" col-form-label text-md-right">@lang('auth.state')</label>
-                            <select name="state_id" class="form-select select2">
+                            <select name="state_id" class="form-control select2">
                                 @foreach($states as $state)
                                     <option value="{{$state->id}}" @if($state->id=== $location->state_id)
                                         @lang('selected') }}
@@ -46,9 +44,9 @@
 
 
 
-                        <div class="col-md-6">
-                            <label for="state" class=" col-form-label text-md-right">@lang('auth.state')</label>
-                            <select name="area_id" class="form-select select2"  >
+                        <div class="col-md-4">
+                            <label for="state" class=" col-form-label text-md-right">@lang('names.area')</label>
+                            <select name="area_id" class="form-control select2"  >
                                 @foreach($areas as $area)
                                     <option value="{{$area->id}}" @if($area->id=== $location->area_id)
                                         @lang('selected') }}
@@ -76,7 +74,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="building" class="col-form-label text-md-right"> @lang("auth.building")</label>
                             <input  type="text" class="form-control @error('building') is-invalid @enderror" name="building" value="{{ $location->building }}" >
                             @error('building')
@@ -145,9 +143,9 @@
 
 
                     <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
+                        <div class="col-md-6">
                             <button type="submit" class="btn btn-info">
-                                @lang('auth.edit') }}
+                                @lang('auth.edit')
                             </button>
                         </div>
                     </div>

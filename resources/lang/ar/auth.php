@@ -68,6 +68,8 @@ return [
     'cod' => 'التحصيل',
     'quantity' => 'العدد',
     'value' => 'القيمة',
+    'return-cost' => 'تكلفة المرتجع',
+    'replacement-cost' => 'تكلفة الإستبدال',
     'delivery-cost' => 'تكلفة الشحن',
     'package-weight' => 'وزن الشحنة',
     'package-over-weight' => 'الوزن الزائد',
@@ -167,6 +169,8 @@ return [
     'select-zone' => 'إختار الزون',
     'select-role' => 'إختار الدور',
     'select-location' => 'إختار الموقع',
+    'select-seller' => 'إختار تاجر',
+    'select-delivery' => 'إختار مندوب',
 
     'type' => 'النوع',
     'assign-to' => 'المسئول',
@@ -176,4 +180,14 @@ return [
     'price' => 'السعر',
     'size' => 'المقاس',
     'app-setting' => 'إعدادات التطبيق',
+    'joined_at' => 'تاريخ الانضمام',
+
+    'order-for' => 'صاحب الطلب',
+    'billed-to' => 'موجه إلى',
+    'order-data' => 'معلومات الطلب',
+    'order-date' => 'تاريخ الطلب',
+    'order-id' => 'كود الطلب',
+    'contact' => 'التواصل',
+    'company-logo' => 'شعار الشركة',
+
 ];

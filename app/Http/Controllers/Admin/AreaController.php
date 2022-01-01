@@ -47,10 +47,8 @@ class AreaController extends Controller
     public function index()
     {
         //
-        $zones = Zone::orderBy('rank')->get();
-
         $areas = Area::with('zone','state')->orderBy('id','DESC')->paginate(10);
-        return view('admin.areas.index',compact('areas','zones'));
+        return view('admin.areas.index',compact('areas'));
     }
 
     /**
@@ -61,7 +59,7 @@ class AreaController extends Controller
     public function create()
     {
         //
-        $zones = Zone::orderBy('rank')->get();
+        $zones = Zone::all();
     //    $states= State::where('active',true)->get();
 
         return view('admin.areas.create',compact('zones'));

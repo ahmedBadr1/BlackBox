@@ -1,16 +1,18 @@
 @extends('admin.layouts.admin')
 @section('page-header')
     <h1 class="text-center">@lang('names.all-locations')</h1>
-    @can('plan-create')
-        <a href="{{route('admin.locations.create')}}" class="btn btn-success">@lang('auth.create-location')</a>
-    @endcan
+    <div class="">
+        @can('plan-create')
+            <a href="{{route('admin.locations.create')}}" class="btn btn-success">@lang('auth.create-location')</a>
+        @endcan
 
+    </div>
 @endsection
 @section('content')
 
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive-md ">
 
                     <thead>
                     <th>@lang('auth.id')</th>
@@ -29,8 +31,6 @@
                             <td>{{$location->state->name}}</td>
                             <td><a href="{{ route('admin.areas.show',$location->area->id) }}"> {{$location->area->name}} </a></td>
                             <td>{{$location->building}} , {{$location->floor}} {{$location->apatrment}}</td>
-                            <td>{{$location->longitude}}</td>
-                            <td>{{$location->latitude}}</td>
 
                             <td class="d-flex justify-content-between">
                                 <a href="{{ route('admin.locations.edit',$location->id) }}" class="btn btn-info">@lang('auth.edit')</a>

@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-md">
 
         <thead>
         <th>#</th>
@@ -77,29 +77,31 @@
                 <td>{{$order->status->name}} </td>
 
                 <td><a href="{{route('admin.users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
-                @auth
-                    @role('seller|Feedback')
-                    <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')</a></td>
-                    @endrole
-                    <td>
-{{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">@lang('auht.pdf')}}</a>--}}
-                        <a href="{{route('admin.orders.print',$order->hashid)}}" class="btn btn-outline-warning">@lang('auth.print')</a>
-                    </td>
 
-                    @role('seller|Feedback')
+
+                    <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')</a></td>
+
+{{--                    <td>--}}
+{{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">@lang('auht.pdf')}}</a>--}}
+{{--                        <a href="{{route('admin.orders.print',$order->hashid)}}" class="btn btn-outline-warning">@lang('auth.print')</a>--}}
+{{--                    </td>--}}
+
+                    @canany(['edit-order','delete-order'])
                     <td class="d-flex flex-column ">
 
-
+                        @can('edit-order')
                   <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">@lang('auth.edit')</a>
-
+                        @endcan
+                            @can('delete-order')
                         <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger" value="@lang('auth.delete')">
                         </form>
+                            @endcan
                     </td>
-                    @endrole
-                @endauth
+                    @endcanany
+
             </tr>
 
         @empty

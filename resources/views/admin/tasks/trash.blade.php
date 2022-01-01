@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive-md">
                     <thead>
                     <th>@lang('auth.id')</th>
                     <th>@lang('auth.username')</th>

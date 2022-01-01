@@ -37,8 +37,8 @@ class LocationRequest extends FormRequest
             'floor' => 'nullable' ,
             'apartment' => 'nullable' ,
             'landmarks' => 'nullable' ,
-            'latitude' => 'required|numeric|digits_between:-90,90',
-            'longitude' => 'required|numeric|digits_between:-180,180'
+            'latitude' => 'sometimes|numeric|digits_between:-90,90',
+           'longitude' => 'sometimes|numeric|digits_between:-180,180'
         ];
     }
 

@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="row">
-            <table class="table table-hover">
+            <table class="table table-hover table-responsive-md">
                 <thead>
                 <th class="border  py-2">ID</th>
                 <th class="border  py-2">Username</th>

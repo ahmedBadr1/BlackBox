@@ -1,7 +1,9 @@
 @extends('admin.layouts.admin')
 @section('page-header')
     <h1 class="text-center">@lang("auth.create-location")</h1>
-    <a href="{{route('admin.locations.index')}}" class="btn btn-primary">@lang("names.manage-locations")</a>
+  <div class="">
+      <a href="{{route('admin.locations.index')}}" class="btn btn-primary">@lang("names.manage-locations")</a>
+  </div>
 @endsection
 @section('content')
 
@@ -10,8 +12,8 @@
                 <form method="POST" action="{{ route('admin.locations.store') }}">
                     @csrf
                     <div class="form-group row">
-                        <div class="col-md-12">
-                            <label for="name" class=" col-form-label text-md-right">@lang("names.location-name")</label>
+                        <div class="col-md-4">
+                            <label for="name" class=" col-form-label text-md-right">@lang("auth.location-name")</label>
                             <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
                             @error('name')
                             <span class="invalid-feedback" role="alert">
@@ -19,11 +21,8 @@
                                     </span>
                             @enderror
                         </div>
-                    </div>
 
-                    <div class="form-group row ">
-
-                        <div class="col-md-6 ">
+                        <div class="col-md-4 ">
                             <label for="state_id" class=" col-form-label text-md-right"> @lang("auth.state")</label>
                             <select name="state_id" class="form-control select2"  >
                                 <option value="">@lang('auth.select-state')</option>
@@ -37,8 +36,8 @@
 
                             @enderror
                         </div>
-                        <div class="col-md-6 ">
-                            <label for="area_id" class="col-form-label text-md-right"> @lang("auth.area")</label>
+                        <div class="col-md-4 ">
+                            <label for="area_id" class="col-form-label text-md-right"> @lang("names.area")</label>
                             <select name="area_id"  class="form-control select2" >
                                 <option value="">@lang('auth.select-area')</option>
                                 @foreach($areas as $area)

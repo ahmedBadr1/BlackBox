@@ -197,31 +197,30 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Order  $order
+     * @param
      * @return
      */
-    public function show(Order $order)
+    public function show( $id)
     {
-
+        $order = Order::with('user')->findOrFail($id->id);
         return view('admin.orders.show',compact('order'));
     }
     /**
      * Display the specified resource.
      *
-     * @param  Order  $order
+     * @param  Order $order
      * @return
      */
     public function print(Order $order)
     {
-//
-    $client = new Party([
-        'name'          => $order->consignee['cust_name'],
-        'phone'         =>  $order->consignee['cust_num'],
-        'address'         => $order->consignee['address'],
-        'custom_fields' => [
-            'area'        => $order->area->name,
-        ],
-    ]);
+        $client = new Party([
+            'name'          => $order->consignee['cust_name'],
+            'phone'         =>  $order->consignee['cust_num'],
+            'address'         => $order->consignee['address'],
+            'custom_fields' => [
+                'area'        => $order->area->name,
+            ],
+        ]);
 
         $customer = new Party([
             'name'          => $order->user->name,
@@ -236,25 +235,17 @@ class OrdersController extends Controller
             ->pricePerUnit($order->product['value'])
             ->quantity($order->product['quantity'])
             ->description($order->product['description'] ?? '');
-       $shipping =  $order->cost ;
-       // dd($shipping);
+        $shipping =  $order->cost ;
+        // dd($shipping);
         if(!$order->details['cod']){
             $shipping = number_format(0);
         }
-      //  dd($shipping);
 
-//        $notes = [
-//            'your multiline',
-//            'additional notes',
-//            'in regards of delivery or something else',
-//        ];
-//        $notes = implode("<br>", $notes);
-
-        $logoPath =  storage_path('app/public/'.sys('company_logo'))   ?? '';
+       $logoPath = sys('company_logo')  ? storage_path('app/public/'.sys('company_logo')) :  url('/assets/img/brand/logo-black.png' )  ;
 
 
-        $invoice = Invoice::make()
-           // ->sequence($order->hashid)
+      $invoice = Invoice::make()
+            // ->sequence($order->hashid)
             ->buyer($client)
             ->seller($customer)
             ->addItem($item)
@@ -263,39 +254,34 @@ class OrdersController extends Controller
             ->date($order->created_at)
             ->filename('order_'.$order->hashid)
             ->payUntilDays(14) ;
-          //  ->subTotalPrice($order->sub_total)
-          //  ->discountByPercent(10)
-          // ->totalAmount(number_format($order->total))
-
-//        $serial =  $invoice->getSerialNumber() ;
-//        dd($serial);
-//            ->currencySymbol('L.E')
-//            ->currencyCode('EGP')
-//            ->discountByPercent(10)
-//            ->taxRate(14)
-//            ->totalTaxes($order->tax)
-//            ->series('fb')
-//            ->sequence(88)
 
 
-//dd($invoice);
-//   //     return view('vendor.invoices.templates.default',compact('invoice'));
-//        return $invoice->stream();
 
-       // $pdf = PDF::chunkLoadView('pdf.document', $data);
-      //  ini_set("pcre.backtrack_limit", "1000000");
-    //    $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
+
         if(app()->getLocale() == "ar"){
-         //   toastr()->error('can\'t print arabic charachters');
+            //   toastr()->error('can\'t print arabic charachters');
             $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
             return $pdf->stream('arabic.pdf');
         }
 
-        return $invoice->download($order->hashid.'.pdf');
+        return $invoice->download('test.pdf');
     }
     public function pdf(Order $order)
     {
 //
+        $order =   ProductionOrder::whereId($id)->with(['items'=>fn($q)=>$q->with(['element','inventory']),'formula','user'])->first();
+        return view('vendor.invoices.inventory',compact('order'));
+        //   dd($order->item->element);
+        //  $pdf = App::make('dompdf.wrapper');
+//        $pdf->loadHTML('<h1>Test</h1>');
+//        return $pdf->stream();
+
+        //   view()->share('order',$order);
+        $pdf = PDF::loadView('vendor.invoices.production',['order'=>$order ] );
+        return $pdf->stream();
+        return $pdf->download('test.pdf');
+
+
 //        $data = User::take(10)->get();
 //////
 //////

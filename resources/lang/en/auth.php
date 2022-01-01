@@ -68,6 +68,8 @@ return [
     'cod' => 'COD',
     'quantity' => 'Quantity',
     'value' => 'Value',
+    'return-cost' => 'Return Cost',
+    'replacement-cost' => 'Replacement Cost',
     'delivery-cost' => 'Delivery Cost',
     'package-weight' => 'Package Weight',
     'package-over-weight' => 'Package Over Weight',
@@ -165,6 +167,9 @@ return [
     'select-zone' => 'Select Zone',
     'select-role' => 'Select Role',
     'select-location' => 'Select Location',
+    'select-seller' => 'Select Seller',
+    'select-delivery' => 'Select Delivery',
+
 
     'type' => 'Type',
     'assign-to' => 'Assign To',
@@ -173,6 +178,15 @@ return [
 
     'price' => 'Price',
     'size' => 'Size',
-
     'app-setting' => 'Application Setting',
+    'joined_at' => 'Joined At',
+
+    'order-for' => 'Order For',
+    'billed-to' => 'Billed To',
+    'order-data' => 'Order Data',
+    'order-date' => 'Order Information',
+    'order-id' => 'Order ID',
+    'contact' => 'Contact',
+    'company-logo' => 'Company Logo',
+
 ];

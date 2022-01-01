@@ -164,6 +164,8 @@ return [
     'all-states' => 'كل المحافظات',
     'all-features' => 'كل المميزات',
     'all-orders' => 'كل الطلبات',
+    'all-sellers' => 'كل التجار',
+    'all-deliveries' => 'كل المندوبين',
 
     'manage-users' => 'إدارة المستخدمين',
     'manage-roles' => 'إدارة الأدوار',
@@ -186,5 +188,8 @@ return [
     'locations-count' => 'عدد المواقع',
     'tasks-count' => 'عدد المهمات',
     'states-count' => 'عدد المحافظات',
+
+    'delivery-order' => 'طلب توصيل',
+
 
 ];
