@@ -159,12 +159,12 @@
                     </a>
                 </li>
             @endcan
-            <li class="slide">
-                <a class="side-menu__item" href="{{route('admin.setting')}}">
-                    <i class="bx bx-cog bx-sm side-menu__icon"></i>
-                    <span class="side-menu__label">@lang("names.setting")</span>
-                </a>
-            </li>
+{{--            <li class="slide">--}}
+{{--                <a class="side-menu__item" href="{{route('admin.setting')}}">--}}
+{{--                    <i class="bx bx-cog bx-sm side-menu__icon"></i>--}}
+{{--                    <span class="side-menu__label">@lang("names.setting")</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
 
         </ul>

@@ -18,7 +18,6 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->string('bio')->nullable();
             $table->text('address')->nullable();
-            $table->string('area')->nullable();
             $table->string('photo')->nullable();
             $table->string('url')->nullable();
             $table->foreignIdFor(User::class);

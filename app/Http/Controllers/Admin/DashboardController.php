@@ -114,27 +114,28 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->roles->first()->name == 'delivery'){
-            $alltasks = $user->taskson->count();
-            $donetasks = $user->taskson->where('done_at')->count();
-        }else{
-            $allTasks = $user->tasks->count();
-            $doneTasks = $user->tasks->whereNotNull('done_at')->count();
+        $total =  $user->orders()->whereNotIn('status_id', [1,2,10] )->sum('total');
+        $count = $user->orders()->count();
+
+        $orders =  $user->orders()->select('product')->get();
+        $products = 0;
+
+        foreach ($orders as $order){
+            $products += $order->product['quantity'];
         }
-  //      dd($donetasks);
+        // dd($products);
+        $allTasks = $user->tasks->count();
+        $doneTasks = $user->tasks->whereNotNull('done_at')->count();
+
+        //      dd($donetasks);
 
         $allOrders = $user->orders->count();
         $doneOrders = $user->orders->where('status_id','6')->count();
 
-
-        return view('admin.profile.index', compact('user','allTasks','doneTasks','allOrders','doneOrders'));
-    }
-    public function profileEdit()
-    {
-        $user = Auth::user();
         $states= State::where('active',true)->get();
         $areas = Area::pluck('name')->all();
-        return view('admin.profile.edit', compact('user','states','areas'));
+
+        return view('admin.profile', compact('user','allTasks','doneTasks','allOrders','doneOrders' , 'total','count','products','states','areas'));
     }
     public function profileUpdate(Request $request)
     {
@@ -143,19 +144,17 @@ class DashboardController extends Controller
 
         $this->validate($request,[
             'name'=>'required',
-            'bio'=> '',
+            'bio'=> 'nullable',
             'email'=>'required|email',
             'phone'=>'required|numeric',
-            'address'=> '',
-            'area'=> '',
-            'state'=> 'required',
-            'profile_photo'=> 'image',
-            'url'=> '',
+            'address'=> 'nullable|string',
+            'photo'=> 'nullable|image',
+            'url'=> 'nullable|url',
         ]);
 
         $input = $request->all();
 
-        $path = 'uploads/profiles/photos';
+        $path = 'uploads/profiles/photos/';
         if(!File::isDirectory($path)){
             File::makeDirectory($path, 0777, true, true);
         }
@@ -171,24 +170,23 @@ class DashboardController extends Controller
             $user->profile->profile_photo = $photoPath;
 
         }
-    //    dd($photoPath);
-        if($input['bio']){
+        if(isset($input['bio'])){
             $user->profile->bio = $input['bio'];
         }
-        if($input['address']){
+        if(isset($input['address'])){
             $user->profile->address = $input['address'];
         }
-        if($input['area']){
-            $user->profile->area = $input['area'];
-        }
-        if($input['url']){
+        if(isset($input['url'])){
             $user->profile->url = $input['url'];
         }
 
         $user->push();
+
         toastr()->success('Profile Updated Successfully','Profile Updated');
         return redirect()->route('admin.profile');
     }
+
+
     public function sellers()
     {
         $sellers = User::with('plan')->whereHas("roles", function($q){ $q->where("name" ,'seller'); })->get();

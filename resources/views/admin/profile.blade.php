@@ -1,19 +1,8 @@
-@extends('seller.layouts.seller')
+@extends('admin.layouts.admin')
 @section('css')
 @endsection
 @section('page-header')
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="my-auto">
-            <div class="d-flex">
-                <h4 class="main-content-title mb-0 my-auto">@lang('names.profile')</h4>
-            </div>
-        </div>
-        <div class="d-flex my-xl-auto right-content">
-
-        </div>
-    </div>
-    <!-- breadcrumb -->
+<h1>@lang('names.profile')</h1>
 @endsection
 @section('content')
     <!-- row -->
@@ -30,7 +19,7 @@
                                      @else
                                      src="/pics/profile.png"
                                     @endif>
-{{--                                <a class="bx bxs-camera profile-edit" href="JavaScript:void(0);"></a>--}}
+                                {{--                                <a class="bx bxs-camera profile-edit" href="JavaScript:void(0);"></a>--}}
                             </div>
                             <div class="d-flex justify-content-between mg-b-20">
                                 <div>
@@ -55,20 +44,13 @@
                                 </div>
 
                                 @if($user->profile->address)
-                                <div class="col-md-8 col my-2">
-                                    <h6 class="text-small text-muted mb-0">@lang('auth.address')</h6>
-                                    <h5>{{$user->profile->address}}</h5>
-                                </div>
+                                    <div class="col-md-8 col my-2">
+                                        <h6 class="text-small text-muted mb-0">@lang('auth.address')</h6>
+                                        <h5>{{$user->profile->address}}</h5>
+                                    </div>
                                 @endif
-                                @if($user->profile->url)
-                                <div class="col-md-8 col my-2">
-                                    <h6 class="text-small text-muted mb-0">@lang('auth.company-name')</h6>
-                                    <h5><a href="{{$user->profile->url}}">{{$user->profile->url}}</a></h5>
-                                </div>
-                                @endif
-
-
                             </div>
+                            @if($user->profile->url )
                             <hr class="mg-y-30">
                             <label class="main-content-label tx-13 mg-b-20">@lang('names.social')</label>
                             <div class="main-profile-social-list">
@@ -77,27 +59,12 @@
                                         <i class="icon ion-logo-github"></i>
                                     </div>
                                     <div class="media-body">
-                                        <span>Github</span> <a href="">github.com/feedback</a>
+                                        <span>Link</span> <a href="{{$user->profile->url}}">{{$user->profile->url}}</a>
                                     </div>
                                 </div>
-                                <div class="media">
-                                    <div class="media-icon bg-success-transparent text-success">
-                                        <i class="icon ion-logo-twitter"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <span>Twitter</span> <a href="">twitter.com/feedback.me</a>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <div class="media-icon bg-info-transparent text-info">
-                                        <i class="icon ion-logo-linkedin"></i>
-                                    </div>
-                                    <div class="media-body">
-                                        <span>Linkedin</span> <a href="">linkedin.com/in/feedback</a>
-                                    </div>
-                                </div>
-
                             </div>
+                            @endif
+                            @if($allTasks)
                             <hr class="mg-y-30">
                             <h6 class="card-title">@lang('names.progress')</h6>
 
@@ -105,10 +72,14 @@
                             <div class="skill-bar clearfix">
                                 <span>@lang('names.orders')</span>
                                 <div class="progress mt-2">
-                                    <div class="progress-bar bg-info-gradient" role="progressbar" aria-valuenow="85"
-                                         aria-valuemin="0" aria-valuemax="100" style="width: 95%"></div>
+                                    <div class="progress mb-3" style="height: 12px">
+                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar"  style="width: {{($doneTasks / $allTasks) * 100   }}%" aria-valuenow="{{$doneTasks}}" aria-valuemin="0" aria-valuemax="{{$allTasks}}">
+                                            {{$doneTasks}} of  {{$allTasks}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            @endif
                             <!--skill bar-->
                         </div><!-- main-profile-overview -->
                     </div>
@@ -188,13 +159,13 @@
                     </div>
                     <div class="tab-content border-left border-bottom border-right border-top-0 p-4">
                         <div class="tab-pane active" id="home">
-                            <form method="POST" action="{{route('profile.update')}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('admin.profile.update')}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
                                 <div class=" row">
                                     <div class="col-md-4">
-                                    <label for="name" class=" col-form-label text-md-right">@lang('auth.name') }}</label>
+                                        <label for="name" class=" col-form-label text-md-right">@lang('auth.name') </label>
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}"  autocomplete="name" autofocus>
                                         @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -203,7 +174,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-8">
-                                    <label for="bio" class=" col-form-label text-md-right">@lang('auth.bio') }}</label>
+                                        <label for="bio" class=" col-form-label text-md-right">@lang('auth.bio') </label>
 
                                         <input id="bio" type="text" class="form-control @error('bio') is-invalid @enderror" name="bio" value="{{ $user->profile->bio  }}"  >
                                         @error('bio')
@@ -217,7 +188,7 @@
 
                                 <div class=" row">
                                     <div class="col-md-8">
-                                    <label for="email" class=" col-form-label text-md-right">@lang('auth.email') }}</label>
+                                        <label for="email" class=" col-form-label text-md-right">@lang('auth.email') </label>
 
                                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}"  autocomplete="email">
 
@@ -228,7 +199,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4">
-                                    <label for="phone" class=" col-form-label text-md-right">@lang('auth.phone') }}</label>
+                                        <label for="phone" class=" col-form-label text-md-right">@lang('auth.phone') </label>
 
                                         <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone  }}"  autocomplete="phone">
                                         @error('phone')
@@ -240,9 +211,9 @@
                                 </div>
 
 
-                                <div class="row">
+                                <div class="form-group row">
                                     <div class="col-md-6">
-                                        <label for="address" class="col-form-label text-md-right">@lang('auth.address')}}</label>
+                                        <label for="address" class="col-form-label text-md-right">@lang('auth.address')</label>
                                         <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $user->profile->address  }}"  >
 
                                         @error('address')
@@ -252,15 +223,10 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="area" class=" col-form-label text-md-right">@lang('names.area')}}</label>
-                                        <select id="area" class="form-select form-control @error('area') is-invalid @enderror" name="area"  aria-label="Default select example" >
-                                            @foreach($areas as $area)
-                                                <option value="{{$area}}" @if($area === $user->profile->area)
-                                                    @lang('selected') }}
-                                                    @endif>{{$area}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('area')
+                                        <label for="url" class=" col-form-label text-md-right">@lang('auth.url')</label>
+                                        <input id="url" type="url" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ $user->profile->url  }}"  >
+
+                                        @error('url')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -271,19 +237,10 @@
 
 
                                 <div class="form-group row">
-                                    <div class="col-md-8">
-                                        <label for="url" class=" col-form-label text-md-right">@lang('auth.url')}}</label>
-                                        <input id="url" type="url" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ $user->profile->url  }}"  >
 
-                                        @error('url')
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                        @enderror
-                                    </div>
 
                                     <div class="col-md-4">
-                                        <label for="photo" class=" col-form-label text-md-right">@lang('auth.photo')}}</label>
+                                        <label for="photo" class=" col-form-label text-md-right">@lang('auth.photo')</label>
                                         <input id="photo" type="file" class="form-control @error('photo') is-invalid @enderror" name="photo" >
                                         @error('photo')
                                         <span class="invalid-feedback" role="alert">
@@ -291,17 +248,17 @@
                                     </span>
                                         @enderror
                                     </div>
-
-                                </div>
-                                <div class="row"> <div class="col-md-4 mb-2">
-                                        <img id="preview-image-before-upload" src="https://www.riobeauty.co.uk/images/product_image_not_found.gif"
+                                    <div class="col-md-4 mb-2">
+                                        <img id="preview-image-before-upload" width="200px" src="{{asset('pics/profile.png')}}"
                                              alt="preview image" >
-                                    </div></div>
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group row mb-0">
-                                    <div class="col-md-6 offset-md-4">
+                                    <div class="col-md-6 ">
                                         <button type="submit" class="btn btn-primary">
-                                            @lang('auth.update')}}
+                                            @lang('auth.update')
                                         </button>
                                     </div>
                                 </div>
@@ -317,9 +274,7 @@
     </div>
     <!-- row closed -->
     </div>
-    <!-- Container closed -->
-    </div>
-    <!-- main-content closed -->
+
 @endsection
 @section('js')
     <script type="text/javascript">

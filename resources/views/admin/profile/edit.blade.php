@@ -5,8 +5,8 @@
 @section('content')
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('admin.users.index')}}">@lang('names.manage')}} @lang('names.users')}}</a>
-                <h1 class="text-center">@lang('auth.edit')}} @lang('names.user')}} {{$user->name}}</h1>
+                <a href="{{route('admin.users.index')}}">@lang('names.manage-users')</a>
+                <h1 class="text-center">@lang('auth.edit') @lang('names.profile') {{$user->name}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="address" class="col-md-4 col-form-label text-md-right">@lang('auth.address')}}</label>
+                        <label for="address" class="col-md-4 col-form-label text-md-right">@lang('auth.address')</label>
 
                         <div class="col-md-6">
                             <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $user->profile->address  }}"  >
@@ -78,48 +78,10 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="area" class="col-md-4 col-form-label text-md-right">@lang('names.area')}}</label>
-                        <div class="col-md-6">
-                            <select id="area" class="form-select form-control @error('area') is-invalid @enderror" name="area"  aria-label="Default select example" >
-                                @foreach($areas as $area)
-                                    <option value="{{$area}}" @if($area === $user->profile->area)
-                                        @lang('selected')
-                                        @endif>{{$area}}</option>
-                                @endforeach
-                            </select>
-                            @error('area')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
 
 
                     <div class="form-group row">
-                        <label for="state" class="col-md-4 col-form-label text-md-right">@lang('auth.state')}}</label>
-
-                        <div class="col-md-6">
-                            <select name="state" class="form-select form-control"  aria-label="Default select example" >
-                                @foreach($states as $state)
-                                    <option value="{{$state->id}}" @if($state=== $user->state->name)
-                                        @lang('selected')
-                                        @endif>{{$state->name}}</option>
-                                @endforeach
-
-                            </select>
-                            @error('state')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="url" class="col-md-4 col-form-label text-md-right">@lang('auth.url')}}</label>
+                        <label for="url" class="col-md-4 col-form-label text-md-right">@lang('auth.url')</label>
 
                         <div class="col-md-6">
                             <input id="url" type="tel" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ $user->profile->url  }}"  >
@@ -133,7 +95,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="photo" class="col-md-4 col-form-label text-md-right">@lang('auth.photo')}}</label>
+                        <label for="photo" class="col-md-4 col-form-label text-md-right">@lang('auth.photo')</label>
                         <div class="col-md-6">
                             <input id="photo" type="file" class="form-control @error('photo') is-invalid @enderror" name="photo" >
                             @error('photo')

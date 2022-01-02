@@ -16,14 +16,10 @@ class Profile extends Model
     protected $fillable = [
         'bio',
         'address',
-        'profile_photo',
+        'photo',
         'url',
     ];
 
-    public function location()
-    {
-        return $this->hasOne(Location::class);
-    }
     public function user()
     {
         return  $this->belongsTo(User::class);

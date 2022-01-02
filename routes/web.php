@@ -154,8 +154,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::get('help', [\App\Http\Controllers\Admin\DashboardController::class, 'help'])->name('help');
                 Route::get('notifications', [\App\Http\Controllers\Admin\DashboardController::class, 'notifications'])->name('notifications');
                 Route::get('messages', [\App\Http\Controllers\Admin\DashboardController::class, 'messages'])->name('messages');
-                Route::get('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'setting'])->name('setting');
-                Route::post('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
+//                Route::get('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'setting'])->name('setting');
+//                Route::post('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
 
                 Route::get('profile', [\App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
                 Route::get('profile/edit', [\App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');
