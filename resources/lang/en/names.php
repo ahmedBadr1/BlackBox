@@ -198,4 +198,5 @@ return [
 
     'archive' => 'Archive',
     'my-orders' => 'My Orders',
+    'feature' => 'Feature',
 ];

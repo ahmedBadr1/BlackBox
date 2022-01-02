@@ -201,5 +201,6 @@ return [
 
     'archive' => 'الأرشيف',
     'my-orders' => 'طلباتي',
+    'feature' => 'ميزة',
 
 ];

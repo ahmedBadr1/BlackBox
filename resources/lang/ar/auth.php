@@ -162,6 +162,7 @@ return [
     'zone-name' => 'إسم الزون',
     'branch-name' => 'إسم الفرع',
     'plan-name' => 'إسم خطة السعر',
+    'feature-name' => 'إسم الميزة',
 
     'manager' => 'المدير',
     'select-manager' => 'إختار المدير',

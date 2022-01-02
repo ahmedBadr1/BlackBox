@@ -160,6 +160,7 @@ return [
     'zone-name' => 'Zone Name',
     'branch-name' => 'Branch Name',
     'plan-name' => 'Plan Name',
+    'feature-name' => 'Feature Name',
 
     'manager' => 'Manager',
     'select-manager' => 'Select Manager',

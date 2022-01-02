@@ -41,6 +41,8 @@ return [
     'invoices' => 'Change invoice color, email, address, tax number, notes etc.',
     'trash'  => 'All Trashs',
     'no-logs' => 'There is no logs for this order',
+    'no-feature-plan' => 'there isn\'t any Plan with this Feature' ,
+    'no-data' => 'No data available'
 
 
 ];
