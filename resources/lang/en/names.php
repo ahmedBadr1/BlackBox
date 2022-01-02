@@ -187,5 +187,12 @@ return [
     'tasks-count' => 'Tasks Count',
     'states-count' => 'States Count',
 
-    'delivery-order' => 'Delivery Order'
+    'delivery-order' => 'Delivery Order',
+    'company' => 'Company',
+    'working' => 'Working',
+    'company-setting' => 'Company Setting',
+    'working-setting' => 'Working Setting',
+    'invoices-setting' => 'Invoices Setting',
+    'deleted-tasks' => 'Deleted Tasks',
+    'deleted-orders' => 'Deleted Orders' ,
 ];

@@ -75,7 +75,7 @@
                                     <h6 class="mb-0">@lang('auth.address')}}</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary" dir="rtl">
-                                    {{$user->profile->address}} ,{{$user->profile->area}}, {{$user->state->name}}
+                                    {{$user->profile->address}} ,{{$user->profile->area}}, {{$user->state?->name}}
                                 </div>
                             </div>
                             <hr>

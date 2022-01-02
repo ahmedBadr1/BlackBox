@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Branch;
+use App\Models\Business;
 use App\Models\Feature;
 use App\Models\Location;
 use App\Models\Order;
@@ -18,6 +19,7 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
 use App\Notifications\Admin\NewUserNotification;
+use App\Notifications\ChangePasswordNotification;
 use App\Notifications\WelcomeMailNotification;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
@@ -27,6 +29,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 
@@ -298,6 +301,63 @@ class DashboardController extends Controller
 
         toastr()->success('system saved successfully');
         return redirect()->route('admin.dashboard');
+    }
+
+    public function setting ()
+    {
+        $industries = Business::$industries ;
+        $channels = Business::$channels;
+        $business = \auth()->user()->business ?? null;
+        //  dd(auth()->user()->orders()->count());
+        //  dd($business->orders()->count());
+        return view('seller.setting',compact('business','industries','channels'));
+    }
+    public function saveSetting(Request $request)
+    {
+        //  dd($request->all());
+        $input =  $this->validate($request,[
+            'name' => 'required',
+            "contact" => "required",
+            "industry" => "required",
+            "channel" => "required",
+            "url" => "required|url",
+        ]);
+        //dd($input);
+
+        $user = \auth()->user();
+        //   dd($user->business);
+        //     $business = HasBusiness::firstOrNew($input);;
+        if(isset($user->business)){
+            $user->business->update($input) ;
+        }else{
+            $business = Business::create($input);
+            $user->business()->associate($business)->save();
+        }
+        //     dd($user->business);
+
+
+        return back();
+    }
+
+    public function changePassword (Request $request)
+    {
+        $input =  $this->validate($request,[
+            'password' => 'required',
+            'new_password' => 'required|min:8|same:con_password',
+            'con_password' => 'required',
+        ]);
+        //    dd($input);
+        $user = auth()->user();
+        //  dd($user->password);
+        if (!Hash::check($input['password'], $user->password)) {
+            toastr('password not true');
+            return back();
+        }
+        $user->password = Hash::make($input['new_password']);
+        $user->save();
+        $user->notify(new ChangePasswordNotification());
+        toastr('all good');
+        return back();
     }
 
     public function trash()

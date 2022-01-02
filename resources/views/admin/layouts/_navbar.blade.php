@@ -190,7 +190,7 @@
                                 class="bx bx-user-circle"></i>@lang('names.profile')</a>
                         <a class="dropdown-item" href="{{route('admin.messages')}}"><i class="bx bxs-envelope"></i> @lang('names.messages')</a>
                         @can('system')
-                        <a class="dropdown-item" href="{{route('admin.system')}}"><i
+                        <a class="dropdown-item" href="{{route('admin.setting')}}"><i
                                 class="bx bx-slider-alt"></i>@lang('names.setting')</a>
                         @endcan
 

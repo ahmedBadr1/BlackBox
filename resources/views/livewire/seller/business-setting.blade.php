@@ -5,7 +5,7 @@
         @csrf
         <div class="row">
             <div class="col-md-6">
-                <label for="email" class=" col-form-label text-md-right">@lang('auth.business-name') }}</label>
+                <label for="email" class=" col-form-label text-md-right">@lang('auth.business-name') </label>
                 <input wire:model.lazy="name"  type="text" class="form-control @error('name') is-invalid @enderror"
                        name="name" value="{{ $business->name ?? '' }}" >
                 @error('name')
@@ -15,7 +15,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="contact" class=" col-form-label text-md-right">@lang('auth.business-contact') }}</label>
+                <label for="contact" class=" col-form-label text-md-right">@lang('auth.business-contact') </label>
 
                 <input wire:model.lazy="contact" type="text" class="form-control @error('contact') is-invalid @enderror"
                        name="contact" value="{{ $business->contact ?? '' }}">
@@ -29,11 +29,11 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                <label for="industry" class=" col-form-label text-md-right">@lang('auth.business-field') }}</label>
+                <label for="industry" class=" col-form-label text-md-right">@lang('auth.business-field') </label>
 
                 <select wire:model.lazy="industry" type="text" class="form-control @error('industry') is-invalid @enderror"
                         name="industry"  >
-                    <option value="">@lang('auth.select')</option>
+                    <option value="">@lang('auth.select-type')</option>
                     @foreach($industries as $industry)
                         <option value="{{$industry}}" @isset($business->industry) @if($business->industry === $industry) selected @endif @endisset>{{$industry}}</option>
                     @endforeach
@@ -46,11 +46,11 @@
                 @enderror
             </div>
             <div class="col-md-3">
-                <label for="channel" class=" col-form-label text-md-right">@lang('auth.store') }}</label>
+                <label for="channel" class=" col-form-label text-md-right">@lang('auth.store') </label>
 
                 <select wire:model.lazy="channel" type="text" class="form-control @error('channel') is-invalid @enderror"
                         name="channel"  >
-                    <option value="">@lang('auth.select')</option>
+                    <option value="">@lang('auth.select-type')</option>
                     @foreach($channels as $channel)
                         <option value="{{$channel}}" @isset($business->industry) @if($business->channel == $channel) selected @endif @endisset>{{$channel}}</option>
                     @endforeach
@@ -63,7 +63,7 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <label for="url" class=" col-form-label text-md-right">@lang('auth.business-url') }}</label>
+                <label for="url" class=" col-form-label text-md-right">@lang('auth.business-url') </label>
 
                 <input wire:model.lazy="url" type="url" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ $business->url ?? '' }}">
 

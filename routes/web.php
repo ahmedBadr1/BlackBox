@@ -122,9 +122,30 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             'middleware' => ['auth']
         ], function () {
 
+
+
             /** ADD ALL auth ROUTES INSIDE THIS GROUP **/
-            Route::get('system', [\App\Http\Controllers\Admin\DashboardController::class, 'system'])->middleware(['role:admin|Feedback'])->name('system');
-            Route::post('/system', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSystem'])->name('system');
+            Route::group([
+                'prefix' => 'system',
+                'as' => 'system.',
+             //   'middleware' => ['permission:system']
+            ], function () {
+
+                Route::get('/',[\App\Http\Controllers\SystemController::class,'index'])->name('index');
+
+                Route::get('/default',[\App\Http\Controllers\SystemController::class,'default'])->name('default');
+                Route::get('/company',[\App\Http\Controllers\SystemController::class,'company'])->name('company');
+                Route::get('/invoices',[\App\Http\Controllers\SystemController::class,'invoices'])->name('invoices');
+                Route::get('/working',[\App\Http\Controllers\SystemController::class,'working'])->name('working');
+                Route::get('/taxes',[\App\Http\Controllers\SystemController::class,'taxes'])->name('taxes');
+
+                Route::post('/store',[\App\Http\Controllers\SystemController::class,'store'])->name('store');
+
+            });
+
+
+
+
             Route::group(['middleware'=>['System']],function (){
                 /** ADD ALL System ROUTES INSIDE THIS GROUP **/
 
@@ -133,6 +154,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::get('help', [\App\Http\Controllers\Admin\DashboardController::class, 'help'])->name('help');
                 Route::get('notifications', [\App\Http\Controllers\Admin\DashboardController::class, 'notifications'])->name('notifications');
                 Route::get('messages', [\App\Http\Controllers\Admin\DashboardController::class, 'messages'])->name('messages');
+                Route::get('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'setting'])->name('setting');
+                Route::post('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
 
                 Route::get('profile', [\App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
                 Route::get('profile/edit', [\App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');

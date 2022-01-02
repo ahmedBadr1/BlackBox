@@ -145,8 +145,8 @@
             @endcan
             @can('system')
                 <li class="slide">
-                    <a class="side-menu__item" href="{{route('admin.system')}}">
-                        <i class="bx bx-cog bx-sm side-menu__icon"></i>
+                    <a class="side-menu__item" href="{{route('admin.system.index')}}">
+                        <i class="bx bxs-message-alt-dots bx-sm side-menu__icon"></i>
                         <span class="side-menu__label">@lang("names.system")</span>
                     </a>
                 </li>
@@ -159,7 +159,12 @@
                     </a>
                 </li>
             @endcan
-
+            <li class="slide">
+                <a class="side-menu__item" href="{{route('admin.setting')}}">
+                    <i class="bx bx-cog bx-sm side-menu__icon"></i>
+                    <span class="side-menu__label">@lang("names.setting")</span>
+                </a>
+            </li>
 
 
         </ul>

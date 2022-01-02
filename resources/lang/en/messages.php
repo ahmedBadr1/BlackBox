@@ -38,4 +38,9 @@ return [
     'change-password'=>'be sure to remember it ',
     'order-not-found' => 'there is no order with this id',
 
+    'company' => 'Change company name, email, contact, logo, etc.',
+    'working' => 'Change working days, reschedule, package limit, etc.',
+    'invoices' => 'Change invoice color, email, address, tax number, notes etc.'
+
+
 ];

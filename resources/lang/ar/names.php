@@ -191,5 +191,13 @@ return [
 
     'delivery-order' => 'طلب توصيل',
 
+    'company' => 'الشركة',
+    'working' => 'العمل',
+    'company-setting' => 'إعدادات الشركة',
+    'working-setting' => 'إعدادات العمل',
+    'invoices-setting' => 'إعدادات الفواتير',
+    'deleted-tasks' => 'المهمات المحذوفة',
+    'deleted-orders' => 'الطلبات المحذوفة' ,
+
 
 ];

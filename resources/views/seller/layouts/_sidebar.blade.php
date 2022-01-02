@@ -53,9 +53,9 @@
                     <span class="side-menu__label">@lang('names.orders')</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item"
-                           href="{{ route('orders.index') }}">@lang("names.manage")}} @lang("names.orders")}}</a></li>
-                    <li><a class="slide-item" href="{{ route('orders.inventory') }}">@lang("names.inventory")}}</a></li>
-                    <li><a class="slide-item" href="{{ route('orders.create') }}">@lang("names.add-order")}} <span
+                           href="{{ route('orders.index') }}">@lang("names.manage-orders")</a></li>
+                    <li><a class="slide-item" href="{{ route('orders.inventory') }}">@lang("names.inventory")</a></li>
+                    <li><a class="slide-item" href="{{ route('orders.create') }}">@lang("names.add-order")<span
                                 class="badge badge-danger side-badge">@lang('names.new')</span></a></li>
                 </ul>
             </li>
@@ -63,7 +63,7 @@
             <li class="slide">
                 <a class="side-menu__item" href="{{route('pickups')}}">
                     <i class='bx bx-box side-menu__icon'></i>
-                    <span  class="side-menu__label">@lang('names.pickups')}}</span>
+                    <span  class="side-menu__label">@lang('names.pickups')</span>
                 </a>
             </li>
 
@@ -71,28 +71,28 @@
             <li class="slide">
                 <a class="side-menu__item " href="{{route('mybalance')}}">
                     <i class="bx bx-dollar side-menu__icon"></i>
-                    <span  class="side-menu__label ">@lang('names.my-balance')}}</span>
+                    <span  class="side-menu__label ">@lang('names.my-balance')</span>
                 </a>
             </li>
 
             <li class="slide">
                 <a class="side-menu__item" href="{{route('price-list')}}">
                     <i class='bx bx-list-check side-menu__icon'></i>
-                    <span  class="side-menu__label">@lang('names.price-list')}}</span>
+                    <span  class="side-menu__label">@lang('names.price-list')</span>
                 </a>
             </li>
 
             <li class="slide">
                 <a class="side-menu__item" href="{{route('locations')}}">
                     <i class="bx  bx-map  side-menu__icon"></i>
-                    <span class="side-menu__label">@lang('names.locations')}}</span>
+                    <span class="side-menu__label">@lang('names.locations')</span>
                 </a>
             </li>
 
             <li class="slide">
                 <a class="side-menu__item" href="{{route('help')}}">
                     <i class="bx  bx-help-circle  side-menu__icon"></i>
-                    <span class="side-menu__label">@lang('names.help')}}</span>
+                    <span class="side-menu__label">@lang('names.help')</span>
                 </a>
             </li>
 
@@ -100,14 +100,14 @@
                 <li class="slide">
                     <a class="side-menu__item" href="{{route('orders.trash')}}">
                         <i class="bx  bx-trash  side-menu__icon"></i>
-                        <span class="side-menu__label">@lang('names.trash')}}</span>
+                        <span class="side-menu__label">@lang('names.trash')</span>
                     </a>
                 </li>
             @endcan
             <li class="slide">
                 <a class="side-menu__item" href="{{route('setting')}}">
                     <i class="bx  bx-cog side-menu__icon"></i>
-                    <span class="side-menu__label">@lang('names.setting')}}</span>
+                    <span class="side-menu__label">@lang('names.setting')</span>
                 </a>
             </li>
 
