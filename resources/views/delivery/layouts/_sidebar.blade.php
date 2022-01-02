@@ -17,7 +17,7 @@
         <div class="app-sidebar__user clearfix">
             <div class="dropdown user-pro-body">
                 <div class="">
-                    <a href="{{route('profile')}}">
+                    <a href="{{route('delivery.profile')}}">
                         <img  class="avatar avatar-xl brround"
                               @if($path = auth()->user()->profile->photo)
                               src="{{ '/storage/' .$path}}"
@@ -53,7 +53,7 @@
                     <span class="right-icon"><i class="bx bxs-chevron-down side-menu__icon"></i></span>
                 </a>
                 <ul class="slide-menu">
-                    <li><a class="slide-item" href="{{ route('delivery.my-orders') }}">@lang("names.my-orders")</a></li>
+                    <li><a class="slide-item" href="{{ route('delivery.my-orders') }}">@lang("auth.my-orders")</a></li>
                 </ul>
             </li>
             <li class="slide">

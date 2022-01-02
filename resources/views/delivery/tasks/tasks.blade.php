@@ -1,25 +1,21 @@
-@extends('admin.layouts.admin')
+@extends('delivery.layouts.delivery')
 
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <h1 class="text-center">@lang("names.all")}} @lang("names.orders")}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
+                <h1 class="text-center">@lang("names.all-tasks")</h1>
+
                 <table class="table table-hover table-responsive-md">
 
                     <thead>
 
 
-                    <th>@lang("names.belong to")}}</th>
-                    <th>@lang("names.type")}}</th>
+                    <th>@lang("auth.belong-to")</th>
+                    <th>@lang("auth.type")</th>
 
-                    <th>@lang("names.created_at")}}</th>
+                    <th>@lang("auth.created-at")</th>
 
                     </thead>
 
@@ -37,12 +33,12 @@
                                 @if(!$task->done_at)
                                     <form action="{{route('delivery.tasks.done',$task->id) }}" method="POST">
                                         @csrf
-                                        <input type="submit" class="btn btn-secondary"  value="done">
+                                        <input type="submit" class="btn btn-secondary"  value="@lang('auth.done')">
                                     </form>
                                 @else
                                     <form action="{{route('delivery.tasks.undone',$task->id) }}" method="POST">
                                         @csrf
-                                        <input type="submit" class="btn btn-secondary"  value="undone">
+                                        <input type="submit" class="btn btn-secondary"  value="@lang('auth.undone')">
                                     </form>
                                 @endif
                             </td>

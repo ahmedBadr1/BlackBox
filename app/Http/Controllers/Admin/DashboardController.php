@@ -182,7 +182,7 @@ class DashboardController extends Controller
 
         $user->push();
 
-        toastr()->success('Profile Updated Successfully','Profile Updated');
+        toastr()->success('Profile Updated Successfully');
         return redirect()->route('admin.profile');
     }
 

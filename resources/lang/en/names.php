@@ -197,4 +197,5 @@ return [
     'deleted-orders' => 'Deleted Orders' ,
 
     'archive' => 'Archive',
+    'my-orders' => 'My Orders',
 ];

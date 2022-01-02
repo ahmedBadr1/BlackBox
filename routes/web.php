@@ -158,7 +158,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
 //                Route::post('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
 
                 Route::get('profile', [\App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
-                Route::get('profile/edit', [\App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');
+      //          Route::get('profile/edit', [\App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');
                 Route::put('profile/', [\App\Http\Controllers\Admin\DashboardController::class, 'profileUpdate'])->name('profile.update');
                 Route::get('sellers', [\App\Http\Controllers\Admin\DashboardController::class, 'sellers'])->name('sellers');
                 Route::get('trash', [\App\Http\Controllers\Admin\DashboardController::class, 'trash'])->name('trash');
@@ -244,8 +244,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             'middleware' => ['role:delivery']
         ], function () {
             Route::get('dashboard',[\App\Http\Controllers\Delivery\DashboardController::class,'index'])->name('dashboard');
+            Route::get('notifications', [\App\Http\Controllers\Delivery\DashboardController::class, 'notifications'])->name('notifications');
             Route::get('profile', [\App\Http\Controllers\Delivery\DashboardController::class, 'profile'])->name('profile');
-            Route::get('profile/edit', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileEdit'])->name('profile.edit');
+         //   Route::get('profile/edit', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileEdit'])->name('profile.edit');
             Route::put('profile/', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileUpdate'])->name('profile.update');
             Route::get('my-orders',[\App\Http\Controllers\Delivery\OrdersController::class,'myorders'])->name('my-orders');
             Route::get('my-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'mytasks'])->name('my-tasks');

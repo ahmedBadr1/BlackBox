@@ -17,7 +17,7 @@
         <div class="app-sidebar__user clearfix">
             <div class="dropdown user-pro-body">
                 <div class="">
-                    <a href="{{route('profile')}}">
+                    <a href="{{route('admin.profile')}}">
                         <img  class="avatar avatar-xl brround"
                               @if($path = auth()->user()->profile->photo)
                               src="{{ '/storage/' .$path}}"

@@ -161,7 +161,7 @@
                             @endforeach
                         </div>
                         <div class="dropdown-footer">
-                            <a href="{{route('notifications')}}">@lang('names.view-all')</a>
+                            <a href="{{route('delivery.notifications')}}">@lang('names.view-all')</a>
                         </div>
                     </div>
                 </div>

@@ -192,4 +192,6 @@ return [
     'company-logo' => 'Company Logo',
     'expected-arrival' => 'Expected Arrival',
 
+    'undone' => 'Un Done',
+
 ];

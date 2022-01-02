@@ -5,28 +5,24 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <h1 class="text-center">@lang("names.all")}} @lang("names.orders")}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
+                <h1 class="text-center">@lang("names.all-orders")</h1>
+
                 <table class="table table-hover table-responsive-md">
 
                     <thead>
 
-                    <th>@lang("auth.id")}} @lang("names.order")}}</th>
-                    <th>@lang("auth.product_name")}}</th>
+                    <th>@lang("auth.order-id")</th>
+                    <th>@lang("auth.product-name")</th>
 
-                    <th>@lang("auth.cust_name")}}</th>
-                    <th>@lang("auth.cust_num")}}</th>
-                    <th>@lang("auth.address")}}</th>
-                    <th>@lang("names.value")}}</th>
-                    <th>@lang("names.count")}}</th>
-                    <th>@lang("names.notes")}}</th>
-                    <th>@lang("names.status")}}</th>
+                    <th>@lang("auth.cust-name")</th>
+                    <th>@lang("auth.cust-num")</th>
+                    <th>@lang("auth.address")</th>
+                    <th>@lang("auth.value")</th>
+                    <th>@lang("auth.count")</th>
+                    <th>@lang("auth.notes")</th>
+                    <th>@lang("auth.status")</th>
 
-                    <th>@lang("auth.username")}}</th>
+                    <th>@lang("auth.username")</th>
 
                     </thead>
 
@@ -37,21 +33,17 @@
                         <tr>
 
                             <td> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
-                            <td>{{$order->product_name}} </td>
-                            <td>{{$order->cust_name}} </td>
-                            <td>{{$order->cust_num}} </td>
-                            <td>{{$order->address}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state->name}}</td>
-                            <td>{{$order->value}} </td>
-                            <td>{{$order->quantity}} </td>
-                            <td>{{$order->notes ?? 'no notes'}} </td>
+                            <td>{{$order->product['name']}} </td>
+                            <td>{{$order->consignee['cust_name']}} </td>
+                            <td>{{$order->consignee['cust_num']}} </td>
+                            <td>{{$order->consignee['address']}},{{ $order->area->name}}, {{$order->state->name}}</td>
+                            <td>{{$order->product['value']}} </td>
+                            <td>{{$order->product['quantity']}} </td>
+                            <td>{{$order->details['notes'] ?? 'no notes'}} </td>
                             <td>{{$order->status->name}}  </td>
 
                             <td>{{ $order->user->name }}</a> </td>
-                            @auth
-                                @role('delivery|Feedback')
-                                <td><a href="{{ route('delivery.orders.status',$order->hashid) }}" class="collapse-item ">@lang("names.order")}} @lang("names.status")}}</a></td>
-                                @endrole
-                            @endauth
+
                         </tr>
 
                     @endforeach

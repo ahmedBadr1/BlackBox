@@ -200,6 +200,6 @@ return [
     'deleted-orders' => 'الطلبات المحذوفة' ,
 
     'archive' => 'الأرشيف',
-
+    'my-orders' => 'طلباتي',
 
 ];

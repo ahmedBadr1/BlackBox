@@ -1,10 +1,18 @@
-@extends('seller.layouts.seller')
-
+@extends('admin.layouts.admin')
+@section('page-header')
+    <h1 class="text-center">@lang('names.all-notifications')</h1>
+@endsection
 @section('content')
 
     <div class="row justify-content-center">
         <div class="col-md-12">
             <h1 class="text-center main-content-title">@lang('names.notifications') </h1>
+
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
 
 
         </div>
@@ -32,9 +40,6 @@
 
         </div>
     </div>
-
-
-
 
 
 

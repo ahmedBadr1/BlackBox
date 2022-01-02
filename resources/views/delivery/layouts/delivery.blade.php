@@ -9,8 +9,11 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="Description" content="">
-    <meta name="Author" content="">
+    <meta name="Author" content="ahmed badr">
     <meta name="Keywords" content=""/>
+
+
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     @include('valex.layouts.head')
     @livewireStyles
     @toastr_css

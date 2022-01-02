@@ -193,6 +193,7 @@ return [
     'company-logo' => 'شعار الشركة',
 
     'expected-arrival' => 'متوقع الوصول',
+    'undone' => 'لم يتم',
 
 
 
