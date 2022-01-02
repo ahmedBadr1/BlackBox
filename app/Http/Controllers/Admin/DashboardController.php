@@ -110,6 +110,13 @@ class DashboardController extends Controller
      //   auth()->user()->notify(new NewUserNotification());
         return \view('admin.notifications',compact('notifications')) ;
     }
+    public function messages()
+    {
+        $messages = null     ;
+        //  dd($notifications);
+        //   auth()->user()->notify(new NewUserNotification());
+        return \view('admin.messages',compact('messages')) ;
+    }
     public function profile()
     {
         $user = Auth::user();

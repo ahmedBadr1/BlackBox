@@ -146,7 +146,7 @@
             @can('system')
                 <li class="slide">
                     <a class="side-menu__item" href="{{route('admin.system.index')}}">
-                        <i class="bx bxs-message-alt-dots bx-sm side-menu__icon"></i>
+                        <i class="bx bx-slider-alt bx-sm side-menu__icon"></i>
                         <span class="side-menu__label">@lang("names.system")</span>
                     </a>
                 </li>
