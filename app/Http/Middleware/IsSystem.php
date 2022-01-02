@@ -21,7 +21,7 @@ class IsSystem
             abort(404);
         }
         if(System::first() === null){
-            return redirect()->route('admin.system');
+            return redirect()->route('admin.system.index');
         }
 
 
