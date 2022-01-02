@@ -195,4 +195,6 @@ return [
     'invoices-setting' => 'Invoices Setting',
     'deleted-tasks' => 'Deleted Tasks',
     'deleted-orders' => 'Deleted Orders' ,
+
+    'archive' => 'Archive',
 ];

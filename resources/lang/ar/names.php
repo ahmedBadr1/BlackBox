@@ -199,5 +199,7 @@ return [
     'deleted-tasks' => 'المهمات المحذوفة',
     'deleted-orders' => 'الطلبات المحذوفة' ,
 
+    'archive' => 'الأرشيف',
+
 
 ];

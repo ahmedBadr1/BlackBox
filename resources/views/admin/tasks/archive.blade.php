@@ -2,12 +2,13 @@
 @section('page-header')
     <h1 >@lang('names.all-tasks')</h1>
     <div class="">
+        @can('task-show')
+            <a href="{{route('admin.tasks.index')}}" class="btn btn-primary">@lang('names.manage-tasks')</a>
+        @endcan
         @can('task-create')
             <a href="{{route('admin.tasks.create')}}" class="btn btn-success">@lang('auth.create-task')</a>
         @endcan
-        @can('task-archive')
-            <a href="{{route('admin.tasks.archive')}}" class="btn btn-dark">@lang('auth.archive')</a>
-        @endcan
+
 
     </div>
 @endsection

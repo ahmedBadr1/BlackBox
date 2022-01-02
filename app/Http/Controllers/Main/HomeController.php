@@ -27,42 +27,38 @@ class HomeController extends Controller
      */
 
     public function track(Request $request ){
-       // dd($request);
+        //   dd($request);
         $order_hashid ='';
         if ($request->query('order_id') !== null){
             $order_hashid = $request->query('order_id');
         }
-        $user =  \auth()->user();
-        $status= null;
-        return view('main.track',compact('user','order_hashid','status'));
+//        $user =  \auth()->user();
+//        $status= null;
+//        $orderLogs=  null;
+
+
+        return view('main.track',compact('order_hashid'));
     }
 
     public function  trackgo(Request $request)
     {
-        //  dd($request['order_id']);
+        //   dd($request->all());
         $this->validate($request,[
-            'order_id' => 'required'
+            'order_id' => 'required|string|max:8|min:8'
         ]);
+
         $order_hashid =  $request['order_id'];
-        $id =    Hashids::Connection(Order::class)->decode($order_hashid);
+
+        $id =    Hashids::Connection(Order::class)->decode(strtolower($order_hashid)) ?? [0];
 
         if($id){
-            $order =Order::find($id[0]);
-            if ($order){
-                $status =  Status::find($order->status_id)->name;
-            }else{
-                $status =  'order-not-found';
-            }
+            $order =Order::with('status')->findOrFail($id[0]);
         }else{
-            $status =  'order-not-found';
+            $order = null;
+
         }
 
-//        if (auth()->user()->id !== $order->user->id){
-//            abort(404);
-//        }
-
-
-        return view('main.track',compact('status','order_hashid'));
+        return view('main.track',compact('order'));
     }
     public function privacyPolicy()
     {

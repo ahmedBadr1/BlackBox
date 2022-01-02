@@ -176,6 +176,8 @@ return [
     'assign-to' => 'المسئول',
     'created-at' => 'وقت الإنشاء',
     'done-at' => 'وقت الانتهاء',
+    'deleted-at' => 'وقت الحذف',
+    'done' => 'تم',
 
     'price' => 'السعر',
     'size' => 'المقاس',
@@ -189,5 +191,10 @@ return [
     'order-id' => 'كود الطلب',
     'contact' => 'التواصل',
     'company-logo' => 'شعار الشركة',
+
+    'expected-arrival' => 'متوقع الوصول',
+
+
+
 
 ];

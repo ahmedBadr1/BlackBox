@@ -50,46 +50,39 @@ class OrdersController extends Controller
         return view('admin.orders.index');
     }
     public function track(Request $request ){
-        // dd($request);
+      //   dd($request);
         $order_hashid ='';
         if ($request->query('order_id') !== null){
             $order_hashid = $request->query('order_id');
         }
-        $user =  \auth()->user();
-        $status= null;
-        $orderLogs=  null;
-        return view('admin.track',compact('user','order_hashid','status','orderLogs'));
+//        $user =  \auth()->user();
+//        $status= null;
+//        $orderLogs=  null;
+
+
+        return view('admin.track',compact('order_hashid'));
     }
 
     public function  trackgo(Request $request)
     {
-        //  dd($request['order_id']);
+       //   dd($request->all());
+        $this->validate($request,[
+            'order_id' => 'required|string|max:8|min:8'
+        ]);
+
         $order_hashid =  $request['order_id'];
+
         $id =    Hashids::Connection(Order::class)->decode(strtolower($order_hashid)) ?? [0];
 
         if($id){
-            $order =Order::findOrFail($id[0]);
-            $status =  Status::find($order->status_id)->name;
+            $order =Order::with('status')->findOrFail($id[0]);
             $orderLogs  = Activity::inLog('Order')->where('subject_id',$id)->select('causer_id','description','properties','updated_at')->get();
-          //  dd($orderLogs);
-
         }else{
-            $status =  null;
-            $orderLogs=  null;
-
+            $order = null;
+            $orderLogs= null;
         }
-//foreach ($orderLogs as $log){
-//  ///  dd($log->properties['attributes']);
-//    foreach ($log->properties['attributes'] as $prop){
-//        dd($prop);
-//    }
-//}
-//        if (auth()->user()->id !== $order->user->id){
-//            abort(404);
-//        }
 
-
-        return view('admin.track',compact('status','order_hashid','orderLogs'));
+        return view('admin.track',compact('order','orderLogs'));
     }
     /**
      * Show the form for creating a new resource.

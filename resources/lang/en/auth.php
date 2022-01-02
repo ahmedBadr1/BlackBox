@@ -175,6 +175,8 @@ return [
     'assign-to' => 'Assign To',
     'created-at' => 'Created At',
     'done-at' => 'Done At',
+    'deleted-at' => 'Deleted At',
+    'done' => 'Done',
 
     'price' => 'Price',
     'size' => 'Size',
@@ -188,5 +190,6 @@ return [
     'order-id' => 'Order ID',
     'contact' => 'Contact',
     'company-logo' => 'Company Logo',
+    'expected-arrival' => 'Expected Arrival',
 
 ];

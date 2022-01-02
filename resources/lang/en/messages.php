@@ -28,8 +28,6 @@ return [
     'no-orders' => 'No Orders Found',
     'price-list' => 'Price list is determined by your pricing plan',
 
-
-
     'business-info'=>'Setup your business account info',
     'business-location'=>'Setup your business account Location',
     'setting'=>'do what yo do best',
@@ -42,6 +40,7 @@ return [
     'working' => 'Change working days, reschedule, package limit, etc.',
     'invoices' => 'Change invoice color, email, address, tax number, notes etc.',
     'trash'  => 'All Trashs',
+    'no-logs' => 'There is no logs for this order',
 
 
 ];
