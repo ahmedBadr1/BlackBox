@@ -145,7 +145,7 @@
                         <div class="form-group row">
 
                             <div class="col-md-6">
-                                <label for="cust_name" class="col-form-label text-md-right">@lang("auth.cust-name")}}</label>
+                                <label for="cust_name" class="col-form-label text-md-right">@lang("auth.cust-name")</label>
                                 <input  type="text" wire:model.lazy="cust_name"  class="form-control @error('cust_name') is-invalid @enderror" name="cust_name" value="{{ old('cust_name') }}"  >
                                 @error('cust_name')
                                 <span class="invalid-feedback" role="alert">

@@ -5,7 +5,7 @@
         <div class="panel panel-default  mb-4">
             <div class="panel-heading1 bg-{{$color}}-gradient ">
                 <h4 class="panel-title1">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#create" aria-expanded="true">@lang('auth.'.$title.'-location')</a>
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#create" aria-expanded="true">@lang('auth.'.$title) @lang('names.locations')</a>
                 </h4>
             </div>
             <div id="create" class="panel-collapse collapse show" role="tabpanel" aria-expanded="true" style="">
@@ -120,9 +120,9 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 ">
                                 <button type="submit" class="btn btn-{{$color}}-gradient">
-                                    @lang('auth.'.$button) }}
+                                    @lang('auth.'.$button)
                                 </button>
                             </div>
                         </div>

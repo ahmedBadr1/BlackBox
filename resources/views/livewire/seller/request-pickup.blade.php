@@ -30,7 +30,7 @@
                        </div>
                        <div class=" col-md-2  mt-2 mt-md-auto ">
                            <button type="submit" class="btn btn-success-gradient">
-                               @lang('auth.create') }}
+                               @lang('auth.create')
                            </button>
                        </div>
                        <div class="col-md-12">

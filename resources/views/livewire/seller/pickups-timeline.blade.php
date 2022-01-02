@@ -19,7 +19,7 @@
                             </div>
                             <div class="timeline-body">
                                 <p>@lang('auth.location') : {{$task->location->name}}</p>
-                                <p>{{$task->notes ?? @lang('names.no-notes')}}</p>
+                                <p>{{$task->notes ?? __('names.no-notes')}}</p>
                             </div>
                             <div class="timeline-footer d-flex  justify-content-between flex-wrap">
 
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 @empty
-                    <p>@lang('messages.no-pickups') }}</p>
+                    <p>@lang('messages.no-pickups') </p>
                     <div class="col-md-8 offset-md-2">
                         <img src="http://blackbox.me/assets/img/svgicons/no-data.svg" alt="" class="mx-auto d-block">
                     </div>

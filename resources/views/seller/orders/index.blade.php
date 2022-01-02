@@ -2,19 +2,8 @@
 
 @section('content')
 
-    <h1 class="main-content-title">@lang("names.all")}} @lang("names.orders")}}</h1>
+    <h1 class="main-content-title">@lang("names.all-orders")</h1>
     <div class="row ">
-
-
-
-
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-
             {{--                @can('order-import')--}}
             <div class="col-sm-4">
                 <form action="{{route('import.orders')}}" enctype="multipart/form-data" method="post">
@@ -35,7 +24,7 @@
             </div>
 
                 <div class="col-sm-4 ">
-                    <a href="{{route('orders.create')}}" class="btn btn-success-gradient">@lang("auth.create")}} @lang("names.order")}}</a>
+                    <a href="{{route('orders.create')}}" class="btn btn-success-gradient">@lang("auth.create") @lang("names.order")</a>
                 </div>
             {{--                @endcan--}}
 

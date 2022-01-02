@@ -5,12 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
 
-            <h1 class="text-center main-content-title">@lang("names.all") @lang("names.my-balance")</h1>
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
+            <h1 class="text-center main-content-title">@lang("names.my-balance")</h1>
 
 
         </div>
@@ -24,7 +19,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="icon1 mt-2 text-center">
-                                <i class='bx bx-cart tx-40'></i>
+                                <i class='bx bx-box tx-40'></i>
                                 {{--                               <div class="tx-25">@lang('names.orders-count')</div>--}}
                             </div>
                         </div>
@@ -69,7 +64,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="icon1 mt-2 text-center">
-                                <i class="fe fe-pie-chart tx-40"></i>
+                                <i class='bx bx-money-withdraw tx-40' ></i>
                             </div>
                         </div>
                         <div class="col-6">
@@ -88,7 +83,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="icon1 mt-2 text-center">
-                                <i class="fe fe-bar-chart-2 tx-40"></i>
+                                <i class='bx bxs-badge-dollar tx-40'></i>
                             </div>
                         </div>
                         <div class="col-6">

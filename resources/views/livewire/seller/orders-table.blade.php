@@ -1,30 +1,32 @@
 <div>
 
-        <div class="row my-3 d-flex">
+        <div class="form-group row my-3 d-flex">
             <div class="col-sm-12 col-md-4">
                 <input type="search" wire:model.debounce.500ms="search" class="form-control" placeholder="search in names">
             </div>
             <div class="col-6 col-md-2">
+
+                <input type="date" class="form-control"  wire:model="startDate">
                 <label for="">From</label>
-                <input type="date" wire:model="startDate">
             </div>
             <div class="col-6 col-md-2">
+
+                <input type="date" class="form-control" wire:model="endDate">
                 <label for="">To</label>
-                <input type="date" wire:model="endDate">
             </div>
             <div class="col-4 col-md-2">
-                <select wire:model="orderBy" class="form-control-sm">
-                    <option>Id</option>
-                    <option value="status_id">Status</option>
-                    <option>cost</option>
-                    <option>discount</option>
-                    <option>tax</option>
-                    <option>total</option>
-                    <option>created_at</option>
+                <select wire:model="orderBy" class="form-control">
+                    <option value="id">@lang('auth.id')</option>
+                    <option value="status_id">@lang('auth.status')</option>
+                    <option value="cost">@lang('auth.cost')</option>
+                    <option value="discount">@lang('auth.discount')</option>
+                    <option value="tax">@lang('auth.tax')</option>
+                    <option value="total">@lang('auth.total')</option>
+                    <option value="created_at">@lang('auth.created_at')</option>
                 </select>
             </div>
             <div class="col-4 col-md-1">
-                <select wire:model="orderDesc" class="custom-select-sm border">
+                <select wire:model="orderDesc" class="form-control">
                     <option value="1">Desc</option>
                     <option value="0">Asc</option>
 
@@ -32,7 +34,7 @@
             </div>
 
             <div class="col-4 col-md-1">
-                <select wire:model="perPage" class="form-control-sm">
+                <select wire:model="perPage" class="form-control">
                     <option>5</option>
                     <option>10</option>
                     <option>25</option>
@@ -53,8 +55,8 @@
         <th>@lang("auth.address")</th>
         <th>@lang("auth.cost")</th>
         <th>@lang("auth.total")</th>
-        <th>@lang("names.notes")</th>
-        <th>@lang("names.status")</th>
+        <th>@lang("auth.notes")</th>
+        <th>@lang("auth.status")</th>
 
         </thead>
 
@@ -79,9 +81,9 @@
                 @auth
                     <td>
                         {{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">@lang('auht.pdf')}}</a>--}}
-                        <a href="{{route('orders.print',$order->hashid)}}" class="btn btn-warning-gradient">@lang('auth.print')}}</a>
+                        <a href="{{route('orders.print',$order->hashid)}}" class="btn btn-warning-gradient">@lang('auth.print')</a>
                     </td>
-                    <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')}}</a></td>
+                    <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')</a></td>
 
                     <td>
                         <button wire:click="edit('{{ $order->hashid }}')" class="btn btn-primary-gradient">@lang('auth.edit')</button>
@@ -105,8 +107,8 @@
 
         @if(count($orders) > 0 )
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning-gradient" wire:click="export" wire:loading.attr="disabled"><small>@lang('auth.download')}}</small></button>
-                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success-gradient">@lang('auth.excel')}}</a>
+                <button type="button" class="btn btn-warning-gradient" wire:click="export" wire:loading.attr="disabled"><small>@lang('auth.download')</small></button>
+                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success-gradient">@lang('auth.excel')</a>
             </div>
         @endif
         <div class="d-flex justify-content-center">

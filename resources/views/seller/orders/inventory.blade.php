@@ -6,33 +6,28 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
 
-                <a href="{{route('orders.ready')}}" class="btn btn-success">@lang("names.ready-orders")}}</a>
+                <a href="{{route('orders.ready')}}" class="btn btn-success">@lang("names.ready-orders")</a>
 
 
 
-                <h1 class="text-center main-content-title">@lang("names.inventory")}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
+                <h1 class="text-center main-content-title">@lang("names.inventory")</h1>
                 <table class="table table-hover table-responsive-md">
 
                     <thead>
                     <th>#</th>
-                    <th>@lang("auth.id")}} @lang("names.order")}}</th>
-                    <th>@lang("auth.product-name")}}</th>
+                    <th>@lang("auth.order-id")</th>
+                    <th>@lang("auth.product-name")</th>
 
-                    <th>@lang("auth.cust-name")}}</th>
-                    <th>@lang("auth.cust-num")}}</th>
-                    <th>@lang("auth.address")}}</th>
-                    <th>@lang("auth.cost")}}</th>
-                    <th>@lang("auth.total")}}</th>
+                    <th>@lang("auth.cust-name")</th>
+                    <th>@lang("auth.cust-num")</th>
+                    <th>@lang("auth.address")</th>
+                    <th>@lang("auth.cost")</th>
+                    <th>@lang("auth.total")</th>
 
-                    <th>@lang("names.notes")}}</th>
-                    <th>@lang("names.status")}}</th>
+                    <th>@lang("auth.notes")</th>
+                    <th>@lang("auth.status")</th>
 
-                    <th>@lang("auth.actions")}}</th>
+                    <th>@lang("auth.actions")</th>
 
                     </thead>
 
@@ -66,12 +61,12 @@
                                         <input type="submit" class="btn btn-secondary-gradient" @if($order->status->id === 2)
                                         disabled
                                                @endif
-                                        value="@lang('names.ready-for-pickup')}}">
+                                        value="@lang('names.ready-for-pickup')">
                                     </form>
                                     <form action="{{route('orders.destroy',$order->hashid) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="submit" class="btn btn-danger-gradient" value="@lang('auth.delete')}}">
+                                        <input type="submit" class="btn btn-danger-gradient" value="@lang('auth.delete')">
                                     </form>
                                 </td>
 
@@ -80,7 +75,7 @@
 
                     @empty
                         <tr>
-                            <td colspan="3">No Orders Found</td>
+                            <td colspan="3">@lang('messages.no-orders')</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -88,11 +83,14 @@
                 </table>
                 @if(count($orders) > 2 )
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="{{route('orders.inventory.export.'.app()->getLocale())}}" class="btn btn-success">@lang('auth.export')}}</a>
+                        <a href="{{route('orders.inventory.export.'.app()->getLocale())}}" class="btn btn-success">@lang('auth.export')</a>
                     </div>
                 @endif
 
-                {{ $orders->links() }}
+                <div class="d-flex justify-content-center">
+                    {{ $orders->links() }}
+                </div>
+
             </div>
 {{--            <input type="submit" class="btn-secondary" value="pick up">--}}
         </div>

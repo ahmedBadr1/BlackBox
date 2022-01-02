@@ -50,7 +50,7 @@
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="{{ url('/' . $page='#') }}">
                     <i class='bx bx-basket side-menu__icon' ></i>
-                    <span class="side-menu__label">@lang('names.orders')</span><i class="angle fe fe-chevron-down"></i></a>
+                    <span class="side-menu__label">@lang('names.orders')</span>  <span><i class='bx bxs-left-arrow angle '></i></span></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item"
                            href="{{ route('orders.index') }}">@lang("names.manage-orders")</a></li>
