@@ -5,7 +5,7 @@
                 <input type="search" wire:model.debounce.400ms="search" class="form-control" placeholder="search in names">
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderBy" class="form-control-sm">
+                <select wire:model="orderBy" class="form-control">
                     <option>Id</option>
                     <option>Name</option>
                     <option>Email</option>
@@ -14,13 +14,13 @@
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderAsc" class="custom-select-sm border">
+                <select wire:model="orderAsc" class="form-control">
                     <option value="1">Asc</option>
                     <option value="0">Desc</option>
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="perPage" class="form-control-sm">
+                <select wire:model="perPage" class="form-control">
                     <option>5</option>
                     <option>10</option>
                     <option>25</option>

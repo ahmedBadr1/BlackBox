@@ -36,7 +36,7 @@
 
                             <td>
                                 @forelse($plan->features as $feature)
-                                   <span class="badge badge-primary">
+                                   <span class="badge badge-success-transparent">
                                        <a href="{{route('admin.features.show',$feature->feature_id)}}">{{ $feature->name }}</a>
                                    </span>
                                 @empty

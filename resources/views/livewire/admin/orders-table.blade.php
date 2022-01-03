@@ -5,7 +5,7 @@
                 <input type="search" wire:model="search" class="form-control" placeholder="search in names">
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderBy" class="form-control-sm">
+                <select wire:model="orderBy" class="form-control">
                     <option>Id</option>
                     <option>Value</option>
 
@@ -18,20 +18,24 @@
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderDesc" class="custom-select-sm border">
+                <select wire:model="orderDesc" class="form-control">
                     <option value="1">Desc</option>
                     <option value="0">Asc</option>
 
                 </select>
             </div>
             <div class="col-xs-2">
+
+                <input type="date" wire:model="startDate" class="form-control">
                 <label for="">From</label>
-                <input type="date" wire:model="startDate">
+
+            </div>
+            <div class="col-2">
+                <input type="date" wire:model="endDate" class="form-control">
                 <label for="">To</label>
-                <input type="date" wire:model="endDate">
             </div>
             <div class="col-xs-2">
-                <select wire:model="perPage" class="form-control-sm">
+                <select wire:model="perPage" class="form-control">
                     <option>5</option>
                     <option>10</option>
                     <option>25</option>
