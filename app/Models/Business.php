@@ -16,7 +16,6 @@ class Business extends Model
         'industry',
         'channel',
         'url',
-
     ];
     public static $industries = [
         'books and arts',

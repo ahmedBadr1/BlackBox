@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Delivery;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\Order;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,15 @@ class DashboardController extends Controller
     {
         return view('delivery.dashboard');
     }
+
+    public function notifications()
+    {
+        $notifications =  \auth()->user()->notifications;
+        //  dd($notifications);
+        //   auth()->user()->notify(new NewUserNotification());
+        return view('delivery.notifications',compact('notifications')) ;
+    }
+
     public function profile()
     {
         $user = Auth::user();
@@ -23,20 +33,13 @@ class DashboardController extends Controller
             $allTasks = $user->taskson->count();
 
             $doneTasks = $user->taskson->whereNotNull('done_at',)->count();
-
+     //   $count = Order::where('delivery_id',$user->id)->where('status_id',6)->count();
 
 
         $allOrders = $user->custody->count();
         $doneOrders = $user->custody->where('status_id','6')->count();
 
-        return view('delivery.profile.index', compact('user','allTasks','doneTasks','allOrders','doneOrders'));
-    }
-    public function profileEdit()
-    {
-        $user = Auth::user();
-        $states= State::where('active',true)->get();
-        $areas = Area::pluck('name')->all();
-        return view('delivery.profile.edit', compact('user','states','areas'));
+        return view('delivery.profile', compact('user','allTasks','doneTasks','allOrders','doneOrders'));
     }
     public function profileUpdate(Request $request)
     {
@@ -45,14 +48,12 @@ class DashboardController extends Controller
 
         $this->validate($request,[
             'name'=>'required',
-            'bio'=> '',
+            'bio'=> 'nullable',
             'email'=>'required|email',
             'phone'=>'required|numeric',
-            'address'=> '',
-            'area'=> '',
-            'state'=> 'required',
-            'profile_photo'=> 'image',
-            'url'=> '',
+            'address'=> 'nullable|string',
+            'photo'=> 'nullable|image',
+            'url'=> 'nullable|url',
         ]);
 
         $input = $request->all();
@@ -73,21 +74,21 @@ class DashboardController extends Controller
             $user->profile->profile_photo = $photoPath;
 
         }
-        if($input['bio']){
+        if(isset($input['bio'])){
             $user->profile->bio = $input['bio'];
         }
-        if($input['address']){
+        if(isset($input['address'])){
             $user->profile->address = $input['address'];
         }
-        if($input['area']){
-            $user->profile->area = $input['area'];
-        }
-        if($input['url']){
+        if(isset($input['url'])){
             $user->profile->url = $input['url'];
         }
 
         $user->push();
+
         toastr()->success('Profile Updated Successfully','Profile Updated');
         return redirect()->route('delivery.profile');
     }
+
+
 }

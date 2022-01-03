@@ -54,7 +54,7 @@ class TaskController extends Controller
         $types = Task::$types  ;
      //      unset($types[0])   ; // delete pickup from here
 
-        $sellers = User::role('seller')->select('id','name')->get();
+        $sellers = User::whereHas('business')->role('seller')->select('id','name')->get();
         $deliveries = User::role('delivery')->select('id','name')->get();
       //  dd($deliveries);
         return  view('admin.tasks.create',compact('deliveries','types','sellers'));
@@ -68,19 +68,21 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
       //  dd($request->all());
         $this->validate($request,[
            'type' => 'required',
-            'user_id' => 'required',
-            'location_id' => 'required',
+            'user_id' => 'required|numeric',
+        //    'location_id' => 'required',
             'due_to' => 'required',
             'delivery_id' => 'required',
             'notes' => 'nullable',
         ]);
         $input= $request->all();
-
-
+        $user = User::with(['business' => fn($q)=> $q->with('location')])->findOrFail($input['user_id']);
+      //  dd($user->business->location);
+        if ($user->business->location){
+            $input['location_id'] =  $user->business->location?->id;
+        }
    //     $input['user_id'] =  auth()->user()->id;
         Task::create($input);
         toastr()->success('Task created Successfully','Task created');

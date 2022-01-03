@@ -68,7 +68,7 @@
 
         </div>
         <div class="col-md-4">
-            <img src="{{ asset('storage/'.sys('company_logo')) }}" width="200px" alt="logo">
+            <img src="{{ asset('storage/'.sys('company_logo') ) }}" class="rounded-5 border-" width="200px" alt="logo">
         </div>
     </div>
 @endsection

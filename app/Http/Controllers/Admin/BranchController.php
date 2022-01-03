@@ -189,16 +189,18 @@ class BranchController extends Controller
         ]);
         $input = $request->all();
         $branch = Branch::findOrFail($id);
+
         foreach ($input['users'] as $id){
-            $user = User::where('id',$id)->with(['branch'=>fn($q)=> $q->withCount('users')])->first();
-            dd($user);
-            if($user->branch->users_count === 1){
-                continue;
-            }
+          //  $user = User::where('id',$id)->with(['branch'=>fn($q)=> $q->withCount('users')])->first(); //later
+//            if($user->branch->users_count === 1){
+//                toastr()->warning( 'Last man standing at '.$user->branch->name . ' Branch','brnach is falling');
+//                return ;
+//            }
+            $user = User::findOrFail($id);
             $branch->users()->save($user);
         }
-        toastr()->warning( 'Last man standing at '.$user->branch->name . ' Branch','brnach is falling');
-        //toastr()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
+
+        toastr()->success( ' Users Assigned Successfully To '.$branch->name . ' Branch','Users Assigned');
         return redirect()->route('admin.branches.index');
     }
     public function close($id){

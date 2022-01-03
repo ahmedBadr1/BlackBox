@@ -119,10 +119,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Plan::class);
     }
-    public function location()
-    {
-        return $this->hasOne(Location::class);
-    }
     public function branch()
     {
         return $this->belongsTo(Branch::class);
