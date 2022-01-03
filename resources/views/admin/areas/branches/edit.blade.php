@@ -37,26 +37,9 @@
                     <div class="form-group row">
 
                         <div class="col-md-6">
-                            <label for="location_id" class=" col-form-label text-md-right"> @lang("auth.location")</label>
-                            <input  type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ $branch->location?->name }}"  >
-                            @error('location')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                        <div class="col-md-6">
-                            <label for="state" class=" col-form-label text-md-right">@lang('location')</label>
-                            <select name="location_id"  class="form-control @error('location_id') is-invalid @enderror">
-                                <option value="" selected>@lang('auth.select-location')</option>
-                                @foreach($locations as $location)
-                                    <option value="{{$location->id}}"
-                                            @if($location->id === $branch->location_id)
-                                            selected
-                                        @endif>{{$location->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('location_id')
+                            <label for="address" class=" col-form-label text-md-right"> @lang("auth.address")</label>
+                            <input  type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $branch->address }}"  >
+                            @error('address')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -64,7 +47,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="state" class=" col-form-label text-md-right">@lang('auth.state')</label>
-                            <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">
+                            <select name="state_id" id="state_id" class="form-control select2 @error('state_id') is-invalid @enderror">
                                 <option value="" selected>@lang('auth.select-state')</option>
                                 @foreach($states as $state)
                                     <option value="{{$state->id}}"

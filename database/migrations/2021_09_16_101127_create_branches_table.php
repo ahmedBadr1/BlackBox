@@ -17,6 +17,7 @@ class CreateBranchesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->string('address');
             $table->foreignIdFor(\App\Models\State::class);
             $table->foreignIdFor(\App\Models\User::class);
             $table->boolean('active')->default(1);

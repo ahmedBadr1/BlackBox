@@ -38,9 +38,9 @@
                     <div class="form-group row">
 
                         <div class="col-md-6">
-                            <label for="location" class="col-form-label text-md-right"> @lang("auth.location")</label>
-                            <input  type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ old('location') }}"  autocomplete="name" autofocus>
-                            @error('location')
+                            <label for="address" class="col-form-label text-md-right"> @lang("auth.address")</label>
+                            <input  type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}"  autocomplete="name" autofocus>
+                            @error('address')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

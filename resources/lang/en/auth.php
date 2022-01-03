@@ -194,5 +194,6 @@ return [
     'expected-arrival' => 'Expected Arrival',
 
     'undone' => 'Un Done',
-
+    'close' => 'Close',
+    'open' => 'Open',
 ];

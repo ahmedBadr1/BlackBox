@@ -195,6 +195,8 @@ return [
 
     'expected-arrival' => 'متوقع الوصول',
     'undone' => 'لم يتم',
+    'close' => 'إغلاق',
+    'open' => 'فتح',
 
 
 

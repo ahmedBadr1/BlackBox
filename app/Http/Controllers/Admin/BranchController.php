@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
-use App\Models\Location;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,7 +30,7 @@ class BranchController extends Controller
         //
         $branches = Branch::with(['manager'=> function($query) {
         $query->select('id','name');
-            },'state'=> fn($q) => $q->select('id','name'),'location'=> fn($q) => $q->select('id','name')])
+            },'state'=> fn($q) => $q->select('id','name')])
             ->orderBy('id','DESC')
             ->paginate(10);
 //dd($branches);
@@ -66,7 +65,7 @@ class BranchController extends Controller
         $this->validate($request,[
             'name'=>'required|unique:branches,name',
             'phone'=>'required|numeric',
-            'location'=>'required',
+            'address'=>'required',
             'state_id'=>'required|numeric',
             'user_id'=>'required|numeric',
         ]);
@@ -116,9 +115,7 @@ class BranchController extends Controller
         $managers =User::role(['manager'])->select('id','name')->get();
       //  dd($managers);
         $states= State::where('active',true)->get();
-        $locations = Location::select('id','name')->get();
-     //   dd($locations);
-       return view('admin.areas.branches.edit',compact('branch','managers','states','locations'));
+       return view('admin.areas.branches.edit',compact('branch','managers','states'));
 
     }
 
@@ -134,7 +131,7 @@ class BranchController extends Controller
         $this->validate($request,[
             'name'=>'required',
             'phone'=>'required',
-            'location'=>'required',
+            'address'=>'required',
             'state_id'=>'required|numeric',
             'user_id'=>'required|numeric',
         ]);

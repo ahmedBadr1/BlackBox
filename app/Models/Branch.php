@@ -17,6 +17,7 @@ class Branch extends Model
         'phone',
         'state_id',
         'user_id',
+        'address'
     ];
 
     protected static $recordEvents = ['updated','deleted'];

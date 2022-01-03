@@ -2,7 +2,7 @@
 @section('page-header')
     <h1 class="text-center">{{$branch->name}} @lang("auth.assign") </h1>
     <div class="">
-        <a href="{{route('admin.branches.index')}}">@lang("names.manage-branches") </a>
+        <a href="{{route('admin.branches.index')}}" class="btn btn-primary">@lang("names.manage-branches") </a>
     </div>
 @endsection
 @section('content')
