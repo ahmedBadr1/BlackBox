@@ -99,7 +99,6 @@ class PermissionsSeeder extends Seeder
             'name' => 'feedback',
             'email' => 'admin@blackbox.com',
             'phone' => '01098281638',
-            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
 
@@ -111,10 +110,8 @@ class PermissionsSeeder extends Seeder
             'name' => 'owner',
             'email' => 'owner@blackbox.com',
             'phone' => '01090007769',
-            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
-
         ]);
         $user->assignRole($role2);
 
@@ -124,10 +121,8 @@ class PermissionsSeeder extends Seeder
             'name' => 'manager',
             'email' => 'manager@blackbox.com',
             'phone' => '01090007769',
-            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
-
         ]);
         $user->assignRole($role3);
 
@@ -138,7 +133,6 @@ class PermissionsSeeder extends Seeder
             'name' => 'delivery',
             'email' => 'delivery@blackbox.com',
             'phone' => '01100068386',
-            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>bcrypt('delivery@blackbox.com'),
 
@@ -151,7 +145,6 @@ class PermissionsSeeder extends Seeder
             'name' => 'seller',
             'email' => 'seller@blackbox.com',
             'phone' => '01100068386',
-            'state_id' => '1',
             'hearAboutUs' => 'system',
             'password'=>$password,
         ]);

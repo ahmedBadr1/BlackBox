@@ -5,7 +5,7 @@
                 <input type="search" wire:model="search" class="form-control" placeholder="search in names">
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderBy" class="form-control-sm">
+                <select wire:model="orderBy" class="form-control">
                     <option>Id</option>
                     <option>Value</option>
 
@@ -18,20 +18,24 @@
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderDesc" class="custom-select-sm border">
+                <select wire:model="orderDesc" class="form-control">
                     <option value="1">Desc</option>
                     <option value="0">Asc</option>
 
                 </select>
             </div>
             <div class="col-xs-2">
+
+                <input type="date" wire:model="startDate" class="form-control">
                 <label for="">From</label>
-                <input type="date" wire:model="startDate">
+
+            </div>
+            <div class="col-2">
+                <input type="date" wire:model="endDate" class="form-control">
                 <label for="">To</label>
-                <input type="date" wire:model="endDate">
             </div>
             <div class="col-xs-2">
-                <select wire:model="perPage" class="form-control-sm">
+                <select wire:model="perPage" class="form-control">
                     <option>5</option>
                     <option>10</option>
                     <option>25</option>
@@ -41,20 +45,20 @@
             </div>
         </div>
         <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-md">
 
         <thead>
         <th>#</th>
-        <th>{{__("auth.id")}} {{__("names.order")}}</th>
-        <th>{{__("auth.product_name")}}</th>
-        <th>{{__("auth.cust_name")}}</th>
-        <th>{{__("auth.cust_num")}}</th>
-        <th>{{__("auth.address")}}</th>
-        <th>{{__("names.total")}}</th>
-        <th>{{__("names.cost")}}</th>
-        <th>{{__("names.notes")}}</th>
-        <th>{{__("names.status")}}</th>
-        <th>{{__("auth.username")}}</th>
+        <th>@lang("auth.id") @lang("names.order")</th>
+        <th>@lang("auth.product-name")</th>
+        <th>@lang("auth.cust-name")</th>
+        <th>@lang("auth.cust-num")</th>
+        <th>@lang("auth.address")</th>
+        <th>@lang("auth.total")</th>
+        <th>@lang("auth.cost")</th>
+        <th>@lang("auth.notes")</th>
+        <th>@lang("auth.status")</th>
+        <th>@lang("auth.username")</th>
 
         </thead>
 
@@ -77,29 +81,31 @@
                 <td>{{$order->status->name}} </td>
 
                 <td><a href="{{route('admin.users.show',$order->user_id)}}">{{ $order->user->name }}</a> </td>
-                @auth
-                    @role('seller|Feedback')
-                    <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
-                    @endrole
-                    <td>
-{{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">{{__('auht.pdf')}}</a>--}}
-                        <a href="{{route('admin.orders.print',$order->hashid)}}" class="btn btn-outline-warning">{{__('auth.print')}}</a>
-                    </td>
 
-                    @role('seller|Feedback')
+
+                    <td><a href="{{route('admin.track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')</a></td>
+
+{{--                    <td>--}}
+{{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">@lang('auht.pdf')}}</a>--}}
+{{--                        <a href="{{route('admin.orders.print',$order->hashid)}}" class="btn btn-outline-warning">@lang('auth.print')</a>--}}
+{{--                    </td>--}}
+
+                    @canany(['edit-order','delete-order'])
                     <td class="d-flex flex-column ">
 
-
-                  <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">{{__('auth.edit')}}</a>
-
+                        @can('edit-order')
+                  <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">@lang('auth.edit')</a>
+                        @endcan
+                            @can('delete-order')
                         <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
+                            <input type="submit" class="btn btn-danger" value="@lang('auth.delete')">
                         </form>
+                            @endcan
                     </td>
-                    @endrole
-                @endauth
+                    @endcanany
+
             </tr>
 
         @empty
@@ -115,12 +121,12 @@
 
         @if(count($orders) > 0 )
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>{{__('auth.download')}}</small></button>
-                <a href="{{route('admin.export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('auth.excel')}}</a>
+                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>@lang('auth.download')</small></button>
+                <a href="{{route('admin.export.orders.'.app()->getLocale())}}" class="btn btn-success">@lang('auth.excel')</a>
             </div>
         @endif
         <div class="d-flex justify-content-center">
-            {{ $orders->links('vendor.pagination.bootstrap-4') }}
+            {{ $orders->links() }}
         </div>
     </div>
 </div>
@@ -142,16 +148,16 @@
 {{--            <span class="mb-2 text-xs">Notes: <span class="text-dark ms-2 font-weight-bold">{{\Illuminate\Support\Str::limit($order->notes, 20) ?? 'no notes'}}</span></span>--}}
 
 {{--            <span class="text-xs">Track ID : <a href="{{ route('admin.orders.show',$order->hashid) }}" style="max-width: 100px "> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></span>--}}
-{{--            <span class="text-xs"><a href="{{route('admin.track',['order_id' => $order->hashid])}}"  class="text-dark ms-2 font-weight-bold" >{{__('names.track')}}</a></span>--}}
+{{--            <span class="text-xs"><a href="{{route('admin.track',['order_id' => $order->hashid])}}"  class="text-dark ms-2 font-weight-bold" >@lang('names.track')}}</a></span>--}}
 {{--        </div>--}}
 {{--        <div class="ms-auto">--}}
 {{--            <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">--}}
 {{--                @csrf--}}
 {{--                @method('DELETE')--}}
 {{--                <i class="far fa-trash-alt me-2" aria-hidden="true"></i>--}}
-{{--                <input type="submit"  value="{{__('auth.delete')}}">--}}
+{{--                <input type="submit"  value="@lang('auth.delete')}}">--}}
 {{--            </form>--}}
-{{--            <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>{{__('auth.edit')}}</a>--}}
+{{--            <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>@lang('auth.edit')}}</a>--}}
 {{--        </div>--}}
 {{--    </li>--}}
 

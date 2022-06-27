@@ -19,14 +19,24 @@ class Location extends Model
         'landmarks',
         'longitude',
         'latitude',
-        'user_id',
-        'branch_id',
+        'model_type',
+        'model_id',
     ];
 
     public function state()
     {
         return $this->belongsTo(State::class);
     }
+
+    public function locationable()
+    {
+        return $this->morphTo();
+    }
+
+//    public function user()
+//    {
+//        return $this->belongsTo(User::class ,'model_id')->where('model_type','User');
+//    }
 
     public function area()
     {

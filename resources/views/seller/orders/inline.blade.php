@@ -2,58 +2,49 @@
 
 @section('content')
 
-    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @role('seller|Feedback')
-                <a href="{{route('orders.create')}}" class="btn btn-success">{{__("auth.create")}} {{__("names.order")}}</a>
-                @endrole
-                <div class="">
-                    <form action="{{route('orders.pickup') }}" method="POST">
-                        @csrf
-                        <input type="submit" class="btn btn-dark"   onclick="return confirm('Sure Want Order pickup?')" value="{{__('auth.request pickup')}}">
-                    </form>
+                <h1 class="text-center main-content-title">@lang("names.ready-for-pickup") </h1>
+                <div class="my-2">
+                    <a href="{{route('pickups')}}" class="btn btn-dark">
+                        @lang('names.request-pickup')
+                    </a>
                 </div>
-
-                <h1 class="text-center">{{__("names.Ready for pickup")}} {{__("names.orders")}}</h1>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-
 
                     @forelse($orders as $key => $order)
 
                         <div class="card">
                             <div class="card-header">
-                                {{++$key}} :  <a href="{{ route('orders.show',$order->hashid) }}">{{$order->product_name}} </a> <span>   @php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</span>
+                                {{++$key}} :  <a href="{{ route('orders.show',$order->hashid) }}"> {{$order->hashid}}</a> <span>   @php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</span>
                             </div>
                             <div class="card-body">
-                                {{$order->cust_name}} :{{$order->cust_num}}
-                                <p>{{$order->address}}, <a href="{{route('areas.show',$order->area->id)}}">{{ $order->area->name}}</a>, {{$order->state->name}}</p>
-                                {{$order->value}} :{{$order->quantity}}
-                                <p>{{$order->notes ?? 'no notes'}}</p>
-                                <div class="badge badge-primary">{{$order->status->name}}</div>
+                                <h3>@lang('auth.status') : @lang('names.'.$order->status->name)</h3>
+                                {{$order->consignee['cust_name']}} :{{$order->consignee['cust_num']}}
+                                <p>{{$order->consignee['address']}},{{ $order->area->name}}, {{$order->state->name}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <p> @lang('auth.cost') :{{$order->cost}}</p>
+                                    <p>@lang('auth.total') : {{$order->total}}</p>
+                                    <p>{{$order->notes ?? 'no notes'}}</p>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <div>
                                     <form action="{{route('orders.wait',$order->hashid) }}" method="POST">
                                         @csrf
-                                        <input type="submit" class="btn btn-danger" value="{{__('auth.Remove-line')}}">
+                                        <input type="submit" class="btn btn-danger" value="@lang('names.not-ready')">
                                     </form>
                                 </div>
                             </div>
                         </div>
                     @empty
                     <div class="card">
-                            <div class="card-header">No Orders Found</div>
+                            <div class="card-header">@lang('messages.no-orders')</div>
                     </div>
                     @endforelse
                 {{ $orders->links() }}
             </div>
 
         </div>
-    </div>
+
 @endsection
 

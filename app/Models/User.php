@@ -20,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
         Notifiable,
         HasRoles,
         LogsActivity;
-
+    use \Znck\Eloquent\Traits\BelongsToThrough;
 
     /**
      * The attributes that are mass assignable.
@@ -31,9 +31,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'phone',
-        'state_id',
+        'business_id',
         'hearAboutUs',
         'password',
+        'google_id',
 
     ];
 
@@ -85,20 +86,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->created_at->diffForHumans();
     }
 
-    public static function search($search)
-    {
-        return empty($search) ? static::query()
-            : static::query()->where('id', 'like', '%'.$search.'%')
-                ->orWhere('name', 'like', '%'.$search.'%')
-                ->orWhere('email', 'like', '%'.$search.'%')
-                ->orWhere('phone', 'like', '%'.$search.'%')
-                ->orWhereHas('roles', fn($q) => $q->where('name','like', '%'.$search.'%'))
-                ->orWhereHas('branch', fn($q) => $q->where('name','like', '%'.$search.'%'));
-    }
-
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function ordersMonthly($month)
+    {
+        return $this->hasMany(Order::class)->whereMonth('created_at',$month);
     }
     public function custody(){
         return $this->hasMany(Order::class,'delivery_id');
@@ -108,6 +103,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Receipt::class);
     }
+//    public function state()
+//    {
+//        return  $this->belongsToThrough('App\Models\State',[ 'App\Models\Business','App\Models\Location']);
+//    }
     public function latestOrder()
     {
         return $this->hasOne(Order::class)->latestOfMany();
@@ -120,18 +119,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Plan::class);
     }
-    public function location()
-    {
-        return $this->hasOne(Location::class);
-    }
     public function branch()
     {
         return $this->belongsTo(Branch::class);
     }
-    public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
+
     public function zone()
     {
         return  $this->belongsToMany(Zone::class);
@@ -139,15 +131,42 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function locations()
     {
-        return $this->hasMany(Location::class);
+        return $this->morphMany(Location::class, 'locationable');
+    }
+    public function latestLocation()
+    {
+        return $this->morphOne(Location::class, 'locationable')->latestOfMany();
     }
     public function tasks()
     {
         return $this->hasMany(Task::class);
     }
-    public function taskson()
+    public function pickups()
+    {
+        return $this->hasMany(Task::class)->where('type','pickup');
+    }
+    public function dropoffs()
+    {
+        return $this->hasMany(Task::class)->where('type','dropoff');
+    }
+    public function tasksOn()
     {
         return $this->hasMany(Task::class,'delivery_id');
+    }
+    public function business()
+    {
+        return  $this->belongsTo(Business::class);
+    }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query()
+            : static::query()->where('id', 'like', '%'.$search.'%')
+                ->orWhere('name', 'like', '%'.$search.'%')
+                ->orWhere('email', 'like', '%'.$search.'%')
+                ->orWhere('phone', 'like', '%'.$search.'%')
+                ->orWhereHas('roles', fn($q) => $q->where('name','like', '%'.$search.'%'));
+           //     ->orWhereHas('branch', fn($q) => $q->where('name','like', '%'.$search.'%'));
     }
 
 }

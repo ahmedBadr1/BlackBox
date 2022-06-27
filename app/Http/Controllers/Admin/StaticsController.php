@@ -31,9 +31,10 @@ class StaticsController extends Controller
 
         $chart_options2 = [
             'chart_title' => 'Balance of sellers',
-            'chart_type' => 'bar',
+            'chart_type' => 'pie',
             'report_type' => 'group_by_relationship',
             'model' => 'App\Models\Order',
+            'chart_color' => "#191919",
 
             'relationship_name' => 'user', // represents function orders() on User model
             'group_by_field' => 'name', // users.name
@@ -48,6 +49,6 @@ class StaticsController extends Controller
         $chart2 = new LaravelChart($chart_options2);
 
 
-        return view('admin.statics.index',compact('chart1','chart2'));
+        return view('admin.reports.index',compact('chart1','chart2'));
     }
 }

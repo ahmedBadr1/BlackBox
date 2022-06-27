@@ -1,37 +1,30 @@
 @extends('admin.layouts.admin')
-
+<h1 class="text-center">@lang('names.trash')</h1>
 @section('content')
-    <div class="container">
+
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center">Trash</h1>
-                <p>{{ __('messages.trash') }}</p>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
 
                 @can('task-show')
-                    <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
-                        <div class="card-header">{{__("names.deleted")}} {{__("names.count")}} {{__("names.Tasks")}} </div>
+                    <div class="card  m-3 col-md-4"  style="max-width: 18rem;">
+                        <h3 class="card-header">@lang("names.deleted-tasks") </h3>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{route('admin.tasks.trash')}}">{{$deletedTasks}} {{__("names.Tasks")}}</a></h5>
+                            <h5 class="card-title"><a href="{{route('admin.tasks.trash')}}">{{$deletedTasks}} @lang("names.tasks")</a></h5>
                         </div>
                     </div>
                 @endcan
                 @can('task-show')
-                    <div class="card text-white bg-primary m-3 col-md-4"  style="max-width: 18rem;">
-                        <div class="card-header">{{__("names.deleted")}} {{__("names.count")}} {{__("names.Tasks")}} </div>
+                    <h3 class="card  m-3 col-md-4"  style="max-width: 18rem;">
+                        <div class="card-header">@lang("names.deleted-orders")</div>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{{route('admin.orders.trash')}}">{{$deletedOrders}} {{__("names.Orders")}}</a></h5>
+                            <h5 class="card-title"><a href="{{route('admin.orders.trash')}}">{{$deletedOrders}} @lang("names.orders")</a></h5>
                         </div>
-                    </div>
+                    </h3>
                 @endcan
 
             </div>
         </div>
-    </div>
+
 
 
 @endsection

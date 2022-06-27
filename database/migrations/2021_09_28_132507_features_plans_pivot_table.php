@@ -17,8 +17,8 @@ class FeaturesPlansPivotTable extends Migration
         Schema::create('feature_plan', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignIdFor(\App\Models\Plan::class)->onUpdata('cascade')->onDelete('cascade');
-            $table->foreignIdFor(\App\Models\Feature::class)->onUpdata('cascade')->onDelete('cascade');
+            $table->foreignIdFor(\App\Models\Plan::class);
+            $table->foreignIdFor(\App\Models\Feature::class);
         });
     }
 

@@ -121,11 +121,11 @@ class ReceiptController extends Controller
             ],
         ]);
         $seller = new Party([
-            'name'          => setting('owner'),
-            'phone'         => setting('contact'),
-            'address'       => setting('location_id'),
+            'name'          => sys('owner'),
+            'phone'         => sys('contact'),
+            'address'       => sys('location_id'),
             'custom_fields' => [
-                'email' => setting('email'),
+                'email' => sys('email'),
             ],
         ]);
 
@@ -138,7 +138,8 @@ class ReceiptController extends Controller
                 $items[] = (new InvoiceItem())->title($order->hashid)->description($order->id)->pricePerUnit($order->cost);
             }
 
-        $logoPath =  storage_path('app/public/'.setting('company_logo'))   ?? '';
+        $logoPath = sys('company_logo')  ? storage_path('app/public/'.sys('company_logo')) :  url('/assets/img/brand/logo-black.png' )  ;
+
         $invoice = Invoice::make()
             ->template('custom')
             ->sequence($receipt->id)
@@ -152,7 +153,7 @@ class ReceiptController extends Controller
             ->addItems($items);
 
         if(app()->getLocale() == "ar"){
-            //   notify()->error('can\'t print arabic charachters');
+            //   toastr()->error('can\'t print arabic charachters');
             $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
             return $pdf->stream('arabic.pdf');
         }

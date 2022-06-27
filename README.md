@@ -1,5 +1,3 @@
-
-
 # Black Box Shipping System
 <p>For shipping companies powered by laravel </p>
 

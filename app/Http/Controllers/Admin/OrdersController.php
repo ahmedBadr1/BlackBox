@@ -50,46 +50,39 @@ class OrdersController extends Controller
         return view('admin.orders.index');
     }
     public function track(Request $request ){
-        // dd($request);
+      //   dd($request);
         $order_hashid ='';
         if ($request->query('order_id') !== null){
             $order_hashid = $request->query('order_id');
         }
-        $user =  \auth()->user();
-        $status= null;
-        $orderLogs=  null;
-        return view('admin.track',compact('user','order_hashid','status','orderLogs'));
+//        $user =  \auth()->user();
+//        $status= null;
+//        $orderLogs=  null;
+
+
+        return view('admin.track',compact('order_hashid'));
     }
 
     public function  trackgo(Request $request)
     {
-        //  dd($request['order_id']);
+       //   dd($request->all());
+        $this->validate($request,[
+            'order_id' => 'required|string|max:8|min:8'
+        ]);
+
         $order_hashid =  $request['order_id'];
+
         $id =    Hashids::Connection(Order::class)->decode(strtolower($order_hashid)) ?? [0];
 
         if($id){
-            $order =Order::findOrFail($id[0]);
-            $status =  Status::find($order->status_id)->name;
+            $order =Order::with('status')->findOrFail($id[0]);
             $orderLogs  = Activity::inLog('Order')->where('subject_id',$id)->select('causer_id','description','properties','updated_at')->get();
-          //  dd($orderLogs);
-
         }else{
-            $status =  null;
-            $orderLogs=  null;
-
+            $order = null;
+            $orderLogs= null;
         }
-//foreach ($orderLogs as $log){
-//  ///  dd($log->properties['attributes']);
-//    foreach ($log->properties['attributes'] as $prop){
-//        dd($prop);
-//    }
-//}
-//        if (auth()->user()->id !== $order->user->id){
-//            abort(404);
-//        }
 
-
-        return view('admin.track',compact('status','order_hashid','orderLogs'));
+        return view('admin.track',compact('order','orderLogs'));
     }
     /**
      * Show the form for creating a new resource.
@@ -111,6 +104,7 @@ class OrdersController extends Controller
       //  $order = Order::first();
 
      //   Notification::send( auth()->user(), new DoneNotification($order));
+       // $order =
         return view('admin.orders.create');
     }
 
@@ -154,21 +148,21 @@ class OrdersController extends Controller
                 $input['user_id'] = $user->id;
             }
     //        $input['total'] = $input['value'] * $input['quantity'] ;
-            //       dd(setting('package_weight_limit'));
+            //       dd(System('package_weight_limit'));
             if(!$input['cod']){
                 $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
                // dd($input['total']);
-                if($input['package_weight'] > setting('package_weight_limit')){
+                if($input['package_weight'] > sys('package_weight_limit')){
                     $input['total'] = ($input['value'] -
                             ( $orderArea->delivery_cost + (
-                                    ($input['package_weight'] - setting('package_weight_limit')
+                                    ($input['package_weight'] - sys('package_weight_limit')
                                     ) * $orderArea->over_weight_cost )
                             )
                         ) * $input['quantity']  ?? 0;
                 }
-            }elseif($input['package_weight'] > setting('package_weight_limit')){
+            }elseif($input['package_weight'] > sys('package_weight_limit')){
 
-                $over = ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ;
+                $over = ($input['package_weight'] - sys('package_weight_limit')) * $orderArea->over_weight_cost ;
                 $input['total'] = ($input['value'] -  $over) * $input['quantity']  ?? 0;
             }else{
 
@@ -179,7 +173,7 @@ class OrdersController extends Controller
      //   dd($input['total']);
         Order::create($input);
 
-        notify()->success('Order Created Successfully');
+        toastr()->success('Order Created Successfully');
 
         return redirect()->route('admin.orders.index');
     }
@@ -196,31 +190,30 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Order  $order
+     * @param
      * @return
      */
-    public function show(Order $order)
+    public function show( $id)
     {
-
+        $order = Order::with('user')->findOrFail($id->id);
         return view('admin.orders.show',compact('order'));
     }
     /**
      * Display the specified resource.
      *
-     * @param  Order  $order
+     * @param  Order $order
      * @return
      */
     public function print(Order $order)
     {
-//
-    $client = new Party([
-        'name'          => $order->consignee['cust_name'],
-        'phone'         =>  $order->consignee['cust_num'],
-        'address'         => $order->consignee['address'],
-        'custom_fields' => [
-            'area'        => $order->area->name,
-        ],
-    ]);
+        $client = new Party([
+            'name'          => $order->consignee['cust_name'],
+            'phone'         =>  $order->consignee['cust_num'],
+            'address'         => $order->consignee['address'],
+            'custom_fields' => [
+                'area'        => $order->area->name,
+            ],
+        ]);
 
         $customer = new Party([
             'name'          => $order->user->name,
@@ -235,25 +228,17 @@ class OrdersController extends Controller
             ->pricePerUnit($order->product['value'])
             ->quantity($order->product['quantity'])
             ->description($order->product['description'] ?? '');
-       $shipping =  $order->cost ;
-       // dd($shipping);
+        $shipping =  $order->cost ;
+        // dd($shipping);
         if(!$order->details['cod']){
             $shipping = number_format(0);
         }
-      //  dd($shipping);
 
-//        $notes = [
-//            'your multiline',
-//            'additional notes',
-//            'in regards of delivery or something else',
-//        ];
-//        $notes = implode("<br>", $notes);
-
-        $logoPath =  storage_path('app/public/'.setting('company_logo'))   ?? '';
+       $logoPath = sys('company_logo')  ? storage_path('app/public/'.sys('company_logo')) :  url('/assets/img/brand/logo-black.png' )  ;
 
 
-        $invoice = Invoice::make()
-           // ->sequence($order->hashid)
+      $invoice = Invoice::make()
+            // ->sequence($order->hashid)
             ->buyer($client)
             ->seller($customer)
             ->addItem($item)
@@ -261,40 +246,35 @@ class OrdersController extends Controller
             ->logo($logoPath)
             ->date($order->created_at)
             ->filename('order_'.$order->hashid)
-            ->payUntilDays(14)
-          //  ->subTotalPrice($order->sub_total)
-          //  ->discountByPercent(10)
-          // ->totalAmount(number_format($order->total))
-            ->notes($order->details['notes'] ?? '');
-//        $serial =  $invoice->getSerialNumber() ;
-//        dd($serial);
-//            ->currencySymbol('L.E')
-//            ->currencyCode('EGP')
-//            ->discountByPercent(10)
-//            ->taxRate(14)
-//            ->totalTaxes($order->tax)
-//            ->series('fb')
-//            ->sequence(88)
+            ->payUntilDays(14) ;
 
 
-//dd($invoice);
-//   //     return view('vendor.invoices.templates.default',compact('invoice'));
-//        return $invoice->stream();
 
-       // $pdf = PDF::chunkLoadView('pdf.document', $data);
-      //  ini_set("pcre.backtrack_limit", "1000000");
-    //    $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
+
         if(app()->getLocale() == "ar"){
-         //   notify()->error('can\'t print arabic charachters');
+            //   toastr()->error('can\'t print arabic charachters');
             $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
             return $pdf->stream('arabic.pdf');
         }
 
-        return $invoice->download($order->hashid.'.pdf');
+        return $invoice->download('test.pdf');
     }
     public function pdf(Order $order)
     {
 //
+        $order =   ProductionOrder::whereId($id)->with(['items'=>fn($q)=>$q->with(['element','inventory']),'formula','user'])->first();
+        return view('vendor.invoices.inventory',compact('order'));
+        //   dd($order->item->element);
+        //  $pdf = App::make('dompdf.wrapper');
+//        $pdf->loadHTML('<h1>Test</h1>');
+//        return $pdf->stream();
+
+        //   view()->share('order',$order);
+        $pdf = PDF::loadView('vendor.invoices.production',['order'=>$order ] );
+        return $pdf->stream();
+        return $pdf->download('test.pdf');
+
+
 //        $data = User::take(10)->get();
 //////
 //////
@@ -339,12 +319,12 @@ class OrdersController extends Controller
     {
 
             if (auth()->id() !== $order->user_id){
-                notify()->warning('You cant change this order ');
+                toastr()->warning('You cant change this order ');
                 return redirect()->back();
             }
 
         if (!in_array($order->status->id,[1,2])){
-            notify()->warning("Order Can't be changed after reaching to Bagy");
+            toastr()->warning("Order Can't be changed after reaching to Bagy");
             return redirect()->route('admin.orders.index');
         }
 
@@ -398,23 +378,23 @@ class OrdersController extends Controller
             }
 
             //        $input['total'] = $input['value'] * $input['quantity'] ;
-            //       dd(setting('package_weight_limit'));
+            //       dd(sys('package_weight_limit'));
 
             if(!$input['cod']){
                 $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
 
                 // dd($input['total']);
-                if($input['package_weight'] > setting('package_weight_limit')){
+                if($input['package_weight'] > sys('package_weight_limit')){
                     $input['total'] = ($input['value'] -
                             ( $orderArea->delivery_cost + (
-                                    ($input['package_weight'] - setting('package_weight_limit')
+                                    ($input['package_weight'] - sys('package_weight_limit')
                                     ) * $orderArea->over_weight_cost )
                             )
                         ) * $input['quantity']  ?? 0;
                 }
-            }elseif($input['package_weight'] > setting('package_weight_limit')){
+            }elseif($input['package_weight'] > sys('package_weight_limit')){
 
-                $over = ($input['package_weight'] - setting('package_weight_limit')) * $orderArea->over_weight_cost ;
+                $over = ($input['package_weight'] - sys('package_weight_limit')) * $orderArea->over_weight_cost ;
                 $input['total'] = ($input['value'] -  $over) * $input['quantity']  ?? 0;
             }else{
 
@@ -427,7 +407,7 @@ class OrdersController extends Controller
         dd($input['total']);
 
         $order->update($input);
-        notify()->success('Order Updated Successfully');
+        toastr()->success('Order Updated Successfully');
         return redirect()->route('admin.orders.index');
     }
 
@@ -443,12 +423,12 @@ class OrdersController extends Controller
 
 
         if (auth()->id() !== $order->user_id){
-            notify()->warning('You cant Delete this order');
+            toastr()->warning('You cant Delete this order');
             return redirect()->back()->with('You cant Delete this order');
         }
 
         $order->delete();
-        notify()->success('Order Deleted Successfully');
+        toastr()->success('Order Deleted Successfully');
         return redirect()->route('admin.orders.index');
     }
     public function trash(){
@@ -472,12 +452,12 @@ class OrdersController extends Controller
 
         if (!$order->trashed()){
 
-            notify()->error('Order isn\'t in trash');
+            toastr()->error('Order isn\'t in trash');
            return redirect()->back();
         }
 
         $order->restore();
-        notify()->success('Order Restored Successfully');
+        toastr()->success('Order Restored Successfully');
         return redirect()->route('admin.orders.trash');
     }
 

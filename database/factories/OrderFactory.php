@@ -26,6 +26,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
+            'type'  =>  Order::$types[rand(0,3)],
             'product'=> [
                 'name' =>  $this->faker->company(),
                 'description' =>  $this->faker->sentence(),
@@ -56,6 +57,7 @@ class OrderFactory extends Factory
             'discount'  =>  $this->faker->numerify(),
             'tax'  =>  $this->faker->numerify(),
             'total'  =>  $this->faker->numerify(),
+            'created_at' => $this->faker->dateTimeBetween('-6month','now')
         ];
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\HasBusiness;
 use App\Http\Middleware\IsActive;
-use App\Http\Middleware\System;
+use App\Http\Middleware\IsSystem;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,8 +68,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
-        'System' => System::class,
+        'System' => IsSystem::class,
         'IsActive' => IsActive::class,
+        'hasBusiness' => HasBusiness::class,
 
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,

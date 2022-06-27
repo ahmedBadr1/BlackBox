@@ -5,29 +5,33 @@ namespace App\Exports\Seller;
 use App\Models\Order;
 use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class OrdersExportAr implements FromCollection , ShouldAutoSize ,WithMapping ,WithHeadings,WithEvents
+class OrdersExportAr implements FromQuery , ShouldAutoSize ,WithMapping ,WithHeadings,WithEvents
 {
  public function map($order): array
  {
      // TODO: Implement map() method.
      return [
          $order->hashid,
-         $order->product_name,
-         $order->value,
-         $order->cust_name,
-         $order->cust_num,
-         $order->address,
+         $order->product['name'],
+         $order->product['description'],
+         $order->product['value'],
+         $order->consignee['cust_name'],
+         $order->consignee['cust_num'],
+         $order->consignee['address'],
          $order->area->name,
-         $order->quantity,
-         $order->notes,
-        $order->status->name,
-        $order->created_at->format('d/m/Y'),
+         $order->product['quantity'],
+         $order->cost,
+         $order->total,
+         $order->details['notes'],
+         $order->status->name,
+         $order->created_at->format('d/m/Y'),
      ];
  }
 
@@ -37,12 +41,15 @@ class OrdersExportAr implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
         return [
             'رقم التتبع',
             'إسم المنتج',
+            'وصف المنتج',
             'قيمة المنتج',
             'إسم العميل',
             'رقم العميل',
             'العنوان',
             'المنطقة',
             'الكمية',
+            'تكلفة الشحن',
+            'الإجمالي',
             'الملاحظات',
             'الحالة',
             'تاريخ الإنشاء',
@@ -51,7 +58,7 @@ class OrdersExportAr implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
+    public function query()
     {
         return auth()->user()->orders()->with(['area' => fn($q)=>$q->select('id','name')]);
     }
@@ -61,7 +68,7 @@ class OrdersExportAr implements FromCollection , ShouldAutoSize ,WithMapping ,Wi
         return [
             AfterSheet::class => function(AfterSheet $event){
                 $event->sheet->getDelegate()->setRightToLeft(true);
-            $event->sheet->getStyle('A1:K1')->applyFromArray(
+            $event->sheet->getStyle('A1:M1')->applyFromArray(
             [
                'font'=>['bold'=>true]
             ]);

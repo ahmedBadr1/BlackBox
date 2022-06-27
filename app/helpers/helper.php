@@ -1,26 +1,18 @@
 <?php
-//namespace App\helpers;
-//class helper{
-use Illuminate\Support\Facades\Cache;
 
-function setting($key)
+use Illuminate\Support\Facades\Cache;
+if (!function_exists('sys'))   {
+    function sys($key)
     {
-//        if (!\App\Models\Setting::first()){
-//            return ;
-//        }
-//        if(!Cache::has('setting')){
-//            $setting = \Illuminate\Support\Facades\Cache::rememberForever('setting',function (){
-//                return \App\Models\Setting::first();
-//            });
-//        }
-//        $setting = cache('setting');
-    $setting = \Illuminate\Support\Facades\Cache::rememberForever('setting',function (){
-                        return \App\Models\Setting::first();
-            });
-    if (!$setting){
-        return ;
+        $system = \Illuminate\Support\Facades\Cache::rememberForever('System',function (){
+            return \App\Models\System::first();
+        });
+        if (!$system){
+            return ;
+        }
+        return $system->$key;
     }
-        return $setting->$key;
-    }
-//}
+}
+
+
 

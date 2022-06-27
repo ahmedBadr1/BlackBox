@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Zone extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'rank',
-
-        'state_id'
-    ];
+    protected $fillable = ['name', 'state_id'];
 
     public function areas()
     {

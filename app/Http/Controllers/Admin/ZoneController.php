@@ -56,7 +56,6 @@ class ZoneController extends Controller
         //
         $this->validate($request,[
             'name'=>'required|unique:zones,name',
-            'rank'=>'',
             'state_id'=>'required'
         ]);
         $input = $request->all();
@@ -68,7 +67,7 @@ class ZoneController extends Controller
             $zone->areas()->save($area);
         }
 
-        notify()->success($zone->name.' Zone Created Successfully',$zone->name.' Created');
+        toastr()->success($zone->name.' Zone Created Successfully',$zone->name.' Created');
         return redirect()->route('admin.zones.index');
     }
 
@@ -108,7 +107,6 @@ class ZoneController extends Controller
         //
         $this->validate($request,[
             'name'=>'required',
-            'rank'=>'',
             'state_id'=>'required'
         ]);
         $input = $request->all();
@@ -120,7 +118,7 @@ class ZoneController extends Controller
             $zone->areas()->save($area);
         }
 
-        notify()->success($zone->name.' Zone Updated Successfully',$zone->name.' Updated');
+        toastr()->success($zone->name.' Zone Updated Successfully',$zone->name.' Updated');
         return redirect()->route('admin.zones.index');
     }
 
@@ -134,7 +132,7 @@ class ZoneController extends Controller
     {
         //
         $zone->delete();
-        notify()->success($zone->name.' Zone Deleted Successfully',$zone->name.' Deleted');
+        toastr()->success($zone->name.' Zone Deleted Successfully',$zone->name.' Deleted');
         return redirect()->route('admin.zones.index');
     }
 }

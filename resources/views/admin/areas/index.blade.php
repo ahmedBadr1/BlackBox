@@ -1,22 +1,20 @@
 @extends('admin.layouts.admin')
 
+@section('page-header')
+    <h2>@lang('names.all-areas')</h2>
+    <div class="">
+        @can('states')
+            <a href="{{route('admin.states')}}" class="btn btn-dark">@lang('names.all-states')</a>
+        @endcan
+        @can('area-create')
+            <a href="{{route('admin.areas.create')}}" class="btn btn-success">@lang('auth.create-area')</a>
+        @endcan
+    </div>
+@endsection
+
 @section('content')
-
-    <h2>All Areas</h2>
-    @can('area-create')
-        <a href="{{route('admin.areas.create')}}" class="btn btn-success">Create Area</a>
-    @endcan
-    @can('states')
-        <a href="{{route('admin.states')}}" class="btn btn-dark">States</a>
-    @endcan
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-
-    <table class="table table-hover">
-
+    <div class="row">
+    <table class="table table-hover table-responsive-md">
         <thead>
         <th scope="col">Area ID</th>
         <th scope="col">Area</th>
@@ -27,16 +25,20 @@
         <tbody>
         @foreach($areas as $area)
             <tr>
-                <td  scope="row" data-label="Area ID">{{$area->id}} </td>
-                <td data-label="Area"> <a href="{{ route('admin.areas.show',$area->id) }}"> {{$area->name}} </a></td>
+                <td scope="row" data-label="Area ID">{{$area->id}} </td>
+                <td data-label="Area"><a href="{{ route('admin.areas.show',$area->id) }}"> {{$area->name}} </a></td>
                 <td data-label="Cost">{{$area->delivery_cost}}</td>
-                <td data-label="Zone"><a href="{{route('admin.zones.show',$area->zone->id)}}">{{$area->zone->name}}</a></td>
+                <td data-label="Zone"><a href="{{route('admin.zones.show',$area->zone->id)}}">{{$area->zone->name}}</a>
+                </td>
                 <td data-label="State">{{$area->state->name}}</td>
-@can('area-active')
-    <td>@livewire('main.toggle-button',['model' => $area,'field'=>'active'])</td>
-    @endcan
+                @can('area-active')
+                    <td>
+                        {{--        @livewire('main.toggle-button',['model' => $area,'field'=>'active','key'=> $area->id])--}}
+                        <livewire:main.toggle-button :model="$area" :field="'active'" :key="$area->id">
+                    </td>
+                @endcan
                 @can('area-edit')
-                    <td><a href="{{ route('admin.areas.edit',$area->id) }}" class="btn btn-info">edit</a></td>
+                    <td><a href="{{ route('admin.areas.edit',$area->id) }}" class="btn btn-info">@lang('auth.edit')</a></td>
                 @endcan
 
                 @can('area-delete')
@@ -44,7 +46,7 @@
                         <form action="{{route('admin.areas.destroy',$area->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="delete">
+                            <input type="submit" class="btn btn-danger" value="@lang('auth.delete')">
                         </form>
                     </td>
                 @endcan
@@ -55,7 +57,8 @@
 
     </table>
     <div class="d-flex justify-content-center">
-    {{ $areas->links('vendor.pagination.bootstrap-4') }}
+        {{ $areas->links() }}
+    </div>
     </div>
 @endsection
 

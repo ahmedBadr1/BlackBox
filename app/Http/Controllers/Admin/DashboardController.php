@@ -5,19 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Branch;
+use App\Models\Business;
 use App\Models\Feature;
 use App\Models\Location;
 use App\Models\Order;
 use App\Models\Packing;
 use App\Models\Plan;
 use App\Models\Receipt;
-use App\Models\Setting;
+use App\Models\System;
 use App\Models\State;
 use App\Models\Status;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
 use App\Notifications\Admin\NewUserNotification;
+use App\Notifications\ChangePasswordNotification;
+use App\Notifications\WelcomeMailNotification;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -26,6 +29,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 
@@ -106,31 +110,39 @@ class DashboardController extends Controller
      //   auth()->user()->notify(new NewUserNotification());
         return \view('admin.notifications',compact('notifications')) ;
     }
+    public function messages()
+    {
+        $messages = null     ;
+        //  dd($notifications);
+        //   auth()->user()->notify(new NewUserNotification());
+        return \view('admin.messages',compact('messages')) ;
+    }
     public function profile()
     {
         $user = Auth::user();
 
-        if ($user->roles->first()->name == 'delivery'){
-            $alltasks = $user->taskson->count();
-            $donetasks = $user->taskson->where('done_at')->count();
-        }else{
-            $allTasks = $user->tasks->count();
-            $doneTasks = $user->tasks->whereNotNull('done_at')->count();
+        $total =  $user->orders()->whereNotIn('status_id', [1,2,10] )->sum('total');
+        $count = $user->orders()->count();
+
+        $orders =  $user->orders()->select('product')->get();
+        $products = 0;
+
+        foreach ($orders as $order){
+            $products += $order->product['quantity'];
         }
-  //      dd($donetasks);
+        // dd($products);
+        $allTasks = $user->tasks->count();
+        $doneTasks = $user->tasks->whereNotNull('done_at')->count();
+
+        //      dd($donetasks);
 
         $allOrders = $user->orders->count();
         $doneOrders = $user->orders->where('status_id','6')->count();
 
-
-        return view('admin.profile.index', compact('user','allTasks','doneTasks','allOrders','doneOrders'));
-    }
-    public function profileEdit()
-    {
-        $user = Auth::user();
         $states= State::where('active',true)->get();
         $areas = Area::pluck('name')->all();
-        return view('admin.profile.edit', compact('user','states','areas'));
+
+        return view('admin.profile', compact('user','allTasks','doneTasks','allOrders','doneOrders' , 'total','count','products','states','areas'));
     }
     public function profileUpdate(Request $request)
     {
@@ -139,19 +151,17 @@ class DashboardController extends Controller
 
         $this->validate($request,[
             'name'=>'required',
-            'bio'=> '',
+            'bio'=> 'nullable',
             'email'=>'required|email',
             'phone'=>'required|numeric',
-            'address'=> '',
-            'area'=> '',
-            'state'=> 'required',
-            'profile_photo'=> 'image',
-            'url'=> '',
+            'address'=> 'nullable|string',
+            'photo'=> 'nullable|image',
+            'url'=> 'nullable|url',
         ]);
 
         $input = $request->all();
 
-        $path = 'uploads/profiles/photos';
+        $path = 'uploads/profiles/photos/';
         if(!File::isDirectory($path)){
             File::makeDirectory($path, 0777, true, true);
         }
@@ -167,27 +177,28 @@ class DashboardController extends Controller
             $user->profile->profile_photo = $photoPath;
 
         }
-    //    dd($photoPath);
-        if($input['bio']){
+        if(isset($input['bio'])){
             $user->profile->bio = $input['bio'];
         }
-        if($input['address']){
+        if(isset($input['address'])){
             $user->profile->address = $input['address'];
         }
-        if($input['area']){
-            $user->profile->area = $input['area'];
-        }
-        if($input['url']){
+        if(isset($input['url'])){
             $user->profile->url = $input['url'];
         }
 
         $user->push();
-        notify()->success('Profile Updated Successfully','Profile Updated');
+
+        toastr()->success('Profile Updated Successfully');
         return redirect()->route('admin.profile');
     }
+
+
     public function sellers()
     {
         $sellers = User::with('plan')->whereHas("roles", function($q){ $q->where("name" ,'seller'); })->get();
+        $seller = User::find(5);
+        $seller->notify(new WelcomeMailNotification());
      //   dd($sellers);
       //  $sellers = User::whereIn('role', 'seller')->get();
 //dd($sellers);
@@ -230,19 +241,20 @@ class DashboardController extends Controller
             // $branch->users()->save($user); $order->area->time_delivery
         }
 
-        notify()->success( ' Orders Assigned Successfully To '.$delivery->name . ' Delivery','Orders Assigned');
+        toastr()->success( ' Orders Assigned Successfully To '.$delivery->name . ' Delivery','Orders Assigned');
         return redirect()->route('admin.orders.index');
     }
     public function help()
     {
         return view('system.help');
     }
-    public function setting()
+    public function system()
     {
-        $setting = Setting::first() ;
-        return view('system.setting',compact('setting'));
+        $system = system::first() ;
+
+        return view('system.setting',compact('system'));
     }
-    public function saveSetting(Request $request)
+    public function saveSystem(Request $request)
     {
         $this->validate($request,[
             'company_name'=>'nullable',
@@ -252,53 +264,105 @@ class DashboardController extends Controller
             'owner'=>'nullable',
             'email'=>'nullable|email',
             'contact'=>'nullable',
-
             'theme'=>'nullable',
             'footer'=>'nullable',
-
             'auto_send'=>'nullable|boolean',
-            'reschedule_limit' => 'required',
-            'package_weight_limit' => 'required',
+            'reschedule_limit' => 'nullable',
+            'package_weight_limit' => 'nullable',
         ]);
 
        $input = $request->except(['_token']);
 
       //    dd($input);
-        $path = 'uploads/setting/logo';
+        $path = 'uploads/system/logo';
 
-        $setting = Setting::first();
+        $system = system::first();
 
-        if($setting){
+        if($system){
             if(! isset($input['company_logo'])){
-                $photoPath  = $setting->company_logo;
+                $photoPath  = $system->company_logo;
             }else {
-
                 if(!File::isDirectory($path)){
                     File::makeDirectory($path, 0777, true, true);
                 }
-                if($setting){
-                    if(File::exists(storage_path().'/app/public/'.$setting->company_logo)){
+                if($system){
+                    if(File::exists(storage_path().'/app/public/'.$system->company_logo)){
                         //dd('found');
-                        File::delete(storage_path().'/app/public/'.$setting->company_logo);
+                        File::delete(storage_path().'/app/public/'.$system->company_logo);
                     }
                 }
                 $photoPath =  $input['company_logo']->store($path,'public');
                 $input['company_logo'] = $photoPath;
-
-                $setting->update($input);
             }
-
+            $system->update($input);
         }else{
-            Setting::create($input) ;
+            system::create($input) ;
         }
 
 
         Config::set(['app.name' => $input['company_name']]);
 
-        Cache::forget('setting');
+        Cache::forget('system');
 
-        notify()->success('setting saved successfully');
+        toastr()->success('system saved successfully');
         return redirect()->route('admin.dashboard');
+    }
+
+    public function setting ()
+    {
+        $industries = Business::$industries ;
+        $channels = Business::$channels;
+        $business = \auth()->user()->business ?? null;
+        //  dd(auth()->user()->orders()->count());
+        //  dd($business->orders()->count());
+        return view('seller.setting',compact('business','industries','channels'));
+    }
+    public function saveSetting(Request $request)
+    {
+        //  dd($request->all());
+        $input =  $this->validate($request,[
+            'name' => 'required',
+            "contact" => "required",
+            "industry" => "required",
+            "channel" => "required",
+            "url" => "required|url",
+        ]);
+        //dd($input);
+
+        $user = \auth()->user();
+        //   dd($user->business);
+        //     $business = HasBusiness::firstOrNew($input);;
+        if(isset($user->business)){
+            $user->business->update($input) ;
+        }else{
+            $business = Business::create($input);
+            $user->business()->associate($business)->save();
+        }
+        //     dd($user->business);
+
+
+        return back();
+    }
+
+    public function changePassword (Request $request)
+    {
+        $input =  $this->validate($request,[
+            'password' => 'required',
+            'new_password' => 'required|min:8|same:con_password',
+            'con_password' => 'required',
+        ]);
+        //    dd($input);
+        $user = auth()->user();
+        //  dd($user->password);
+        if (!Hash::check($input['password'], $user->password)) {
+            toastr('password not true');
+            return back();
+        }
+        $user->password = Hash::make($input['new_password']);
+        $user->save();
+        $user->notify(new ChangePasswordNotification());
+        toastr('all good');
+        return back();
     }
 
     public function trash()

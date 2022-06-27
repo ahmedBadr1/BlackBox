@@ -26,8 +26,8 @@ class BranchFactory extends Factory
     {
         return [
             'name' => $this->faker->citySuffix(),
+            'address' => $this->faker->address(),
             'phone' => $this->faker->unique()->phoneNumber(),
-            'location_id' => Location::all()->random()->id,
             'state_id' =>  State::all()->random()->id,
             'user_id' => User::role(['manager'])->pluck('id')->random(),
             'active' => $this->faker->boolean(),

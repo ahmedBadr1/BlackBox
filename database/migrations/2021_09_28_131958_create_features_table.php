@@ -17,7 +17,6 @@ class CreateFeaturesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->integer('rank')->default(1);
             $table->timestamps();
         });
     }

@@ -95,8 +95,6 @@ class PlanController extends Controller
 
         $planFeatures =Db::table("feature_plan")->where('feature_plan.plan_id',$id)->pluck('feature_plan.feature_id','feature_plan.feature_id')->all();
        // dd($planFeatures);
-
-
         return view('admin.plans.edit',compact('features','plan','planFeatures','areas'));
     }
 
@@ -140,7 +138,7 @@ class PlanController extends Controller
     {
         //
         if ($id == Plan::first()->id){
-            notify()->error('Basic plan cant be deleted');
+            toastr()->error('Basic plan cant be deleted');
 
 
             return redirect()->back();

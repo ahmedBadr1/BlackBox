@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Notifications\Main\NewUserWelcomeNotification;
 use App\Notifications\WelcomeMailNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -27,8 +28,9 @@ class WelcomeMailListener
      */
     public function handle(Registered $event)
     {
-        if (setting('auto_send')){
+        if (system('auto_send')){
             $event->user->notify(new WelcomeMailNotification());
         }
+        $event->user->notify(new NewUserWelcomeNotification());
     }
 }

@@ -51,10 +51,13 @@ class TaskController extends Controller
     public function create()
     {
         //
-        $types = Task::$types;
+        $types = Task::$types  ;
+     //      unset($types[0])   ; // delete pickup from here
+
+        $sellers = User::whereHas('business')->role('seller')->select('id','name')->get();
         $deliveries = User::role('delivery')->select('id','name')->get();
       //  dd($deliveries);
-        return  view('admin.tasks.create',compact('deliveries','types'));
+        return  view('admin.tasks.create',compact('deliveries','types','sellers'));
     }
 
     /**
@@ -65,17 +68,24 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        //dd($request->all());
+      //  dd($request->all());
         $this->validate($request,[
            'type' => 'required',
-           'delivery_id' => 'required',
-            'notes' => ''
+            'user_id' => 'required|numeric',
+        //    'location_id' => 'required',
+            'due_to' => 'required',
+            'delivery_id' => 'required',
+            'notes' => 'nullable',
         ]);
         $input= $request->all();
-        $input['user_id'] =  auth()->user()->id;
+        $user = User::with(['business' => fn($q)=> $q->with('location')])->findOrFail($input['user_id']);
+      //  dd($user->business->location);
+        if ($user->business->location){
+            $input['location_id'] =  $user->business->location?->id;
+        }
+   //     $input['user_id'] =  auth()->user()->id;
         Task::create($input);
-        notify()->success('Task created Successfully','Task created');
+        toastr()->success('Task created Successfully','Task created');
       return  redirect()->route('admin.tasks.index');
     }
 
@@ -122,12 +132,12 @@ class TaskController extends Controller
         $this->validate($request,[
             'type' => 'required',
             'delivery_id' => 'required',
-            'notes' => ''
+            'notes' => 'nullable'
         ]);
         $input= $request->all();
         $task =  Task::findOrFail($id);
         $task->update($input);
-        notify()->success('Task Updated Successfully','Task Updated');
+        toastr()->success('Task Updated Successfully','Task Updated');
         return  redirect()->route('admin.tasks.index');
     }
 
@@ -142,7 +152,7 @@ class TaskController extends Controller
         //
        $task=  Task::findOrFail($id);
         $task->delete();
-        notify()->success('Task Deleted Successfully','Task Deleted');
+        toastr()->success('Task Deleted Successfully','Task Deleted');
         return  redirect()->route('admin.tasks.index');
     }
 
@@ -154,11 +164,11 @@ class TaskController extends Controller
     public function restore( $id){
         $task = Task::onlyTrashed()->findOrFail($id);
         if (!$task->trashed()){
-            notify()->error('Task isn\'t in trash');
+            toastr()->error('Task isn\'t in trash');
             return redirect()->back();
         }
         $task->restore();
-        notify()->success('Task Restored Successfully');
+        toastr()->success('Task Restored Successfully');
         return redirect()->route('admin.tasks.trash');
     }
 
@@ -211,7 +221,7 @@ class TaskController extends Controller
             // $branch->users()->save($user); $order->area->time_delivery
         }
 
-        notify()->success( 'Task Assigned Successfully To '.$delivery->name ,'Task Assigned');
+        toastr()->success( 'Task Assigned Successfully To '.$delivery->name ,'Task Assigned');
         return redirect()->route('admin.orders.index');
     }
 }

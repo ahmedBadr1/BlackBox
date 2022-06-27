@@ -20,7 +20,7 @@ class UsersTable extends Component
     {
         return view('livewire.admin.users-table', [
             'users' => User::search($this->search)
-                ->with('roles','state','branch')
+                ->with('roles','branch')
                 ->whereHas("roles", function($q){ $q->whereNotIn("name", ["seller"]); })
                 ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
                 ->simplePaginate($this->perPage),

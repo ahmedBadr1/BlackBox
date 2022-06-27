@@ -1,27 +1,24 @@
 @extends('admin.layouts.admin')
-
+@section('page-header')
+        <h1 class="text-center">@lang('names.all-sellers')</h1>
+@endsection
 @section('content')
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <h1 class="text-center">All sellers</h1>
-                <p>{{ __('messages.welcome') }}</p>
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
-                <table class="table table-hover">
+
+                <table class="table table-hover table-responsive-md">
 
                     <thead>
-                    <th>ID</th>
-                    <th>seller Name</th>
+                    <th>@lang('auth.id')</th>
+                    <th>@lang('names.seller')</th>
 
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Plan</th>
+                    <th>@lang('auth.email')</th>
+                    <th>@lang('auth.phone')</th>
+                    <th>@lang('names.plan')</th>
 
-                    <th>Created at</th>
+                    <th>@lang('auth.joined_at')</th>
+                    <th>@lang('auth.active')</th>
+                    <th>@lang('auth.actions')</th>
 
                     </thead>
 
@@ -37,6 +34,13 @@
                             <td>{{$user->phone}} </td>
                             <td><a href="{{route('admin.plans.show',$user->plan->id)}}">{{$user->plan->name}}</a></td>
                             <td>{{$user->created_at}}</td>
+                            @can('user-active')
+                                <td>
+                                    {{--                                    <livewire:user-toggle id="{{$user->id}}" active="{{$user->active}}"  />--}}
+
+                                    @livewire('main.toggle-button',['model' => $user,'field'=>'active'])
+                                </td>
+                            @endcan
                             @can('user-show')
                                 <td>
                                     <form action="{{route('admin.emailto',['e' => $user->email])}}" method="POST">
@@ -45,11 +49,7 @@
                                     </form>
                                 </td>
                             @endcan
-                            @can('user-active')
-                                <td>
-                                    <livewire:user-toggle id="{{$user->id}}" active="{{$user->active}}"  />
-                                </td>
-                            @endcan
+
 
                         </tr>
                     @endforeach

@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->enum('type', \App\Models\Task::$types);
-            $table->foreignIdFor(\App\Models\Location::class)->nullable();
+            $table->foreignIdFor(\App\Models\Location::class);
             $table->dateTime('due_to')->nullable();
             $table->foreignId('delivery_id')
                 ->on('users')

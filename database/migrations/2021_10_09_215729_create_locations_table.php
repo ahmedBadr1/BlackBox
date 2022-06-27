@@ -17,6 +17,8 @@ class CreateLocationsTable extends Migration
             $table->string('name')->nullable();
             $table->foreignIdFor(\App\Models\State::class)->nullable();
             $table->foreignIdFor(\App\Models\Area::class)->nullable();
+            $table->bigInteger('locationable_id')->nullable();
+            $table->string('locationable_type')->nullable();
             $table->string('street')->nullable();
             $table->string('building')->nullable();
             $table->string('floor')->nullable();

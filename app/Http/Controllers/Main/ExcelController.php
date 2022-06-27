@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Main;
 use App\Exports\Seller\OrdersExportAr;
 use App\Exports\Seller\OrdersExportEn;
 
+use App\Exports\Seller\SelectedOrdersExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportRequest;
 use App\Imports\OrdersImport;
@@ -30,7 +31,7 @@ class ExcelController extends Controller
     }
 
 
-    public function importOrders(Request $request)
+    public function importOrders(ImportRequest $request)
     {
      //   dd($request->file('import_file'));
     //    ImportOrdersAdmin::dispatch();
@@ -39,6 +40,7 @@ class ExcelController extends Controller
 
        // return redirect()->back()->with('success', 'All good!');
     }
+
 
 
 }

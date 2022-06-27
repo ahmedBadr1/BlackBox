@@ -1,16 +1,18 @@
 @extends('admin.layouts.admin')
+@section('page-header')
 
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 @role('seller|Feedback')
-                <a href="{{route('admin.orders.create')}}" class="btn btn-success">{{__("auth.create")}} {{__("names.order")}}</a>
+                <a href="{{route('admin.orders.create')}}" class="btn btn-success">@lang("auth.create")}} @lang("names.order")}}</a>
                 @endrole
 
 
 
-                <h1 class="text-center">{{__("auth.generate")}} {{__("auth.receipt")}}</h1>
+                <h1 class="text-center">@lang("auth.generate")}} @lang("auth.receipt")}}</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -21,27 +23,27 @@
                 <form action="{{route('admin.receipts.store')}}" method="post">
                     @csrf
                     <input type="hidden" id="selectAll" name="selectAll" value="0">
-                    <button  class="btn btn-success">{{__("auth.generate")}} {{__("auth.receipt")}}</button>
+                    <button  class="btn btn-success">@lang("auth.generate")}} @lang("auth.receipt")}}</button>
 
 
                 @endrole
 
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive-md">
 
                     <thead>
                     <th ><input type="checkbox" id="selectAll" name="selectAll" value="1"></th>
-                    <th>{{__("auth.id")}} {{__("names.order")}}</th>
-                    <th>{{__("auth.product_name")}}</th>
+                    <th>@lang("auth.id")}} @lang("names.order")}}</th>
+                    <th>@lang("auth.product_name")}}</th>
 
-                    <th>{{__("auth.cust_name")}}</th>
-                    <th>{{__("auth.cust_num")}}</th>
-                    <th>{{__("auth.address")}}</th>
-                    <th>{{__("names.value")}}</th>
-                    <th>{{__("names.count")}}</th>
-                    <th>{{__("names.notes")}}</th>
-                    <th>{{__("names.status")}}</th>
+                    <th>@lang("auth.cust_name")}}</th>
+                    <th>@lang("auth.cust_num")}}</th>
+                    <th>@lang("auth.address")}}</th>
+                    <th>@lang("names.value")}}</th>
+                    <th>@lang("names.count")}}</th>
+                    <th>@lang("names.notes")}}</th>
+                    <th>@lang("names.status")}}</th>
 
-                    <th>{{__("auth.username")}}</th>
+                    <th>@lang("auth.username")}}</th>
 
                     </thead>
 
@@ -71,8 +73,8 @@
                 </table>
 {{--                @if(count($pendingOrders) > 1 )--}}
 {{--                    <div class="btn-group" role="group" aria-label="Basic example">--}}
-{{--                        <button type="button" class="btn btn-warning" disabled><small>{{__('names.download')}}</small></button>--}}
-{{--                        <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('names.excel')}}</a>--}}
+{{--                        <button type="button" class="btn btn-warning" disabled><small>@lang('names.download')}}</small></button>--}}
+{{--                        <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">@lang('names.excel')}}</a>--}}
 {{--                    </div>--}}
 {{--                @endif--}}
 

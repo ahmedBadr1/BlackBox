@@ -4,30 +4,35 @@ namespace App\Http\Livewire\Seller;
 
 use App\Models\Area;
 use App\Models\Order;
+use App\Models\Packing;
 use App\Models\Plan;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Request;
 
 class OrderCreate extends Component
 {
-
     protected $rules = [
         'product_name' =>'required',
-        'value'=>'nullable|numeric|min:0',
+        'value'=>'nullable|numeric|min:0|max:5000',
         'cust_name'=>'required',
         'cust_num'=>'required',
         'address'=>'required',
         'area_id'=>'required|numeric',
         'package_type' => 'nullable',
-        'package_weight'=>'nullable|numeric',
-        'deliver_before' =>'nullable|date', //  'deliver_before' =>'nullable|date|after:today',
-        'quantity'=>'nullable|numeric|gt:0',
+        'packing'=> 'nullable|numeric',
+        'package_weight'=>'nullable|numeric|min:0|max:100',
+        'deliver_before' =>'nullable|date|after:today', //  'deliver_before' =>'nullable|date|after:today',
+        'quantity'=>'nullable|numeric|min:0|max:1000',
         'cod'=> 'required|boolean',
         'notes'=>'nullable',
     ];
+
     public $types;
     public $areas;
+    public $sellers;
     public $product_name ;
+    public $product_description ;
     public $cust_name ;
     public $cust_num ;
     public $package_type ;
@@ -35,28 +40,79 @@ class OrderCreate extends Component
     public $notes ;
     public $address ;
     public $cod = 1 ;
-    public  $quantity = 0 ;
+    public  $quantity = 1 ;
     public  $value = 0 ;
-    public  $total = 0 ;
-    public  $cost = 0 ;
-    public  $tax = 0 ;
+    public $packing_type;
+    public $packing = 0 ;
+    public  $delivery_cost = 0 ;
+    public $packing_cost = 0 ;
     public  $package_weight = 0 ;
     public $weight = 0;
     public $overWeight = 0 ;
     public  $overWeightCost = 0 ;
     public $area_id ;
-    public $settingLimit;
-
+    public $systemLimit;
     private $basicId;
 
-    public function mount()
+    public $cost =0 ;
+    public  $subTotal = 0 ;
+    public  $discount = 0 ;
+    public  $tax = 0 ;
+    public  $total = 0 ;
+
+    public  $order ;
+    public $title = 'create' ;
+    public $button = 'create' ;
+    public $color = 'success';
+
+    public function mount($order = null)
     {
+        $this->packing_type = Packing::all();
         $this->basicId = Plan::first()->id;
-        $this->settingLimit = setting('package_weight_limit');
+        $this->systemLimit = sys('package_weight_limit');
         $this->user = auth()->user();
         $this->types = ['cosmetics','clothes','document','furniture','machines','other'];
         $this->areas = Area::where('active',1)->whereHas('state',fn($q)=>$q->where('active','1'))->select('id','name')->orderBy('id','desc')->get();
-        $this->sellers = User::with('plan')->whereHas("roles", function($q){ $q->where("name" ,'seller'); })->get();
+        if ($order){
+            $this->order = $order ;
+
+            $this->product_name =  $this->order->product['name'];
+            $this->value =  $this->order->product['value'];
+            $this->cust_name =  $this->order->consignee['cust_name'];
+            $this->cust_num =  $this->order->consignee['cust_num'];
+            $this->product_description =  $this->order->product['description'] ?? null;
+            $this->address =  $this->order->consignee['address'];
+
+            $this->area_id =  $this->order->area_id;
+            $this->package_type =  $this->order->details['package_type'] ?? null;
+            $this->packing =  $this->order->details['packing_type'] ?? null;
+            $this->package_weight =  $this->order->details['package_weight'] ?? null;
+            $this->deliver_before =  $this->order->details['deliver_before'] ?? null;
+            $this->quantity =  $this->order->product['quantity'];
+            $this->cod =  $this->order->details['cod'];
+            $this->notes =  $this->order->details['notes'];
+//            $this->delivery_cost =  $this->order->value;
+//            $this->packing_cost =  $this->order->value;
+//            $this->weight =  $this->order->value;
+//            $this->overWeight =  $this->order->value;
+//            $this->overWeightCost =  $this->order->value;
+          //  dd($this->order->cost);
+            $this->go();
+            $this->cost =  $this->order->cost;
+            $this->subTotal =  $this->order->subTotal;
+            $this->tax =  $this->order->tax;
+            $this->discount =  $this->order->discount;
+            $this->total =  $this->order->total;
+            $this->title = 'edit';
+            $this->button = 'update';
+            $this->color = 'primary';
+
+            $orderArea = Area::where('id', $this->area_id)->select('id','delivery_cost','over_weight_cost')->first();
+            if($this->user->plan->id !== $this->basicId){
+                $this->delivery_cost = $this->user->plan->area[$this->area_id] ?? $orderArea->delivery_cost ;
+            }
+     //   $this->emitSelf('$refresh');
+        }
     }
 
     public function render()
@@ -71,174 +127,122 @@ class OrderCreate extends Component
 
     public function go()
     {
-        if ($this->value && $this->quantity){
+        if ($this->value && $this->quantity){ // if there is value and quantity
             if($this->area_id && $this->package_weight ){
                 $orderArea = Area::where('id', $this->area_id)->select('id','delivery_cost','over_weight_cost')->first();
                 if($this->user->plan->id !== $this->basicId){
-                    $this->cost = $this->user->plan->area[$this->area_id] ?? $orderArea->delivery_cost ;
+                    $this->delivery_cost = $this->user->plan->area[$this->area_id] ?? $orderArea->delivery_cost ;
                 }
+
                 $this->weight  = $this->package_weight * $this->quantity ;
-                if( $this->weight  > $this->settingLimit ){
-                    $this->overWeight  = $this->weight - $this->settingLimit;
+                if( $this->weight  > $this->systemLimit ){
+                    $this->overWeight  = $this->weight - $this->systemLimit;
                     $this->overWeightCost =  $this->overWeight * $orderArea->over_weight_cost ;
-                    $this->total = ( $this->value * $this->quantity  )   - $this->overWeightCost ;
-                    if (!$this->cod){
-                        $this->total = ( $this->value * $this->quantity  )   - $this->overWeightCost - $this->cost  ;
-                    } else{
-                        $this->total = ( $this->value * $this->quantity  )   - $this->overWeightCost ;
-                    }
-                }elseif (!$this->cod){
+                }else{
+
                     $this->overWeight  = 0;
                     $this->overWeightCost =  0;
-
-                    $this->total = ($this->value * $this->quantity ) -   $this->cost  ;
-                } else{
-                    $this->overWeight  = 0;
-                    $this->overWeightCost =  0;
-
-                    $this->total = ($this->value * $this->quantity );
                 }
-            }
-        }elseif($this->value === 0 && $this->quantity ){
-            if($this->area_id && $this->package_weight ){
-                $orderArea = Area::where('id', $this->area_id)->select('id','delivery_cost','over_weight_cost')->first();
-                if($this->user->plan->id !== $this->basicId){
-                    $this->cost = $this->user->plan->area[$this->area_id] ?? $orderArea->delivery_cost ;
+                if($this->packing && $this->quantity){
+                    $this->packing_cost = Packing::find($this->packing)->price * $this->quantity;
+                }else{
+                    $this->packing_cost = 0;
                 }
-                $this->weight  = $this->package_weight * $this->quantity ;
-                if( $this->weight  > $this->settingLimit ){
-                    $this->overWeight  = $this->weight - $this->settingLimit;
-                    $this->overWeightCost =  $this->overWeight * $orderArea->over_weight_cost ;
-                    $this->total = $this->quantity     - $this->overWeightCost ;
-                    if (!$this->cod){
-                        $this->total = $this->quantity     - $this->overWeightCost - $this->cost  ;
-                    } else{
-                        $this->total =  $this->quantity     - $this->overWeightCost ;
-                    }
-                }elseif (!$this->cod){
-                    $this->overWeight  = 0;
-                    $this->overWeightCost =  0;
-
-                    $this->total = $this->quantity  -   $this->cost  ;
-                } else{
-                    $this->overWeight  = 0;
-                    $this->overWeightCost =  0;
-                    $this->total =  $this->quantity ;
+            }else{
+                $this->weight = 0 ;
+                $this->overWeight  = 0;
+                $this->overWeightCost =  0;
+                if($this->packing && $this->quantity){
+                    $this->packing_cost = Packing::find($this->packing)->price * $this->quantity;
+                }else{
+                    $this->packing_cost = 0;
                 }
             }
         }
+        $this->cost = $this->delivery_cost + $this->overWeightCost  + $this->packing_cost  ;
+        $this->subTotal = $this->value *  $this->quantity ;
+        if (!$this->cod){
+            $this->subTotal =   $this->subTotal - $this->cost ;
+        }
+        $this->total =  $this->subTotal  + $this->discount -   $this->tax ;
     }
-
-//    public function updatedValue()
-//    {
-
-
-
-//if ($this->validate()){
-//$orderArea = Area::where('id', $this->area_id)->select('id','delivery_cost','over_weight_cost')->first();
-//if($this->user->plan->id !== $this->basicId){
-//$this->cost = $this->user->plan->area[$this->area_id] ?? $orderArea->delivery_cost ;
-//}
-//if($this->package_weight > $this->settingLimit ){
-//    $this->overWeightCost =   ($this->package_weight - $this->settingLimit ) * $orderArea->over_weight_cost ;
-//    $this->total = ( $this->value -  $this->overWeightCost )   * $this->quantity  ;
-//}elseif (!$this->cod){
-//    $this->total = ($this->value * $this->quantity ) -  $this->overWeightCost  -   $this->cost  ;
-//} else{
-//    $this->overWeightCost = 0;
-//    $this->total =  $this->value * $this->quantity ;
-//}
-//}
-
-
-//        if ($this->quantity){
-//            $this->total = intval($this->value)  * intval($this->quantity)     ;
-//        }else{
-//            $this->total =  intval($this->value)    ;
-//        }
-//
-//    }
-//    public function updatedQuantity()
-//    {
-//        if (!$this->area_id){
-//            $this->total = intval($this->value)  * intval($this->quantity)     ;
-//        }else{
-//            $this->total = ( $this->value -  $this->overWeightCost )   * $this->quantity  ;
-//            $this->overWeightCost =  $this->overWeightCost * $this->quantity;
-//        }
-//    }
-//    public function updatedPackageWeight()
-//    {
-//        if($this->area_id){
-//            if($this->package_weight > $this->settingLimit ){
-//                $orderArea = Area::where('id', $this->area_id)->select('id','over_weight_cost')->first();
-//                $this->overWeightCost =   ($this->package_weight - $this->settingLimit ) * $orderArea->over_weight_cost  ;
-//                $this->total = ( $this->value -  $this->overWeightCost )   * $this->quantity  ;
-//            }else{
-//                $this->overWeightCost = 0;
-//            }
-//        }
-//    }
-//    public function updatedAreaId()
-//    {
-//        if($this->area_id){
-//            $orderArea = Area::where('id', $this->area_id)->select('id','delivery_cost','over_weight_cost')->first();
-//            if($this->user->plan->id !== $this->basicId){
-//                $this->cost = $this->user->plan->area[$this->area_id] ?? $orderArea->delivery_cost ;
-//            }
-//            if($this->package_weight > $this->settingLimit ){
-//                $this->overWeightCost =   ($this->package_weight - $this->settingLimit ) * $orderArea->over_weight_cost ;
-//                $this->total = ( $this->value -  $this->overWeightCost )   * $this->quantity  ;
-//            }else{
-//                $this->overWeightCost = 0;
-//                $this->total = ( $this->value * $this->quantity );
-//            }
-//        }else{
-//            $this->overWeightCost = 0;
-//        }
-//
-//
-//    }
-
-//    public function updatedCod()
-//    {
-//        if ($this->cod){
-//            $this->total = ($this->value * $this->quantity ) -  $this->overWeightCost   ;
-//        }else{
-//            $this->total = ($this->value * $this->quantity ) -  $this->overWeightCost  -   $this->cost  ;
-//        }
-//    }
 
 
     public function save(){
             $this->validate();
-
-            // Execution doesn't reach here if validation fails.
-
-            Order::create([
-                'product_name' => $this->product_name,
+        $this->go();
+        $data = [
+            'type' => 'deliver',
+            'product'=> [
+                'name' => $this->product_name,
+                'description' => $this->product_description,
                 'value' => $this->value,
+                'quantity' => $this->quantity,
+            ],
+            'consignee' => [
                 'cust_name' => $this->cust_name,
                 'cust_num' => $this->cust_num,
                 'address' => $this->address,
-                'area_id' => $this->area_id,
+            ],
+            'details' => [
                 'package_type' => $this->package_type,
+                'packing_type' => $this->packing,
                 'package_weight' => $this->package_weight,
                 'deliver_before' => $this->deliver_before,
-                'quantity' => $this->quantity,
                 'cod' => $this->cod,
                 'notes' => $this->notes,
-                'user_id' => auth()->user()->id,
-                'status_id' => 1,
-                'total' => $this->total,
-            ]);
-     //   session()->flash('message', 'Post successfully updated.');
-     //   $this->emit('alert', ['success', 'Record has been updated']);
+            ],
+            'area_id' => $this->area_id,
+            'user_id' => auth()->id(),
+            'status_id' => 1,
+            'cost' => $this->cost,
+            'sub_total' => $this->subTotal,
+            'tax' => $this->tax,
+            'discount' => $this->discount,
+            'total' => $this->total,
+        ];
+        if ($this->order){
+               $this->order->update($data);
 
-        $this->dispatchBrowserEvent('alert',
+            $this->reset('order','button','title','color');
+            $this->emit('alert',
+                ['type' => 'success',  'message' => 'Order Updated Successfully!']);
+        }else{
+            // Execution doesn't reach here if validation fails.
+        Order::create($data);
+
+        $this->emit('alert',
             ['type' => 'success',  'message' => 'Order Created Successfully!']);
+        }
 
-        return redirect()->route('orders.index');
+        $this->reset(      'product_name' ,
+            'value',
+            'cust_name',
+            'cust_num',
+            'product_description',
+            'address',
+            'area_id',
+            'package_type' ,
+            'packing',
+            'package_weight',
+            'deliver_before' ,
+            'quantity',
+            'cod',
+            'notes',
+        'delivery_cost',
+            'packing_cost',
+            'weight',
+            'overWeight',
+            'overWeightCost',
+            'cost',
+        'subTotal',
+        'tax',
+        'discount',
+        'total');
+        return back();
+
+      //  return redirect()->route('orders.index');
     }
+
 }
 

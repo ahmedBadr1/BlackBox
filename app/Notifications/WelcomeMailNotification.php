@@ -29,7 +29,7 @@ class WelcomeMailNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -52,10 +52,12 @@ class WelcomeMailNotification extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
-            //
+            'from' => config('app.name'),
+            'msg'=> 'congrats, your account has been verified, go to help page to know us better.',
+            'url' => '/help',
         ];
     }
 }

@@ -166,14 +166,14 @@ return [
          * Package Service Providers...
          */
         Spatie\Permission\PermissionServiceProvider::class,
-        Mckenziearts\Notify\LaravelNotifyServiceProvider::class,
+
         Laravel\Socialite\SocialiteServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         \Vinkla\Hashids\HashidsServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+
         \Livewire\LivewireServiceProvider::class,
-        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -183,6 +183,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\GoogleDriveServiceProvider::class,
 
     ],
 
@@ -237,15 +238,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Hashids'=>\Vinkla\Hashids\Facades\Hashids::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class
 
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

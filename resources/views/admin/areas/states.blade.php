@@ -1,32 +1,25 @@
 @extends('admin.layouts.admin')
 
+@section('page-header')
+    <h2>@lang('names.all-states')</h2>
+@endsection
+
 @section('content')
-    <div class="container-fluid">
-    <h2>All States</h2>
 <div class="row">
-
-
-
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-md">
 
         <thead>
-        <th>Status</th>
-        <th>State ID</th>
-        <th>{{__('names.state')}}</th>
-        <th>Branches</th>
-        <th>Zones</th>
-        <th>Areas</th>
-        <th>Users</th>
-        <th>Status</th>
+        <th>@lang('auth.id')</th>
+        <th>@lang('auth.state')</th>
+        <th>@lang('names.branches')</th>
+        <th>@lang('names.zones')</th>
+        <th>@lang('names.areas')</th>
+        <th>@lang('auth.status')</th>
         </thead>
         <tbody>
         @foreach($states as $state)
             <tr>
-                <td>
-{{--           <livewire:counter />         <x-toggle-state state-id="{{$state->id}}" like="{{ $state->active ? $state->active : false}}"></x-toggle-state> --}}
-                    @livewire('main.toggle-button',['model' => $state,'field'=>'active'])
 
-                </td>
                 <td>{{$state->id}} </td>
                 <td>{{$state->name}}
                 <td>@foreach($state->branches as $branch )
@@ -51,15 +44,10 @@
                         </a>
                     @endforeach
                 </td>
-                <td>@foreach($state->users as $user )
-                        <a href="{{route('admin.users.show',$user->id)}}">
-                    <div class="badge badge-info">
-                        {{$user->name}}
-                    </div>
-                        </a>
-                    @endforeach
+                <td>
+                    {{--           <livewire:counter />         <x-toggle-state state-id="{{$state->id}}" like="{{ $state->active ? $state->active : false}}"></x-toggle-state> --}}
+                    @livewire('main.toggle-button',['model' => $state,'field'=>'active'])
                 </td>
-                <td>{{$state->active}}</td>
             </tr>
         @endforeach
 
@@ -67,7 +55,7 @@
 
     </table>
 </div>
-    </div>
+
 
 
 @endsection

@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DeliveryController;
-use App\Http\Controllers\SellerController;
+
 use App\Models\Area;
 use App\Models\Order;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Invoice;
+use Vinkla\Hashids\Facades\Hashids;
+use PDF;
+
 class OrdersController extends Controller
 {
     public function __construct()
     {
-           $this->middleware('role:seller|Feedback');
+           $this->middleware('role:seller');
     }
 
     /**
@@ -32,12 +39,25 @@ class OrdersController extends Controller
      *
      * @return
      */
-    public function create()
+    public function create(Request $request)
     {
+   //     dd($request['order_']);
         //
         //   $states= State::where('active',true)->get();
-        $areas = Area::all();
-        return view('seller.orders.create',compact('areas'));
+
+        if (Session::get('orderHashId')){
+            $id =    Hashids::Connection(Order::class)->decode(strtolower(Session::get('orderHashId'))) ?? null;
+            if(!$id){
+             toastError('order not found');
+                $order = null;
+                return view('seller.orders.create',compact('order'));
+            }
+            $order =Order::findOrFail($id[0]);
+        }else{
+            $order = null;
+        }
+
+        return view('seller.orders.create',compact('order'));
     }
 
     /**
@@ -67,7 +87,7 @@ class OrdersController extends Controller
         $input['total'] = $input['value'] * $input['quantity'] ?? 0;
         Order::create($input);
 
-        notify()->success('Order Created Successfully');
+        toastr()->success('Order Created Successfully');
         return redirect()->route('seller.orders.index');
     }
 
@@ -82,7 +102,71 @@ class OrdersController extends Controller
             if (auth()->id() !== $order->user_id){
                 abort(404);
             }
-        return view('seller.orders.show',compact('order'));
+            $user = auth()->user();
+        return view('seller.orders.show',compact('order','user'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Order  $order
+     * @return
+     */
+    public function print(Order $order)
+    {
+//
+        $client = new Party([
+            'name'          => $order->consignee['cust_name'],
+            'phone'         =>  $order->consignee['cust_num'],
+            'address'         => $order->consignee['address'],
+            'custom_fields' => [
+                'area'        => $order->area->name,
+            ],
+        ]);
+
+        $customer = new Party([
+            'name'          => $order->user->name,
+            'phone'         => $order->user->phone,
+            'address'       => $order->user->profile->address,
+            'custom_fields' => [
+                'email' =>$order->user->email,
+            ],
+        ]);;
+
+        $item = (new InvoiceItem())->title($order->product['name'])
+            ->pricePerUnit($order->product['value'])
+            ->quantity($order->product['quantity'])
+            ->description($order->product['description'] ?? '');
+        $shipping =  $order->cost ;
+        // dd($shipping);
+        if(!$order->details['cod']){
+            $shipping = number_format(0);
+        }
+
+        $logoPath = sys('company_logo')  ? storage_path('app/public/'.sys('company_logo')) :  url('/assets/img/brand/logo-black.png' )  ;
+
+
+        $invoice = Invoice::make()
+            // ->sequence($order->hashid)
+            ->buyer($client)
+            ->seller($customer)
+            ->addItem($item)
+            ->shipping($shipping)
+          ///  ->logo($logoPath)
+            ->date($order->created_at)
+            ->filename('order_'.$order->hashid)
+            ->payUntilDays(14) ;
+
+
+
+
+        if(app()->getLocale() == "ar"){
+            //   toastr()->error('can\'t print arabic charachters');
+            $pdf = PDF::chunkLoadView('<html-separator/>', 'vendor.invoices.templates.default',['invoice'=> $invoice]);
+            return $pdf->stream('arabic.pdf');
+        }
+
+        return $invoice->download($order->hashid.'.pdf');
     }
 
     /**
@@ -100,8 +184,8 @@ class OrdersController extends Controller
         }
 
         if (!in_array($order->status->id,[1,2])){
-            notify()->warning("Order Can't be changed after reaching to Bagy");
-            return redirect()->route('orders.index');
+            toastr()->warning("Order Can't be changed after reaching to ".sys('company_name'));
+            return back();
         }
 
         // $states= State::where('active',true)->get();
@@ -131,7 +215,7 @@ class OrdersController extends Controller
         ]);
         $input = $request->all();
         $order->update($input);
-        notify()->success('Order Updated Successfully');
+        toastr()->success('Order Updated Successfully');
         return redirect()->route('seller.orders.index');
     }
 
@@ -147,12 +231,28 @@ class OrdersController extends Controller
         if (auth()->id() !== $order->user_id){
             abort(404);
         }
+        if (!in_array($order->status_id,[1,2,10]) ){
+            toastr()->warning("Order Can't be deleted after reaching to ".sys('company_name'));
+         return back();
+        }
+
         $order->delete();
-        notify()->success('Order Deleted Successfully');
-        return redirect()->route('seller.orders.index');
+        toastr()->success('Order Deleted Successfully');
+        return redirect()->route('orders.index');
     }
     public function trash(){
         $orders = auth()->user()->onlyTrashed()->paginate(25);
+        return view('seller.orders.trash',compact('orders'));
+    }
+
+    public function mytrash()
+    {
+        if(Gate::allows('feature','trash')){
+            $orders = auth()->user()->orders()->onlyTrashed()->paginate(25);
+        }else{
+            abort('403');
+        }
+        //   dd($orders);
         return view('seller.orders.trash',compact('orders'));
     }
 

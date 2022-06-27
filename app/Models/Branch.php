@@ -15,9 +15,9 @@ class Branch extends Model
     protected $fillable = [
         'name',
         'phone',
-        'location_id',
         'state_id',
         'user_id',
+        'address'
     ];
 
     protected static $recordEvents = ['updated','deleted'];
@@ -43,7 +43,7 @@ class Branch extends Model
     }
     public function location()
     {
-        return $this->belongsTo(Location::class);
+        return $this->morphOne(Location::class, 'locationable');
     }
     public function users()
     {

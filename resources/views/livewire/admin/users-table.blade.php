@@ -5,7 +5,7 @@
                 <input type="search" wire:model.debounce.400ms="search" class="form-control" placeholder="search in names">
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderBy" class="form-control-sm">
+                <select wire:model="orderBy" class="form-control">
                     <option>Id</option>
                     <option>Name</option>
                     <option>Email</option>
@@ -14,13 +14,13 @@
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="orderAsc" class="custom-select-sm border">
+                <select wire:model="orderAsc" class="form-control">
                     <option value="1">Asc</option>
                     <option value="0">Desc</option>
                 </select>
             </div>
             <div class="col-xs-2">
-                <select wire:model="perPage" class="form-control-sm">
+                <select wire:model="perPage" class="form-control">
                     <option>5</option>
                     <option>10</option>
                     <option>25</option>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="row">
-            <table class="table table-hover">
+            <table class="table table-hover table-responsive-md">
                 <thead>
                 <th class="border  py-2">ID</th>
                 <th class="border  py-2">Username</th>
@@ -54,7 +54,7 @@
                                 <a href="{{route('admin.branches.show',$user->branch_id)}}" class="btn btn-outline-success"> {{ $user->branch->name  }}</a>
                             @else
                                 @can('user-assign')
-                                    <a href="{{route('admin.branches.index')}}" class="btn btn-outline-success">{{__('names.assign')}}</a>
+                                    <a href="{{route('admin.branches.index')}}" class="btn btn-outline-success">@lang('auth.assign')</a>
                                 @endcan
                             @endif
                         </td >

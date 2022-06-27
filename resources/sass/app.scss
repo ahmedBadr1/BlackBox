@@ -4,13 +4,12 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Font-Awesome
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/brands";
+// Icons
+@import '~boxicons';
 
-// Variables
+@import "~select2/dist/css/select2.css";
+
+// application.scss
 @import 'fb';
 @import 'variables';
 @import 'styles';

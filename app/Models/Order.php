@@ -24,6 +24,8 @@ class Order extends Model
      * @var string[]
      */
     protected $fillable = [
+        'type',
+
         'product',
         'consignee',
        'details',
@@ -63,6 +65,7 @@ class Order extends Model
         'details'=> 'array',
     ];
 
+    public static $types = ['deliver','exchange','return','cash'];
 
     protected static $recordEvents = ['updated','deleted'];
 
@@ -78,6 +81,10 @@ class Order extends Model
     public function state()
     {
         return  $this->belongsToThrough('App\Models\State',['App\Models\Zone', 'App\Models\Area']);
+    }
+    public function business()
+    {
+        return  $this->belongsToThrough('App\Models\Business',['App\Models\User']);
     }
     public function user()
     {
@@ -98,6 +105,11 @@ class Order extends Model
     public function status()
     {
         return  $this->belongsTo(Status::class);
+    }
+
+    public function scopeMyOrders($query)
+    {
+        return $query->where('user_id', auth()->id());
     }
 
 
@@ -123,19 +135,20 @@ class Order extends Model
                 ->orWhereHas('area', fn($q) => $q->where('name','like', '%'.$search.'%'));
     }
 
+
+
     public static function searchSeller($search,$uid)
     {       $id =    Hashids::Connection(Order::class)->decode(strtolower($search)) ?? 0;
         return empty($search) ? static::query()
             : static::query()->where('user_id', $uid)
                 ->where(function ($query) use ($search ,$id) {
-                    $query->orWhere('product_name', 'like', '%'.$search.'%');
-                    $query->orWhere('cust_name', 'like', '%'.$search.'%');
-                    $query->orWhere('cust_num', 'like', '%'.$search.'%');
-                    $query->orWhere('total', 'like', '%'.$search.'%');
+                    $query->orWhere('product', 'like', '%'.$search.'%');
+                    $query->orWhere('consignee', 'like', '%'.$search.'%');
+                    $query->orWhere('details', 'like', '%'.$search.'%');
                     $query->orWhere('id', '=', $id);
+                    $query->orWhereHas('user', fn($q) => $q->where('name','like', '%'.$search.'%'));
                     $query->orWhereHas('area', fn($q) => $q->where('name','like', '%'.$search.'%'));
                 });
     }
-
 
 }

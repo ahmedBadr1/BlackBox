@@ -15,35 +15,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-
-
-
-//        \App\Models\Receipt::factory(10)->create();
-        $this->call(PermissionsSeeder::class);
         $this->call(ConstantsSeeder::class);
+        $this->call(PermissionsSeeder::class);
 
-
-        \App\Models\Zone::factory(10)->create();
-        \App\Models\Area::factory(25)->create();
-        \App\Models\Location::factory(25)->create();
+        \App\Models\Zone::factory(50)->create();
+        \App\Models\Area::factory(250)->create();
+  //      \App\Models\Location::factory(25)->create();
         Branch::factory()->create([
             'name'=> 'main' ,
             'phone'=> '01999999999' ,
-            'location_id'=> 1,
             'user_id'=> 1 ,
             'state_id'=> 1 ,
             'active' => true,
         ]);
         \App\Models\Branch::factory(10)->create();
 
-        \App\Models\User::factory(20)->create()->each(function($user) {
+        \App\Models\User::factory(5)->create()->each(function($user) {
             $role = Role::whereNotIn('name', ['feedback'])->inRandomOrder()->first();
             $user->assignRole($role);
         });
 
-        \App\Models\Order::factory(200)->create();
+        \App\Models\Order::factory(500)->create();
 
         \App\Models\Task::factory(50)->create();
     }

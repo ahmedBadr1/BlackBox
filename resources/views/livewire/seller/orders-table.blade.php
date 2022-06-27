@@ -1,35 +1,40 @@
 <div>
-    <div class="container-fluid ">
-        <div class="row my-3 d-flex">
-            <div class="col-md-6">
+
+        <div class="form-group row my-3 d-flex">
+            <div class="col-sm-12 col-md-4">
                 <input type="search" wire:model.debounce.500ms="search" class="form-control" placeholder="search in names">
             </div>
-            <div class="col-xs-2">
-                <select wire:model="orderBy" class="form-control-sm">
-                    <option>Id</option>
-                    <option>Value</option>
-                    <option value="cust_name">Consignee Name</option>
-                    <option value="cust_num">Consignee Number</option>
-                    <option>Quantity</option>
-                    <option>total</option>
-                    <option>created_at</option>
+            <div class="col-6 col-md-2">
+
+                <input type="date" class="form-control"  wire:model="startDate">
+                <label for="">From</label>
+            </div>
+            <div class="col-6 col-md-2">
+
+                <input type="date" class="form-control" wire:model="endDate">
+                <label for="">To</label>
+            </div>
+            <div class="col-4 col-md-2">
+                <select wire:model="orderBy" class="form-control">
+                    <option value="id">@lang('auth.id')</option>
+                    <option value="status_id">@lang('auth.status')</option>
+                    <option value="cost">@lang('auth.cost')</option>
+                    <option value="discount">@lang('auth.discount')</option>
+                    <option value="tax">@lang('auth.tax')</option>
+                    <option value="total">@lang('auth.total')</option>
+                    <option value="created_at">@lang('auth.created_at')</option>
                 </select>
             </div>
-            <div class="col-xs-2">
-                <select wire:model="orderDesc" class="custom-select-sm border">
+            <div class="col-4 col-md-1">
+                <select wire:model="orderDesc" class="form-control">
                     <option value="1">Desc</option>
                     <option value="0">Asc</option>
 
                 </select>
             </div>
-            <div class="col-xs-2">
-                <label for="">From</label>
-                <input type="date" wire:model="startDate">
-                <label for="">To</label>
-                <input type="date" wire:model="endDate">
-            </div>
-            <div class="col-xs-2">
-                <select wire:model="perPage" class="form-control-sm">
+
+            <div class="col-4 col-md-1">
+                <select wire:model="perPage" class="form-control">
                     <option>5</option>
                     <option>10</option>
                     <option>25</option>
@@ -39,19 +44,19 @@
             </div>
         </div>
         <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover  table-responsive-md">
 
         <thead>
         <th>#</th>
-        <th>{{__("auth.id")}} {{__("names.order")}}</th>
-        <th>{{__("auth.product_name")}}</th>
-        <th>{{__("auth.cust_name")}}</th>
-        <th>{{__("auth.cust_num")}}</th>
-        <th>{{__("auth.address")}}</th>
-        <th>{{__("names.total")}}</th>
-        <th>{{__("names.count")}}</th>
-        <th>{{__("names.notes")}}</th>
-        <th>{{__("names.status")}}</th>
+        <th>@lang("auth.id") @lang("names.order")</th>
+        <th>@lang("auth.product-name")</th>
+        <th>@lang("auth.cust-name")</th>
+        <th>@lang("auth.cust-num")</th>
+        <th>@lang("auth.address")</th>
+        <th>@lang("auth.cost")</th>
+        <th>@lang("auth.total")</th>
+        <th>@lang("auth.notes")</th>
+        <th>@lang("auth.status")</th>
 
         </thead>
 
@@ -62,33 +67,30 @@
             <tr>
                 <td>{{++$key}}</td>
                 <td> <a href="{{ route('orders.show',$order->hashid) }}" style="max-width: 100px "> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></td>
-                <td>{{$order->product_name}} </td>
-                <td>{{$order->cust_name}} </td>
-                <td>{{$order->cust_num}} </td>
-                <td>{{$order->address}}, <a href="{{route('areas.show',$order->area_id)}}">
-                                                        {{ $order->area->name}}</a>, {{$order->state->name}}
+                <td>{{$order->product['name']}} </td>
+                <td>{{$order->consignee['cust_name']}} </td>
+                <td>{{$order->consignee['cust_num']}} </td>
+                <td>{{$order->consignee['address']}}, <a href="{{route('admin.areas.show',$order->area_id)}}">
+                        {{ $order->area->name}}</a>, {{$order->state->name}}
                 </td>
+                <td>{{$order->cost}} </td>
                 <td>{{$order->total}} </td>
-                <td>{{$order->quantity}} </td>
-                <td>{{\Illuminate\Support\Str::limit($order->notes, 20) ?? 'no notes'}} </td>
+                <td>{{\Illuminate\Support\Str::limit($order->details['notes'], 20) ?? 'no notes'}} </td>
                 <td>{{$order->status->name}} </td>
 
                 @auth
-                    @role('seller|Feedback')
-                    <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">{{__('names.track')}}</a></td>
-                    @endrole
-                    @role('seller|Feedback')
-                    <td><a href="{{ route('orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" class="btn btn-info">{{__('auth.edit')}}</a></td>
-                    @endrole
-                    @role('seller|Feedback')
                     <td>
-                        <form action="{{route('orders.destroy',$order->hashid) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="{{__('auth.delete')}}">
-                        </form>
+                        {{--                        <a href="{{route('admin.orders.pdf',$order->hashid)}}" class="btn btn-outline-secondary">@lang('auht.pdf')}}</a>--}}
+                        <a href="{{route('orders.print',$order->hashid)}}" class="btn btn-warning-gradient">@lang('auth.print')</a>
                     </td>
-                    @endrole
+                    <td><a href="{{route('track',['order_id' => $order->hashid])}}" class="btn btn-outline-success">@lang('names.track')</a></td>
+
+                    <td>
+                        <button wire:click="edit('{{ $order->hashid }}')" class="btn btn-primary-gradient">@lang('auth.edit')</button>
+                    </td>
+                    <td>
+                        <button wire:click="delete('{{ $order->hashid }}')" class="btn btn-danger-gradient">@lang('auth.delete')</button>
+                    </td>
                 @endauth
             </tr>
 
@@ -105,14 +107,14 @@
 
         @if(count($orders) > 0 )
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-warning" wire:click="export" wire:loading.attr="disabled"><small>{{__('auth.download')}}</small></button>
-                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success">{{__('auth.excel')}}</a>
+                <button type="button" class="btn btn-warning-gradient" wire:click="export" wire:loading.attr="disabled"><small>@lang('auth.download')</small></button>
+                <a href="{{route('export.orders.'.app()->getLocale())}}" class="btn btn-success-gradient">@lang('auth.excel')</a>
             </div>
         @endif
         <div class="d-flex justify-content-center">
-            {{ $orders->links('vendor.pagination.bootstrap-4') }}
+            {{ $orders->links() }}
         </div>
-    </div>
+
 </div>
 
 
@@ -132,16 +134,16 @@
 {{--            <span class="mb-2 text-xs">Notes: <span class="text-dark ms-2 font-weight-bold">{{\Illuminate\Support\Str::limit($order->notes, 20) ?? 'no notes'}}</span></span>--}}
 
 {{--            <span class="text-xs">Track ID : <a href="{{ route('admin.orders.show',$order->hashid) }}" style="max-width: 100px "> {{$order->hashid}}@php echo DNS1D::getBarcodeHTML($order->hashid,'C39'); @endphp</a></span>--}}
-{{--            <span class="text-xs"><a href="{{route('admin.track',['order_id' => $order->hashid])}}"  class="text-dark ms-2 font-weight-bold" >{{__('names.track')}}</a></span>--}}
+{{--            <span class="text-xs"><a href="{{route('admin.track',['order_id' => $order->hashid])}}"  class="text-dark ms-2 font-weight-bold" >@lang('names.track')}}</a></span>--}}
 {{--        </div>--}}
 {{--        <div class="ms-auto">--}}
 {{--            <form action="{{route('admin.orders.destroy',$order->hashid) }}" method="POST">--}}
 {{--                @csrf--}}
 {{--                @method('DELETE')--}}
 {{--                <i class="far fa-trash-alt me-2" aria-hidden="true"></i>--}}
-{{--                <input type="submit"  value="{{__('auth.delete')}}">--}}
+{{--                <input type="submit"  value="@lang('auth.delete')}}">--}}
 {{--            </form>--}}
-{{--            <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>{{__('auth.edit')}}</a>--}}
+{{--            <a href="{{ route('admin.orders.edit',$order->hashid) }}"  onclick="return confirm('Sure Want Edit?')" ><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>@lang('auth.edit')}}</a>--}}
 {{--        </div>--}}
 {{--    </li>--}}
 

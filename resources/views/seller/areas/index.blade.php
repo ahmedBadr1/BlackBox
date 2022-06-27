@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('seller.layouts.seller')
 
 @section('content')
 
@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-md">
 
         <thead>
         <th scope="col">Area ID</th>

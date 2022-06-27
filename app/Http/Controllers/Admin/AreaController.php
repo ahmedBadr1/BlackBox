@@ -33,7 +33,7 @@ class AreaController extends Controller
     public function states()
     {
        // $this->middleware('permission:states');
-        $states= State::with(array('users'=>fn ($q) => $q->select('id','name'),'branches','areas','zones'))->get();
+        $states= State::with(['areas'=>fn ($q) => $q->select('areas.id','areas.name'),'branches','zones'])->get();
 //        foreach ($states as $state){
 //            dd($state->users);
 //        }
@@ -47,10 +47,8 @@ class AreaController extends Controller
     public function index()
     {
         //
-        $zones = Zone::orderBy('rank')->get();
-
         $areas = Area::with('zone','state')->orderBy('id','DESC')->paginate(10);
-        return view('admin.areas.index',compact('areas','zones'));
+        return view('admin.areas.index',compact('areas'));
     }
 
     /**
@@ -61,7 +59,7 @@ class AreaController extends Controller
     public function create()
     {
         //
-        $zones = Zone::orderBy('rank')->get();
+        $zones = Zone::all();
     //    $states= State::where('active',true)->get();
 
         return view('admin.areas.create',compact('zones'));
@@ -162,7 +160,7 @@ class AreaController extends Controller
     {
         $area = Area::find($id);
         $area->delete();
-        notify()->success('Area Deleted Successfully','Area Deleted');
+        toastr()->success('Area Deleted Successfully','Area Deleted');
         return redirect()->route('admin.areas.index');
     }
 }

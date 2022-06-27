@@ -8,7 +8,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME', 'laravel-backup'),
+        'name' => '',
 
         'source' => [
 
@@ -18,7 +18,8 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    // base_path(),
+//                     base_path(),
+//                     storage_path(),
                 ],
 
                 /*
@@ -116,7 +117,8 @@ return [
              * The disk names on which the backups will be stored.
              */
             'disks' => [
-                'local',
+                'backup',
+                'google',
             ],
         ],
 
@@ -169,8 +171,8 @@ return [
             'to' => 'ahmedbauomy30@gmail.com',
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'admin@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
+                'address' => env('MAIL_FROM_ADDRESS', 'admin@blackbox.host'),
+                'name' => env('MAIL_FROM_NAME', 'BlackBox'),
             ],
         ],
 

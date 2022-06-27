@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,14 +13,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+Route::get('/', function (){
+    return view('main.home');
+})->name('home');
+
+Route::get('privacy-policy',[\App\Http\Controllers\Main\HomeController::class ,'privacyPolicy']);
+
+Route::get('auth/redirect', [\App\Http\Controllers\Main\GoogleController::class,'redirectToGoogle']);
+Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,'handleGoogleCallback']);
+
+//Route::get('/auth/redirect', function () {
+//    return Socialite::driver('google')->redirect();
+//});
+//
+//Route::get('/auth/callback', function () {
+//
+//});
 
 Route::group(['prefix' => LaravelLocalization::setLocale(),
 	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
 {
-    /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
-    Route::get('/', function (){
-        return view('main.home');
-    })->name('home');
+
+
     Route::get('/track', [\App\Http\Controllers\Main\HomeController::class, 'track']);
     Route::post('/track', [\App\Http\Controllers\Main\HomeController::class, 'trackgo'])->name('track');
 
@@ -45,34 +61,60 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 return redirect()->route('admin.dashboard');
             }
         })->name('dashboard');
+        Route::get('valex/{name}',\App\Http\Controllers\ValexController::class)->name('valex');
+
         Route::group([
             'middleware' => ['role:seller']
         ], function () {
-        Route::get('home',[\App\Http\Controllers\Seller\DashboardController::class,'index'])->name('seller.dashboard');
-        Route::get('help', [App\Http\Controllers\Admin\DashboardController::class, 'help'])->name('help');
-        Route::get('notifications', [App\Http\Controllers\Admin\DashboardController::class, 'notifications'])->name('notifications');
-        Route::get('profile', [App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('profile');
-        Route::get('profile/edit', [App\Http\Controllers\Seller\DashboardController::class, 'profileEdit'])->name('profile.edit');
-            Route::put('profile/', [App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
+            Route::get('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'setting'])->name('setting');
+            Route::post('setting', [\App\Http\Controllers\Seller\DashboardController::class, 'saveSetting'])->name('setting');
+            Route::group([
+            'middleware' => ['hasBusiness']
+            ], function () {
+        Route::get('/home',[\App\Http\Controllers\Seller\DashboardController::class,'index'])->name('seller.dashboard');
+
+        Route::get('help', [\App\Http\Controllers\Seller\DashboardController::class, 'help'])->name('help');
+
+        Route::get('notifications', [\App\Http\Controllers\Seller\DashboardController::class, 'notifications'])->name('notifications');
+        Route::get('messages', [\App\Http\Controllers\Seller\DashboardController::class, 'messages'])->name('messages');
+        Route::get('profile', [\App\Http\Controllers\Seller\DashboardController::class, 'profile'])->name('profile');
+
+        Route::put('profile/', [\App\Http\Controllers\Seller\DashboardController::class, 'profileUpdate'])->name('profile.update');
+        Route::post('password-change', [\App\Http\Controllers\Seller\DashboardController::class, 'changePassword'])->name('password-change');
+        Route::post('business-invite', [\App\Http\Controllers\Seller\BusinessController::class, 'invite'])->name('business-invite');
+
+        Route::get('price-list',[\App\Http\Controllers\Seller\SellerController::class,'priceList'])->name('price-list');
         Route::get('inventory',[\App\Http\Controllers\Seller\SellerController::class,'inventory'])->name('orders.inventory');
-        Route::get('orders/inline',[\App\Http\Controllers\Seller\SellerController::class,'inline'])->name('orders.inline');
-        Route::post('orders/inline/{id}',[\App\Http\Controllers\Seller\SellerController::class,'inlinego'])->name('orders.inlinego');
+        Route::get('inventory/export/en',[\App\Http\Controllers\Seller\SellerController::class,'inventoryExport'])->name('orders.inventory.export.en');
+        Route::get('inventory/export/ar',[\App\Http\Controllers\Seller\SellerController::class,'inventoryExport'])->name('orders.inventory.export.ar');
+        Route::get('orders/{order}/print', [\App\Http\Controllers\Seller\OrdersController::class, 'print'])->name('orders.print');
+        Route::get('orders/ready',[\App\Http\Controllers\Seller\SellerController::class,'ready'])->name('orders.ready');
+        Route::post('orders/ready/{id}',[\App\Http\Controllers\Seller\SellerController::class,'readyGo'])->name('orders.readyGo');
         Route::post('orders/wait/{id}',[\App\Http\Controllers\Seller\SellerController::class,'wait'])->name('orders.wait');
         Route::post('orders/pickup',[\App\Http\Controllers\Seller\TaskController::class,'pickup'])->name('orders.pickup');
-        Route::get('/mybalance', [\App\Http\Controllers\Seller\DashboardController::class, 'mybalance'])->name('mybalance');
-        Route::get('myorders',[\App\Http\Controllers\Seller\OrdersController::class,'myorders']);
-        Route::get('mytrash',[\App\Http\Controllers\Seller\OrdersController::class,'mytrash']);
+        Route::get('/my-balance', [\App\Http\Controllers\Seller\DashboardController::class, 'mybalance'])->name('mybalance');
+        Route::get('my-orders',[\App\Http\Controllers\Seller\OrdersController::class,'myorders']);
+        Route::get('my-trash',[\App\Http\Controllers\Seller\OrdersController::class,'mytrash']);
         Route::get('/export/orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
         Route::get('/export/orders/ar', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
-        Route::get('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
-        Route::get('areas',[\App\Http\Controllers\Seller\SellerController::class,'areas'])->name('areas');
-        Route::get('areas/{id}',[\App\Http\Controllers\Seller\SellerController::class,'areasShow'])->name('areas.show');
+      //  Route::get('/export/selected-orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportSelectedOrdersEN'])->name('export.selected-orders');
 
-            Route::get('branches',[\App\Http\Controllers\Seller\SellerController::class,'branches'])->name('branches');
-            Route::get('branches/{id}',[\App\Http\Controllers\Seller\SellerController::class,'branchesShow'])->name('branches.show');
 
+        Route::any('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
+//        Route::get('areas',[\App\Http\Controllers\Seller\SellerController::class,'areas'])->name('areas');
+//        Route::get('areas/{id}',[\App\Http\Controllers\Seller\SellerController::class,'areasShow'])->name('areas.show');
+//
+//        Route::get('branches',[\App\Http\Controllers\Seller\SellerController::class,'branches'])->name('branches');
+//        Route::get('branches/{id}',[\App\Http\Controllers\Seller\SellerController::class,'branchesShow'])->name('branches.show');
+
+        Route::get('pickups',[\App\Http\Controllers\Seller\TaskController::class,'index'])->name('pickups');
+        Route::get('locations',[\App\Http\Controllers\Seller\TaskController::class,'locations'])->name('locations');
+        Route::post('locations/create',[\App\Http\Controllers\Seller\TaskController::class,'createLocation'])->name('locations.create');
+
+
+        Route::get('orders/trash',[\App\Http\Controllers\Seller\OrdersController::class,'trash'])->name('orders.trash');
         Route::resource('orders',\App\Http\Controllers\Seller\OrdersController::class);
-
+            }); // end business group middleware
         }); // end seller group middleware
         Route::group([
             'prefix' => 'admin',
@@ -80,26 +122,47 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             'middleware' => ['auth']
         ], function () {
 
+
+
             /** ADD ALL auth ROUTES INSIDE THIS GROUP **/
-            Route::get('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'setting'])->middleware(['role:admin|Feedback'])->name('setting');
-            Route::post('/setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
-            Route::group(['middleware'=>'System'],function (){
+            Route::group([
+                'prefix' => 'system',
+                'as' => 'system.',
+             //   'middleware' => ['permission:system']
+            ], function () {
+
+                Route::get('/',[\App\Http\Controllers\SystemController::class,'index'])->name('index');
+
+                Route::get('/default',[\App\Http\Controllers\SystemController::class,'default'])->name('default');
+                Route::get('/company',[\App\Http\Controllers\SystemController::class,'company'])->name('company');
+                Route::get('/invoices',[\App\Http\Controllers\SystemController::class,'invoices'])->name('invoices');
+                Route::get('/working',[\App\Http\Controllers\SystemController::class,'working'])->name('working');
+                Route::get('/taxes',[\App\Http\Controllers\SystemController::class,'taxes'])->name('taxes');
+
+                Route::post('/store',[\App\Http\Controllers\SystemController::class,'store'])->name('store');
+
+            });
+
+
+
+
+            Route::group(['middleware'=>['System']],function (){
                 /** ADD ALL System ROUTES INSIDE THIS GROUP **/
 
                 Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
                 Route::get('help', [\App\Http\Controllers\Admin\DashboardController::class, 'help'])->name('help');
                 Route::get('notifications', [\App\Http\Controllers\Admin\DashboardController::class, 'notifications'])->name('notifications');
+                Route::get('messages', [\App\Http\Controllers\Admin\DashboardController::class, 'messages'])->name('messages');
+//                Route::get('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'setting'])->name('setting');
+//                Route::post('setting', [\App\Http\Controllers\Admin\DashboardController::class, 'saveSetting'])->name('setting');
 
                 Route::get('profile', [\App\Http\Controllers\Admin\DashboardController::class, 'profile'])->name('profile');
-                Route::get('profile/edit', [\App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');
+      //          Route::get('profile/edit', [\App\Http\Controllers\Admin\DashboardController::class, 'profileEdit'])->name('profile.edit');
                 Route::put('profile/', [\App\Http\Controllers\Admin\DashboardController::class, 'profileUpdate'])->name('profile.update');
                 Route::get('sellers', [\App\Http\Controllers\Admin\DashboardController::class, 'sellers'])->name('sellers');
                 Route::get('trash', [\App\Http\Controllers\Admin\DashboardController::class, 'trash'])->name('trash');
 
-                Route::get('financials', [\App\Http\Controllers\Admin\FinancialController::class, 'index'])->name('financials');
-                Route::get('/invoice', [\App\Http\Controllers\Admin\FinancialController::class, 'invoice']);
-                Route::get('statics', [\App\Http\Controllers\Admin\StaticsController::class, 'index'])->name('statics');
 
 
                 Route::get('/states', [\App\Http\Controllers\Admin\AreaController::class, 'states'])->name('states');
@@ -137,8 +200,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::get('/export/orders/en', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersEn'])->name('export.orders.en');
                 Route::get('/export/orders/ar', [\App\Http\Controllers\Admin\OrdersController::class,'adminExportOrdersAr'])->name('export.orders.ar');
 
-                Route::get('orders/{order}/pdf', [\App\Http\Controllers\Admin\OrdersController::class, 'pdf'])->name('orders.pdf');
-                Route::get('orders/{order}/print', [\App\Http\Controllers\Admin\OrdersController::class, 'print'])->name('orders.print');
+                Route::get('orders/{id}/pdf', [\App\Http\Controllers\Admin\OrdersController::class, 'pdf'])->name('orders.pdf');
+                Route::get('orders/{id}/print', [\App\Http\Controllers\Admin\OrdersController::class, 'print'])->name('orders.print');
                 Route::get('receipts/{id}/print',[\App\Http\Controllers\Admin\ReceiptController::class,'print'])->name('receipts.print');
 
                 Route::get('/features',[\App\Http\Controllers\Admin\PlanController::class,'features'])->name('features');
@@ -162,8 +225,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::resource('plans', App\Http\Controllers\Admin\PlanController::class);
             Route::resource('locations', App\Http\Controllers\Admin\LocationsControllers::class);
 
+            Route::resource('transactions', \App\Http\Controllers\Admin\TransactionsController::class);
 
-            Route::get('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('email');
+            Route::resource('reports', \App\Http\Controllers\Admin\StaticsController::class);
+
+
+
+                Route::get('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('email');
             Route::post('/e/s', [\App\Http\Controllers\Admin\MailController::class, 'send'])->name('email.send');
             Route::post('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('emailto');
             Route::get('/welcome-email', [\App\Http\Controllers\Admin\MailController::class, 'welcomeMail'])->name('welcome.email');
@@ -178,8 +246,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             'middleware' => ['role:delivery']
         ], function () {
             Route::get('dashboard',[\App\Http\Controllers\Delivery\DashboardController::class,'index'])->name('dashboard');
+            Route::get('notifications', [\App\Http\Controllers\Delivery\DashboardController::class, 'notifications'])->name('notifications');
             Route::get('profile', [\App\Http\Controllers\Delivery\DashboardController::class, 'profile'])->name('profile');
-            Route::get('profile/edit', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileEdit'])->name('profile.edit');
+         //   Route::get('profile/edit', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileEdit'])->name('profile.edit');
             Route::put('profile/', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileUpdate'])->name('profile.update');
             Route::get('my-orders',[\App\Http\Controllers\Delivery\OrdersController::class,'myorders'])->name('my-orders');
             Route::get('my-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'mytasks'])->name('my-tasks');

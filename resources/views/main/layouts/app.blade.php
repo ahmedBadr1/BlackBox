@@ -41,14 +41,14 @@
                     </li>
                 @endforeach
             </ul>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="@lang('Toggle navigation')">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item "><a href="/track" class="nav-link">{{__('names.track')}}</a></li>
+                    <li class="nav-item "><a href="/track" class="nav-link">@lang('names.track')</a></li>
 
                 </ul>
 
@@ -58,14 +58,14 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('auth.login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">@lang('auth.login') </a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('auth.register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">@lang('auth.register') </a>
                             </li>
                         @endif
                     @else
@@ -86,7 +86,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    @lang('Logout')
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

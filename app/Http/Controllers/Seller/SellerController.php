@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Seller;
 
+use App\Exports\Seller\SelectedOrdersExport;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Branch;
@@ -12,6 +13,7 @@ use App\Models\Task;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
 use Vinkla\Hashids\Facades\Hashids;
 
 class SellerController extends Controller
@@ -36,12 +38,31 @@ class SellerController extends Controller
 //        $orders = Order::orderBy('created_at','DESC')->paginate(20);
         return view('seller.orders.inventory',compact('orders'));
     }
-    public function  inline()
+    public function inventoryExport()
+    {
+        $ordersIds = auth()->user()->orders()->with('area','state','status')->whereIn('status_id',[1,2])->orderBy('updated_at','DESC')->pluck('id');
+        return Excel::download(new SelectedOrdersExport($ordersIds), __('names.selected-orders').'.csv');
+    }
+    public function priceList(){
+        $plan = auth()->user()->plan;
+        $areas = Area::select('delivery_cost','id','name','delivery_time','over_weight_cost')->get();
+      //  dd($areas[4]);
+        foreach ($plan->area as $key=> $planArea){
+            if ($planArea){
+                $areas[$key-1]->delivery_cost = $planArea;
+            }
+
+        }
+
+      //  dd($areas);
+        return view('seller.accounting.price-list',compact('plan','areas'));
+    }
+    public function  ready()
     {
         $orders = auth()->user()->orders()->with('area','state','status')->whereIn('status_id',[2])->orderBy('updated_at','DESC')->paginate(10);
         return view('seller.orders.inline',compact('orders'));
     }
-    public function  inlinego(Request $request,$id)
+    public function  readyGo(Request $request,$id)
     {
      //   dd($hash);
        $key =  Hashids::connection(Order::class)->decode($id);
@@ -65,7 +86,7 @@ class SellerController extends Controller
     }
     public function areas()
     {
-        $areas = Area::all();
+        $areas = Area::paginate(10);
         return view('seller.areas.index',compact('areas'));
     }
     public function areasShow($id)
@@ -83,7 +104,6 @@ class SellerController extends Controller
         $branch = Branch::findOrFail($id);
         return view('seller.areas.show',compact('branch'));
     }
-
 
 
 }
