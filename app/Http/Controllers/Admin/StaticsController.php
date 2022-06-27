@@ -49,6 +49,6 @@ class StaticsController extends Controller
         $chart2 = new LaravelChart($chart_options2);
 
 
-        return view('admin.statics.index',compact('chart1','chart2'));
+        return view('admin.reports.index',compact('chart1','chart2'));
     }
 }

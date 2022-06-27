@@ -163,9 +163,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::get('sellers', [\App\Http\Controllers\Admin\DashboardController::class, 'sellers'])->name('sellers');
                 Route::get('trash', [\App\Http\Controllers\Admin\DashboardController::class, 'trash'])->name('trash');
 
-                Route::get('financials', [\App\Http\Controllers\Admin\FinancialController::class, 'index'])->name('financials');
-                Route::get('/invoice', [\App\Http\Controllers\Admin\FinancialController::class, 'invoice']);
-                Route::get('statics', [\App\Http\Controllers\Admin\StaticsController::class, 'index'])->name('statics');
 
 
                 Route::get('/states', [\App\Http\Controllers\Admin\AreaController::class, 'states'])->name('states');
@@ -228,8 +225,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::resource('plans', App\Http\Controllers\Admin\PlanController::class);
             Route::resource('locations', App\Http\Controllers\Admin\LocationsControllers::class);
 
+            Route::resource('transactions', \App\Http\Controllers\Admin\TransactionsController::class);
 
-            Route::get('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('email');
+            Route::resource('reports', \App\Http\Controllers\Admin\StaticsController::class);
+
+
+
+                Route::get('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('email');
             Route::post('/e/s', [\App\Http\Controllers\Admin\MailController::class, 'send'])->name('email.send');
             Route::post('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('emailto');
             Route::get('/welcome-email', [\App\Http\Controllers\Admin\MailController::class, 'welcomeMail'])->name('welcome.email');

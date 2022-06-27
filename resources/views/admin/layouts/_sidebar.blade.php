@@ -49,7 +49,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
                 <li class="slide  ">
                     <a class="side-menu__item" data-toggle="slide">
-                            <i class='bx bxs-user-detail bx-xs side-menu__icon'></i>
+                            <i class='bx bxs-user-detail side-menu__icon'></i>
                         <span class="side-menu__label">   @lang('names.users')   </span>
                         <span>
                                 <i class='bx bxs-left-arrow angle '></i>
@@ -125,7 +125,23 @@
                     </ul>
                 </li>
             @endcan
-
+        @can('accounting')
+            <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="slide  ">
+                    <a class="side-menu__item" data-toggle="slide"><i class='bx bx-task side-menu__icon'></i>
+                        <span class="side-menu__label">    @lang('names.accounting')</span>
+                        <span><i class='bx bxs-sort-alt-2 angle '></i></span>
+                    </a>
+                    <ul class="slide-menu">
+                        @can('transactions')
+                            <li><a class="slide-item " href="{{route('admin.transactions.index')}}">@lang('names.transactions')</a></li>
+                        @endcan
+                        @can('reports')
+                            <li><a class="slide-item " href="{{route('admin.reports.index')}}">@lang('names.reports')</a></li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
 
             @can('plans')
                 <li class="slide">

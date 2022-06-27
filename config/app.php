@@ -173,7 +173,7 @@ return [
         \Vinkla\Hashids\HashidsServiceProvider::class,
 
         \Livewire\LivewireServiceProvider::class,
-        Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
+
 
         /*
          * Application Service Providers...
