@@ -66,7 +66,7 @@ You can now access the server at http://localhost:8000
     
 **Make sure you set the connection between storage and public directory (run only once in project lifetime)**
     
-    php artisna storage:link 
+    php artisan storage:link 
     
 ### Database seeding
 

@@ -37,7 +37,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
 
-                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            {{-- @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 
                                 <a class="dropdown-item d-flex " rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                 <span class="avatar  ml-3 align-self-center bg-transparent"><img
@@ -47,7 +47,7 @@
                                     </div>
                                 </a>
 
-                            @endforeach
+                            @endforeach --}}
 
                         </div>
                     </div>

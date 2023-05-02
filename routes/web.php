@@ -31,9 +31,6 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
 //
 //});
 
-Route::group(['prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function()
-{
 
 
     Route::get('/track', [\App\Http\Controllers\Main\HomeController::class, 'track']);
@@ -260,8 +257,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         });
 
     }); // end auth group middleware
-
-}); // end localization en\ar
 
 
 

@@ -36,7 +36,7 @@
                             <i class="bx bx-flag bx-sm "></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
-
+{{-- 
                             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 
                                 <a class="dropdown-item d-flex " rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -47,7 +47,7 @@
                                     </div>
                                 </a>
 
-                            @endforeach
+                            @endforeach --}}
 
                         </div>
                     </div>
