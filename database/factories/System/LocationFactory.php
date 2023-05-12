@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\System;
 
 use App\Models\Area;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\System\Location;
+use App\Models\System\State;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LocationFactory extends Factory

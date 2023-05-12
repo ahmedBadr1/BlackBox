@@ -3,7 +3,6 @@
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 class CreateOrdersTable extends Migration
@@ -22,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->text('consignee');
             $table->text('details');
             $table->foreignIdFor(\App\Models\Area::class);
-            $table->foreignIdFor(\App\Models\Status::class);
+            $table->foreignIdFor(\App\Models\System\Status::class);
             $table->foreignIdFor(User::class);
             $table->smallInteger('cost');
             $table->mediumInteger('sub_total');

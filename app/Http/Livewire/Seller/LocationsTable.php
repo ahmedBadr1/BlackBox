@@ -12,7 +12,7 @@ class LocationsTable extends Component
     public function mount ()
     {
 
-        $this->locations =   auth()->user()->locations()->with(['state'=> fn($q)=>$q->select('id','name'),'area'=> fn($q)=>$q->select('id','name')])->orderBy('updated_at','desc')->get();
+        $this->locations =   auth()->user()->locations()->with(['state'=> fn($q)=>$q->select('states.id','states.name'),'area'=> fn($q)=>$q->select('areas.id','areas.name')])->orderBy('updated_at','desc')->get();
     }
     public function render()
     {

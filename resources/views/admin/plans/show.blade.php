@@ -15,7 +15,7 @@
                 <p><b>{{$plan->pickup_cost}}</b></p> <hr>
                 <label> @lang("names.features")</label>
                 <p>@foreach($plan->features as $feature)
-                        <<a href="{{route('admin.features.show',$feature->id)}}" class="badge badge-success">{{$feature->name}}</a>
+                        <a href="{{route('admin.features.show',$feature->id)}}" class="badge badge-success">{{$feature->name}}</a>
                     @endforeach
                 </p> <hr>
 

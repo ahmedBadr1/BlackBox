@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\State;
+use App\Models\System\State;
 use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        $states= State::where('active',true)->get();
+        $states= State::all();
         $roles = Role::whereNotIn('name', ['seller','feedback'])->pluck('name');
         return view('admin.users.create',compact('roles','states'));
     }
@@ -79,11 +79,11 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($input['role']);
 
-        if (app()->getLocale() == 'ar'){
-            toastSuccess('تم إنشاء مستخدم جديد');
-        }else{
-            toastSuccess('User Created Successfully');
-        }
+//        if (app()->getLocale() == 'ar'){
+//            toastSuccess('تم إنشاء مستخدم جديد');
+//        }else{
+//            toastSuccess('User Created Successfully');
+//        }
         return redirect()->route('admin.users.index')->with('success','User Created Successfully');
     }
 
@@ -121,7 +121,7 @@ class UserController extends Controller
         if($user->hasRole('seller')){
             abort(403);
         }
-        $states= State::where('active',true)->get();
+        $states= State::get();
 
         //dd($user->roles);
         $roles = Role::whereNotIn('name', ['seller'])->pluck('name')->all();
@@ -158,11 +158,11 @@ class UserController extends Controller
 //        $roleId = DB::table('roles')->where('name',$request->input('role'))->value('id');
 //
 //        DB::table('users')->where('id',$id)->update(['role'=>$roleId]);
-        if (app()->getLocale() == 'ar'){
-            toastSuccess('تم تعديل بيانات المستخدم');
-        }else{
-            toastSuccess('User Updated Successfully');
-        }
+//        if (app()->getLocale() == 'ar'){
+//            toastSuccess('تم تعديل بيانات المستخدم');
+//        }else{
+//            toastSuccess('User Updated Successfully');
+//        }
 
 
         $user->assignRole($request->input('role'));

@@ -69,7 +69,7 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
 
-        'System' => IsSystem::class,
+        'Setting' => IsSystem::class,
         'IsActive' => IsActive::class,
         'hasBusiness' => HasBusiness::class,
 

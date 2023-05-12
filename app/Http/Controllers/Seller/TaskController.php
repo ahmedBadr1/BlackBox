@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
-use App\Models\Area;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\System\Location;
 use App\Models\Task;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Area;
-use App\Models\State;
+use App\Models\System\State;
 use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,6 +32,7 @@ class AreaFactory extends Factory
             'over_weight_cost' => rand(1,10),
             'delivery_time' => rand(12,96),
             'zone_id' =>  Zone::all()->random()->id,
+            'state_id' => State::all()->random()->id,
 
         ];
     }

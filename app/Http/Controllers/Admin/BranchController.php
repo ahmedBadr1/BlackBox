@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
-use App\Models\State;
+use App\Models\System\State;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BranchController extends Controller
 {
@@ -48,7 +47,7 @@ class BranchController extends Controller
         // create manager role
        $managers = User::role(['manager'])->get();
        // $managers = User::role(['manager'])->pluck('id')[0];
-        $states= State::where('active',true)->get();
+        $states= State::all();
       // dd($managers);
         return view('admin.areas.branches.create',compact('managers','states'));
     }
@@ -114,7 +113,7 @@ class BranchController extends Controller
         $branch = Branch::findOrFail($id);
         $managers =User::role(['manager'])->select('id','name')->get();
       //  dd($managers);
-        $states= State::where('active',true)->get();
+        $states= State::get();
        return view('admin.areas.branches.edit',compact('branch','managers','states'));
 
     }

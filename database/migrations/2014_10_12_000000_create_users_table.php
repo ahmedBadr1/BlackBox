@@ -24,9 +24,8 @@ class CreateUsersTable extends Migration
             $table->foreignIdFor(\App\Models\Branch::class)->default(0);
             $table->foreignIdFor(\App\Models\Business::class)->default(0);
             $table->foreignIdFor(\App\Models\Plan::class)->default(1);
-            $table->text('password');
+            $table->string('password');
             $table->boolean('active')->default(1);
-            $table->dateTime('last_action_at')->nullable();
             $table->string('google_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

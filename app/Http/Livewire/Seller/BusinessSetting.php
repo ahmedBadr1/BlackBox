@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Seller;
 
 use App\Models\Business;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\System\Location;
+use App\Models\System\State;
 use Livewire\Component;
 
 class BusinessSetting extends Component
@@ -17,8 +17,8 @@ class BusinessSetting extends Component
         "url" => "required|url",
 
         'location_name' => 'required' ,
-        'state_id' => 'required|numeric' ,
-        'area_id' => 'required|numeric' ,
+        'state_id' => 'required|exists:states,id' ,
+        'area_id' => 'required|exists:areas,id' ,
         'street' => 'nullable' ,
         'building' => 'nullable' ,
         'floor' => 'nullable' ,
@@ -82,7 +82,7 @@ class BusinessSetting extends Component
 //            $this->longitude = $this->location->longitude ;
         }
 
-        $this->states = State::where('active',true)->select('id','name')->get();
+        $this->states = State::select(['id','name'])->get();
         $state = State::find($this->state_id) ;
         if ($state){
             $this->areas = $state->areas()->where('active',true)->select('areas.id','areas.name')->get() ;
@@ -124,13 +124,16 @@ class BusinessSetting extends Component
 
         $lData = [
             'name' => $validated['location_name'],
-            'state_id' => $validated['state_id'],
+//            'state_id' => $validated['state_id'],
             'area_id' => $validated['area_id'],
             'street' => $validated['street'],
             'building' => $validated['building'],
             'floor' => $validated['floor'],
             'apartment' => $validated['apartment'],
             'landmarks' => $validated['landmarks'],
+//            'locationable_type' => 'App\Models\User',
+//            'locationable_id' => auth()->id(),
+
 //            'latitude' => $validated['latitude'],
 //            'longitude' => $validated['longitude'],
 
@@ -139,8 +142,8 @@ class BusinessSetting extends Component
         if(isset($user->business->location)){
             $user->business->location()->update($lData);
         }else{
-            $location =  Location::create($lData);
-            $user->business->location()->save($location);
+//            $location =  Location::create($lData);
+            $user->business->location()->create($lData);
         }
         $this->emit('alert',
             ['type' => 'success',  'message' => 'Setting Created Successfully!']);

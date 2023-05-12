@@ -7,12 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Branch;
 use App\Models\Order;
-use App\Models\Receipt;
-use App\Models\Status;
-use App\Models\Task;
-use App\Models\Zone;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Maatwebsite\Excel\Facades\Excel;
 use Vinkla\Hashids\Facades\Hashids;
 

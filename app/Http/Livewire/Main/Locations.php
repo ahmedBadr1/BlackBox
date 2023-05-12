@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Main;
 
-use App\Models\Location;
+use App\Models\System\Location;
 use Livewire\Component;
 
 class Locations extends Component

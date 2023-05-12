@@ -76,7 +76,7 @@
 
                     <div class="form-group row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="delivery_time" class="col-form-label text-md-right">@lang('auth.delivery-time') </label>
                             <input  type="number" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time" value="{{ old('delivery_time') }}"  >
                             @error('delivery_time')
@@ -86,7 +86,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="zone_id" class=" col-form-label text-md-right">@lang('names.zones')</label>
                             <select class="select2 form-control" name="zone_id" id="zonesSelect">
                                 <option value="" selected>@lang('auth.select-zone')</option>
@@ -95,6 +95,18 @@
                                 @endforeach
                             </select>
                             @error('zone_id')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label for="state_id" class=" col-form-label text-md-right">@lang('names.states')</label>
+                            <select class="select2 form-control" name="state_id" id="stateSelect">
+                                <option value="" selected>@lang('auth.select-state')</option>
+                                @foreach($states as $state)
+                                    <option  value="{{$state->id}}">{{$state->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('state_id')
                             <strong>{{ $message }}</strong>
                             @enderror
                         </div>

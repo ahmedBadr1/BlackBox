@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\State;
+use App\Models\System\State;
 use Livewire\Component;
 
 class ToggleState extends Component

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\Status;
 use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
 

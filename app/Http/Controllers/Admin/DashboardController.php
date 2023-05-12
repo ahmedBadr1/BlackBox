@@ -7,30 +7,25 @@ use App\Models\Area;
 use App\Models\Branch;
 use App\Models\Business;
 use App\Models\Feature;
-use App\Models\Location;
 use App\Models\Order;
 use App\Models\Packing;
 use App\Models\Plan;
 use App\Models\Receipt;
-use App\Models\System;
-use App\Models\State;
-use App\Models\Status;
+use App\Models\System\Location;
+use App\Models\System\Setting;
+use App\Models\System\State;
+use App\Models\System\Status;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
-use App\Notifications\Admin\NewUserNotification;
 use App\Notifications\ChangePasswordNotification;
 use App\Notifications\WelcomeMailNotification;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
 
 
 class DashboardController extends Controller
@@ -139,7 +134,7 @@ class DashboardController extends Controller
         $allOrders = $user->orders->count();
         $doneOrders = $user->orders->where('status_id','6')->count();
 
-        $states= State::where('active',true)->get();
+        $states= State::all();
         $areas = Area::pluck('name')->all();
 
         return view('admin.profile', compact('user','allTasks','doneTasks','allOrders','doneOrders' , 'total','count','products','states','areas'));
@@ -250,7 +245,7 @@ class DashboardController extends Controller
     }
     public function system()
     {
-        $system = system::first() ;
+        $system = Setting::first() ;
 
         return view('system.setting',compact('system'));
     }
@@ -276,7 +271,7 @@ class DashboardController extends Controller
       //    dd($input);
         $path = 'uploads/system/logo';
 
-        $system = system::first();
+        $system = Setting::first();
 
         if($system){
             if(! isset($input['company_logo'])){
@@ -296,7 +291,7 @@ class DashboardController extends Controller
             }
             $system->update($input);
         }else{
-            system::create($input) ;
+            Setting::create($input) ;
         }
 
 

@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire\Seller;
 
-use App\Models\Area;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\System\Location;
+use App\Models\System\State;
 use Livewire\Component;
 
 class LocationsCreate extends Component
@@ -45,7 +44,7 @@ class LocationsCreate extends Component
 
     public function render()
     {
-        $this->states = State::where('active',true)->select('id','name')->get();
+        $this->states = State::select('id','name')->get();
         $state = State::find($this->state_id) ;
         if ($state){
             $this->areas = $state->areas()->where('active',true)->select('areas.id','areas.name')->get() ;
@@ -73,8 +72,7 @@ class LocationsCreate extends Component
             $this->emit('alert',
                 ['type' => 'info',  'message' => 'Location Updated Successfully!']);
         }else{
-            $location =  Location::create($validated);
-            $user->locations()->save($location);
+            $user->locations()->create($validated);
             $this->emit('alert',
                 ['type' => 'success',  'message' => 'Location Created Successfully!']);
     }

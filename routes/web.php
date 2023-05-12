@@ -18,6 +18,12 @@ Route::get('/', function (){
     return view('main.home');
 })->name('home');
 
+Route::get('/switch-language/{language}', function ($language) {
+    session(['locale' => $language]);
+    config(['app.locale'=> $language ]) ;
+    return redirect()->back();
+})->name('switch-language');
+
 Route::get('privacy-policy',[\App\Http\Controllers\Main\HomeController::class ,'privacyPolicy']);
 
 Route::get('auth/redirect', [\App\Http\Controllers\Main\GoogleController::class,'redirectToGoogle']);
@@ -143,8 +149,8 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
 
 
 
-            Route::group(['middleware'=>['System']],function (){
-                /** ADD ALL System ROUTES INSIDE THIS GROUP **/
+            Route::group(['middleware'=>['Setting']],function (){
+                /** ADD ALL Setting ROUTES INSIDE THIS GROUP **/
 
                 Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
@@ -232,7 +238,7 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
             Route::post('/e/s', [\App\Http\Controllers\Admin\MailController::class, 'send'])->name('email.send');
             Route::post('/e', [\App\Http\Controllers\Admin\MailController::class, 'index'])->name('emailto');
             Route::get('/welcome-email', [\App\Http\Controllers\Admin\MailController::class, 'welcomeMail'])->name('welcome.email');
-            }); // end System group middleware
+            }); // end Setting group middleware
         }); // end admin group prefix
 
 

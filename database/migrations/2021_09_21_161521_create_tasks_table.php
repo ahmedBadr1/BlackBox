@@ -17,14 +17,13 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->foreignIdFor(\App\Models\Location::class);
+            $table->foreignIdFor(\App\Models\System\Location::class);
             $table->dateTime('due_to')->nullable();
-            $table->foreignId('delivery_id')
+            $table->foreignId('delivery_id')->nullable()
             ->references('id')
                 ->on('users')
                 ->onDelete('cascade')
-                ->onUpdate('cascade')
-                ->nullable();
+                ->onUpdate('cascade');
             $table->foreignIdFor(User::class);
             $table->text('notes')->nullable();
             $table->dateTime('done_at')->nullable();

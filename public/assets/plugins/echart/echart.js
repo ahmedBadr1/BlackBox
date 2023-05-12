@@ -10256,7 +10256,7 @@ var domHandlers = {
         // style" will remain for user view)
 
         // click event should always be triggered no matter whether
-        // there is gestrue event. System click can not be prevented.
+        // there is gestrue event. Setting click can not be prevented.
         if (+new Date() - this._lastTouchMoment < TOUCH_CLICK_DELAY) {
             domHandlers.click.call(this, event);
         }

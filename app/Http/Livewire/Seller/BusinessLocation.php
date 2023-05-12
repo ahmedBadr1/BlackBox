@@ -2,10 +2,8 @@
 
 namespace App\Http\Livewire\Seller;
 
-use App\Models\Area;
-use App\Models\Business;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\System\Location;
+use App\Models\System\State;
 use Livewire\Component;
 
 class BusinessLocation extends Component
@@ -55,7 +53,7 @@ class BusinessLocation extends Component
 //            $this->longitude = $this->location->longitude ;
         }
 
-        $this->states = State::where('active',true)->select('id','name')->get();
+        $this->states = State::select('id','name')->get();
         $state = State::find($this->state_id) ;
         if ($state){
             $this->areas = $state->areas()->where('active',true)->select('areas.id','areas.name')->get() ;
@@ -86,8 +84,7 @@ class BusinessLocation extends Component
         if(isset($user->business->location)){
             $user->business->location()->update($validated);
         }else{
-            $location =  Location::create($validated);
-            $user->business->location()->save($location);
+            $user->business->location()->create($validated);
         }
 
 

@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Http\Traits\Hashidable;
+use App\Models\System\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Route;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Vinkla\Hashids\Facades\Hashids;
@@ -80,7 +80,7 @@ class Order extends Model
     }
     public function state()
     {
-        return  $this->belongsToThrough('App\Models\State',['App\Models\Zone', 'App\Models\Area']);
+        return  $this->belongsToThrough('App\Models\System\State', 'App\Models\Area');
     }
     public function business()
     {

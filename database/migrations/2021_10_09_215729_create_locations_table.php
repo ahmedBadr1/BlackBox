@@ -14,11 +14,11 @@ class CreateLocationsTable extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
+            $table->id();
             $table->string('name')->nullable();
-            $table->foreignIdFor(\App\Models\State::class)->nullable();
             $table->foreignIdFor(\App\Models\Area::class)->nullable();
-            $table->bigInteger('locationable_id')->nullable();
-            $table->string('locationable_type')->nullable();
+            $table->morphs('locationable');
+            $table->string('postal_code')->nullable();
             $table->string('street')->nullable();
             $table->string('building')->nullable();
             $table->string('floor')->nullable();
@@ -26,7 +26,7 @@ class CreateLocationsTable extends Migration
             $table->string('landmarks')->nullable();
             $table->double('longitude')->nullable();
             $table->double('latitude')->nullable();
-            $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

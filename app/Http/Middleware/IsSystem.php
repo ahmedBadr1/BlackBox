@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\System;
+use App\Models\System\Setting;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -20,7 +20,7 @@ class IsSystem
         if (auth()->user()->hasRole(['seller','delivery'])){
             abort(404);
         }
-        if(System::first() === null){
+        if(Setting::first() === null){
             return redirect()->route('admin.system.index');
         }
 

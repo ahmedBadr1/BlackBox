@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
-use App\Models\State;
+use App\Models\System\State;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class ZoneController extends Controller
     public function index()
     {
 
-        $zones = Zone::with(['areas','state'=> fn($q) => $q->select('id','name')])->orderBy('id','DESC')->paginate(10);
+        $zones = Zone::with('areas')->orderBy('id','DESC')->paginate(10);
 
         return view('admin.areas.zones.index',compact('zones'));
     }
@@ -41,7 +41,7 @@ class ZoneController extends Controller
     {
         //
         $areas = Area::orderBy('id','DESC')->get();
-        $states= State::where('active',true)->get();
+        $states= State::get();
         return view('admin.areas.zones.create',compact('states','areas'));
     }
 
@@ -56,7 +56,6 @@ class ZoneController extends Controller
         //
         $this->validate($request,[
             'name'=>'required|unique:zones,name',
-            'state_id'=>'required'
         ]);
         $input = $request->all();
 
@@ -91,8 +90,7 @@ class ZoneController extends Controller
     public function edit(Zone $zone)
     {
         $areas = Area::orderBy('id','DESC')->get();
-        $states= State::where('active',true)->get();
-        return view('admin.areas.zones.edit',compact('zone','states','areas'));
+        return view('admin.areas.zones.edit',compact('zone','areas'));
     }
 
     /**
@@ -107,7 +105,6 @@ class ZoneController extends Controller
         //
         $this->validate($request,[
             'name'=>'required',
-            'state_id'=>'required'
         ]);
         $input = $request->all();
 

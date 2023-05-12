@@ -1,7 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\System;
 
+use App\Models\Area;
+use App\Models\Branch;
+use App\Models\Order;
+use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,14 +14,9 @@ class State extends Model
 {
     use HasFactory;
 
-
-    public function zones()
-    {
-        return $this->hasMany(Zone::class);
-    }
     public function areas()
     {
-        return $this->hasManyThrough(Area::class,Zone::class);
+        return $this->hasMany(Area::class);
     }
     public function users()
     {

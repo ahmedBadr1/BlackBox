@@ -4,15 +4,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Receipt;
-use App\Models\Status;
-use App\Models\Task;
 use Illuminate\Http\Request;
 use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Facades\Invoice;
-use Milon\Barcode\DNS1D;
 use PDF;
+
 class ReceiptController extends Controller
 {
 

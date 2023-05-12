@@ -3015,7 +3015,7 @@ var Map = Evented.extend({
 	options: {
 		// @section Map State Options
 		// @option crs: CRS = L.CRS.EPSG3857
-		// The [Coordinate Reference System](#crs) to use. Don't change this if you're not
+		// The [Coordinate Reference Setting](#crs) to use. Don't change this if you're not
 		// sure what it means.
 		crs: EPSG3857,
 
@@ -11688,7 +11688,7 @@ var TileLayerWMS = TileLayer.extend({
 
 	options: {
 		// @option crs: CRS = null
-		// Coordinate Reference System to use for the WMS requests, defaults to
+		// Coordinate Reference Setting to use for the WMS requests, defaults to
 		// map CRS. Don't change this if you're not sure what it means.
 		crs: null,
 

@@ -4,8 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Area;
 use App\Models\Order;
-use App\Models\State;
-use App\Models\Status;
+use App\Models\System\Status;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

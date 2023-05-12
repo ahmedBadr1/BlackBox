@@ -54,7 +54,6 @@ class PermissionsSeeder extends Seeder
             'task-create',
             'task-delete',
             'task-assign',
-
         ];
         foreach ($this->permissions as $permission){
             Permission::findOrCreate($permission);
@@ -97,11 +96,10 @@ class PermissionsSeeder extends Seeder
         $password = Hash::make('feedback');
         $user = \App\Models\User::factory()->create([
             'name' => 'feedback',
-            'email' => 'admin@blackbox.com',
+            'email' => 'feedback@blackbox.com',
             'phone' => '01098281638',
             'hearAboutUs' => 'system',
             'password'=>$password,
-
         ]);
         $user->assignRole($role1);
 

@@ -125,12 +125,15 @@
                     </ul>
                 </li>
             @endcan
+
+
         @can('accounting')
             <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="slide  ">
                     <a class="side-menu__item" data-toggle="slide"><i class='bx bx-task side-menu__icon'></i>
                         <span class="side-menu__label">    @lang('names.accounting')</span>
-                        <span><i class='bx bxs-sort-alt-2 angle '></i></span>
+                        <span><i class='bx bxs-left-arrow angle'></i></span>
+
                     </a>
                     <ul class="slide-menu">
                         @can('transactions')

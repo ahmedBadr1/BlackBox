@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LocationRequest;
 use App\Models\Area;
-use App\Models\Location;
-use App\Models\State;
+use App\Models\System\Location;
+use App\Models\System\State;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 
 class LocationsControllers extends Controller
 {
@@ -32,7 +31,7 @@ class LocationsControllers extends Controller
      */
     public function create()
     {
-        $states = State::where('active',true)->select('id','name')->get();
+        $states = State::select('id','name')->get();
         $areas = Area::where('active',true)->select('id','name')->get();
     //    dd($areas);
         return view('admin.locations.create',compact('states','areas'));
@@ -58,7 +57,7 @@ class LocationsControllers extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Location  $location
+     * @param  \App\Models\System\Location  $location
      * @return
      */
     public function show(Location $location)
@@ -71,13 +70,13 @@ class LocationsControllers extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Location  $location
+     * @param  \App\Models\System\Location  $location
      * @return \Illuminate\Http\Response
      */
     public function edit(Location $location)
     {
         //
-        $states = State::where('active',true)->select('id','name')->get();
+        $states = State::select('id','name')->get();
         $areas = Area::where('active',true)->select('id','name')->get();
         //    dd($areas);
         return view('admin.locations.edit',compact('states','areas','location'));
@@ -87,7 +86,7 @@ class LocationsControllers extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Location $location
+     * @param \App\Models\System\Location $location
      * @return \Illuminate\Http\Response
      * @throws \Throwable
      */
@@ -119,7 +118,7 @@ class LocationsControllers extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Location  $location
+     * @param  \App\Models\System\Location  $location
      * @return \Illuminate\Http\Response
      */
     public function destroy(Location $location)

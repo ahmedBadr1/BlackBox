@@ -1,8 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\System;
 
-use App\Models\Status;
+use App\Models\System\Status;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StatusFactory extends Factory

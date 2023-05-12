@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\System;
 
+use App\Models\Area;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Location extends Model
 {
-    use HasFactory;
+    use HasFactory , BelongsToThrough ;
     protected $fillable = [
         'name',
-        'state_id',
         'area_id',
         'street',
         'building',
@@ -19,28 +20,28 @@ class Location extends Model
         'landmarks',
         'longitude',
         'latitude',
-        'model_type',
-        'model_id',
+        'locationable_type',
+        'locationable_id',
     ];
-
-    public function state()
-    {
-        return $this->belongsTo(State::class);
-    }
 
     public function locationable()
     {
         return $this->morphTo();
     }
 
-//    public function user()
-//    {
-//        return $this->belongsTo(User::class ,'model_id')->where('model_type','User');
-//    }
+    public function state()
+    {
+        return $this->belongsToThrough('App\Models\System\State','App\Models\Area');
+    }
 
     public function area()
     {
         return $this->belongsTo(Area::class);
     }
+
+//    public function user()
+//    {
+//        return $this->belongsTo(User::class ,'model_id')->where('model_type','User');
+//    }
 
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
-use App\Models\State;
+use App\Models\System\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -25,7 +25,7 @@ class ProfileController extends Controller
     public function profileEdit()
     {
         $user = Auth::user();
-        $states= State::where('active',true)->get();
+        $states= State::all();
         $areas = Area::pluck('name')->all();
         return view('profile.edit', compact('user','states','areas'));
     }

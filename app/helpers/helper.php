@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Cache;
 if (!function_exists('sys'))   {
     function sys($key)
     {
-        $system = \Illuminate\Support\Facades\Cache::rememberForever('System',function (){
-            return \App\Models\System::first();
+        $system = \Illuminate\Support\Facades\Cache::rememberForever('Setting',function (){
+            return \App\Models\System\Setting::first();
         });
         if (!$system){
             return ;

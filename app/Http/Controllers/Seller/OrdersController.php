@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Area;
 use App\Models\Order;
-use App\Models\Status;
+use App\Models\System\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Invoice;
-use Vinkla\Hashids\Facades\Hashids;
 use PDF;
+use Vinkla\Hashids\Facades\Hashids;
 
 class OrdersController extends Controller
 {
@@ -43,7 +42,7 @@ class OrdersController extends Controller
     {
    //     dd($request['order_']);
         //
-        //   $states= State::where('active',true)->get();
+        //   $states= State::get();
 
         if (Session::get('orderHashId')){
             $id =    Hashids::Connection(Order::class)->decode(strtolower(Session::get('orderHashId'))) ?? null;
@@ -188,7 +187,7 @@ class OrdersController extends Controller
             return back();
         }
 
-        // $states= State::where('active',true)->get();
+        // $states= State::get();
         $areas = Area::all();
         return view('seller.orders.edit',compact('order','areas'));
     }

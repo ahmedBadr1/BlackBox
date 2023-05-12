@@ -20,6 +20,8 @@ class CreateProfilesTable extends Migration
             $table->text('address')->nullable();
             $table->string('photo')->nullable();
             $table->string('url')->nullable();
+            $table->string('lang')->nullable();
+            $table->string('theme')->nullable();
             $table->foreignIdFor(User::class);
             $table->timestamps();
         });

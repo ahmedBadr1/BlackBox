@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\Business;
 use App\Models\Order;
-use App\Models\State;
-use App\Models\User;
+use App\Models\System\State;
 use App\Notifications\ChangePasswordNotification;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class DashboardController extends Controller
@@ -94,7 +91,7 @@ class DashboardController extends Controller
         $allOrders = $user->orders->count();
         $doneOrders = $user->orders->where('status_id','6')->count();
 
-        $states= State::where('active',true)->get();
+        $states= State::get();
         $areas = Area::pluck('name')->all();
 
         return view('seller.profile', compact('user','allTasks','doneTasks','allOrders','doneOrders' , 'total','count','products','states','areas'));

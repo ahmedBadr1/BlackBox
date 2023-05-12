@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSystemRequest;
-use App\Models\System;
-use Illuminate\Http\Request;
+use App\Models\System\Setting;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
@@ -24,7 +23,7 @@ class SystemController extends Controller
 
     public function default()
     {
-     //   $system = System::first();
+     //   $system = Setting::first();
 //        $currencies     = Setting::$currencies;
 //        $languages = Setting::$languages;
 
@@ -34,7 +33,7 @@ class SystemController extends Controller
     }
     public function company()
     {
-     //  $sys =  Cache::get('System');
+     //  $sys =  Cache::get('Setting');
 
         return view('system.setting.company');
     }
@@ -60,7 +59,7 @@ class SystemController extends Controller
 
         $path = 'uploads/system/logo';
 
-        $system = system::first();
+        $system = Setting::first();
 
         if($system){
             if(! isset($input['company_logo'])){
@@ -80,16 +79,16 @@ class SystemController extends Controller
             }
             $system->update($input);
         }else{
-            system::create($input) ;
+            Setting::create($input) ;
         }
         if (isset($input['company_name'])){
             Config::set(['app.name' => $input['company_name']]);
         }
 
-        Cache::forget('System');
+        Cache::forget('Setting');
 
         if (app()->getLocale() == 'en'){
-            toastr()->success('System Setting Saved Successfully');
+            toastr()->success('Setting Setting Saved Successfully');
         }else{
             toastr()->success('تم حفظ إعدادات السيستم');
         }

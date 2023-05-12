@@ -45,6 +45,7 @@ class RequestPickup extends Component
 //            dd('no');
 //        }
       //  $task =  Task::create($validated);
+        $validated['type'] = 'pickup';
         auth()->user()->tasks()->create($validated);
       //  dd(auth()->user()->tasks()->get);
       //  $user->locations()->save($location);

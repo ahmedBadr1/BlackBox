@@ -11,21 +11,15 @@ use App\Models\Area;
 use App\Models\Order;
 use App\Models\Packing;
 use App\Models\Plan;
-use App\Models\Status;
-
-use App\Models\User;
+use App\Models\System\Status;
+use Illuminate\Http\Request;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Invoice;
-use LaravelDaily\Invoices\Classes\Buyer;
-
-
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 use Spatie\Activitylog\Models\Activity;
 use Vinkla\Hashids\Facades\Hashids;
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
-use PDF ;
-
 
 
 class OrdersController extends Controller
@@ -92,7 +86,7 @@ class OrdersController extends Controller
     public function create()
     {
         //
-     //   $states= State::where('active',true)->get();
+     //   $states= State::->get();
 
 //        $types = ['cosmetics','clothes','document','furniture','machines','other'];
 //        $areas = Area::where('active',1)->whereHas('state',fn($q)=>$q->where('active','1'))->select('id','name')->orderBy('id','desc')->get();
@@ -148,7 +142,7 @@ class OrdersController extends Controller
                 $input['user_id'] = $user->id;
             }
     //        $input['total'] = $input['value'] * $input['quantity'] ;
-            //       dd(System('package_weight_limit'));
+            //       dd(Setting('package_weight_limit'));
             if(!$input['cod']){
                 $input['total'] = ($input['value'] * $input['quantity'] )  - $orderArea->delivery_cost ?? 0;
                // dd($input['total']);
@@ -329,7 +323,7 @@ class OrdersController extends Controller
         }
 
         $areas = Area::where('active',1)->whereHas('state',fn($q)=>$q->where('active','1'))->select('id','name')->orderBy('id','desc')->get();
-       // $states= State::where('active',true)->get();
+       // $states= State::get();
 
         return view('admin.orders.edit',compact('order','areas'));
     }

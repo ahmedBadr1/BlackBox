@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\System\Location;
+use App\Models\System\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

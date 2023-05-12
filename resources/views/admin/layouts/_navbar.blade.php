@@ -36,7 +36,14 @@
                             <i class="bx bx-flag bx-sm "></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
-{{-- 
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('switch-language', ['language' => 'en']) }}">{{ __('English') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('switch-language', ['language' => 'ar']) }}">{{ __('عربى') }}</a>
+                            </li>
+{{--
                             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 
                                 <a class="dropdown-item d-flex " rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">

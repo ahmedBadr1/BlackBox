@@ -2,15 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Branch;
 use App\Models\Feature;
-use App\Models\Location;
 use App\Models\Packing;
 use App\Models\Plan;
-use App\Models\State;
-use App\Models\Status;
+use App\Models\System\State;
+use App\Models\System\Status;
 use Illuminate\Database\Seeder;
-use Nette\Utils\Random;
 
 class ConstantsSeeder extends Seeder
 {
@@ -22,18 +19,48 @@ class ConstantsSeeder extends Seeder
     public function run()
     {
         //
-        $states = ['القاهرة','الجيزة','الإسكندرية','الإسماعيليّة','أسوان','أسيوط','الأقصر','البحر الأحمر','بني سويف','البحيرة','بورسعيد','جنوب سيناء','الدقهلية','دمياط','سوهاج','السويس','الشرقيّة','شمال سيناء','الغربيّة','قنا','كفر الشيخ','مرسى مطروح','المنوفيّة','المنيا','الوادي الجديد'];
-
-        foreach ($states as $state){
+        $states = [
+            'Alexandria' => 'الإسكندرية',
+            'Aswan' => 'أسوان',
+            'Asyut' => 'أسيوط',
+            'Beheira' => 'البحيرة',
+            'Beni Suef' => 'بني سويف',
+            'Cairo' => 'القاهرة',
+            'Dakahlia' => 'الدقهلية',
+            'Damietta' => 'دمياط',
+            'Faiyum' => 'الفيوم',
+            'Gharbia' => 'الغربية',
+            'Giza' => 'الجيزة',
+            'Ismailia' => 'الإسماعيلية',
+            'Kafr El Sheikh' => 'كفر الشيخ',
+            'Luxor' => 'الأقصر',
+            'Matrouh' => 'مطروح',
+            'Minya' => 'المنيا',
+            'Monufia' => 'المنوفية',
+            'New Valley' => 'الوادي الجديد',
+            'North Sinai' => 'شمال سيناء',
+            'Port Said' => 'بورسعيد',
+            'Qalyubia' => 'القليوبية',
+            'Qena' => 'قنا',
+            'Red Sea' => 'البحر الأحمر',
+            'Sharqia' => 'الشرقية',
+            'Sohag' => 'سوهاج',
+            'South Sinai' => 'جنوب سيناء',
+            'Suez' => 'السويس',
+        ];
+        foreach ($states as $key => $val) {
             State::factory()->create([
-                'name' => $state,
+                'name' => $key,
+                'name_ar' => $val ,
             ]);
         }
-       $statuses = ['pending','ready','inline','out-for-delivery','rescheduled','delivered','cancelled','refused','returning','returned'];
+
+        $statuses = ['pending','ready','inline','out-for-delivery','rescheduled','delivered','cancelled','refused','returning','returned'];
 
         foreach ($statuses as $status){
             Status::factory()->create([
                 'name' => $status,
+                'type' => 'order'
             ]);
         }
         $plans= ['basic'];
