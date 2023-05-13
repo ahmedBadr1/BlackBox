@@ -225,10 +225,10 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
             Route::resource('areas',\App\Http\Controllers\Admin\AreaController::class);
             Route::resource('zones',\App\Http\Controllers\Admin\ZoneController::class);
             Route::resource('orders',\App\Http\Controllers\Admin\OrdersController::class);
-            Route::resource('receipts', App\Http\Controllers\Admin\ReceiptController::class);
-            Route::resource('tasks', App\Http\Controllers\Admin\TaskController::class);
-            Route::resource('plans', App\Http\Controllers\Admin\PlanController::class);
-            Route::resource('locations', App\Http\Controllers\Admin\LocationsControllers::class);
+            Route::resource('receipts', \App\Http\Controllers\Admin\ReceiptController::class);
+            Route::resource('tasks', \App\Http\Controllers\Admin\TaskController::class);
+            Route::resource('plans', \App\Http\Controllers\Admin\PlanController::class);
+            Route::resource('locations', \App\Http\Controllers\Admin\LocationsControllers::class);
 
             Route::resource('transactions', \App\Http\Controllers\Admin\TransactionsController::class);
 
