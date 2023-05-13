@@ -318,7 +318,7 @@ class OrdersController extends Controller
             }
 
         if (!in_array($order->status->id,[1,2])){
-            toastr()->warning("Order Can't be changed after reaching to Bagy");
+            toastr()->warning("Order Can't be changed after reaching ". sys('company_name'));
             return redirect()->route('admin.orders.index');
         }
 
