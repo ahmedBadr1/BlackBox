@@ -100,12 +100,12 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
         Route::get('/my-balance', [\App\Http\Controllers\Seller\DashboardController::class, 'mybalance'])->name('mybalance');
         Route::get('my-orders',[\App\Http\Controllers\Seller\OrdersController::class,'myorders']);
         Route::get('my-trash',[\App\Http\Controllers\Seller\OrdersController::class,'mytrash']);
-        Route::get('/export/orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
-        Route::get('/export/orders/ar', [App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
+        Route::get('/export/orders/en', [\App\Http\Controllers\Main\ExcelController::class,'exportOrdersEN'])->name('export.orders.en');
+        Route::get('/export/orders/ar', [\App\Http\Controllers\Main\ExcelController::class,'exportOrdersAR'])->name('export.orders.ar');
       //  Route::get('/export/selected-orders/en', [App\Http\Controllers\Main\ExcelController::class,'exportSelectedOrdersEN'])->name('export.selected-orders');
 
 
-        Route::any('/import/orders', [App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
+        Route::any('/import/orders', [\App\Http\Controllers\Main\ExcelController::class,'importOrders'])->name('import.orders');
 //        Route::get('areas',[\App\Http\Controllers\Seller\SellerController::class,'areas'])->name('areas');
 //        Route::get('areas/{id}',[\App\Http\Controllers\Seller\SellerController::class,'areasShow'])->name('areas.show');
 //
