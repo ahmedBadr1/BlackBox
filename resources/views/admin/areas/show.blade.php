@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('page-header')
-    <h1 class="text-center">@lang('auth.area') {{$area->name}}</h1>
+    <h1 class="text-center">@lang('names.area') {{$area->name}}</h1>
     <a href="{{route('admin.areas.index')}}" class="btn btn-primary">@lang('names.manage-areas')</a>
 @endsection
 
