@@ -14,10 +14,8 @@ class Task extends Model
     public const PICKUP = 'Pick Up';
     public const DROPOFF = 'Drop Off';
     public static array $types = ['pickup', 'dropoff','else'];
-    protected $dates = [
-        'due_to',
-        'done_at'
-    ];
+
+    protected $casts = [  'due_to'=>'datetime','done_at'=>'datetime'];
 
     public function delivery()
     {

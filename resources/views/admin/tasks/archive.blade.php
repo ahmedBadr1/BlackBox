@@ -39,7 +39,7 @@
                                 <td><a href="{{route('admin.tasks.assign')}}" class="btn btn-primary">assign</a></td>
                             @endif
                             <td>
-                                    {{ $task->done_at_for_humans}}
+                                    {{ $task->done}}
                             </td>
 
                             @can('task-edit')
