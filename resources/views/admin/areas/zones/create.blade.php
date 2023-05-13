@@ -12,7 +12,7 @@
                     @csrf
                     <div class="form-group row">
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="name" class=" col-form-label text-md-right">@lang("auth.zone-name")</label>
                             <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
                             @error('name')
@@ -21,25 +21,9 @@
                                     </span>
                             @enderror
                         </div>
-                        <div class="col-md-6">
-                            <label for="state_id" class=" col-form-label text-md-right">@lang('auth.state')</label>
-                            <select name="state_id" id="state_id" class="form-control @error('state') is-invalid @enderror">
-                                <option value="" selected>@lang('auth.select-state')</option>
-                                @foreach($states as $state)
-                                    <option value="{{$state->id}}">{{$state->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('state_id')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-                    </div>
 
-                    <div class="form-group row ">
 
-                        <div class="col-md-12 ">
+                        <div class="col-md-8 ">
                             <label for="state" class=" col-form-label text-md-right">@lang('areas')</label>
                             <select class="form-control select2"  name="areas_id[]"  multiple >
                                 @foreach($areas as $area)

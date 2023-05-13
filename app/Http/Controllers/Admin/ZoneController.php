@@ -41,8 +41,7 @@ class ZoneController extends Controller
     {
         //
         $areas = Area::orderBy('id','DESC')->get();
-        $states= State::get();
-        return view('admin.areas.zones.create',compact('states','areas'));
+        return view('admin.areas.zones.create',compact('areas'));
     }
 
     /**
@@ -66,8 +65,8 @@ class ZoneController extends Controller
             $zone->areas()->save($area);
         }
 
-        toastr()->success($zone->name.' Zone Created Successfully',$zone->name.' Created');
-        return redirect()->route('admin.zones.index');
+//        toastr()->success($zone->name.' Zone Created Successfully',$zone->name.' Created');
+        return redirect()->route('admin.zones.index')->with('success',$zone->name.' Zone Created Successfully',$zone->name.' Created');
     }
 
     /**
