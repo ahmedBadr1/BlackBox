@@ -34,7 +34,7 @@ class TaskController extends Controller
 //        }
         $businessLocation = auth()->user()->business->location;
        // dd($businessLocation);
-        $locations = auth()->user()->locations()->with(['state'=> fn($q)=>$q->select('id','name'),'area'=> fn($q)=>$q->select('id','name')])->get();
+        $locations = auth()->user()->locations()->with(['area'=> fn($q)=>$q->select('id','name')])->get();
         return view('seller.tasks.pickups',compact('nextPickup','nextDropoff','readyOrdersCount','locations','businessLocation'));
     }
 
