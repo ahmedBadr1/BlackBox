@@ -23,7 +23,7 @@
                             </div>
                             <div class="timeline-footer d-flex  justify-content-between flex-wrap">
 
-                                    <span ><i class="bx bx-calendar text-muted mr-1"></i>{{$task->due_to_for_humans}}</span>
+                                    <span ><i class="bx bx-calendar text-muted mr-1"></i>{{$task->due}}</span>
                                     <span wire:click="delete({{ $task->id }})" role="button" class=" cursor-pointer " data-placement="top"
                                           data-toggle="tooltip" title="@lang('auth.delete-pickup')">
                                     <i class="bx bx-trash bx-sm text-danger "></i>
