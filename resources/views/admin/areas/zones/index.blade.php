@@ -16,7 +16,6 @@
         <th>@lang('auth.id')</th>
         <th>@lang('auth.zone-name')</th>
         <th>@lang('names.areas')</th>
-        <th>@lang('auth.state')</th>
 
         </thead>
         <tbody>
@@ -27,7 +26,7 @@
                 <td>@foreach($zone->areas as $area)
                         <a href="{{route('admin.areas.show',$area->id)}}"><div class="badge badge-primary"> {{$area->name}}</div></a>
                     @endforeach</td>
-                <td>{{$zone->state->name}}</td>
+
 
                 @can('zone-edit')
                     <td><a href="{{ route('admin.zones.edit',$zone->id) }}" class="btn btn-info">edit</a></td>

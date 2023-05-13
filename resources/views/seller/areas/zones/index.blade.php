@@ -18,7 +18,6 @@
         <th>Zone ID</th>
         <th>Name</th>
         <th>Areas</th>
-        <th>State</th>
         <th>Rank</th>
 
         </thead>
@@ -30,7 +29,7 @@
                 <td>@foreach($zone->areas as $area)
                         <a href="{{route('admin.areas.show',$area->id)}}"><div class="badge badge-primary"> {{$area->name}}</div></a>
                     @endforeach</td>
-                <td>{{$zone->state->name}}</td>
+
                 <td>{{$zone->rank}}</td>
 
                 @can('zone-edit')

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -19,8 +20,9 @@ Route::get('/', function (){
 })->name('home');
 
 Route::get('/switch-language/{language}', function ($language) {
-    session(['locale' => $language]);
-    config(['app.locale'=> $language ]) ;
+//    session(['locale' => $language]);
+//    config(['app.locale'=> $language ]) ;
+    App::setLocale($language);
     return redirect()->back();
 })->name('switch-language');
 
