@@ -7,7 +7,6 @@
             <div class="col-xs-2">
                 <select wire:model="orderBy" class="form-control">
                     <option>Id</option>
-                    <option>Value</option>
 
                     <option value="status_id">Status</option>
                     <option>cost</option>

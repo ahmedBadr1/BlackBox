@@ -12,9 +12,8 @@
         <th>@lang('auth.id')</th>
         <th>@lang('auth.state')</th>
         <th>@lang('names.branches')</th>
-        <th>@lang('names.zones')</th>
         <th>@lang('names.areas')</th>
-        <th>@lang('auth.status')</th>
+{{--        <th>@lang('auth.status')</th>--}}
         </thead>
         <tbody>
         @foreach($states as $state)
@@ -30,13 +29,7 @@
                         </a>
                     @endforeach
                 </td>
-                <td>@foreach($state->zones as $zone )
-                        <a href="{{route('admin.zones.show',$zone->id)}}">    <div class="badge badge-primary">
-                            {{$zone->name}}
-                        </div>
-                        </a>
-                    @endforeach
-                </td>
+
                 <td>@foreach($state->areas as $area )
                         <a href="{{route('admin.areas.show',$area->id)}}">    <div class="badge badge-secondary">
                                 {{$area->name}}
@@ -46,7 +39,7 @@
                 </td>
                 <td>
                     {{--           <livewire:counter />         <x-toggle-state state-id="{{$state->id}}" like="{{ $state->active ? $state->active : false}}"></x-toggle-state> --}}
-                    @livewire('main.toggle-button',['model' => $state,'field'=>'active'])
+{{--                    @livewire('main.toggle-button',['model' => $state,'field'=>'active'])--}}
                 </td>
             </tr>
         @endforeach

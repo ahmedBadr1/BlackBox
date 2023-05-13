@@ -33,9 +33,10 @@ class AreaController extends Controller
     public function states()
     {
        // $this->middleware('permission:states');
-        $states= State::with(['areas'=>fn ($q) => $q->select('areas.id','areas.name'),'branches','zones'])->get();
+        $states= State::with(['areas','branches'])->get();
+//dd($states);
 //        foreach ($states as $state){
-//            dd($state->users);
+//            dd($state->areas);
 //        }
         return view('admin.areas.states',compact('states'));
     }
