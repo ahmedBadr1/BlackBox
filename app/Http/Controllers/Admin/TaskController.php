@@ -106,17 +106,22 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
         //
-        $task = Task::findOrFail($id);
+        if($task->user_id === auth()->id()){
+            $mine = true ;
+        }else{
+            $mine = false ;
+        }
+//        $task = Task::findOrFail($id);
         $types = Task::$types;
         $deliveries = User::role('delivery')->select('id','name')->get();
 
-        return view('admin.tasks.edit',compact('task','deliveries','types'));
+        return view('admin.tasks.edit',compact('task','deliveries','types','mine'));
     }
 
     /**
@@ -130,7 +135,7 @@ class TaskController extends Controller
     {
         //
         $this->validate($request,[
-            'type' => 'required',
+            'type' => 'nullable',
             'delivery_id' => 'required',
             'notes' => 'nullable'
         ]);
@@ -221,7 +226,7 @@ class TaskController extends Controller
             // $branch->users()->save($user); $order->area->time_delivery
         }
 
-        toastr()->success( 'Task Assigned Successfully To '.$delivery->name ,'Task Assigned');
-        return redirect()->route('admin.orders.index');
+//        toastr()->success( ,'Task Assigned');
+        return redirect()->route('admin.tasks.index')->with('success','Task Assigned Successfully To '.$delivery->name) ;
     }
 }

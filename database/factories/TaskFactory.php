@@ -25,7 +25,7 @@ class TaskFactory extends Factory
         return [
             'type' => Task::$types[rand(0,2)],
             'location_id' => 1,
-            'due_to'=> $this->faker->dateTime(),
+            'due_to'=> $this->faker->dateTimeThisYear(),
             'delivery_id'=> User::role(['delivery'])->pluck('id')->random(),
             'user_id'=> User::role(['seller'])->pluck('id')->random()
             //

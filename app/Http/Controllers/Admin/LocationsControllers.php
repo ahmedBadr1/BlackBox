@@ -18,9 +18,8 @@ class LocationsControllers extends Controller
      */
     public function index()
     {
-        //
-        $locations = Location::with(['state'=> fn($q)=>$q->select('id','name'),'area'=> fn($q)=>$q->select('id','name')])->orderBy('id','desc')->get();
-      //  dd($locations);
+        $locations = Location::with(['area'=> fn($q)=>$q->select('areas.id','areas.name')->with('state')])->orderBy('id','desc')->get();
+      //  dd($locations);  'state'=> fn($q)=>$q->select('id','name'),
         return view('admin.locations.index',compact('locations'));
     }
 

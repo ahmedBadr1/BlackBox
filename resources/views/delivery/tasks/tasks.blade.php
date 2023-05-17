@@ -14,8 +14,9 @@
 
                     <th>@lang("auth.belong-to")</th>
                     <th>@lang("auth.type")</th>
+                    <th>@lang("auth.notes")</th>
 
-                    <th>@lang("auth.created-at")</th>
+                    <th>@lang("auth.due_to")</th>
 
                     </thead>
 
@@ -27,8 +28,8 @@
 
                             <td>{{$task->user->name}} </a></td>
                             <td>{{$task->type}} </td>
-
-                            <td>{{$task->created_at}}</td>
+                            <td>{{$task->notes ?? '-'}} </td>
+                            <td>{{$task->due}}</td>
                             <td>
                                 @if(!$task->done_at)
                                     <form action="{{route('delivery.tasks.done',$task->id) }}" method="POST">

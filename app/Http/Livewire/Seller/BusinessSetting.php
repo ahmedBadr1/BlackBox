@@ -145,8 +145,9 @@ class BusinessSetting extends Component
 //            $location =  Location::create($lData);
             $user->business->location()->create($lData);
         }
-        $this->emit('alert',
+        $this->dispatchBrowserEvent('alert',
             ['type' => 'success',  'message' => 'Setting Created Successfully!']);
+
         return back();
     }
 }

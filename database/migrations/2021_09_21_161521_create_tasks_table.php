@@ -26,6 +26,7 @@ class CreateTasksTable extends Migration
                 ->onUpdate('cascade');
             $table->foreignIdFor(User::class);
             $table->text('notes')->nullable();
+            $table->timestamp('confirmed_at')->nullable();
             $table->dateTime('done_at')->nullable();
             $table->softDeletes();
             $table->timestamps();

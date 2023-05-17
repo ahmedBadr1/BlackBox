@@ -136,6 +136,9 @@
 
                     </a>
                     <ul class="slide-menu">
+                        @can('accounts')
+                            <li><a class="slide-item " href="{{route('admin.accounts.index')}}">@lang('names.accounts')</a></li>
+                        @endcan
                         @can('transactions')
                             <li><a class="slide-item " href="{{route('admin.transactions.index')}}">@lang('names.transactions')</a></li>
                         @endcan

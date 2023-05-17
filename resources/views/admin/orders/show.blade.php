@@ -223,7 +223,7 @@
                             <hr class="mg-b-40">
                             <p class="text-center">
                                 <small class="m-r-10"><i class="bx  bx-xs bx-globe"></i>www.blackbox.com</small>
-                                <small class="m-r-10"><i class="bx  bx-xs bxs-phone"></i> 0109682163</small>
+                                <small class="m-r-10"><i class="bx  bx-xs bxs-phone"></i>0109682163</small>
                                 <small class="m-r-10"><i class="bx  bx-xs bx-envelope"></i> support@me</small>
                             </p>
                         </div>

@@ -231,6 +231,8 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
             Route::resource('locations', \App\Http\Controllers\Admin\LocationsControllers::class);
 
             Route::resource('transactions', \App\Http\Controllers\Admin\TransactionsController::class);
+            Route::resource('accounts', \App\Http\Controllers\Admin\TransactionsController::class);
+
 
             Route::resource('reports', \App\Http\Controllers\Admin\StaticsController::class);
 
@@ -256,7 +258,9 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
          //   Route::get('profile/edit', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileEdit'])->name('profile.edit');
             Route::put('profile/', [\App\Http\Controllers\Delivery\DashboardController::class, 'profileUpdate'])->name('profile.update');
             Route::get('my-orders',[\App\Http\Controllers\Delivery\OrdersController::class,'myorders'])->name('my-orders');
-            Route::get('my-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'mytasks'])->name('my-tasks');
+            Route::get('my-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'myTasks'])->name('my-tasks');
+            Route::get('my-done-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'myDoneTasks'])->name('my-done-tasks');
+
             Route::post('tasks/{id}/done',[\App\Http\Controllers\Delivery\OrdersController::class,'done'])->name('tasks.done');
             Route::post('tasks/{id}/undone',[\App\Http\Controllers\Delivery\OrdersController::class,'undone'])->name('tasks.undone');
 

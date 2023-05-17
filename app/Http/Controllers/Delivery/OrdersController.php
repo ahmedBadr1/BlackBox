@@ -32,15 +32,19 @@ class OrdersController extends Controller
 
         return view('delivery.orders.orders',compact('orders'));
     }
-    public function mytasks()
+    public function myTasks()
     {
         //$user = auth()->user()->orders()->orderBy('updated_at','DESC')->paginate(10);
-        $tasks =  Task::where('delivery_id','=',auth()->user()->id)->with(array('user'=> function ($query) { $query->select('id','name');}))->get();
+        $tasks =  Task::mine()->whereNull('confirmed_at')->with(array('user'=> function ($query) { $query->select('id','name');}))->get();
 
-//  dd($tasks);
-//        $avOrders = auth()->user()->zone[0]->areas;
-        //  dd($orders);
-//        $orders = Order::orderBy('created_at','DESC')->paginate(20);
+        return view('delivery.tasks.tasks',compact('tasks'));
+    }
+
+    public function myDoneTasks()
+    {
+        //$user = auth()->user()->orders()->orderBy('updated_at','DESC')->paginate(10);
+        $tasks =  Task::mine()->where('confirmed_at','!=',null)->with(array('user'=> function ($query) { $query->select('id','name');}))->get();
+
         return view('delivery.tasks.tasks',compact('tasks'));
     }
     public function Status($id)
