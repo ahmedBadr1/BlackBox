@@ -148,6 +148,9 @@ return [
 
     'new-notifications' => 'New Notifications',
     'all-notifications' => 'All Notifications',
+    'read-notifications' => 'Read Notifications',
+    'mark-as-read' => 'Mark As Read',
+    'read' => 'Read',
 
     'system' => 'Setting',
     'trash' => 'Trash',

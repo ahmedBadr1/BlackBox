@@ -42,8 +42,8 @@ class NewUserWelcomeNotification extends Notification
     {
         return [
             'from' => config('app.name'),
-            'msg'=> 'welcome to our website, enjoy.',
-            'url' => '/help',
+            'message'=> 'welcome to our website, enjoy.',
+            'url' => url('/help'),
         ];
     }
 }

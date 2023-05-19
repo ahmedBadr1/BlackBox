@@ -24,8 +24,8 @@ class AccountFactory extends Factory
             'description' => $this->faker->text,
             'active' => rand(0, 1),
             'category_id' => Category::all()->random(1)->first()->id,
-            'currency_id' => rand(1, 3),
-            'status_id' => rand(1, 100),
+//            'currency_id' => rand(1, 3),
+//            'status_id' => rand(1, 100),
         ];
     }
 }

@@ -2,12 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Models\Accounting\Account;
+use App\Models\Accounting\Category;
 use App\Models\Feature;
 use App\Models\Packing;
 use App\Models\Plan;
 use App\Models\System\State;
 use App\Models\System\Status;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ConstantsSeeder extends Seeder
 {
@@ -54,8 +57,8 @@ class ConstantsSeeder extends Seeder
                 'name_ar' => $val ,
             ]);
         }
-
-        $statuses = ['pending','ready','inline','out-for-delivery','rescheduled','delivered','cancelled','refused','returning','returned'];
+        //              1         2       3       4             5               6              7           8         9           10         11
+        $statuses = ['pending','ready','picked','inline','out-for-delivery','rescheduled','delivered','cancelled','refused','returning','returned'];
 
         foreach ($statuses as $status){
             Status::factory()->create([
@@ -99,8 +102,51 @@ class ConstantsSeeder extends Seeder
                 'size' => rand(10,100),
             ]);
         }
+        $categories = [
+            'assets' => null,
+            'liabilities' => null,
+//            'owner equity' => null,
+            'revenue' => null,
+            'expenses' => null,
+            'fixed assets' => 1,
+            'current assets' => 1,
+            'intangible assets' => 1,
+            'long term loans' => 2,
+            'short term loans' => 2,
+            'long term liabilities' => 2 ,
+            'current owners' => 3,
+            'prepaid revenue' => 4,
+            'accrued expenses' => 5,
+            'admin expenses' => 5,
+            'general expenses' => 5,
+        ];
+        foreach ($categories as $key => $val) {
+            Category::factory()->create([
+                'name' => $key,
+                'slug' =>  Str::slug($key) ,
+                'type' => 'account',
+                'parent_id' => $val,
+            ]);
+        }
+         $accounts  =  array(
+           array( "code" => 201,
+               "name" => "capital",
+               "category_id" => 2,
+               "type" => "credit"
+           ),
+             array( "code" => 202,
+                 "name" => "capital",
+                 "category_id" => 2,
+                 "type" => "credit"),
+         );
 
-
+        foreach ($accounts as $account ) {
+            Account::factory()->create([
+                'name' => $account['name'],
+                'type' => $account['type'],
+                'category_id' => $account['category_id'],
+            ]);
+        }
 
     }
 }

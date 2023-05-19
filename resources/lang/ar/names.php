@@ -149,6 +149,9 @@ return [
 
     'new-notifications' => 'الإشعارات الجديدة',
     'all-notifications' => 'كل الإشعارات',
+    'read-notifications' => 'اﻹشعارات المقروئة',
+    'mark-as-read' => 'تحديد كمقروء',
+    'read' => 'مقروء',
 
     'system' => 'السيستم',
     'trash' => 'السلة',

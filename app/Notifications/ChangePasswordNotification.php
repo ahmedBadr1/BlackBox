@@ -56,7 +56,7 @@ class ChangePasswordNotification extends Notification
     {
         return [
             'from' => config('app.name'),
-            'msg'=> 'Your password has been changed recently, Was that you ?',
+            'message'=> 'Your password has been changed recently, Was that you ?',
             'url' => '/setting',
         ];
     }

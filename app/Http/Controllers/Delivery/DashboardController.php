@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\File;
 
 class DashboardController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('role:delivery');
+    }
     public function index()
     {
         return view('delivery.dashboard');
@@ -17,8 +20,8 @@ class DashboardController extends Controller
 
     public function notifications()
     {
-        $notifications =  \auth()->user()->notifications;
-        //  dd($notifications);
+        $notifications =  \auth()->user()->unReadNotifications;
+//        dd($notifications);
         //   auth()->user()->notify(new NewUserNotification());
         return view('delivery.notifications',compact('notifications')) ;
     }

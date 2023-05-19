@@ -140,13 +140,13 @@
                         <div class="main-notification-list Notification-scroll chat-scroll">
                             @foreach(auth()->user()->unreadNotifications as $k => $notification)
 
-                                <a class="d-flex py-3 px-1 border-bottom" href="{{url('/').$notification->data['url']}}">
+                                <a class="d-flex py-3 px-1 border-bottom" href="{{$notification->data['url']}}">
                                     {{--                                <div class="notifyimg bg-pink">--}}
                                     {{--                                    <i class="la la-file-alt text-white"></i>--}}
                                     {{--                                </div>--}}
                                     <div class="mx-3">
                                         <h5 class="notification-label mb-1">{{$notification->data['from']}}</h5>
-                                        <div class="notification-subtext">{{\Illuminate\Support\Str::limit($notification->data['msg'], 25)}}</div>
+                                        <div class="notification-subtext">{{\Illuminate\Support\Str::limit($notification->data['message'], 25)}}</div>
 
                                     </div>
                                     <div class="mr-auto">

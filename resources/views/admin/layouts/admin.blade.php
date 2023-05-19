@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     @include('valex.layouts.head')
     @livewireStyles
-    @toastr_css
 
 @yield('meta')
 <!-- Fonts -->

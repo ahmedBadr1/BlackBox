@@ -29,7 +29,7 @@ class BlockedUserNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -59,7 +59,8 @@ class BlockedUserNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'from' => config('app.name'),
+            'message'=> 'you account has been deactivated,please contact admin for more info',
         ];
     }
 }

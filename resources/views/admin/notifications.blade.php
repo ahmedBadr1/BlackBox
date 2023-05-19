@@ -6,7 +6,6 @@
 
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h1 class="text-center main-content-title">@lang('names.notifications') </h1>
 
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
@@ -24,7 +23,7 @@
                 <div class="bg-gray-100 nav-bg">
                     <nav class="nav nav-tabs">
                         <a class="nav-link active" data-toggle="tab" href="#unReadNotifications">@lang('names.new-notifications')</a>
-                        <a class="nav-link" data-toggle="tab" href="#notifications">@lang('names.all-notifications')</a>
+                        <a class="nav-link" data-toggle="tab" href="#notifications">@lang('names.read-notifications')</a>
 
                     </nav>
                 </div>

@@ -13,8 +13,9 @@ class DeliveryController extends Controller
     //
     public function __construct()
     {
-        $this->middleware('role:delivery|Feedback');
+        $this->middleware('role:delivery');
     }
+
 
 
     public function myorders()

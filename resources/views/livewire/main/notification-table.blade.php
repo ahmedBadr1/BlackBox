@@ -4,9 +4,9 @@
         <div class="card bd-0 mg-b-20">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <a href="{{$notification->data['url']}}">
-                        <h4 class="mg-b-20 card-title">{{$notification->data['from']}} </h4>
-                        <p>{{$notification->data['msg']}}</p>
+                    <a href="{{$notification->data['url'] ?? url('/')}}">
+                        <h4 class="mg-b-20 card-title">{{$notification->data['from'] ?? sys('company_name')}} </h4>
+                        <p>{{$notification->data['message'] }}</p>
                     </a>
                     <div class="d-flex flex-column justify-content-between">
                         <livewire:main.mark-as-read :notification="$notification" />

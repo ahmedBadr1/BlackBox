@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\User;
+use App\Notifications\Admin\MainNotification;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -139,9 +140,15 @@ class TaskController extends Controller
             'delivery_id' => 'required',
             'notes' => 'nullable'
         ]);
+
         $input= $request->all();
         $task =  Task::findOrFail($id);
         $task->update($input);
+
+        $delivery = User::findOrFail($input['delivery_id']);
+        $delivery->notify(new MainNotification('you have been assigned to A Task',auth()->user()->name,url('delivery/my-tasks')));
+
+
         toastr()->success('Task Updated Successfully','Task Updated');
         return  redirect()->route('admin.tasks.index');
     }
@@ -197,6 +204,8 @@ class TaskController extends Controller
       //   dd($tasks);
         $deliveries = User::whereHas("roles", function($q){ $q->whereIn("name" ,["delivery"]); })->get();
 
+
+
         //   $uniqueId = Str::random(8);
 //            while(Order::where('id', $uniqueStr)->exists()) {
 //
@@ -226,7 +235,8 @@ class TaskController extends Controller
             // $branch->users()->save($user); $order->area->time_delivery
         }
 
-//        toastr()->success( ,'Task Assigned');
+    $delivery->notify(new MainNotification('you have been assigned to A Task',auth()->user()->name));
+
         return redirect()->route('admin.tasks.index')->with('success','Task Assigned Successfully To '.$delivery->name) ;
     }
 }

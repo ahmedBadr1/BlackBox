@@ -58,7 +58,7 @@ class BusinessInvitationNotification extends Notification
     {
         return [
             'from' => config('app.name'),
-            'msg'=> $this->userName .' invite you to join his business',
+            'message'=> $this->userName .' invite you to join his business',
             'url' => '/setting',
         ];
     }

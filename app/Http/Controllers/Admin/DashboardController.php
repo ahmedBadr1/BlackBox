@@ -18,6 +18,7 @@ use App\Models\System\Status;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Zone;
+use App\Notifications\Admin\NewUserNotification;
 use App\Notifications\ChangePasswordNotification;
 use App\Notifications\WelcomeMailNotification;
 use Illuminate\Http\Request;
@@ -100,9 +101,9 @@ class DashboardController extends Controller
     }
     public function notifications()
     {
-       $notifications =  \auth()->user()->notifications;
+       $notifications =  \auth()->user()->unReadNotifications;
      //  dd($notifications);
-     //   auth()->user()->notify(new NewUserNotification());
+//        auth()->user()->notify(new NewUserNotification());
         return \view('admin.notifications',compact('notifications')) ;
     }
     public function messages()

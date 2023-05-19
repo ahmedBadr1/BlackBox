@@ -16,7 +16,7 @@
                     <th>@lang("auth.type")</th>
                     <th>@lang("auth.notes")</th>
 
-                    <th>@lang("auth.due_to")</th>
+                    <th>@lang("auth.due-to")</th>
 
                     </thead>
 

@@ -2,8 +2,7 @@
 <a href="#top" class="bg-primary-gradient" id="back-to-top"><i class='bx bxs-chevrons-up bx-xs'></i></a>
 <script src="{{asset('js/app.js')}}" ></script>
 @livewireScripts
-@toastr_js
-@toastr_render
+
 <script>
     window.livewire.on('alert', param => {
         toastr[param['type']](param['message']);

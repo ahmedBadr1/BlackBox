@@ -56,7 +56,7 @@ class WelcomeMailNotification extends Notification implements ShouldQueue
     {
         return [
             'from' => config('app.name'),
-            'msg'=> 'congrats, your account has been verified, go to help page to know us better.',
+            'message'=> 'congrats, your account has been verified, go to help page to know us better.',
             'url' => '/help',
         ];
     }

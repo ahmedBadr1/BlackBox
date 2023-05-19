@@ -43,6 +43,7 @@ class NewUserNotification extends Notification
     {
         return [
          'message'=>'new member joined us',
+            'url' => '/sellers'
         ];
     }
 }

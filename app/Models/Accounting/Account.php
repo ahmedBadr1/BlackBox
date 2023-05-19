@@ -14,17 +14,13 @@ class Account extends Model
 {
     use HasFactory , LogsActivity , SoftDeletes;
 
-    protected $fillable = ['code', 'name', 'type', 'description','opening_balance','opening_balance_date', 'system', 'active', 'category_id', 'currency_id', 'status_id'];
+    protected $fillable = ['code', 'name', 'type', 'description','opening_balance','opening_balance_date', 'system', 'active', 'category_id'];
 
     protected array $TYPES= ['credit','debit'];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class);
     }
     public function status()
     {
@@ -42,7 +38,7 @@ class Account extends Model
     {
         return LogOptions::defaults()
             ->setDescriptionForEvent(fn(string $eventName) => "This Account has been {$eventName}")
-            ->logOnly(['code', 'name', 'type', 'description', 'active', 'category_id', 'currency_id', 'status_id',])
+            ->logOnly(['code', 'name', 'type', 'description', 'active', 'category_id',])
             ->logOnlyDirty()
             ->useLogName('system');
     }

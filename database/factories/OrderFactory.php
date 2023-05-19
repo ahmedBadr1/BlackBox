@@ -41,7 +41,7 @@ class OrderFactory extends Factory
             'details' => [
                 'package_type' =>  $this->faker->creditCardType(),
                 'package_weight' => $this->faker->numberBetween(1,10),
-                'deliver_before' => $this->faker->date(),
+                'deliver_before' => $this->faker->dateTimeThisMonth(),
                 'cod' => $this->faker->boolean(),
                 'notes' => $this->faker->sentence(),
             ],

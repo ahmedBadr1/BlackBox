@@ -50,7 +50,9 @@
                 <a class="side-menu__item" data-toggle="slide">
                     <i class="bx bx-cart bx-sm side-menu__icon"></i>
                     <span class="side-menu__label">@lang('names.orders')</span>
-                    <span class="right-icon"><i class="bx bxs-chevron-down side-menu__icon"></i></span>
+                    <span>
+                                     <i class='bx bxs-left-arrow angle '></i>
+                        </span>
                 </a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ route('delivery.my-orders') }}">@lang("auth.my-orders")</a></li>
