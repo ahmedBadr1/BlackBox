@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Branch;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
@@ -36,7 +37,7 @@ class DatabaseSeeder extends Seeder
         });
 
         \App\Models\Order::factory(500)->create();
-
+//Artisan::call('');
         \App\Models\Task::factory(50)->create();
     }
 }

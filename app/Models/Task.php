@@ -15,7 +15,7 @@ class Task extends Model
 
     public static array $types = ['pickup', 'dropoff','else'];
 
-    protected $casts = [  'due_to'=>'datetime','done_at'=>'datetime'];
+    protected $casts = [  'due_to'=>'datetime','done_at'=>'datetime' , 'confirmed_at' => 'datetime'];
 
     public function delivery()
     {
@@ -63,7 +63,10 @@ class Task extends Model
     {
         return $this->due_to->diffForHumans();
     }
-
+    public  function getConfirmedAttribute()
+    {
+        return $this->confirmed_at->diffForHumans();
+    }
     public static function search($search)
     {
         return empty($search) ? static::query()

@@ -36,32 +36,36 @@
                             @if($task->delivery_id)
                                 <td><a href="{{ route('admin.users.show',$task->delivery->id) }}"> {{$task->delivery->name}} </a> </td>
                             @else
-                                <td><a href="{{route('admin.tasks.assign')}}" class="btn btn-primary">assign</a></td>
+                                <td>
+{{--                                    <a href="{{route('admin.tasks.assign')}}" class="btn btn-primary">assign</a>--}}
+                                    something went wrong
+                                </td>
                             @endif
                             <td>
-                                    {{ $task->done}}
+                                    {{ $task->confirmed}}
                             </td>
 
-                            @can('task-edit')
-                                <td><a href="{{ route('admin.tasks.edit',$task->id) }}" class="btn btn-info">@lang('auth.edit')</a></td>
-                            @endcan
-                            @can('task-delete')
-                                <td>
-                                    <form action="{{route('admin.tasks.destroy',$task->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" class="btn btn-danger" name="delete" value="@lang('auth.delete')">
-                                    </form>
-                                </td>
-                            @endcan
-                            @can('task-undone')
-                                <td>
-                                        <form action="{{route('admin.tasks.undone',$task->id) }}" method="POST">
-                                            @csrf
-                                            <input type="submit" class="btn btn-secondary"  value="undone">
-                                        </form>
-                                </td>
-                            @endcan
+{{--                            @can('task-edit')--}}
+{{--                                <td><a href="{{ route('admin.tasks.edit',$task->id) }}" class="btn btn-info">@lang('auth.edit')</a></td>--}}
+{{--                            @endcan--}}
+{{--                            @can('task-delete')--}}
+{{--                                <td>--}}
+{{--                                    <form action="{{route('admin.tasks.destroy',$task->id) }}" method="POST">--}}
+{{--                                        @csrf--}}
+{{--                                        @method('DELETE')--}}
+{{--                                        <input type="submit" class="btn btn-danger" name="delete" value="@lang('auth.delete')">--}}
+{{--                                    </form>--}}
+{{--                                </td>--}}
+{{--                            @endcan--}}
+
+{{--                            @can('task-undone')--}}
+{{--                                <td>--}}
+{{--                                        <form action="{{route('admin.tasks.undone',$task->id) }}" method="POST">--}}
+{{--                                            @csrf--}}
+{{--                                            <input type="submit" class="btn btn-secondary"  value="open">--}}
+{{--                                        </form>--}}
+{{--                                </td>--}}
+{{--                            @endcan--}}
                         </tr>
                     @endforeach
 

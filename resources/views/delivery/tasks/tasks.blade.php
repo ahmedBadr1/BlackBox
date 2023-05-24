@@ -32,15 +32,10 @@
                             <td>{{$task->due}}</td>
                             <td>
                                 @if(!$task->done_at)
-                                    <form action="{{route('delivery.tasks.done',$task->id) }}" method="POST">
-                                        @csrf
-                                        <input type="submit" class="btn btn-secondary"  value="@lang('auth.done')">
-                                    </form>
-                                @else
-                                    <form action="{{route('delivery.tasks.undone',$task->id) }}" method="POST">
-                                        @csrf
-                                        <input type="submit" class="btn btn-secondary"  value="@lang('auth.undone')">
-                                    </form>
+{{--                                    @if($task->type == 'pickup')--}}
+                                    <a href="{{route('delivery.tasks.done',$task->id) }}" class="btn btn-dark-gradient">@lang('auth.done')</a>
+                                @elseif(!$task->confirmed_at)
+                                    <p>{{__('messages.wait-to-confirmed')}}</p>
                                 @endif
                             </td>
                         </tr>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 @section('page-header')
-    <h1 class="text-center">@lang('auth.user') {{$user->name}}</h1>
+    <h1 class="text-center">@lang('names.user') {{$user->name}}</h1>
     <a href="{{route('admin.users.index')}}" class="btn btn-primary">@lang('names.manage-users')</a>
 @endsection
 @section('content')

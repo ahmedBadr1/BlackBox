@@ -18,7 +18,7 @@ class LocationsControllers extends Controller
      */
     public function index()
     {
-        $locations = Location::with(['area'=> fn($q)=>$q->select('areas.id','areas.name')->with('state')])->orderBy('id','desc')->get();
+        $locations = Location::with(['area'=> fn($q)=>$q->select('areas.id','areas.name'),'state'])->orderBy('id','desc')->get();
       //  dd($locations);  'state'=> fn($q)=>$q->select('id','name'),
         return view('admin.locations.index',compact('locations'));
     }
@@ -47,8 +47,8 @@ class LocationsControllers extends Controller
         $validated = $request->validated();
      //   $validated = $request->safe()->only(['name', 'state_id','area_id','street','building','floor','apartment','landmarks','latitude','longitude']);
        // dd($validated);
-        $location = Location::create($validated);
-        auth()->user()->locations()->save($location);
+//        $location = Location::create($validated);
+        auth()->user()->locations()->create($validated);
         toastr()->success('Location Created Successfully');
         return redirect()->route('admin.locations.index');
     }

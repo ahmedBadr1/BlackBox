@@ -17,6 +17,7 @@
         "laraveldaily/laravel-invoices": "^3",
         "livewire/livewire": "^2.6",
         "maatwebsite/excel": "^3.1",
+        "mcamara/laravel-localization": "^1.8",
         "milon/barcode": "^10.0",
         "spatie/laravel-activitylog": "^4.7",
         "spatie/laravel-backup": "^8.1",

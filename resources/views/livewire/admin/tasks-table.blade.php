@@ -6,35 +6,35 @@
             </div>
             <div class="col-xs-2">
                 <select wire:model="orderDesc" class="form-control">
-                    <option value="1">Desc</option>
-                    <option value="0">Asc</option>
+                    <option value="1">{{__('auth.desc')}}</option>
+                    <option value="0">{{__('auth.asc')}}</option>
                 </select>
             </div>
             <div class="col-xs-2">
                 <select wire:model="orderBy" class="form-control">
-                    <option value="due_to">Due To</option>
-                    <option value="created_at">Created</option>
+                    <option value="due_to">{{__('auth.due-to')}}</option>
+                    <option value="created_at">{{__('auth.created-at')}}</option>
                 </select>
             </div>
             <div class="col-xs-2">
 
                 <select wire:model="date" class="form-control">
-                    <option value="today">today</option>
-                    <option value="tomorrow">tomorrow</option>
-                    <option value="week">week</option>
-                    <option value="month">month</option>
+                    <option value="today">{{__('auth.today')}}</option>
+                    <option value="tomorrow">{{__('auth.tomorrow')}}</option>
+                    <option value="week">{{__('auth.week')}}</option>
+                    <option value="month">{{__('auth.month')}}</option>
                 </select>
-                <label for="">Date</label>
+                <label for="">{{__('auth.month')}}</label>
             </div>
             <div class="col-2">
 
                 <select wire:model="type" class="form-control">
-                    <option value="all">All</option>
+                    <option value="all">{{__('names.all')}}</option>
                 @foreach($types as $typ)
-                        <option value="{{$typ}}">{{$typ}}</option>
+                        <option value="{{$typ}}">{{__('names.'.$typ)}}</option>
                     @endforeach
                 </select>
-                <label for="">Type</label>
+                <label for="">{{__('auth.type')}}</label>
             </div>
             <div class="col-xs-2">
                 <select wire:model="perPage" class="form-control">
@@ -67,7 +67,7 @@
                         <td>{{$task->id}} </td>
                         <td> <a href="{{ route('admin.users.show',$task->user->id) }}"> {{$task->user->name}} </a></td>
 
-                        <td>{{$task->type}} </td>
+                        <td>{{__('names.'.$task->type)}} </td>
                         @if($task->delivery_id)
                             <td><a href="{{ route('admin.users.show',$task->delivery->id) }}"> {{$task->delivery->name}} </a> </td>
                         @else

@@ -13,7 +13,7 @@
                     <div class="form-group row">
 
                         <div class="col-md-4">
-                            <label for="name" class=" col-form-label text-md-right">@lang("auth.zone-name")</label>
+                            <label for="name" class=" col-form-label text-md-right">@lang("names.zone-name")</label>
                             <input  type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
                             @error('name')
                             <span class="invalid-feedback" role="alert">

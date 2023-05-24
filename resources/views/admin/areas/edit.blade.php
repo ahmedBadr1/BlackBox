@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('admin.areas.index')}}">Manage Areas</a>
+                <a href="{{route('admin.areas.index')}}" class="btn btn-main-primary">{{__('names.manage')}} {{__('names.areas')}} </a>
                 <h1 class="text-center">Edit Area</h1>
                 @if (session('status'))
                     <div class="alert alert-success" role="alert">
@@ -107,25 +107,25 @@
                         </div>
                     </div>
 
-{{--                    <div class="form-group row">--}}
-{{--                        <label for="state" class="col-md-4 col-form-label text-md-right">@lang('state')}}</label>--}}
-{{--                        <div class="col-md-6">--}}
-{{--                            <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">--}}
-{{--                                <option value="" selected>@lang('names.select state')}}</option>--}}
-{{--                                @foreach($states as $state)--}}
-{{--                                    <option value="{{$state->id}}"--}}
-{{--                                            @if($state->id === $area->state_id)--}}
-{{--                                            selected--}}
-{{--                                        @endif>{{$state->name}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            </select>--}}
-{{--                            @error('state_id')--}}
-{{--                            <span class="invalid-feedback" role="alert">--}}
-{{--                                        <strong>{{ $message }}</strong>--}}
-{{--                                    </span>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    <div class="form-group row">
+                        <label for="state" class="col-md-4 col-form-label text-md-right">@lang('state')</label>
+                        <div class="col-md-6">
+                            <select name="state_id" id="state_id" class="form-control @error('state_id') is-invalid @enderror">
+                                <option value="" selected>@lang('auth.select-state')</option>
+                                @foreach($states as $state)
+                                    <option value="{{$state->id}}"
+                                            @if($state->id === $area->state_id)
+                                            selected
+                                        @endif>{{$state->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('state_id')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
 
 
                     <div class="form-group row mb-0">

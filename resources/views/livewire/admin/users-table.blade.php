@@ -32,15 +32,15 @@
         <div class="row">
             <table class="table table-hover table-responsive-md">
                 <thead>
-                <th class="border  py-2">ID</th>
-                <th class="border  py-2">Username</th>
-                <th class="border  py-2">Email</th>
-                <th class="border  py-2">Phone</th>
-                <th class="border  py-2">Role</th>
-                <th class="border  py-2">branch</th>
-                <th class="border  py-2">Active</th>
-                <th class="border  py-2">Edit</th>
-                <th class="border  py-2">Delete</th>
+                <th class="border  py-2">{{__('auth.id')}}</th>
+                <th class="border  py-2">{{__('auth.name')}}</th>
+                <th class="border  py-2">{{__('auth.email')}}</th>
+                <th class="border  py-2">{{__('auth.phone')}}</th>
+                <th class="border  py-2">{{__('names.role')}}</th>
+                <th class="border  py-2">{{__('names.branch')}}</th>
+                <th class="border  py-2">{{__('auth.status')}}</th>
+                <th class="border  py-2">{{__('auth.edit')}}</th>
+                <th class="border  py-2">{{__('auth.delete')}}</th>
                 </thead>
                 <tbody>
                 @foreach($users as $user)
@@ -63,18 +63,22 @@
                             <td class="border  py-2">
 {{--                                {{$user->active}}--}}
 {{--                                @livewire('main.toggle-button',['model' => $user,'field'=>'active'])--}}
+                                @if ($user->id !== auth()->id())
                                 <livewire:main.toggle-button :model="$user" :field="'active'" :key="$user->id">
+                                @else
+                                    <p>{{ __('messages.cannot-disable') }}</p>
+                                    @endif
                             </td>
                         @endcan
                         @can('user-edit')
-                            <td class="border  py-2"><a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info">edit</a></td>
+                            <td class="border  py-2"><a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-info">{{__('auth.edit')}}</a></td>
                         @endcan
                         @can('user-delete')
                             <td class="border  py-2">
                                 <form action="{{route('admin.users.destroy',$user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="submit" class="btn btn-danger" name="delete" value="delete">
+                                    <input type="submit" class="btn btn-danger" name="delete" value="{{__('auth.delete')}}">
                                 </form>
                             </td>
                         @endcan

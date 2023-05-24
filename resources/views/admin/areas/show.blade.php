@@ -20,7 +20,7 @@
                 <p><b>{{$area->over_weight_cost}}</b></p> <hr>
                 <label>@lang('auth.delivery-time')</label>
                 <p><b>{{$area->delivery_time}}</b></p> <hr>
-                <label>@lang('auth.zone')</label>
+                <label>@lang('names.zone')</label>
                 <p><b><a href="{{route('admin.zones.show',$area->zone->id)}}">{{$area->zone->name}}</a></b></p> <hr>
                 <label>@lang('auth.state')</label>
                 <p><b>{{$area->state->name}}</b></p> <hr>

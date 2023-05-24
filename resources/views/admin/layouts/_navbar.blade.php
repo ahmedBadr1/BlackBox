@@ -37,67 +37,60 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" x-placement="bottom-end">
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('switch-language', ['language' => 'en']) }}">{{ __('English') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('switch-language', ['language' => 'ar']) }}">{{ __('عربى') }}</a>
-                            </li>
-{{--
-                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-
+                       @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                 <a class="dropdown-item d-flex " rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                <span class="avatar  ml-3 align-self-center bg-transparent"><img
-                                        src="{{URL::asset('assets/img/flags/'.$localeCode.'.jpg')}}" alt="img"></span>
+
                                     <div class="d-flex">
-                                        <span class="mr-2 ml-2 my-auto">{{ $properties['native'] }}</span>
+                                        <img class=" mx-2" width="25px" src="{{URL::asset('assets/img/flags/'. $localeCode.'.jpg')}}" alt="img"><span class="mr-2 ml-2 my-auto">{{ $properties['native'] }}</span>
                                     </div>
                                 </a>
 
-                            @endforeach --}}
-
-                        </div>
-                    </div>
-                </ul>
-            </div>
-            <div class="nav nav-item"  >
-                <div class="nav-link" onclick="theme()" >
-                    @if(session()->get('theme') === 'dark')
-                        <i class='bx bxs-brightness-half main-nav-dark bx-sm side-menu__icon' ></i>
-                    @else
-                        <i class='bx bx-brightness-half main-nav-dark bx-sm side-menu__icon' ></i>
-                    @endif
+                            @endforeach
 
 
 
-                </div>
-            </div>
-            <div class="nav nav-item  navbar-nav-right ml-auto">
-                <div class="nav-link" id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="@lang('auth.search')">
-                            <span class="input-group-btn">
-											<button type="reset" class="btn btn-default">
-												<i class="fas fa-times "></i>
-											</button>
-											<button type="submit" class="btn btn-default nav-link resp-btn">
-												<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs"
-                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                     class="feather feather-search"><circle cx="11" cy="11"
-                                                                                            r="8"></circle><line x1="21"
-                                                                                                                 y1="21"
-                                                                                                                 x2="16.65"
-                                                                                                                 y2="16.65"></line></svg>
-											</button>
-										</span>
-                        </div>
-                    </form>
-                </div>
+                                                </div>
+                                            </ul>
+                                        </div>
+
+                                   <div class="nav nav-item"  >
+                                       <div class="nav-link" onclick="theme()" >
+                                           @if(session()->get('theme') === 'dark')
+                                               <i class='bx bxs-brightness-half main-nav-dark bx-sm side-menu__icon' ></i>
+                                           @else
+                                               <i class='bx bx-brightness-half main-nav-dark bx-sm side-menu__icon' ></i>
+                                           @endif
 
 
-                {{--                <div class="dropdown nav-item main-header-message ">--}}
+
+                                       </div>
+                                   </div>
+                                   <div class="nav nav-item  navbar-nav-right ml-auto">
+                                       <div class="nav-link" id="bs-example-navbar-collapse-1">
+                                           <form class="navbar-form" role="search">
+                                               <div class="input-group">
+                                                   <input type="text" class="form-control" placeholder="@lang('auth.search')">
+                                                   <span class="input-group-btn">
+                                                                   <button type="reset" class="btn btn-default">
+                                                                       <i class="fas fa-times "></i>
+                                                                   </button>
+                                                                   <button type="submit" class="btn btn-default nav-link resp-btn">
+                                                                       <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs"
+                                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                                            class="feather feather-search"><circle cx="11" cy="11"
+                                                                                                                   r="8"></circle><line x1="21"
+                                                                                                                                        y1="21"
+                                                                                                                                        x2="16.65"
+                                                                                                                                        y2="16.65"></line></svg>
+                                                                   </button>
+                                                               </span>
+                                               </div>
+                                           </form>
+                                       </div>
+
+
+                                       {{--                <div class="dropdown nav-item main-header-message ">--}}
                 {{--                    <a class="new nav-link" href="#">--}}
                 {{--                        <i class='bx bx-envelope bx-sm side-menu__icon' ></i>--}}
                 {{--                        <span class=" pulse-danger"></span></a>--}}

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\System\Status;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -86,24 +87,32 @@ class OrdersController extends Controller
 
 
     public function done($id){
-
         $task =  Task::findOrFail($id);
-        if (auth()->user()->id !== $task->delivery->id ){
-            abort(403);
-        }
-
-        $task->done_at = now();
-        $task->update();
-        return redirect()->back();
+        $user = User::with(['orders'=> fn($q) => $q->whereHas('status', fn($q) => $q->where('name','ready' ))])->where('id',$task->user_id)->first();
+//        $orders = Order::whereHas('status', fn($q) => $q->where('name','ready' ))->get(['id','total']);
+//        dd($orders);
+        return view('delivery.tasks.finish',compact('task','user'));
     }
-    public function undone($id){
-        $task =  Task::findOrFail($id);
-        if (auth()->user()->id !== $task->delivery->id ){
-            abort(403);
+    public function finish(Request $request){
+        $input =  $request->validate(
+            ['orders' => 'required|array']
+        );
+//        dd($input);
+        $picked = Status::where('name','picked')->first(['id'])->id;
+
+        foreach ($input['orders'] as $orderHash){
+          $order =  $this->getOrder($orderHash);
+            $order->status_id = $picked ;
+            $order->delivery_id = auth()->id();
+            $order->save();
         }
-        $task->done_at = null;
-        $task->update();
-        return redirect()->back();
+       return view('delivery.orders.orders');
+    }
+
+    private function getOrder($hashId){
+        $id =   Hashids::Connection(Order::class)->decode($hashId);
+        $order =   Order::find($id)->first();
+        return $order ;
     }
 
 }

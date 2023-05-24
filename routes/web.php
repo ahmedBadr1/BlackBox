@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Laravel\Socialite\Facades\Socialite;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +17,21 @@ use Laravel\Socialite\Facades\Socialite;
 |
 */
 /** ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP **/
+
 Route::get('/', function (){
     return view('main.home');
 })->name('home');
+
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]],function (){
 
 Route::get('/switch-language/{language}', function ($language) {
 //    session(['locale' => $language]);
 //    config(['app.locale'=> $language ]) ;
     App::setLocale($language);
+    URL::defaults(['locale' => app()->getLocale()]);
+
     return redirect()->back();
 })->name('switch-language');
 
@@ -261,14 +270,14 @@ Route::get('auth/callback', [\App\Http\Controllers\Main\GoogleController::class,
             Route::get('my-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'myTasks'])->name('my-tasks');
             Route::get('my-done-tasks',[\App\Http\Controllers\Delivery\OrdersController::class,'myDoneTasks'])->name('my-done-tasks');
 
-            Route::post('tasks/{id}/done',[\App\Http\Controllers\Delivery\OrdersController::class,'done'])->name('tasks.done');
-            Route::post('tasks/{id}/undone',[\App\Http\Controllers\Delivery\OrdersController::class,'undone'])->name('tasks.undone');
+            Route::get('tasks/{id}/done',[\App\Http\Controllers\Delivery\OrdersController::class,'done'])->name('tasks.done');
+            Route::post('tasks/{id}/finish',[\App\Http\Controllers\Delivery\OrdersController::class,'finish'])->name('tasks.finish');
 
             Route::get('orders/status/{id}',[\App\Http\Controllers\Delivery\OrdersController::class,'status'])->name('orders.status');
             Route::post('orders/status/{id}/change',[\App\Http\Controllers\Delivery\OrdersController::class,'changeStatus'])->name('orders.changeStatus');
         });
 
     }); // end auth group middleware
-
+}); // end lang group middleware
 
 

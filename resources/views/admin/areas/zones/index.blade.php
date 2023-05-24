@@ -14,7 +14,7 @@
 
         <thead>
         <th>@lang('auth.id')</th>
-        <th>@lang('auth.zone-name')</th>
+        <th>@lang('names.zone-name')</th>
         <th>@lang('names.areas')</th>
 
         </thead>

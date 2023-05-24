@@ -49,7 +49,7 @@ return [
     'salaries' => 'المرتبات',
 
     'new' => 'جديد',
-    'all' => 'كل',
+    'all' => 'الكل',
 
 
     'my-balance'=>'رصيدي',
@@ -205,5 +205,12 @@ return [
     'archive' => 'الأرشيف',
     'my-orders' => 'طلباتي',
     'feature' => 'ميزة',
+
+    'accounts' => 'الحسابات',
+    'account' => 'حساب',
+    'transactions' => 'المعاملات',
+    'transaction' => 'معاملة',
+    'reports' => 'التقارير',
+    'report' => 'تقرير',
 
 ];

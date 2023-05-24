@@ -140,20 +140,20 @@
                         <div class="main-notification-list Notification-scroll chat-scroll">
                             @foreach(auth()->user()->unreadNotifications as $k => $notification)
 
-                                <a class="d-flex py-3 px-1 border-bottom" href="{{$notification->data['url']}}">
+                                <a class=" py-3 px-1 border-bottom" href="{{$notification->data['url']}}">
                                     {{--                                <div class="notifyimg bg-pink">--}}
                                     {{--                                    <i class="la la-file-alt text-white"></i>--}}
                                     {{--                                </div>--}}
                                     <div class="mx-3">
                                         <h5 class="notification-label mb-1">{{$notification->data['from']}}</h5>
-                                        <div class="notification-subtext">{{\Illuminate\Support\Str::limit($notification->data['message'], 25)}}</div>
-
+                                        <div class="notification-subtext">{{\Illuminate\Support\Str::limit($notification->data['message'], 40)}}</div>
                                     </div>
                                     <div class="mr-auto">
                                         <i class='bx bx-time-five bx-xs'></i>
                                         <small class="tx-10">{{$notification->created_at->diffForHumans()}}</small>
                                     </div>
                                 </a>
+
                                 @php if ($k == 5) {
                                         break;
                                     }

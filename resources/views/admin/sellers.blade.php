@@ -17,7 +17,7 @@
                     <th>@lang('names.plan')</th>
 
                     <th>@lang('auth.joined_at')</th>
-                    <th>@lang('auth.active')</th>
+                    <th>@lang('auth.status')</th>
                     <th>@lang('auth.actions')</th>
 
                     </thead>

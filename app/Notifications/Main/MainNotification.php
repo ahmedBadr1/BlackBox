@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Notifications\Admin;
+namespace App\Notifications\Main;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 

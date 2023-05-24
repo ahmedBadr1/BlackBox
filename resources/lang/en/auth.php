@@ -196,4 +196,14 @@ return [
     'undone' => 'Un Done',
     'close' => 'Close',
     'open' => 'Open',
+
+    'today' => 'Today',
+    'tomorrow' => 'Tomorrow',
+    'week' => 'Week',
+    'month' => 'Month',
+    'asc' => 'Asc',
+    'desc' => 'Desc',
+
+
+
 ];

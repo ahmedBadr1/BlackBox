@@ -26,7 +26,7 @@
                 <label>@lang("names.receipt")}} @lang("auth.total")}}</label>
                 <p><b> {{$receipt->total}}</b></p> <hr>
 
-                <label>@lang("names.receipt")}} @lang("auth.user")}}</label>
+                <label>@lang("names.receipt")}} @lang("auth.username")}}</label>
                 <p><b><a href="{{route('admin.users.show',$receipt->user->id)}}"></a>{{$receipt->user->name}}</b></p> <hr>
             </div>
         </div>

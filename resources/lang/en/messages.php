@@ -42,7 +42,8 @@ return [
     'trash'  => 'All Trashs',
     'no-logs' => 'There is no logs for this order',
     'no-feature-plan' => 'there isn\'t any Plan with this Feature' ,
-    'no-data' => 'No data available'
+    'no-data' => 'No data available',
+    'cannot-disable' => 'You can\'t suspend this user',
 
 
 ];

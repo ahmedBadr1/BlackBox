@@ -202,4 +202,12 @@ return [
     'archive' => 'Archive',
     'my-orders' => 'My Orders',
     'feature' => 'Feature',
+
+    'accounts' => 'Accounts',
+    'account' => 'Account',
+    'transactions' => 'Transactions',
+    'transaction' => 'Transaction',
+    'reports' => 'Reports',
+    'report' => 'Report',
+
 ];

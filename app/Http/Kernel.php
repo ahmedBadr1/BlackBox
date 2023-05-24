@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\HasBusiness;
 use App\Http\Middleware\IsActive;
 use App\Http\Middleware\IsSystem;
+use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -72,6 +73,13 @@ class Kernel extends HttpKernel
         'Setting' => IsSystem::class,
         'IsActive' => IsActive::class,
         'hasBusiness' => HasBusiness::class,
+
+        'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
+
 
 
     ];
