@@ -1,7 +1,7 @@
 {
-    "name": "blackbox/delivery",
+    "name": "ahmedbadr1/blackbox",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Delivery Management System",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
@@ -24,6 +24,8 @@
         "spatie/laravel-permission": "^5.10",
         "staudenmeir/belongs-to-through": "^2.5",
         "staudenmeir/laravel-adjacency-list": "^1.0",
+        "stevebauman/location": "^7.0",
+        "vectorface/whip": "^0.3.2",
         "vinkla/hashids": "^11",
         "yoeunes/toastr": "^2.3"
     },
@@ -45,7 +47,9 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/helpers/helper.php"
+            "app/Helpers/helper.php",
+            "app/Helpers/Functions.php"
+
         ]
     },
     "autoload-dev": {
